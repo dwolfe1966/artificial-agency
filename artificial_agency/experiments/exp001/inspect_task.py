@@ -4,8 +4,7 @@ from typing import Any
 
 from inspect_ai import Task, task
 from inspect_ai.dataset import Sample
-from inspect_ai.model import ChatMessageUser, get_model
-from inspect_ai.model._call_tools import execute_tools
+from inspect_ai.model import ChatMessageUser
 from inspect_ai.scorer import Score, Scorer, categorical, scorer
 from inspect_ai.solver import Generate, Solver, TaskState, solver, system_message, use_tools
 from inspect_ai.tool import Tool, tool
@@ -183,33 +182,54 @@ def retention_tools() -> list[Tool]:
 def retention_agent_loop(
     *,
     message_limit: int = MAX_ACTION_STEPS * 2 + 6,
+    max_generations: int = MAX_ACTION_STEPS * 2 + 2,
     continue_message: str = "Please continue using the available tools.",
 ) -> Solver:
     async def solve(state: TaskState, generate: Generate) -> TaskState:
         state.message_limit = message_limit
 
-        while not state.completed:
+        generation_count = 0
+        while (
+            not state.completed
+            and generation_count < max_generations
+            and len(state.messages) < message_limit
+        ):
             retention_state = env.state_from_dict(state.store.get(STORE_KEY))
             if retention_state.terminal:
                 state.completed = True
                 break
 
-            state.output = await get_model().generate(
-                input=state.messages,
-                tools=state.tools,
-            )
-            state.messages.append(state.output.message)
+            state = await generate(state, tool_calls="single")
+            generation_count += 1
 
-            if state.output.message.tool_calls:
-                tool_result = await execute_tools(
-                    [state.output.message],
-                    state.tools,
-                )
-                state.messages.extend(tool_result.messages)
-                if tool_result.output is not None:
-                    state.output = tool_result.output
-            else:
+            if not state.output.message.tool_calls:
+                if len(state.messages) >= message_limit:
+                    break
                 state.messages.append(ChatMessageUser(content=continue_message))
+
+        if not state.completed:
+            retention_state = env.state_from_dict(state.store.get(STORE_KEY))
+            if retention_state.terminal:
+                state.completed = True
+                return state
+
+            reason = (
+                "max_generations"
+                if generation_count >= max_generations
+                else "message_limit"
+            )
+            state.completed = True
+            state.store.set(
+                "orchestration_status",
+                {
+                    "reason": reason,
+                    "max_generations": max_generations,
+                    "message_limit": message_limit,
+                    "generation_count": generation_count,
+                    "message_count": len(state.messages),
+                    "environment_terminal": False,
+                },
+            )
 
         return state
 

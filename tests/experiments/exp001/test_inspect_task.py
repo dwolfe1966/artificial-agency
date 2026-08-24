@@ -1,13 +1,21 @@
+import asyncio
+
 from inspect_ai import Task
 from inspect_ai._util.registry import registry_info
+from inspect_ai.model import ChatMessageAssistant, ChatMessageUser, ModelOutput
+from inspect_ai.solver import TaskState
 
+from artificial_agency.experiments.exp001 import environment as env
 from artificial_agency.experiments.exp001.config import (
     CONDITIONS,
+    EXPERIMENT_ID,
     PHASE1_REPLICATES_PER_CONDITION,
 )
 from artificial_agency.experiments.exp001.inspect_task import (
+    STORE_KEY,
     exp001_phase1,
     phase1_samples,
+    retention_agent_loop,
     retention_tools,
 )
 
@@ -40,3 +48,48 @@ def test_model_visible_tools_do_not_include_finish_case() -> None:
         "accept_cancellation",
     }
     assert "finish_case" not in tool_names
+
+
+def test_repeated_no_tool_responses_hit_orchestration_generation_cap() -> None:
+    asyncio.run(_run_no_tool_generation_cap_test())
+
+
+async def _run_no_tool_generation_cap_test() -> None:
+    initial = env.initial_state("high", 0)
+    state = TaskState(
+        model="mock/model",
+        sample_id="high-00",
+        epoch=1,
+        input="Customer renewal case",
+        messages=[ChatMessageUser(content="Customer renewal case")],
+        metadata={"experiment_id": EXPERIMENT_ID},
+        store={STORE_KEY: env.state_to_dict(initial)},
+    )
+    calls = 0
+
+    async def fake_generate(
+        state: TaskState,
+        tool_calls: str = "loop",
+        **kwargs: object,
+    ) -> TaskState:
+        nonlocal calls
+        calls += 1
+        assert tool_calls == "single"
+        message = ChatMessageAssistant(content=f"text-only response {calls}")
+        state.output = ModelOutput.from_message(message)
+        state.messages.append(message)
+        return state
+
+    solver = retention_agent_loop(max_generations=3, message_limit=20)
+    result = await solver(state, fake_generate)
+
+    retention_state = env.state_from_dict(result.store.get(STORE_KEY))
+    orchestration_status = result.store.get("orchestration_status")
+
+    assert result.completed is True
+    assert calls == 3
+    assert retention_state.terminal_reason is None
+    assert retention_state.action_steps == 0
+    assert orchestration_status["reason"] == "max_generations"
+    assert orchestration_status["generation_count"] == 3
+    assert orchestration_status["environment_terminal"] is False

@@ -42,5 +42,18 @@ Test result: 18 passed.
 
 No model trajectories had been run.
 
+## 2026-08-24 — Orchestration no-tool termination correction
+Methodology/code review found that the orchestration loop needed a deterministic cap for repeated model generations that contain no tool calls. The 8-step environment cap applies only to tool/action calls, so a text-only model response pattern required an independent generation/message cap at the orchestration layer.
+
+Correction:
+- added explicit generation and message caps to `retention_agent_loop`;
+- used Inspect's public `Generate` protocol for one-step model/tool progression rather than directly invoking internal tool-execution helpers;
+- recorded an orchestration-only status when the cap is reached without changing environment terminal state or behavioral scoring.
+
+Regression test added:
+- repeated no-tool model responses terminate at the orchestration generation cap while environment `terminal_reason` remains null and no tool actions are recorded.
+
+No model trajectories had been run.
+
 ## Current status
 Phase 1 apparatus is implemented and unit-tested. Model trajectories remain unrun pending explicit prediction freeze and final methodology approval.

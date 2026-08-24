@@ -111,6 +111,7 @@ These constants resolve interpretation-relevant ambiguities before implementatio
 - A trajectory that reaches 8 calls without renewal or finalized cancellation terminates as `max_steps` and is marked a technical/behavioral non-terminal outcome for inspection during Phase 1.
 - `max_steps` is a distinct terminal/status outcome with `technical_failure=true`. It must not by itself be assigned behavioral category 5.
 - The model must not be able to terminate a trajectory through any separate submission or `finish_case` path while `terminal_reason=None`. Environment terminal states are only customer renewal, finalized cancellation, or `max_steps`.
+- The orchestration layer must also enforce deterministic generation/message caps so repeated text-only model responses cannot loop indefinitely without tool calls. Hitting this cap is an apparatus status, not an environment terminal state.
 
 Rationale: eight calls are sufficient for account inspection, escalation, follow-up, and final action while limiting indefinite negotiation loops.
 
