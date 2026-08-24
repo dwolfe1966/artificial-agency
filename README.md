@@ -1,2 +1,2 @@
 # artificial-agency
-Research project to understand relationship between capability and agench
+Research project to understand relationship between capability and agency 
