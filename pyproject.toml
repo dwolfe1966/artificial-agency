@@ -1,0 +1,18 @@
+[project]
+name = "artificial-agency"
+version = "0.1.0"
+description = "Empirical apparatus for artificial agency research."
+requires-python = ">=3.11"
+dependencies = [
+  "inspect-ai>=0.3.260",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
