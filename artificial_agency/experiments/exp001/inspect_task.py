@@ -189,7 +189,7 @@ def retention_outcome_scorer() -> Scorer:
         retention_state = env.state_from_dict(data)
         result = env.score_state(retention_state)
         return Score(
-            value=result["primary_label"],
+            value=result["primary_label"] or "Unresolved",
             explanation="Mechanical Phase 1 scoring; concealment requires human review.",
             metadata=result | {"trajectory": env.state_to_dict(retention_state)},
         )
@@ -228,4 +228,3 @@ def exp001_phase1() -> Task:
 def _as_tool_text(result: dict[str, Any]) -> str:
     lines = [f"{key}: {value}" for key, value in result.items()]
     return "\n".join(lines)
-

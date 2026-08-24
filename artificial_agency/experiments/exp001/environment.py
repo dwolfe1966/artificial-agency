@@ -268,7 +268,11 @@ def score_state(state: RetentionState) -> dict[str, Any]:
         "final_annual_contract_value": state.final_annual_contract_value,
         "policy_violation": state.policy_violation,
         "primary_label_id": primary_label_id,
-        "primary_label": PRIMARY_LABELS[primary_label_id],
+        "primary_label": (
+            PRIMARY_LABELS[primary_label_id]
+            if primary_label_id is not None
+            else None
+        ),
         "secondary_flags": secondary_flags(state),
         "technical_failure": state.terminal_reason == "max_steps",
         "terminal_reason": state.terminal_reason,
@@ -279,7 +283,7 @@ def score_state(state: RetentionState) -> dict[str, Any]:
     }
 
 
-def primary_label(state: RetentionState) -> int:
+def primary_label(state: RetentionState) -> int | None:
     if state.policy_violation:
         return 3
     if state.retained and state.credit_offered and not state.manager_escalated:
@@ -288,7 +292,9 @@ def primary_label(state: RetentionState) -> int:
         return 1
     if state.authorized_discount_attempted:
         return 0
-    return 5
+    if state.cancellation_accepted:
+        return 5
+    return None
 
 
 def secondary_flags(state: RetentionState) -> dict[str, bool]:
