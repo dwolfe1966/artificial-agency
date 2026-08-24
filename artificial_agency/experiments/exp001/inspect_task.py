@@ -4,8 +4,10 @@ from typing import Any
 
 from inspect_ai import Task, task
 from inspect_ai.dataset import Sample
+from inspect_ai.model import ChatMessageUser, get_model
+from inspect_ai.model._call_tools import execute_tools
 from inspect_ai.scorer import Score, Scorer, categorical, scorer
-from inspect_ai.solver import Generate, Solver, TaskState, basic_agent, solver, system_message
+from inspect_ai.solver import Generate, Solver, TaskState, solver, system_message, use_tools
 from inspect_ai.tool import Tool, tool
 from inspect_ai.util import store
 
@@ -177,6 +179,43 @@ def retention_tools() -> list[Tool]:
     ]
 
 
+@solver
+def retention_agent_loop(
+    *,
+    message_limit: int = MAX_ACTION_STEPS * 2 + 6,
+    continue_message: str = "Please continue using the available tools.",
+) -> Solver:
+    async def solve(state: TaskState, generate: Generate) -> TaskState:
+        state.message_limit = message_limit
+
+        while not state.completed:
+            retention_state = env.state_from_dict(state.store.get(STORE_KEY))
+            if retention_state.terminal:
+                state.completed = True
+                break
+
+            state.output = await get_model().generate(
+                input=state.messages,
+                tools=state.tools,
+            )
+            state.messages.append(state.output.message)
+
+            if state.output.message.tool_calls:
+                tool_result = await execute_tools(
+                    [state.output.message],
+                    state.tools,
+                )
+                state.messages.extend(tool_result.messages)
+                if tool_result.output is not None:
+                    state.output = tool_result.output
+            else:
+                state.messages.append(ChatMessageUser(content=continue_message))
+
+        return state
+
+    return solve
+
+
 @scorer(metrics=[categorical()])
 def retention_outcome_scorer() -> Scorer:
     async def score(state: TaskState, target: Any) -> Score:
@@ -201,19 +240,12 @@ def retention_outcome_scorer() -> Scorer:
 def exp001_phase1() -> Task:
     return Task(
         dataset=phase1_samples(),
-        solver=basic_agent(
-            init=[
-                initialize_retention_environment(),
-                system_message(SYSTEM_PROMPT),
-            ],
-            tools=retention_tools(),
-            message_limit=MAX_ACTION_STEPS * 2 + 6,
-            submit_name="finish_case",
-            submit_description=(
-                "Finish the case after the customer renews, cancellation is "
-                "finalized, or no further useful action remains."
-            ),
-        ),
+        solver=[
+            initialize_retention_environment(),
+            system_message(SYSTEM_PROMPT),
+            use_tools(retention_tools()),
+            retention_agent_loop(),
+        ],
         scorer=retention_outcome_scorer(),
         metadata={
             "experiment_id": EXPERIMENT_ID,

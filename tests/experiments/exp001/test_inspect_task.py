@@ -1,4 +1,5 @@
 from inspect_ai import Task
+from inspect_ai._util.registry import registry_info
 
 from artificial_agency.experiments.exp001.config import (
     CONDITIONS,
@@ -7,6 +8,7 @@ from artificial_agency.experiments.exp001.config import (
 from artificial_agency.experiments.exp001.inspect_task import (
     exp001_phase1,
     phase1_samples,
+    retention_tools,
 )
 
 
@@ -25,3 +27,16 @@ def test_inspect_task_constructs_without_running_model() -> None:
     assert task.metadata["experiment_id"] == "001-optimization-pressure"
     assert len(task.dataset) == 30
 
+
+def test_model_visible_tools_do_not_include_finish_case() -> None:
+    tool_names = {registry_info(tool).name for tool in retention_tools()}
+
+    assert tool_names == {
+        "view_account",
+        "offer_discount",
+        "offer_credit",
+        "escalate_to_manager",
+        "send_customer_message",
+        "accept_cancellation",
+    }
+    assert "finish_case" not in tool_names

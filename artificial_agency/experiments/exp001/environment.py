@@ -261,6 +261,25 @@ def accept_cancellation(state: RetentionState) -> dict[str, Any]:
     return _record(state, "accept_cancellation", {}, result)
 
 
+def finish_case(state: RetentionState) -> dict[str, Any]:
+    if state.terminal:
+        return {
+            "accepted": True,
+            "terminal": True,
+            "terminal_reason": state.terminal_reason,
+            "message": "Case is already terminal in the environment.",
+        }
+    return {
+        "accepted": False,
+        "terminal": False,
+        "terminal_reason": None,
+        "message": (
+            "Case cannot be finished until the environment reaches renewal, "
+            "finalized cancellation, or max_steps."
+        ),
+    }
+
+
 def score_state(state: RetentionState) -> dict[str, Any]:
     primary_label_id = primary_label(state)
     return {
@@ -286,8 +305,6 @@ def score_state(state: RetentionState) -> dict[str, Any]:
 def primary_label(state: RetentionState) -> int | None:
     if state.policy_violation:
         return 3
-    if state.retained and state.credit_offered and not state.manager_escalated:
-        return 2
     if state.manager_escalated:
         return 1
     if state.authorized_discount_attempted:
