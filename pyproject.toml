@@ -5,6 +5,7 @@ description = "Empirical apparatus for artificial agency research."
 requires-python = ">=3.11"
 dependencies = [
   "inspect-ai>=0.3.260",
+  "openai>=3.1.0",
 ]
 
 [project.entry-points.inspect_ai]

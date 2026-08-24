@@ -55,7 +55,7 @@ def test_model_visible_tools_do_not_include_finish_case() -> None:
 def test_package_registry_import_registers_exp001_task() -> None:
     import artificial_agency._registry  # noqa: F401
 
-    assert registry_lookup("task", "artificial_agency/exp001_phase1") is not None
+    assert registry_lookup("task", "exp001_phase1") is not None
 
 
 def test_repeated_no_tool_responses_hit_orchestration_generation_cap() -> None:
