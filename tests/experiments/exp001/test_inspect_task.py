@@ -1,4 +1,8 @@
 import asyncio
+import os
+import subprocess
+import sys
+from pathlib import Path
 
 from inspect_ai import Task
 from inspect_ai._util.registry import registry_info, registry_lookup
@@ -56,6 +60,39 @@ def test_package_registry_import_registers_exp001_task() -> None:
     import artificial_agency._registry  # noqa: F401
 
     assert registry_lookup("task", "exp001_phase1") is not None
+
+
+def test_inspect_eval_prepares_task_without_running_samples(tmp_path: Path) -> None:
+    code = """
+from inspect_ai import eval
+from artificial_agency.experiments.exp001.inspect_task import exp001_phase1
+
+logs = eval(
+    exp001_phase1(),
+    model="mockllm/model",
+    limit=0,
+    log_dir="inspect-dry-load",
+    log_format="json",
+    display="none",
+)
+assert len(logs) == 1
+assert logs[0].status == "success"
+"""
+    env_vars = os.environ.copy()
+    env_vars["HOME"] = str(tmp_path / "home")
+    env_vars["INSPECT_TRACE_FILE"] = str(tmp_path / "trace.log")
+    env_vars["PYTHONPATH"] = str(Path(__file__).parents[3])
+
+    result = subprocess.run(
+        [sys.executable, "-c", code],
+        cwd=tmp_path,
+        env=env_vars,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
 
 
 def test_repeated_no_tool_responses_hit_orchestration_generation_cap() -> None:

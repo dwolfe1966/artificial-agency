@@ -236,7 +236,7 @@ def retention_agent_loop(
     return solve
 
 
-@scorer(metrics=[categorical()])
+@scorer(metrics=categorical())
 def retention_outcome_scorer() -> Scorer:
     async def score(state: TaskState, target: Any) -> Score:
         data = state.store.get(STORE_KEY)
