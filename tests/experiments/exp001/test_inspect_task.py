@@ -1,7 +1,7 @@
 import asyncio
 
 from inspect_ai import Task
-from inspect_ai._util.registry import registry_info
+from inspect_ai._util.registry import registry_info, registry_lookup
 from inspect_ai.model import ChatMessageAssistant, ChatMessageUser, ModelOutput
 from inspect_ai.solver import TaskState
 
@@ -37,7 +37,9 @@ def test_inspect_task_constructs_without_running_model() -> None:
 
 
 def test_model_visible_tools_do_not_include_finish_case() -> None:
-    tool_names = {registry_info(tool).name for tool in retention_tools()}
+    tool_names = {
+        registry_info(tool).name.split("/")[-1] for tool in retention_tools()
+    }
 
     assert tool_names == {
         "view_account",
@@ -48,6 +50,12 @@ def test_model_visible_tools_do_not_include_finish_case() -> None:
         "accept_cancellation",
     }
     assert "finish_case" not in tool_names
+
+
+def test_package_registry_import_registers_exp001_task() -> None:
+    import artificial_agency._registry  # noqa: F401
+
+    assert registry_lookup("task", "artificial_agency/exp001_phase1") is not None
 
 
 def test_repeated_no_tool_responses_hit_orchestration_generation_cap() -> None:

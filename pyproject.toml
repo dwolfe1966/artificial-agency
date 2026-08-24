@@ -7,6 +7,9 @@ dependencies = [
   "inspect-ai>=0.3.260",
 ]
 
+[project.entry-points.inspect_ai]
+artificial_agency = "artificial_agency._registry"
+
 [project.optional-dependencies]
 dev = [
   "pytest>=8.0",
@@ -16,3 +19,5 @@ dev = [
 testpaths = ["tests"]
 pythonpath = ["."]
 
+[tool.setuptools.packages.find]
+include = ["artificial_agency*"]
