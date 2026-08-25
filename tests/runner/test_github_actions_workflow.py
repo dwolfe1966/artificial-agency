@@ -67,6 +67,12 @@ def test_workflow_inputs_map_to_runner_commands() -> None:
     assert runner_command("stop", "003B")[-2:] == ["stop", "003B"]
     assert runner_command("resume", "003B")[-2:] == ["resume", "003B"]
     assert runner_command("finalize", "003B")[-2:] == ["finalize", "003B"]
+    assert runner_command("start", "004A")[-2:] == ["start", "004A"]
+    assert runner_command("status", "004A")[-2:] == ["status", "004A"]
+    assert runner_command("health", "004A")[-2:] == ["health", "004A"]
+    assert runner_command("stop", "004A")[-2:] == ["stop", "004A"]
+    assert runner_command("resume", "004A")[-2:] == ["resume", "004A"]
+    assert runner_command("finalize", "004A")[-2:] == ["finalize", "004A"]
 
 
 def test_invalid_actions_and_run_ids_fail_safely() -> None:
@@ -84,6 +90,7 @@ def test_workflow_declares_only_supported_dispatch_inputs() -> None:
         "002A",
         "003A",
         "003B",
+        "004A",
         "PERSISTENCE_DIAGNOSTIC",
     ]
     assert dispatch["action"]["options"] == [
@@ -104,7 +111,7 @@ def test_secret_values_are_never_printed_by_generated_commands() -> None:
     assert "OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}" in workflow_text
     assert 'test -n "${OPENAI_API_KEY:-}"' in workflow_text
     assert (
-        'if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" || "${{ inputs.run_id }}" == "003B" ]]; then'
+        'if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" || "${{ inputs.run_id }}" == "003B" || "${{ inputs.run_id }}" == "004A" ]]; then'
         in workflow_text
     )
     assert 'launchctl setenv OPENAI_API_KEY "${OPENAI_API_KEY}"' in workflow_text
@@ -181,6 +188,27 @@ def test_runner_registers_003a_with_frozen_stage1_sample_counts() -> None:
         "procedural-high": 20,
         "purpose-conflict-ordinary": 20,
         "purpose-conflict-high": 20,
+    }
+    assert "--checkpoint" in spec.inspect_args
+    assert "turn:1" in spec.inspect_args
+
+
+def test_runner_registers_004a_with_frozen_stage1_sample_counts() -> None:
+    from artificial_agency.runner.config import known_runs
+
+    spec = known_runs()["004A"]
+
+    assert spec.frozen_commit == "aa126f9254a01c96e85545a9e1a77d10195f2604"
+    assert spec.task.endswith("inspect_task.py@exp004_constraint_meaning_stage1")
+    assert spec.model == "openai/gpt-5.6-sol"
+    assert spec.total_samples == 120
+    assert spec.condition_counts == {
+        "categorical-ordinary": 20,
+        "categorical-high": 20,
+        "procedural-ordinary": 20,
+        "procedural-high": 20,
+        "explicit-purpose-conflict-ordinary": 20,
+        "explicit-purpose-conflict-high": 20,
     }
     assert "--checkpoint" in spec.inspect_args
     assert "turn:1" in spec.inspect_args

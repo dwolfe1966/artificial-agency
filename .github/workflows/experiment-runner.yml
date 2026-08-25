@@ -11,6 +11,7 @@ on:
           - "002A"
           - "003A"
           - "003B"
+          - "004A"
           - "PERSISTENCE_DIAGNOSTIC"
       action:
         description: "Runner action"
@@ -54,7 +55,7 @@ jobs:
         run: |
           set -euo pipefail
           case "${{ inputs.run_id }}" in
-            002A|003A|003B|PERSISTENCE_DIAGNOSTIC) ;;
+            002A|003A|003B|004A|PERSISTENCE_DIAGNOSTIC) ;;
             *) echo "Unsupported run_id"; exit 2 ;;
           esac
           case "${{ inputs.action }}" in
@@ -74,7 +75,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" || "${{ inputs.run_id }}" == "003B" ]]; then
+          if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" || "${{ inputs.run_id }}" == "003B" || "${{ inputs.run_id }}" == "004A" ]]; then
             test -n "${OPENAI_API_KEY:-}" || {
               echo "OPENAI_API_KEY is not configured for this runner."
               exit 2

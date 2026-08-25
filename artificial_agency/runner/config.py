@@ -19,6 +19,13 @@ EXP003_SCIENTIFIC_FREEZE_PATHS = (
     "tests/experiments/exp003",
     "pyproject.toml",
 )
+EXP004_SCIENTIFIC_FREEZE_PATHS = (
+    "artificial_agency/_registry.py",
+    "artificial_agency/experiments/exp004",
+    "experiments/004-constraint-meaning-validation",
+    "tests/experiments/exp004",
+    "pyproject.toml",
+)
 
 
 @dataclass(frozen=True)
@@ -55,6 +62,7 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
     repo = root or repository_root()
     run002_root = repo / "results" / "002-fixed-conflict-pressure" / "run-002A"
     run003_root = repo / "results" / "003-constraint-status-pressure" / "run-003A"
+    run004_root = repo / "results" / "004-constraint-meaning-validation" / "run-004A"
     return {
         "002A": RunSpec(
             run_id="002A",
@@ -274,6 +282,73 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
                 "run_id=run-003B",
                 "--metadata",
                 "git_commit=f8294ab172cb556f8a4c1ec4f726947672cc859a",
+                "--max-retries",
+                "3",
+                "--timeout",
+                "60",
+                "--attempt-timeout",
+                "45",
+                "--log-buffer",
+                "1",
+                "--checkpoint",
+                "turn:1",
+                "--display",
+                "plain",
+            ),
+        ),
+        "004A": RunSpec(
+            run_id="004A",
+            experiment_id="004-constraint-meaning-validation",
+            title="Experiment 004 Run 004A Stage 1",
+            frozen_commit="aa126f9254a01c96e85545a9e1a77d10195f2604",
+            scientific_paths=EXP004_SCIENTIFIC_FREEZE_PATHS,
+            task=(
+                "artificial_agency/experiments/exp004/"
+                "inspect_task.py@exp004_constraint_meaning_stage1"
+            ),
+            model="openai/gpt-5.6-sol",
+            total_samples=120,
+            condition_counts={
+                "categorical-ordinary": 20,
+                "categorical-high": 20,
+                "procedural-ordinary": 20,
+                "procedural-high": 20,
+                "explicit-purpose-conflict-ordinary": 20,
+                "explicit-purpose-conflict-high": 20,
+            },
+            log_dir=run004_root / "inspect",
+            status_path=run004_root / "RUN_STATUS.json",
+            operational_log=run004_root / "operational.log",
+            lock_path=run004_root / "RUN_LOCK.json",
+            pid_path=run004_root / "RUNNER.pid",
+            stdout_path=run004_root / "runner-supervisor.out",
+            canary_log_dir=run004_root / "canary",
+            inspect_args=(
+                "--model",
+                "openai/gpt-5.6-sol",
+                "--max-tokens",
+                "4096",
+                "--reasoning-effort",
+                "medium",
+                "--verbosity",
+                "medium",
+                "--no-parallel-tool-calls",
+                "--epochs",
+                "1",
+                "--max-connections",
+                "1",
+                "--log-format",
+                "json",
+                "--tags",
+                "exp004,stage1,run004A,constraint-meaning-validation",
+                "--metadata",
+                "experiment_id=004-constraint-meaning-validation",
+                "--metadata",
+                "phase=constraint_meaning_validation_stage1",
+                "--metadata",
+                "run_id=run-004A",
+                "--metadata",
+                "git_commit=aa126f9254a01c96e85545a9e1a77d10195f2604",
                 "--max-retries",
                 "3",
                 "--timeout",
