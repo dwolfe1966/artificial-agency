@@ -1,2 +1,6 @@
 .env
+__pycache__/
+.pytest_cache/
+*.egg-info/
 results/001-optimization-pressure/run-001/inspect/*.json
+results/002-fixed-conflict-pressure/run-002A/inspect/*.json
