@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import importlib
 import socket
 import subprocess
 import sys
@@ -10,8 +11,6 @@ from pathlib import Path
 from typing import Protocol
 
 from openai import OpenAI
-
-from artificial_agency.experiments.exp002.inspect_task import fixed_conflict_samples
 
 from .config import RunSpec, repository_root
 from .state import append_log
@@ -172,7 +171,7 @@ def scientific_preflight(spec: RunSpec) -> None:
     if diff.returncode not in (0, 1):
         raise ProbeError("unable to compare scientific freeze paths")
 
-    samples = fixed_conflict_samples()
+    samples = _samples_for_task(spec.task)
     if len(samples) != spec.total_samples:
         raise ProbeError(
             f"sample count mismatch: expected {spec.total_samples}, got {len(samples)}"
@@ -183,6 +182,16 @@ def scientific_preflight(spec: RunSpec) -> None:
         counts[condition] = counts.get(condition, 0) + 1
     if counts != spec.condition_counts:
         raise ProbeError(f"condition count mismatch: expected {spec.condition_counts}, got {counts}")
+
+
+def _samples_for_task(task_ref: str) -> list[object]:
+    module_ref, _, task_name = task_ref.partition("@")
+    if not module_ref or not task_name:
+        raise ProbeError(f"invalid task reference: {task_ref}")
+    module_name = module_ref.removesuffix(".py").replace("/", ".")
+    task_func = getattr(importlib.import_module(module_name), task_name)
+    task_obj = task_func()
+    return list(task_obj.dataset)
 
 
 def environment_preflight(spec: RunSpec, env: dict[str, str]) -> None:

@@ -5,6 +5,8 @@ __pycache__/
 results/001-optimization-pressure/run-001/inspect/*.json
 results/002-fixed-conflict-pressure/run-002A/inspect/*.json
 results/002-fixed-conflict-pressure/run-002A/canary/*.json
+results/003-constraint-status-pressure/run-003A/inspect/*.json
+results/003-constraint-status-pressure/run-003A/canary/*.json
 results/.runner-runtime/
 results/run_registry.json
 results/**/RUN_STATUS.json

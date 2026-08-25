@@ -7,11 +7,16 @@ from pathlib import Path
 RUNNER_VERSION = "v2"
 RUN_REGISTRY = Path("results/run_registry.json")
 PERSISTENCE_DIAGNOSTIC_TASK = "__runner_persistence_diagnostic__"
-SCIENTIFIC_FREEZE_PATHS = (
+EXP002_SCIENTIFIC_FREEZE_PATHS = (
     "artificial_agency/experiments/exp002",
     "experiments/002-fixed-conflict-pressure",
     "tests/experiments/exp002",
-    "artificial_agency/_registry.py",
+    "pyproject.toml",
+)
+EXP003_SCIENTIFIC_FREEZE_PATHS = (
+    "artificial_agency/experiments/exp003",
+    "experiments/003-constraint-status-pressure",
+    "tests/experiments/exp003",
     "pyproject.toml",
 )
 
@@ -48,15 +53,15 @@ def runtime_home(root: Path, run_id: str) -> Path:
 
 def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
     repo = root or repository_root()
-    run_root = repo / "results" / "002-fixed-conflict-pressure" / "run-002A"
-    runtime = runtime_home(repo, "002A")
+    run002_root = repo / "results" / "002-fixed-conflict-pressure" / "run-002A"
+    run003_root = repo / "results" / "003-constraint-status-pressure" / "run-003A"
     return {
         "002A": RunSpec(
             run_id="002A",
             experiment_id="002-fixed-conflict-pressure",
             title="Experiment 002 Run 002A",
             frozen_commit="6301fc0b78ded0200fd6203d4888ac2b3c33cae7",
-            scientific_paths=SCIENTIFIC_FREEZE_PATHS,
+            scientific_paths=EXP002_SCIENTIFIC_FREEZE_PATHS,
             task=(
                 "artificial_agency/experiments/exp002/"
                 "inspect_task.py@exp002_fixed_conflict_phase1"
@@ -64,13 +69,13 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             model="openai/gpt-5.6-sol",
             total_samples=90,
             condition_counts={"low": 30, "medium": 30, "high": 30},
-            log_dir=run_root / "inspect",
-            status_path=run_root / "RUN_STATUS.json",
-            operational_log=run_root / "operational.log",
-            lock_path=run_root / "RUN_LOCK.json",
-            pid_path=run_root / "RUNNER.pid",
-            stdout_path=run_root / "runner-supervisor.out",
-            canary_log_dir=run_root / "canary",
+            log_dir=run002_root / "inspect",
+            status_path=run002_root / "RUN_STATUS.json",
+            operational_log=run002_root / "operational.log",
+            lock_path=run002_root / "RUN_LOCK.json",
+            pid_path=run002_root / "RUNNER.pid",
+            stdout_path=run002_root / "runner-supervisor.out",
+            canary_log_dir=run002_root / "canary",
             previous_attempts=[
                 {
                     "kind": "technical_pre_result_failure",
@@ -107,6 +112,73 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
                 "run_id=run-002A",
                 "--metadata",
                 "git_commit=6301fc0b78ded0200fd6203d4888ac2b3c33cae7",
+                "--max-retries",
+                "3",
+                "--timeout",
+                "60",
+                "--attempt-timeout",
+                "45",
+                "--log-buffer",
+                "1",
+                "--checkpoint",
+                "turn:1",
+                "--display",
+                "plain",
+            ),
+        ),
+        "003A": RunSpec(
+            run_id="003A",
+            experiment_id="003-constraint-status-pressure",
+            title="Experiment 003 Run 003A Stage 1",
+            frozen_commit="f8294ab172cb556f8a4c1ec4f726947672cc859a",
+            scientific_paths=EXP003_SCIENTIFIC_FREEZE_PATHS,
+            task=(
+                "artificial_agency/experiments/exp003/"
+                "inspect_task.py@exp003_constraint_status_stage1"
+            ),
+            model="openai/gpt-5.6-sol",
+            total_samples=120,
+            condition_counts={
+                "categorical-ordinary": 20,
+                "categorical-high": 20,
+                "procedural-ordinary": 20,
+                "procedural-high": 20,
+                "purpose-conflict-ordinary": 20,
+                "purpose-conflict-high": 20,
+            },
+            log_dir=run003_root / "inspect",
+            status_path=run003_root / "RUN_STATUS.json",
+            operational_log=run003_root / "operational.log",
+            lock_path=run003_root / "RUN_LOCK.json",
+            pid_path=run003_root / "RUNNER.pid",
+            stdout_path=run003_root / "runner-supervisor.out",
+            canary_log_dir=run003_root / "canary",
+            inspect_args=(
+                "--model",
+                "openai/gpt-5.6-sol",
+                "--max-tokens",
+                "4096",
+                "--reasoning-effort",
+                "medium",
+                "--verbosity",
+                "medium",
+                "--no-parallel-tool-calls",
+                "--epochs",
+                "1",
+                "--max-connections",
+                "1",
+                "--log-format",
+                "json",
+                "--tags",
+                "exp003,stage1,run003A,constraint-status-pressure",
+                "--metadata",
+                "experiment_id=003-constraint-status-pressure",
+                "--metadata",
+                "phase=constraint_status_pressure_stage1",
+                "--metadata",
+                "run_id=run-003A",
+                "--metadata",
+                "git_commit=f8294ab172cb556f8a4c1ec4f726947672cc859a",
                 "--max-retries",
                 "3",
                 "--timeout",

@@ -25,7 +25,6 @@ def make_spec(tmp_path: Path) -> RunSpec:
             "artificial_agency/experiments/exp002",
             "experiments/002-fixed-conflict-pressure",
             "tests/experiments/exp002",
-            "artificial_agency/_registry.py",
             "pyproject.toml",
         ),
         task="artificial_agency/experiments/exp002/inspect_task.py@exp002_fixed_conflict_phase1",

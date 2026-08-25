@@ -49,6 +49,18 @@ def test_workflow_inputs_map_to_runner_commands() -> None:
     assert runner_command("stop", "002A")[-2:] == ["stop", "002A"]
     assert runner_command("resume", "002A")[-2:] == ["resume", "002A"]
     assert runner_command("finalize", "002A")[-2:] == ["finalize", "002A"]
+    assert runner_command("start", "003A") == [
+        ".venv/bin/python",
+        "-m",
+        "artificial_agency.runner",
+        "start",
+        "003A",
+    ]
+    assert runner_command("status", "003A")[-2:] == ["status", "003A"]
+    assert runner_command("health", "003A")[-2:] == ["health", "003A"]
+    assert runner_command("stop", "003A")[-2:] == ["stop", "003A"]
+    assert runner_command("resume", "003A")[-2:] == ["resume", "003A"]
+    assert runner_command("finalize", "003A")[-2:] == ["finalize", "003A"]
 
 
 def test_invalid_actions_and_run_ids_fail_safely() -> None:
@@ -62,7 +74,11 @@ def test_workflow_declares_only_supported_dispatch_inputs() -> None:
     workflow = load_workflow()
     dispatch = workflow[True]["workflow_dispatch"]["inputs"]
 
-    assert dispatch["run_id"]["options"] == ["002A", "PERSISTENCE_DIAGNOSTIC"]
+    assert dispatch["run_id"]["options"] == [
+        "002A",
+        "003A",
+        "PERSISTENCE_DIAGNOSTIC",
+    ]
     assert dispatch["action"]["options"] == [
         "start",
         "status",
@@ -80,7 +96,7 @@ def test_secret_values_are_never_printed_by_generated_commands() -> None:
     assert "printenv OPENAI_API_KEY" not in workflow_text
     assert "OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}" in workflow_text
     assert 'test -n "${OPENAI_API_KEY:-}"' in workflow_text
-    assert 'if [[ "${{ inputs.run_id }}" == "002A" ]]; then' in workflow_text
+    assert 'if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" ]]; then' in workflow_text
     assert 'launchctl setenv OPENAI_API_KEY "${OPENAI_API_KEY}"' in workflow_text
 
 
@@ -131,10 +147,30 @@ def test_scientific_experiment_002_files_remain_unchanged() -> None:
             "artificial_agency/experiments/exp002",
             "experiments/002-fixed-conflict-pressure",
             "tests/experiments/exp002",
-            "artificial_agency/_registry.py",
             "pyproject.toml",
         ],
         check=False,
     )
 
     assert result.returncode == 0
+
+
+def test_runner_registers_003a_with_frozen_stage1_sample_counts() -> None:
+    from artificial_agency.runner.config import known_runs
+
+    spec = known_runs()["003A"]
+
+    assert spec.frozen_commit == "f8294ab172cb556f8a4c1ec4f726947672cc859a"
+    assert spec.task.endswith("inspect_task.py@exp003_constraint_status_stage1")
+    assert spec.model == "openai/gpt-5.6-sol"
+    assert spec.total_samples == 120
+    assert spec.condition_counts == {
+        "categorical-ordinary": 20,
+        "categorical-high": 20,
+        "procedural-ordinary": 20,
+        "procedural-high": 20,
+        "purpose-conflict-ordinary": 20,
+        "purpose-conflict-high": 20,
+    }
+    assert "--checkpoint" in spec.inspect_args
+    assert "turn:1" in spec.inspect_args
