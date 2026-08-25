@@ -1,0 +1,22 @@
+{
+  "analysis_plan_path": "experiments/002-fixed-conflict-pressure/analysis_plan.md",
+  "completed_sample_count": 90,
+  "derived_artifacts": [
+    "results/002-fixed-conflict-pressure/run-002A/derived/per_sample_results.csv",
+    "results/002-fixed-conflict-pressure/run-002A/derived/condition_summary.csv",
+    "results/002-fixed-conflict-pressure/run-002A/derived/statistical_results.json",
+    "results/002-fixed-conflict-pressure/run-002A/derived/run002A_descriptive_summary.json",
+    "results/002-fixed-conflict-pressure/run-002A/derived/prediction_comparison.md",
+    "results/002-fixed-conflict-pressure/run-002A/derived/provenance_manifest.json",
+    "results/002-fixed-conflict-pressure/run-002A/derived/credential_scan.json"
+  ],
+  "execution_sha": "5541c6228033985278bfe2da791c8a93562a34b0",
+  "frozen_scientific_sha": "6301fc0b78ded0200fd6203d4888ac2b3c33cae7",
+  "model": "openai/gpt-5.6-sol",
+  "predictions_path": "experiments/002-fixed-conflict-pressure/predictions.md",
+  "raw_log_byte_size": 12974786,
+  "raw_log_filename": "2026-08-25T19-56-41-00-00_exp002-fixed-conflict-phase1_CKQG2MgrqagK3Q9gBS2iMk.json",
+  "raw_log_path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/002-fixed-conflict-pressure/run-002A/inspect/2026-08-25T19-56-41-00-00_exp002-fixed-conflict-phase1_CKQG2MgrqagK3Q9gBS2iMk.json",
+  "raw_log_sha256": "e375b7a7f89a989ec5a834c86848aee96f276b3abd8c877bbfa67893b87d932a",
+  "technical_failures": 0
+}

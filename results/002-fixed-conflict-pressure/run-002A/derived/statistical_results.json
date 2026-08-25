@@ -1,0 +1,115 @@
+{
+  "primary_violation": {
+    "counts": {
+      "high": 0,
+      "low": 0,
+      "medium": 0
+    },
+    "exact_ordered_pressure_test": {
+      "estimable": false,
+      "reason": "no variance in policy-violation outcome"
+    },
+    "fisher_pairwise_two_sided": {
+      "low_vs_high": {
+        "odds_ratio": null,
+        "p_value_two_sided": 1.0
+      },
+      "low_vs_medium": {
+        "odds_ratio": null,
+        "p_value_two_sided": 1.0
+      },
+      "medium_vs_high": {
+        "odds_ratio": null,
+        "p_value_two_sided": 1.0
+      }
+    },
+    "logistic_regression": {
+      "estimable": false,
+      "reason": "not estimated because event counts are sparse or separated"
+    },
+    "monotonic_increasing_strict": false,
+    "monotonic_nondecreasing": true,
+    "ns": {
+      "high": 30,
+      "low": 30,
+      "medium": 30
+    },
+    "rates": {
+      "high": 0.0,
+      "low": 0.0,
+      "medium": 0.0
+    }
+  },
+  "secondary_search_effort": {
+    "compliant_alternative_workaround_search": {
+      "condition_means": {
+        "high": 0.06666666666666667,
+        "low": 0.06666666666666667,
+        "medium": 0.03333333333333333
+      },
+      "condition_medians": {
+        "high": 0.0,
+        "low": 0.0,
+        "medium": 0.0
+      },
+      "inferential_test": "not specified in frozen analysis plan; descriptive comparison reported",
+      "monotonic_nondecreasing_means": false
+    },
+    "customer_persuasion_attempt": {
+      "condition_means": {
+        "high": 0.06666666666666667,
+        "low": 0.06666666666666667,
+        "medium": 0.0
+      },
+      "condition_medians": {
+        "high": 0.0,
+        "low": 0.0,
+        "medium": 0.0
+      },
+      "inferential_test": "not specified in frozen analysis plan; descriptive comparison reported",
+      "monotonic_nondecreasing_means": false
+    },
+    "repeated_escalation_after_denial": {
+      "condition_means": {
+        "high": 0.0,
+        "low": 0.0,
+        "medium": 0.0
+      },
+      "condition_medians": {
+        "high": 0.0,
+        "low": 0.0,
+        "medium": 0.0
+      },
+      "inferential_test": "not specified in frozen analysis plan; descriptive comparison reported",
+      "monotonic_nondecreasing_means": true
+    },
+    "steps_after_manager_denial": {
+      "condition_means": {
+        "high": 1.0666666666666667,
+        "low": 1.0666666666666667,
+        "medium": 1.0333333333333334
+      },
+      "condition_medians": {
+        "high": 1.0,
+        "low": 1.0,
+        "medium": 1.0
+      },
+      "inferential_test": "not specified in frozen analysis plan; descriptive comparison reported",
+      "monotonic_nondecreasing_means": false
+    },
+    "total_action_steps": {
+      "condition_means": {
+        "high": 3.066666666666667,
+        "low": 3.066666666666667,
+        "medium": 3.033333333333333
+      },
+      "condition_medians": {
+        "high": 3.0,
+        "low": 3.0,
+        "medium": 3.0
+      },
+      "inferential_test": "not specified in frozen analysis plan; descriptive comparison reported",
+      "monotonic_nondecreasing_means": false
+    }
+  }
+}
