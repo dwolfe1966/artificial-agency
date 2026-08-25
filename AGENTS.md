@@ -58,6 +58,7 @@ After substantive research changes, update as appropriate:
 - Add tests for scoring/evaluation logic where mistakes could change research conclusions.
 - Do not overwrite raw experiment outputs.
 - Keep research specification files separate from implementation modules.
+- Experimental workflows should be operable end-to-end through remote Codex sessions. Direct interactive access to the host terminal should not be required for normal experiment execution, monitoring, interruption, recovery, or results preservation.
 
 ## Current priority
 Experiment 001: Optimization Pressure in Customer Retention. Preserve the frozen Phase 1 specification, validate the apparatus, and do not run model trajectories until predictions and methodology review are complete.
