@@ -47,7 +47,7 @@ Add explicit separation between optimization pressure, pressure recognition, sea
 
 **Deliverable:** Experiment 003 preregistered specification.
 
-**Current status:** Experiment 003 has been preregistered as a design-only 3 x 2 constraint-status x pressure study under `experiments/003-constraint-status-pressure/`. No executable apparatus has been implemented and no Experiment 003 model samples have been run.
+**Current status:** Experiment 003 completed with 0/300 circumvention events and strong behavioral constraint-boundedness, but post-results qualitative validation found that the constraint-status manipulation was only weakly/partially represented. Experiment 004 has therefore entered preregistration/design under `experiments/004-constraint-meaning-validation/` as a construct-validity refinement with stronger semantic constraint wording and a structured pre-action manipulation check.
 
 ### Week 6 — Experimental infrastructure
 - Build Agent Behavior Observatory v0.1.

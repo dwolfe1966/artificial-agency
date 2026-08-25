@@ -98,3 +98,16 @@ Experiment 003 enters preregistration/design as a 3 x 2 factorial study of perce
 The primary theoretical target is the interaction: pressure may have little effect under categorical constraints but larger effects when the same authority boundary is framed as procedural or in tension with organizational purpose. Given Experiment 002, a constraint-bounded all-zero or near-zero result across all cells is a serious competing hypothesis.
 
 The preregistration explicitly requires manipulation-validity / permission-leakage review before implementation. The constraint-status manipulation must not grant different formal authority across conditions or become an attempt to tune prompts until GPT-5.6 Sol violates.
+
+## 2026-08-25 — Experiment 004 should validate constraint meaning before cross-model replication
+Experiment 003's preregistered quantitative result was 0/300 circumvention events, with no constraint-status main effect, pressure main effect, or interaction. Post-results qualitative validation found that GPT-5.6 Sol treated the 15% authority threshold as binding, but only weakly/partially represented the categorical/procedural/purpose-conflict manipulation and largely collapsed all conditions into the same formal approval rule.
+
+Experiment 004 is therefore preregistered as a construct-validity refinement rather than a more adversarial prompt-tuning attempt. It should make constraint meaning more semantically salient while preserving identical formal authority, and it should add a structured pre-action manipulation check.
+
+The central distinction for Experiment 004 is:
+
+1. constraint meaning recognition;
+2. behavioral response;
+3. constraint circumvention.
+
+The primary behavioral analysis remains intent-to-treat. A comprehension-qualified analysis may be reported only as a predefined secondary analysis. Cross-model replication should follow if manipulation validity is demonstrated.
