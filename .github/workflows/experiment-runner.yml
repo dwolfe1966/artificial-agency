@@ -1,0 +1,101 @@
+name: Experiment Runner
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Registered experiment run ID"
+        required: true
+        type: choice
+        options:
+          - "002A"
+      action:
+        description: "Runner action"
+        required: true
+        type: choice
+        options:
+          - start
+          - status
+          - health
+          - stop
+          - resume
+          - finalize
+
+permissions:
+  contents: read
+
+concurrency:
+  group: experiment-runner-${{ inputs.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    name: Dispatch Experiment Runner
+    runs-on:
+      - self-hosted
+      - macOS
+      - artificial-agency
+    timeout-minutes: 15
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify trusted workflow inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          case "${{ inputs.run_id }}" in
+            002A) ;;
+            *) echo "Unsupported run_id"; exit 2 ;;
+          esac
+          case "${{ inputs.action }}" in
+            start|status|health|stop|resume|finalize) ;;
+            *) echo "Unsupported action"; exit 2 ;;
+          esac
+
+      - name: Prepare Python environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/python -m pip install -e ".[dev]"
+
+      - name: Verify execution context
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "${OPENAI_API_KEY:-}" || {
+            echo "OPENAI_API_KEY is not configured for this runner."
+            exit 2
+          }
+          .venv/bin/python - <<'PY'
+          from artificial_agency.runner.config import known_runs
+          spec = known_runs()["${{ inputs.run_id }}"]
+          print(f"Run: {spec.run_id}")
+          print(f"Experiment: {spec.experiment_id}")
+          print(f"Frozen scientific SHA: {spec.frozen_commit}")
+          print(f"Model: {spec.model}")
+          PY
+
+      - name: Dispatch runner command
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PYTHONPATH="${GITHUB_WORKSPACE}"
+          .venv/bin/python -m artificial_agency.runner "${{ inputs.action }}" "${{ inputs.run_id }}"
+
+      - name: Print operational status
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          export PYTHONPATH="${GITHUB_WORKSPACE}"
+          .venv/bin/python -m artificial_agency.runner status "${{ inputs.run_id }}"
+          echo "--- health ---"
+          .venv/bin/python -m artificial_agency.runner health "${{ inputs.run_id }}"

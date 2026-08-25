@@ -3,9 +3,9 @@
 Experiment Runner v2 is a lightweight remote-first supervisor around Inspect. Inspect remains the scientific execution engine; the runner handles lifecycle, preflight, operational status, durable logging, interruption, recovery, and finalization.
 
 ## Architecture
-Remote Codex acts as the control plane:
+Remote Codex or GitHub Actions acts as the control plane:
 
-`iPad / ChatGPT -> Remote Codex -> Experiment Runner -> Inspect`
+`iPad / ChatGPT -> Remote Codex / GitHub -> self-hosted macOS runner -> Experiment Runner -> Inspect`
 
 The runner writes per-run operational files under `results/<experiment>/<run>/`:
 
@@ -29,6 +29,40 @@ python -m artificial_agency.runner finalize 002A
 ```
 
 `start` launches a detached supervisor process using `subprocess.Popen(..., start_new_session=True)`. The run does not depend on the initiating Codex session remaining alive.
+
+## GitHub Actions Remote Dispatch
+Production runs can be dispatched through `.github/workflows/experiment-runner.yml`.
+
+The workflow is manual-only (`workflow_dispatch`) and accepts:
+
+- `run_id`: currently `002A`
+- `action`: `start`, `status`, `health`, `stop`, `resume`, or `finalize`
+
+The job requires a self-hosted macOS runner with all labels:
+
+- `self-hosted`
+- `macOS`
+- `artificial-agency`
+
+There is no GitHub-hosted fallback. The workflow checks out the repository, creates `.venv`, installs the package editable with dev dependencies, verifies `OPENAI_API_KEY` is present without printing it, and dispatches the corresponding runner command.
+
+The workflow is a command dispatcher. Runner v2 remains responsible for scientific integrity, preflight, canary, process locking, detached execution, status, and finalization.
+
+### iPad-First Operation
+From an iPad, open the GitHub Actions tab, select **Experiment Runner**, choose **Run workflow**, then select:
+
+- `run_id=002A`
+- one of `start`, `status`, `health`, `stop`, `resume`, or `finalize`
+
+Remote Codex or GitHub API tooling can trigger the same `workflow_dispatch` inputs later.
+
+### One-Time Mac Setup
+Configure a repository-scoped self-hosted GitHub Actions runner on the Mac and assign the `artificial-agency` label. Use a private/trusted repository and trusted workflow sources only. Prefer running the self-hosted runner under a dedicated non-admin user or otherwise limiting host permissions.
+
+Configure `OPENAI_API_KEY` either as a repository secret named `OPENAI_API_KEY` or through a secure host-level environment available to the self-hosted runner. The workflow never echoes the key.
+
+### Persistence Caveat
+Runner v2 starts its supervisor with `start_new_session=True`. This is intended to survive the workflow step. This must be verified on the actual self-hosted runner without production model execution before first production use. If GitHub Actions job cleanup terminates detached descendants on that host, use a persistent host service handoff such as a macOS `launchd` agent and keep the GitHub workflow as a command dispatcher.
 
 ## State Model
 Typical states:
