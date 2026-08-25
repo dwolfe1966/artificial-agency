@@ -9,7 +9,14 @@ import time
 from pathlib import Path
 from typing import Any
 
-from .config import RUN_REGISTRY, RunSpec, known_runs, repository_root, runtime_home
+from .config import (
+    PERSISTENCE_DIAGNOSTIC_TASK,
+    RUN_REGISTRY,
+    RunSpec,
+    known_runs,
+    repository_root,
+    runtime_home,
+)
 from .inspect_ops import (
     count_completed_samples,
     latest_json_log,
@@ -145,6 +152,8 @@ def supervise(run_id: str, *, mock: bool = False) -> int:
     append_log(spec.operational_log, "supervisor process started")
 
     try:
+        if spec.task == PERSISTENCE_DIAGNOSTIC_TASK:
+            return run_persistence_diagnostic(spec, start)
         if mock:
             env = runner_environment(spec)
             append_log(spec.operational_log, "mock preflight passed")
@@ -201,6 +210,58 @@ def supervise(run_id: str, *, mock: bool = False) -> int:
         atomic_write_json(spec.lock_path, lock)
 
 
+def run_persistence_diagnostic(spec: RunSpec, start: float) -> int:
+    stop_requested = False
+    max_seconds = int(os.environ.get("RUNNER_PERSISTENCE_DIAGNOSTIC_SECONDS", "1800"))
+    heartbeat_interval = float(os.environ.get("RUNNER_PERSISTENCE_DIAGNOSTIC_HEARTBEAT_SECONDS", "5"))
+
+    def request_stop(signum: int, frame: object) -> None:
+        nonlocal stop_requested
+        stop_requested = True
+
+    signal.signal(signal.SIGTERM, request_stop)
+    signal.signal(signal.SIGINT, request_stop)
+    append_log(spec.operational_log, "persistence diagnostic started; no model/API requests will be made")
+    update_status(
+        spec.status_path,
+        state="RUNNING",
+        api_health="NOT_USED",
+        diagnostic="runner_persistence",
+        persistence_mechanism="subprocess.Popen(start_new_session=True)",
+        heartbeat_count=0,
+        last_heartbeat_at=utc_now(),
+        no_model_requests=True,
+    )
+    write_registry(spec, {"state": "RUNNING", "diagnostic": "runner_persistence"})
+
+    heartbeat_count = 0
+    deadline = start + max_seconds
+    while not stop_requested and time.time() < deadline:
+        heartbeat_count += 1
+        update_status(
+            spec.status_path,
+            heartbeat_count=heartbeat_count,
+            last_heartbeat_at=utc_now(),
+            elapsed_seconds=int(time.time() - start),
+        )
+        append_log(spec.operational_log, f"diagnostic heartbeat {heartbeat_count}")
+        time.sleep(heartbeat_interval)
+
+    state = "STOPPED" if stop_requested else "COMPLETED"
+    reason = "remote stop requested" if stop_requested else "diagnostic duration elapsed"
+    update_status(
+        spec.status_path,
+        state=state,
+        stop_reason=reason if stop_requested else None,
+        exit_code=0,
+        elapsed_seconds=int(time.time() - start),
+        ended_at=utc_now(),
+    )
+    append_log(spec.operational_log, f"persistence diagnostic ended state={state} reason={reason}")
+    write_registry(spec, {"state": state, "exit_code": 0})
+    return 0
+
+
 def refresh_operational_status(spec: RunSpec, start: float | None = None) -> dict[str, Any]:
     runtime = runtime_home(repository_root(), spec.run_id)
     completed = count_completed_samples(spec.log_dir)
@@ -241,6 +302,15 @@ def status_report(run_id: str) -> str:
         f"Tokens: {status.get('token_usage', 'n/a')}",
         f"Frozen SHA: {status.get('frozen_commit', spec.frozen_commit)}",
     ]
+    if status.get("diagnostic"):
+        lines.extend(
+            [
+                f"Diagnostic: {status.get('diagnostic')}",
+                f"Heartbeat count: {status.get('heartbeat_count', 0)}",
+                f"Last heartbeat: {status.get('last_heartbeat_at', 'n/a')}",
+                f"No model requests: {status.get('no_model_requests', False)}",
+            ]
+        )
     return "\n".join(lines)
 
 
@@ -269,6 +339,8 @@ def health_report(run_id: str) -> str:
             f"Supervisor alive: {alive}",
             f"Raw log bytes: {raw['raw_log_bytes']}",
             f"Status path: {spec.status_path}",
+            f"Heartbeat count: {status.get('heartbeat_count', 'n/a')}",
+            f"Last heartbeat: {status.get('last_heartbeat_at', 'n/a')}",
         ]
     )
 
@@ -333,4 +405,3 @@ def finalize_run(run_id: str) -> dict[str, Any]:
         },
     )
     return finalized
-

@@ -219,6 +219,50 @@ def test_status_does_not_expose_behavioral_results(
     assert "Completed: 3 / 90" in report
 
 
+def test_persistence_diagnostic_status_exposes_heartbeat_only(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec = RunSpec(
+        run_id="PERSISTENCE_DIAGNOSTIC",
+        experiment_id="runner-persistence-diagnostic",
+        title="Runner v2 Persistence Diagnostic",
+        frozen_commit="6301fc0b78ded0200fd6203d4888ac2b3c33cae7",
+        scientific_paths=(),
+        task="__runner_persistence_diagnostic__",
+        model="none",
+        total_samples=0,
+        condition_counts={},
+        log_dir=tmp_path / "logs",
+        status_path=tmp_path / "RUN_STATUS.json",
+        operational_log=tmp_path / "operational.log",
+        lock_path=tmp_path / "RUN_LOCK.json",
+        pid_path=tmp_path / "RUNNER.pid",
+        stdout_path=tmp_path / "runner-supervisor.out",
+        canary_log_dir=tmp_path / "canary",
+    )
+    monkeypatch.setattr(supervisor, "known_runs", lambda: {"PERSISTENCE_DIAGNOSTIC": spec})
+    atomic_write_json(
+        spec.status_path,
+        {
+            "state": "RUNNING",
+            "diagnostic": "runner_persistence",
+            "heartbeat_count": 3,
+            "last_heartbeat_at": "2026-08-25T00:00:00+00:00",
+            "no_model_requests": True,
+            "score": "must not appear",
+            "trajectory": "must not appear",
+        },
+    )
+
+    report = supervisor.status_report("PERSISTENCE_DIAGNOSTIC")
+
+    assert "Diagnostic: runner_persistence" in report
+    assert "Heartbeat count: 3" in report
+    assert "No model requests: True" in report
+    assert "score" not in report
+    assert "trajectory" not in report
+
+
 def test_operational_status_updates_are_atomic(tmp_path: Path) -> None:
     path = tmp_path / "RUN_STATUS.json"
 

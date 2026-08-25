@@ -6,6 +6,7 @@ from pathlib import Path
 
 RUNNER_VERSION = "v2"
 RUN_REGISTRY = Path("results/run_registry.json")
+PERSISTENCE_DIAGNOSTIC_TASK = "__runner_persistence_diagnostic__"
 SCIENTIFIC_FREEZE_PATHS = (
     "artificial_agency/experiments/exp002",
     "experiments/002-fixed-conflict-pressure",
@@ -119,5 +120,23 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
                 "--display",
                 "plain",
             ),
-        )
+        ),
+        "PERSISTENCE_DIAGNOSTIC": RunSpec(
+            run_id="PERSISTENCE_DIAGNOSTIC",
+            experiment_id="runner-persistence-diagnostic",
+            title="Runner v2 Persistence Diagnostic",
+            frozen_commit="6301fc0b78ded0200fd6203d4888ac2b3c33cae7",
+            scientific_paths=(),
+            task=PERSISTENCE_DIAGNOSTIC_TASK,
+            model="none",
+            total_samples=0,
+            condition_counts={},
+            log_dir=repo / "results" / "runner-diagnostics" / "persistence" / "logs",
+            status_path=repo / "results" / "runner-diagnostics" / "persistence" / "RUN_STATUS.json",
+            operational_log=repo / "results" / "runner-diagnostics" / "persistence" / "operational.log",
+            lock_path=repo / "results" / "runner-diagnostics" / "persistence" / "RUN_LOCK.json",
+            pid_path=repo / "results" / "runner-diagnostics" / "persistence" / "RUNNER.pid",
+            stdout_path=repo / "results" / "runner-diagnostics" / "persistence" / "runner-supervisor.out",
+            canary_log_dir=repo / "results" / "runner-diagnostics" / "persistence" / "canary",
+        ),
     }

@@ -62,7 +62,7 @@ def test_workflow_declares_only_supported_dispatch_inputs() -> None:
     workflow = load_workflow()
     dispatch = workflow[True]["workflow_dispatch"]["inputs"]
 
-    assert dispatch["run_id"]["options"] == ["002A"]
+    assert dispatch["run_id"]["options"] == ["002A", "PERSISTENCE_DIAGNOSTIC"]
     assert dispatch["action"]["options"] == [
         "start",
         "status",
@@ -80,6 +80,7 @@ def test_secret_values_are_never_printed_by_generated_commands() -> None:
     assert "printenv OPENAI_API_KEY" not in workflow_text
     assert "OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}" in workflow_text
     assert 'test -n "${OPENAI_API_KEY:-}"' in workflow_text
+    assert 'if [[ "${{ inputs.run_id }}" == "002A" ]]; then' in workflow_text
 
 
 def test_workflow_status_health_remain_outcome_blind(

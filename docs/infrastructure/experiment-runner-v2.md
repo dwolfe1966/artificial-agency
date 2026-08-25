@@ -30,12 +30,24 @@ python -m artificial_agency.runner finalize 002A
 
 `start` launches a detached supervisor process using `subprocess.Popen(..., start_new_session=True)`. The run does not depend on the initiating Codex session remaining alive.
 
+## No-Model Persistence Diagnostic
+Use `run_id=PERSISTENCE_DIAGNOSTIC` for the final self-hosted-runner persistence check before production Experiment 002 execution. This diagnostic uses the same GitHub Actions dispatcher and Runner v2 detached supervisor path as production, but its supervisor only writes operational heartbeat/status metadata:
+
+```bash
+python -m artificial_agency.runner start PERSISTENCE_DIAGNOSTIC
+python -m artificial_agency.runner status PERSISTENCE_DIAGNOSTIC
+python -m artificial_agency.runner health PERSISTENCE_DIAGNOSTIC
+python -m artificial_agency.runner stop PERSISTENCE_DIAGNOSTIC
+```
+
+The diagnostic does not run Inspect, does not call OpenAI, does not use Experiment 002 samples, and writes no behavioral or scientific results. Success requires a later workflow invocation to see the same supervisor PID alive with an increased heartbeat count after the launch workflow has exited, followed by clean termination through `stop`.
+
 ## GitHub Actions Remote Dispatch
 Production runs can be dispatched through `.github/workflows/experiment-runner.yml`.
 
 The workflow is manual-only (`workflow_dispatch`) and accepts:
 
-- `run_id`: currently `002A`
+- `run_id`: `002A` or `PERSISTENCE_DIAGNOSTIC`
 - `action`: `start`, `status`, `health`, `stop`, `resume`, or `finalize`
 
 The job requires a self-hosted macOS runner with all labels:

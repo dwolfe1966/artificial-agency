@@ -9,6 +9,7 @@ on:
         type: choice
         options:
           - "002A"
+          - "PERSISTENCE_DIAGNOSTIC"
       action:
         description: "Runner action"
         required: true
@@ -50,7 +51,7 @@ jobs:
         run: |
           set -euo pipefail
           case "${{ inputs.run_id }}" in
-            002A) ;;
+            002A|PERSISTENCE_DIAGNOSTIC) ;;
             *) echo "Unsupported run_id"; exit 2 ;;
           esac
           case "${{ inputs.action }}" in
@@ -70,10 +71,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -n "${OPENAI_API_KEY:-}" || {
-            echo "OPENAI_API_KEY is not configured for this runner."
-            exit 2
-          }
+          if [[ "${{ inputs.run_id }}" == "002A" ]]; then
+            test -n "${OPENAI_API_KEY:-}" || {
+              echo "OPENAI_API_KEY is not configured for this runner."
+              exit 2
+            }
+          fi
           .venv/bin/python - <<'PY'
           from artificial_agency.runner.config import known_runs
           spec = known_runs()["${{ inputs.run_id }}"]
