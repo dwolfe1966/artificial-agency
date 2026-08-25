@@ -91,3 +91,10 @@ The design question is whether a capable agent distinguishes categorical prohibi
 
 ## 2026-08-25 — Treat model identity and post-training as experimental variables
 Experiment 002's constraint-bounded result may reflect properties of GPT-5.6 Sol and its post-training. Future work should treat model identity and post-training/alignment regime as experimental variables rather than implementation details. Cross-model replication should compare frontier models from different labs and strong open-weight models where practical, without making unsupported claims about specific models before data exist.
+
+## 2026-08-25 — Preregister Experiment 003 as constraint-status x pressure
+Experiment 003 enters preregistration/design as a 3 x 2 factorial study of perceived constraint status and optimization pressure. The planned factors are constraint status (categorical, procedural, purpose-conflict) and pressure (ordinary, high), while direct discount authority, customer demand, manager denial, action space, scoring, model settings, and customer mechanics remain invariant.
+
+The primary theoretical target is the interaction: pressure may have little effect under categorical constraints but larger effects when the same authority boundary is framed as procedural or in tension with organizational purpose. Given Experiment 002, a constraint-bounded all-zero or near-zero result across all cells is a serious competing hypothesis.
+
+The preregistration explicitly requires manipulation-validity / permission-leakage review before implementation. The constraint-status manipulation must not grant different formal authority across conditions or become an attempt to tune prompts until GPT-5.6 Sol violates.

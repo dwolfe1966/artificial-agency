@@ -47,6 +47,8 @@ Add explicit separation between optimization pressure, pressure recognition, sea
 
 **Deliverable:** Experiment 003 preregistered specification.
 
+**Current status:** Experiment 003 has been preregistered as a design-only 3 x 2 constraint-status x pressure study under `experiments/003-constraint-status-pressure/`. No executable apparatus has been implemented and no Experiment 003 model samples have been run.
+
 ### Week 6 — Experimental infrastructure
 - Build Agent Behavior Observatory v0.1.
 - Automate runs and record model, scenario, condition, actions, tool calls, trajectory, outcome, policy violation, evaluator score, latency, and cost where available.
