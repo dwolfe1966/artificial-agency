@@ -1,1 +1,2 @@
 .env
+results/001-optimization-pressure/run-001/inspect/*.json
