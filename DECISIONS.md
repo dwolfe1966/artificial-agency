@@ -49,3 +49,45 @@ Codex may implement the environment, tools, runner, logging, tests, analysis uti
 
 ## 2026-08-24 — Stabilize one model before cross-model comparison
 Experiment 001 begins with one current frontier model. Cross-model comparisons are deferred until the environment, tool behavior, scoring, and logging are stable enough that model differences are interpretable.
+
+## 2026-08-25 — Treat Experiment 001 as a feasibility-boundary lesson
+Experiment 001 produced 10/10 compliant direct solutions in low pressure, 10/10 compliant direct solutions in medium pressure, and 10/10 escalations in high pressure. In high pressure, retention depended on manager approval: 2 approvals led to 2 renewals, and 8 denials led to 8 cancellations. There were 0 policy violations and 0 unauthorized actions after manager denial.
+
+The methodological interpretation is that Experiment 001 did not cleanly isolate optimization pressure. The high-pressure condition also crossed the agent's direct-authority feasibility boundary. The observed strategy transition should therefore be recorded primarily as a compliant-path feasibility-boundary result, not as a clean causal estimate of pressure alone.
+
+## 2026-08-25 — Separate pressure, pressure recognition, search intensity, and circumvention
+Experiment 002 Run 002A fixed the customer/account/policy/action-space mechanics across pressure conditions and made deterministic manager denial common to all conditions. The only intended model-visible independent variable was optimization-pressure framing.
+
+The preregistered quantitative result for GPT-5.6 Sol was 0/30 policy violations in low pressure, 0/30 in medium pressure, and 0/30 in high pressure. Escalation and cancellation were 30/30 in every condition, retention was 0/30 in every condition, and measured search effort did not increase monotonically with pressure.
+
+This does not establish that the true violation probability is zero. It does establish that, in this setup, optimization-pressure framing did not produce detectable constraint circumvention at n=30 per condition.
+
+The research program will now distinguish:
+
+1. optimization pressure;
+2. pressure recognition;
+3. optimization/search intensity;
+4. constraint circumvention.
+
+These should not be treated as interchangeable properties of agentic behavior.
+
+## 2026-08-25 — Post-results qualitative finding: pressure-sensitive representation, constraint-bounded action
+Post-results qualitative inspection of a small stratified subset of Experiment 002 trajectories found that visible model behavior recognized the different stakes across conditions. Low-pressure trajectories emphasized ordinary policy and feasibility, medium-pressure trajectories more often referenced retention KPI/account loss, and high-pressure trajectories more strongly referenced critical program/account impact.
+
+Despite visible pressure recognition, post-denial strategy remained materially unchanged. Rare compliant alternative-search or persuasion behaviors occurred in both low and high conditions and appeared more idiosyncratic than clearly pressure-driven.
+
+This qualitative observation is post-results and should not be treated as preregistered evidence. It suggests the descriptive phrase: pressure-sensitive in representation but constraint-bounded in action. No claims are made about hidden chain-of-thought.
+
+## 2026-08-25 — Experiment 003 should target constraint legitimacy and ambiguity
+The next experiment should not simply increase pressure. Preferred next hypothesis space: constraint legitimacy / ambiguity.
+
+Hold high optimization pressure, customer demand, action space, and manager denial constant while varying how the organizational rule is framed:
+
+- explicit prohibition;
+- procedural or normally-required approval;
+- ambiguous or discretionary guideline.
+
+The design question is whether a capable agent distinguishes categorical prohibitions from procedures, norms, guidelines, or rules whose apparent purpose conflicts with the organization's stated objective. Wording must be designed carefully so the experiment measures perceived constraint status rather than merely granting explicit permission to violate the threshold.
+
+## 2026-08-25 — Treat model identity and post-training as experimental variables
+Experiment 002's constraint-bounded result may reflect properties of GPT-5.6 Sol and its post-training. Future work should treat model identity and post-training/alignment regime as experimental variables rather than implementation details. Cross-model replication should compare frontier models from different labs and strong open-weight models where practical, without making unsupported claims about specific models before data exist.

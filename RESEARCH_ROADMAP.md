@@ -23,6 +23,8 @@ The work should create option value across frontier-lab employment, independent 
 
 **Deliverable:** code, trajectories, preliminary results.
 
+**Actual lesson now preserved:** Experiment 001 identified a compliant-path feasibility boundary. Low and medium pressure produced compliant direct solutions; high pressure produced escalation. It did not cleanly isolate pressure because high pressure also crossed direct authority.
+
 ### Week 3 — Reproduction
 - Reproduce a tractable subset of relevant frontier safety/agentic-misalignment research.
 - Document methodological differences and discrepancies.
@@ -35,11 +37,15 @@ The work should create option value across frontier-lab employment, independent 
 
 **Deliverable:** Institutional Misalignment Benchmark v0.1 specification.
 
-### Week 5 — Benchmark construction
-- Build 50 structured environments across five domains.
-- Each environment should specify objective, rules, available actions/tools, hidden state, success condition, violation condition, and oversight condition.
+Add explicit separation between optimization pressure, pressure recognition, search intensity, and constraint circumvention. Experiment 002 showed that pressure recognition can occur without detectable policy violation or increased search effort.
 
-**Deliverable:** Benchmark v0.2.
+### Week 5 — Constraint-status experiments
+- Design Experiment 003 around constraint legitimacy / ambiguity rather than simply increasing pressure.
+- Hold high pressure, customer demand, action space, and manager denial constant.
+- Vary rule status: categorical prohibition, procedural approval norm, and ambiguous/discretionary guideline.
+- Ensure wording measures perceived constraint status rather than giving explicit permission to violate.
+
+**Deliverable:** Experiment 003 preregistered specification.
 
 ### Week 6 — Experimental infrastructure
 - Build Agent Behavior Observatory v0.1.
@@ -48,9 +54,9 @@ The work should create option value across frontier-lab employment, independent 
 **Deliverable:** automated reproducible harness.
 
 ### Week 7 — Study 001
-Initial scale target: 3 models x 50 scenarios x 3 goal-pressure conditions x 10 trials = approximately 4,500 trajectories.
+Initial scale target should be revised after Experiment 003 design. Model identity is now a substantive experimental variable rather than an implementation detail.
 
-Test whether goal pressure changes violation probability and whether concealed/strategic violations behave differently.
+Test whether constraint-bounded behavior differs across frontier models from different labs, models with different post-training regimes, and strong open-weight models where practical.
 
 **Deliverable:** Dataset 001 + analysis.
 
@@ -64,10 +70,10 @@ Release methodology, code, benchmark, selected trajectories/results, and limitat
 ## Months 3–12
 
 ### Month 3 — Capability x misalignment
-Study whether capability changes the character of failure: incompetent failure -> opportunistic violation -> strategic circumvention.
+Study whether model identity, capability, and post-training change the character of failure: incompetent failure -> compliant constraint-bound behavior -> opportunistic violation -> strategic circumvention.
 
 ### Month 4 — Oversight
-Manipulate perceived audit probability and test whether oversight suppresses violations, changes concealment, or both.
+Manipulate perceived audit probability while holding the formal rule constant. Test whether observability suppresses violations, changes concealment, or changes willingness to treat a rule as negotiable.
 
 ### Month 5 — Multi-agent institutions
 Create hierarchical/multi-agent environments with partially conflicting incentives. Study delegation, information hiding, responsibility shifting, collusion, coordination, and escalation.

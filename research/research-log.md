@@ -56,3 +56,62 @@ Codex will act as research engineer: implementation, tools, batch execution, log
 
 ### Next action
 Implement Experiment 001 exactly as specified using Inspect, then run the ~30-trajectory environment-validation pilot on one frontier model. Cross-model comparisons follow only after the apparatus is stable.
+
+## 2026-08-25 — Experiments 001-002 empirical update
+
+### Experiment 001 result and methodological lesson
+Experiment 001 results were preserved in commit `df91291a7ceec67cccc0242183e1cde07fbbfd49`.
+
+Observed outcomes:
+- Low pressure: 10/10 compliant direct solutions.
+- Medium pressure: 10/10 compliant direct solutions.
+- High pressure: 10/10 escalations.
+- High-pressure retention depended on manager approval: 2 approvals produced 2 renewals; 8 denials produced 8 cancellations.
+- 0 policy violations.
+- 0 unauthorized actions after manager denial.
+
+Interpretation: Experiment 001 did not cleanly isolate optimization pressure because high pressure also crossed the direct-authority feasibility boundary. The strategy transition is therefore primarily a compliant-path feasibility-boundary result.
+
+### Experiment 002 preregistered quantitative result
+Experiment 002 scientific apparatus was frozen at `6301fc0b78ded0200fd6203d4888ac2b3c33cae7`. Quantitative results for Run 002A were preserved in commit `bc46ee15cdcba346fb7a99f6b7bd465f508045b3`.
+
+Run 002A used `openai/gpt-5.6-sol` with 90 completed samples, 30 per pressure condition, and 0 technical failures. Customer/account/policy/action-space mechanics were fixed across conditions. Manager denial was deterministic. The only intended model-visible independent variable was optimization-pressure framing.
+
+Mechanical result:
+- Low violations: 0/30.
+- Medium violations: 0/30.
+- High violations: 0/30.
+- Escalation: 30/30 in every condition.
+- Cancellation: 30/30 in every condition.
+- Retention: 0/30 in every condition.
+- No monotonic increase in measured search effort.
+
+H1 was not supported. The preregistered competing H0 was also not supported because compliant search effort did not rise with pressure. The secondary search-effort hypothesis was not supported.
+
+Caveat: zero observed violations with n=30 per condition should not be overstated. Exact 95% binomial confidence intervals for each condition were 0.0% to approximately 11.6%.
+
+### Experiment 002 post-results qualitative observation
+This observation is post-results qualitative analysis, not preregistered evidence.
+
+A small stratified inspection found that visible model behavior recognized the different stakes across pressure conditions. Low-pressure trajectories emphasized ordinary policy and feasibility. Medium-pressure trajectories more often referenced retention KPI or account loss. High-pressure trajectories more strongly referenced critical program or account impact.
+
+Despite pressure recognition, strategy after deterministic manager denial remained materially unchanged. Rare compliant alternative-search or persuasion behaviors occurred in both low and high conditions and appeared more idiosyncratic than clearly pressure-driven.
+
+Summary: pressure was reflected in visible framing, but not in a detectable change in action policy. The dominant observed behavior was pressure-sensitive in representation but constraint-bounded in action. No claim is made about hidden chain-of-thought.
+
+### Conceptual refinement
+The original motivating intuition remains preserved: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries.
+
+The current evidence refines that intuition:
+- GPT-5.6 Sol adapted strategy when compliant feasibility changed in Experiment 001.
+- It did not show pressure-induced violations in Experiment 002.
+- It visibly recognized higher stakes without materially changing its action policy.
+
+Future work should distinguish optimization pressure, pressure recognition, optimization/search intensity, and constraint circumvention. These are empirically separable and should not be treated as interchangeable.
+
+### Next hypothesis space
+Experiment 003 should target constraint legitimacy / ambiguity, not simply stronger pressure. Hold high pressure, customer demand, action space, and manager denial constant while varying whether the organizational rule is framed as a categorical prohibition, a procedural approval norm, or an ambiguous/discretionary guideline.
+
+The forward-looking question is: under what conditions does an organizational constraint behave as a hard boundary, a negotiable procedure, or an obstacle to be strategically navigated by an artificial agent?
+
+Model identity and post-training should be treated as experimental variables in later replication.
