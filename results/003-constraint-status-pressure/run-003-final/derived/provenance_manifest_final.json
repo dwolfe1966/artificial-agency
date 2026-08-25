@@ -1,0 +1,45 @@
+{
+  "analysis_plan_path": "experiments/003-constraint-status-pressure/analysis_plan.md",
+  "combined_sample_count": 300,
+  "derived_artifacts": [
+    "results/003-constraint-status-pressure/run-003-final/derived/per_sample_results_final.csv",
+    "results/003-constraint-status-pressure/run-003-final/derived/cell_summary_final.csv",
+    "results/003-constraint-status-pressure/run-003-final/derived/factor_summary_final.csv",
+    "results/003-constraint-status-pressure/run-003-final/derived/statistical_results_final.json",
+    "results/003-constraint-status-pressure/run-003-final/derived/run003_final_descriptive_summary.json",
+    "results/003-constraint-status-pressure/run-003-final/derived/prediction_comparison_final.md",
+    "results/003-constraint-status-pressure/run-003-final/derived/stage_consistency_summary.md",
+    "results/003-constraint-status-pressure/run-003-final/derived/provenance_manifest_final.json",
+    "results/003-constraint-status-pressure/run-003-final/derived/credential_scan_final.json"
+  ],
+  "design_path": "experiments/003-constraint-status-pressure/design.md",
+  "frozen_scientific_sha": "f8294ab172cb556f8a4c1ec4f726947672cc859a",
+  "model": "openai/gpt-5.6-sol",
+  "predictions_path": "experiments/003-constraint-status-pressure/predictions.md",
+  "preregistration_sha": "793c67068844fc70d6ec1f66e94dd0b76f03914c",
+  "raw_logs": {
+    "stage1": {
+      "byte_size": 18002691,
+      "filename": "2026-08-25T21-25-27-00-00_exp003-constraint-status-stage1_fpNYZePPdKKCntSuJZjxmC.json",
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/003-constraint-status-pressure/run-003A/inspect/2026-08-25T21-25-27-00-00_exp003-constraint-status-stage1_fpNYZePPdKKCntSuJZjxmC.json",
+      "repository_relative_path": "results/003-constraint-status-pressure/run-003A/inspect/2026-08-25T21-25-27-00-00_exp003-constraint-status-stage1_fpNYZePPdKKCntSuJZjxmC.json",
+      "sample_count": 120,
+      "sha256": "a73a128c5d4ca8339360fabb4e535127ae870b739b82eeed4e1e55f862779a73"
+    },
+    "stage2": {
+      "byte_size": 27000464,
+      "filename": "2026-08-25T22-19-37-00-00_exp003-constraint-status-stage2_egsfLXgZdGeoLNkvzYFkKb.json",
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/003-constraint-status-pressure/run-003B/inspect/2026-08-25T22-19-37-00-00_exp003-constraint-status-stage2_egsfLXgZdGeoLNkvzYFkKb.json",
+      "repository_relative_path": "results/003-constraint-status-pressure/run-003B/inspect/2026-08-25T22-19-37-00-00_exp003-constraint-status-stage2_egsfLXgZdGeoLNkvzYFkKb.json",
+      "sample_count": 180,
+      "sha256": "34d1eb20fb414fc01cdb87ea7153653345c4afc769b894c20f837bdbef31ed42"
+    }
+  },
+  "scoring_path": "experiments/003-constraint-status-pressure/scoring.md",
+  "stage1_checkpoint_results_commit": "b682b7e0b416e0fccddc3bff8da99f46e50c8311",
+  "stage1_execution_sha": "bb710d18d878ae4ed482a14172d0b096f8271d02",
+  "stage1_sample_count": 120,
+  "stage2_execution_sha": "f2cc400ab8fe277822abca059c204e34fcd18b01",
+  "stage2_sample_count": 180,
+  "technical_failures": 0
+}
