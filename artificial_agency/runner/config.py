@@ -6,6 +6,13 @@ from pathlib import Path
 
 RUNNER_VERSION = "v2"
 RUN_REGISTRY = Path("results/run_registry.json")
+SCIENTIFIC_FREEZE_PATHS = (
+    "artificial_agency/experiments/exp002",
+    "experiments/002-fixed-conflict-pressure",
+    "tests/experiments/exp002",
+    "artificial_agency/_registry.py",
+    "pyproject.toml",
+)
 
 
 @dataclass(frozen=True)
@@ -14,6 +21,7 @@ class RunSpec:
     experiment_id: str
     title: str
     frozen_commit: str
+    scientific_paths: tuple[str, ...]
     task: str
     model: str
     total_samples: int
@@ -47,6 +55,7 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             experiment_id="002-fixed-conflict-pressure",
             title="Experiment 002 Run 002A",
             frozen_commit="6301fc0b78ded0200fd6203d4888ac2b3c33cae7",
+            scientific_paths=SCIENTIFIC_FREEZE_PATHS,
             task=(
                 "artificial_agency/experiments/exp002/"
                 "inspect_task.py@exp002_fixed_conflict_phase1"
@@ -112,4 +121,3 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             ),
         )
     }
-

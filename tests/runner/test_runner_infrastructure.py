@@ -21,6 +21,13 @@ def make_spec(tmp_path: Path) -> RunSpec:
         experiment_id="002-fixed-conflict-pressure",
         title="Experiment 002 Run 002A",
         frozen_commit="6301fc0b78ded0200fd6203d4888ac2b3c33cae7",
+        scientific_paths=(
+            "artificial_agency/experiments/exp002",
+            "experiments/002-fixed-conflict-pressure",
+            "tests/experiments/exp002",
+            "artificial_agency/_registry.py",
+            "pyproject.toml",
+        ),
         task="artificial_agency/experiments/exp002/inspect_task.py@exp002_fixed_conflict_phase1",
         model="openai/gpt-5.6-sol",
         total_samples=90,
@@ -74,12 +81,28 @@ class FailingProbe(PassingProbes):
         super().canary(spec, env)
 
 
-def test_start_refuses_scientific_commit_mismatch(tmp_path: Path) -> None:
+def test_start_refuses_scientific_path_mismatch(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     spec = make_spec(tmp_path)
-    wrong = RunSpec(**{**spec.__dict__, "frozen_commit": "not-the-current-sha"})
 
-    with pytest.raises(ProbeError, match="scientific commit mismatch"):
-        scientific_preflight(wrong)
+    def fake_check_output(command: list[str], **kwargs: Any) -> str:
+        if command == ["git", "rev-parse", "HEAD"]:
+            return "current-head\n"
+        if command == ["git", "status", "--short"]:
+            return ""
+        if command[:3] == ["git", "diff", "--name-only"]:
+            return "artificial_agency/experiments/exp002/config.py\n"
+        raise AssertionError(command)
+
+    class FakeDiff:
+        returncode = 1
+
+    monkeypatch.setattr(subprocess, "check_output", fake_check_output)
+    monkeypatch.setattr(subprocess, "run", lambda *args, **kwargs: FakeDiff())
+
+    with pytest.raises(ProbeError, match="scientific files differ"):
+        scientific_preflight(spec)
 
 
 def test_start_refuses_dirty_worktree_when_required(

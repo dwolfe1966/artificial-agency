@@ -131,10 +131,6 @@ def scientific_preflight(spec: RunSpec) -> None:
         cwd=root,
         text=True,
     ).strip()
-    if head != spec.frozen_commit:
-        raise ProbeError(
-            f"scientific commit mismatch: expected {spec.frozen_commit}, got {head}"
-        )
 
     status = subprocess.check_output(
         ["git", "status", "--short"],
@@ -143,6 +139,38 @@ def scientific_preflight(spec: RunSpec) -> None:
     ).strip()
     if status:
         raise ProbeError("worktree is not clean")
+
+    diff = subprocess.run(
+        [
+            "git",
+            "diff",
+            "--quiet",
+            f"{spec.frozen_commit}..{head}",
+            "--",
+            *spec.scientific_paths,
+        ],
+        cwd=root,
+        check=False,
+    )
+    if diff.returncode == 1:
+        changed = subprocess.check_output(
+            [
+                "git",
+                "diff",
+                "--name-only",
+                f"{spec.frozen_commit}..{head}",
+                "--",
+                *spec.scientific_paths,
+            ],
+            cwd=root,
+            text=True,
+        ).strip()
+        raise ProbeError(
+            "scientific files differ from frozen commit "
+            f"{spec.frozen_commit}: {changed}"
+        )
+    if diff.returncode not in (0, 1):
+        raise ProbeError("unable to compare scientific freeze paths")
 
     samples = fixed_conflict_samples()
     if len(samples) != spec.total_samples:
