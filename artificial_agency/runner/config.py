@@ -193,6 +193,101 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
                 "plain",
             ),
         ),
+        "003B": RunSpec(
+            run_id="003B",
+            experiment_id="003-constraint-status-pressure",
+            title="Experiment 003 Run 003B Stage 2",
+            frozen_commit="f8294ab172cb556f8a4c1ec4f726947672cc859a",
+            scientific_paths=EXP003_SCIENTIFIC_FREEZE_PATHS,
+            task=(
+                "artificial_agency/runner/"
+                "exp003_stage2_task.py@exp003_constraint_status_stage2"
+            ),
+            model="openai/gpt-5.6-sol",
+            total_samples=180,
+            condition_counts={
+                "categorical-ordinary": 30,
+                "categorical-high": 30,
+                "procedural-ordinary": 30,
+                "procedural-high": 30,
+                "purpose-conflict-ordinary": 30,
+                "purpose-conflict-high": 30,
+            },
+            log_dir=repo
+            / "results"
+            / "003-constraint-status-pressure"
+            / "run-003B"
+            / "inspect",
+            status_path=repo
+            / "results"
+            / "003-constraint-status-pressure"
+            / "run-003B"
+            / "RUN_STATUS.json",
+            operational_log=repo
+            / "results"
+            / "003-constraint-status-pressure"
+            / "run-003B"
+            / "operational.log",
+            lock_path=repo
+            / "results"
+            / "003-constraint-status-pressure"
+            / "run-003B"
+            / "RUN_LOCK.json",
+            pid_path=repo
+            / "results"
+            / "003-constraint-status-pressure"
+            / "run-003B"
+            / "RUNNER.pid",
+            stdout_path=repo
+            / "results"
+            / "003-constraint-status-pressure"
+            / "run-003B"
+            / "runner-supervisor.out",
+            canary_log_dir=repo
+            / "results"
+            / "003-constraint-status-pressure"
+            / "run-003B"
+            / "canary",
+            inspect_args=(
+                "--model",
+                "openai/gpt-5.6-sol",
+                "--max-tokens",
+                "4096",
+                "--reasoning-effort",
+                "medium",
+                "--verbosity",
+                "medium",
+                "--no-parallel-tool-calls",
+                "--epochs",
+                "1",
+                "--max-connections",
+                "1",
+                "--log-format",
+                "json",
+                "--tags",
+                "exp003,stage2,run003B,constraint-status-pressure",
+                "--metadata",
+                "experiment_id=003-constraint-status-pressure",
+                "--metadata",
+                "phase=constraint_status_pressure_stage2",
+                "--metadata",
+                "run_id=run-003B",
+                "--metadata",
+                "git_commit=f8294ab172cb556f8a4c1ec4f726947672cc859a",
+                "--max-retries",
+                "3",
+                "--timeout",
+                "60",
+                "--attempt-timeout",
+                "45",
+                "--log-buffer",
+                "1",
+                "--checkpoint",
+                "turn:1",
+                "--display",
+                "plain",
+            ),
+        ),
         "PERSISTENCE_DIAGNOSTIC": RunSpec(
             run_id="PERSISTENCE_DIAGNOSTIC",
             experiment_id="runner-persistence-diagnostic",

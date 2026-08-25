@@ -61,6 +61,12 @@ def test_workflow_inputs_map_to_runner_commands() -> None:
     assert runner_command("stop", "003A")[-2:] == ["stop", "003A"]
     assert runner_command("resume", "003A")[-2:] == ["resume", "003A"]
     assert runner_command("finalize", "003A")[-2:] == ["finalize", "003A"]
+    assert runner_command("start", "003B")[-2:] == ["start", "003B"]
+    assert runner_command("status", "003B")[-2:] == ["status", "003B"]
+    assert runner_command("health", "003B")[-2:] == ["health", "003B"]
+    assert runner_command("stop", "003B")[-2:] == ["stop", "003B"]
+    assert runner_command("resume", "003B")[-2:] == ["resume", "003B"]
+    assert runner_command("finalize", "003B")[-2:] == ["finalize", "003B"]
 
 
 def test_invalid_actions_and_run_ids_fail_safely() -> None:
@@ -77,6 +83,7 @@ def test_workflow_declares_only_supported_dispatch_inputs() -> None:
     assert dispatch["run_id"]["options"] == [
         "002A",
         "003A",
+        "003B",
         "PERSISTENCE_DIAGNOSTIC",
     ]
     assert dispatch["action"]["options"] == [
@@ -96,7 +103,10 @@ def test_secret_values_are_never_printed_by_generated_commands() -> None:
     assert "printenv OPENAI_API_KEY" not in workflow_text
     assert "OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}" in workflow_text
     assert 'test -n "${OPENAI_API_KEY:-}"' in workflow_text
-    assert 'if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" ]]; then' in workflow_text
+    assert (
+        'if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" || "${{ inputs.run_id }}" == "003B" ]]; then'
+        in workflow_text
+    )
     assert 'launchctl setenv OPENAI_API_KEY "${OPENAI_API_KEY}"' in workflow_text
 
 
