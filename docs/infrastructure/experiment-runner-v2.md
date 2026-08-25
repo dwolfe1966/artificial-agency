@@ -28,7 +28,7 @@ python -m artificial_agency.runner resume 002A
 python -m artificial_agency.runner finalize 002A
 ```
 
-`start` launches a detached supervisor process using `subprocess.Popen(..., start_new_session=True)`. The run does not depend on the initiating Codex session remaining alive.
+`start` launches a detached supervisor process. Local non-GitHub starts use `subprocess.Popen(..., start_new_session=True)`. On the self-hosted macOS GitHub Actions runner, Runner v2 hands the supervisor to a per-run user `launchd` job so the process is owned by `launchd`, not by the workflow job that dispatched it.
 
 ## No-Model Persistence Diagnostic
 Use `run_id=PERSISTENCE_DIAGNOSTIC` for the final self-hosted-runner persistence check before production Experiment 002 execution. This diagnostic uses the same GitHub Actions dispatcher and Runner v2 detached supervisor path as production, but its supervisor only writes operational heartbeat/status metadata:
@@ -41,6 +41,8 @@ python -m artificial_agency.runner stop PERSISTENCE_DIAGNOSTIC
 ```
 
 The diagnostic does not run Inspect, does not call OpenAI, does not use Experiment 002 samples, and writes no behavioral or scientific results. Success requires a later workflow invocation to see the same supervisor PID alive with an increased heartbeat count after the launch workflow has exited, followed by clean termination through `stop`.
+
+The first self-hosted-runner check showed that GitHub Actions orphan cleanup terminates a plain `start_new_session=True` descendant at job completion. The macOS runner therefore uses a `launchd` handoff for GitHub-dispatched starts. The workflow remains the remote command dispatcher; `launchd` owns the long-running supervisor.
 
 ## GitHub Actions Remote Dispatch
 Production runs can be dispatched through `.github/workflows/experiment-runner.yml`.
@@ -73,8 +75,14 @@ Configure a repository-scoped self-hosted GitHub Actions runner on the Mac and a
 
 Configure `OPENAI_API_KEY` either as a repository secret named `OPENAI_API_KEY` or through a secure host-level environment available to the self-hosted runner. The workflow never echoes the key.
 
-### Persistence Caveat
-Runner v2 starts its supervisor with `start_new_session=True`. This is intended to survive the workflow step. This must be verified on the actual self-hosted runner without production model execution before first production use. If GitHub Actions job cleanup terminates detached descendants on that host, use a persistent host service handoff such as a macOS `launchd` agent and keep the GitHub workflow as a command dispatcher.
+### Persistence Mechanism
+The self-hosted macOS runner itself is installed with the official GitHub Actions `svc.sh` mechanism as a user LaunchAgent. GitHub-dispatched Runner v2 `start`/`resume` commands then create a per-run LaunchAgent under `~/Library/LaunchAgents/` with a label of the form `artificial-agency.runner-v2.<run-id>`.
+
+The per-run LaunchAgent executes:
+
+`python -m artificial_agency.runner _supervise <run_id>`
+
+This keeps GitHub Actions as the remote dispatcher while ensuring the long-running experiment supervisor is not a descendant owned by the workflow job. Production secrets are not written into the LaunchAgent plist. For production `002A`, the workflow sets `OPENAI_API_KEY` in the user launchd environment before dispatch.
 
 ## State Model
 Typical states:

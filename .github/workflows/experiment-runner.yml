@@ -45,6 +45,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          clean: false
 
       - name: Verify trusted workflow inputs
         shell: bash
@@ -76,6 +77,7 @@ jobs:
               echo "OPENAI_API_KEY is not configured for this runner."
               exit 2
             }
+            launchctl setenv OPENAI_API_KEY "${OPENAI_API_KEY}"
           fi
           .venv/bin/python - <<'PY'
           from artificial_agency.runner.config import known_runs

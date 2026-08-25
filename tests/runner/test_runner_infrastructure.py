@@ -351,3 +351,9 @@ def test_credential_values_are_never_written_to_operational_status_or_logs(
 
 def test_process_alive_detects_current_process() -> None:
     assert process_alive(os.getpid()) is True
+
+
+def test_launchd_label_is_stable_and_safe() -> None:
+    assert supervisor.launchd_label("PERSISTENCE_DIAGNOSTIC") == (
+        "artificial-agency.runner-v2.persistence-diagnostic"
+    )

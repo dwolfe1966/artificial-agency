@@ -81,6 +81,14 @@ def test_secret_values_are_never_printed_by_generated_commands() -> None:
     assert "OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}" in workflow_text
     assert 'test -n "${OPENAI_API_KEY:-}"' in workflow_text
     assert 'if [[ "${{ inputs.run_id }}" == "002A" ]]; then' in workflow_text
+    assert 'launchctl setenv OPENAI_API_KEY "${OPENAI_API_KEY}"' in workflow_text
+
+
+def test_workflow_preserves_runner_runtime_files_between_dispatches() -> None:
+    workflow = load_workflow()
+    checkout = workflow["jobs"]["dispatch"]["steps"][0]
+
+    assert checkout["with"]["clean"] is False
 
 
 def test_workflow_status_health_remain_outcome_blind(

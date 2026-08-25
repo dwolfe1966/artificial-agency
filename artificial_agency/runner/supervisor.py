@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import os
+import plistlib
 import signal
 import subprocess
 import sys
@@ -89,6 +90,91 @@ def build_inspect_command(spec: RunSpec) -> list[str]:
     ]
 
 
+def should_use_launchd_handoff() -> bool:
+    return sys.platform == "darwin" and os.environ.get("GITHUB_ACTIONS") == "true"
+
+
+def launchd_label(run_id: str) -> str:
+    safe = "".join(ch if ch.isalnum() else "-" for ch in run_id.lower()).strip("-")
+    return f"artificial-agency.runner-v2.{safe}"
+
+
+def launchd_plist_path(label: str) -> Path:
+    return Path.home() / "Library" / "LaunchAgents" / f"{label}.plist"
+
+
+def launchctl_target(label: str) -> str:
+    return f"gui/{os.getuid()}/{label}"
+
+
+def launchctl_domain() -> str:
+    return f"gui/{os.getuid()}"
+
+
+def bootout_launchd(label: str) -> None:
+    subprocess.run(
+        ["launchctl", "bootout", launchctl_target(label)],
+        check=False,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+
+
+def launch_via_launchd(spec: RunSpec, command: list[str], env: dict[str, str]) -> dict[str, Any]:
+    label = launchd_label(spec.run_id)
+    plist_path = launchd_plist_path(label)
+    plist_path.parent.mkdir(parents=True, exist_ok=True)
+    spec.stdout_path.parent.mkdir(parents=True, exist_ok=True)
+    launchd_log_dir = Path.home() / "Library" / "Logs" / "artificial-agency-runner-v2"
+    launchd_log_dir.mkdir(parents=True, exist_ok=True)
+
+    plist = {
+        "Label": label,
+        "ProgramArguments": command,
+        "WorkingDirectory": str(repository_root()),
+        "RunAtLoad": True,
+        "EnvironmentVariables": {
+            "PYTHONPATH": env["PYTHONPATH"],
+            "HOME": env["HOME"],
+            "INSPECT_TRACE_FILE": env["INSPECT_TRACE_FILE"],
+            "AA_RUNNER_HANDOFF": "launchd",
+            "PATH": env.get("PATH", os.environ.get("PATH", "")),
+            "PYTHONUNBUFFERED": "1",
+        },
+        "StandardOutPath": str(spec.stdout_path),
+        "StandardErrorPath": str(spec.stdout_path),
+    }
+    with plist_path.open("wb") as handle:
+        plistlib.dump(plist, handle)
+
+    bootout_launchd(label)
+    subprocess.run(
+        ["launchctl", "bootstrap", launchctl_domain(), str(plist_path)],
+        cwd=repository_root(),
+        check=True,
+    )
+    subprocess.run(
+        ["launchctl", "kickstart", "-k", launchctl_target(label)],
+        cwd=repository_root(),
+        check=False,
+    )
+
+    pid = 0
+    status: dict[str, Any] = {}
+    for _ in range(30):
+        status = read_json(spec.status_path, {})
+        pid = int(status.get("supervisor_pid", 0) or 0)
+        if pid and process_alive(pid):
+            break
+        time.sleep(0.5)
+    return {
+        "pid": pid,
+        "label": label,
+        "plist_path": str(plist_path),
+        "status": status,
+    }
+
+
 def launch_detached(run_id: str, *, mock: bool = False) -> dict[str, Any]:
     spec = known_runs()[run_id]
     locked, lock = acquire_lock(spec)
@@ -105,7 +191,6 @@ def launch_detached(run_id: str, *, mock: bool = False) -> dict[str, Any]:
     append_log(spec.operational_log, "runner start requested")
 
     spec.stdout_path.parent.mkdir(parents=True, exist_ok=True)
-    stdout = spec.stdout_path.open("ab")
     command = [
         sys.executable,
         "-m",
@@ -116,6 +201,37 @@ def launch_detached(run_id: str, *, mock: bool = False) -> dict[str, Any]:
     if mock:
         command.append("--mock")
     env = runner_environment(spec)
+    if should_use_launchd_handoff():
+        launch = launch_via_launchd(spec, command, env)
+        pid = int(launch.get("pid", 0) or 0)
+        lock["supervisor_pid"] = pid
+        lock["state"] = "RUNNING"
+        lock["handoff"] = "launchd"
+        lock["launchd_label"] = launch["label"]
+        lock["launchd_plist"] = launch["plist_path"]
+        atomic_write_json(spec.lock_path, lock)
+        if pid:
+            spec.pid_path.write_text(f"{pid}\n", encoding="utf-8")
+        update_status(
+            spec.status_path,
+            state="STARTING",
+            supervisor_pid=pid or None,
+            handoff="launchd",
+            launchd_label=launch["label"],
+            launchd_plist=launch["plist_path"],
+        )
+        write_registry(
+            spec,
+            {
+                "state": "STARTING",
+                "supervisor_pid": pid or None,
+                "start_time": utc_now(),
+                "handoff": "launchd",
+            },
+        )
+        return {"started": True, "supervisor_pid": pid, "status": launch["status"], "handoff": "launchd"}
+
+    stdout = spec.stdout_path.open("ab")
     process = subprocess.Popen(
         command,
         cwd=repository_root(),
@@ -227,7 +343,7 @@ def run_persistence_diagnostic(spec: RunSpec, start: float) -> int:
         state="RUNNING",
         api_health="NOT_USED",
         diagnostic="runner_persistence",
-        persistence_mechanism="subprocess.Popen(start_new_session=True)",
+        persistence_mechanism=os.environ.get("AA_RUNNER_HANDOFF", "subprocess.Popen(start_new_session=True)"),
         heartbeat_count=0,
         last_heartbeat_at=utc_now(),
         no_model_requests=True,
@@ -348,6 +464,7 @@ def health_report(run_id: str) -> str:
 def stop_run(run_id: str) -> str:
     spec = known_runs()[run_id]
     status = read_json(spec.status_path, {})
+    lock = read_json(spec.lock_path, {})
     pid = int(status.get("supervisor_pid", 0) or 0)
     if not pid or not process_alive(pid):
         update_status(spec.status_path, state="STOPPED", stop_reason="no active supervisor")
@@ -356,7 +473,13 @@ def stop_run(run_id: str) -> str:
     try:
         os.killpg(pid, signal.SIGTERM)
     except ProcessLookupError:
-        pass
+        try:
+            os.kill(pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass
+    label = status.get("launchd_label") or lock.get("launchd_label")
+    if label:
+        bootout_launchd(str(label))
     update_status(spec.status_path, state="STOPPING", stop_requested_at=utc_now())
     append_log(spec.operational_log, f"stop requested for process group {pid}")
     return f"RUN {run_id}: stop requested for PID {pid}"
