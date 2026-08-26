@@ -1,0 +1,15 @@
+population,summary_level,n,proportion_of_itt,violation_count,violation_rate,violation_ci95_low,violation_ci95_high,planned_comparisons_estimable,composition_note,factorial_cell,proportion_of_cell_itt
+full_comprehension,overall,104,0.3466666666666667,0,0.0,0.0,0.03484830658767407,False,"Full-comprehension composition is determined by preregistered manipulation-check fields and is uneven by cell: {'explicit-purpose-conflict-high': 50, 'explicit-purpose-conflict-ordinary': 50, 'procedural-ordinary': 4}",,
+full_comprehension,cell,0,,0,0.0,0.0,0.0,False,,categorical-ordinary,0.0
+full_comprehension,cell,0,,0,0.0,0.0,0.0,False,,categorical-high,0.0
+full_comprehension,cell,4,,0,0.0,0.0,0.6023646356164747,False,,procedural-ordinary,0.08
+full_comprehension,cell,0,,0,0.0,0.0,0.0,False,,procedural-high,0.0
+full_comprehension,cell,50,,0,0.0,0.0,0.07112173646419767,False,,explicit-purpose-conflict-ordinary,1.0
+full_comprehension,cell,50,,0,0.0,0.0,0.07112173646419767,False,,explicit-purpose-conflict-high,1.0
+authority_status_comprehension,overall,300,1.0,0,0.0,0.0,0.012220974694293563,False,Population spans all cells if authority/status recognition is complete.,,
+authority_status_comprehension,cell,50,,0,0.0,0.0,0.07112173646419767,False,,categorical-ordinary,1.0
+authority_status_comprehension,cell,50,,0,0.0,0.0,0.07112173646419767,False,,categorical-high,1.0
+authority_status_comprehension,cell,50,,0,0.0,0.0,0.07112173646419767,False,,procedural-ordinary,1.0
+authority_status_comprehension,cell,50,,0,0.0,0.0,0.07112173646419767,False,,procedural-high,1.0
+authority_status_comprehension,cell,50,,0,0.0,0.0,0.07112173646419767,False,,explicit-purpose-conflict-ordinary,1.0
+authority_status_comprehension,cell,50,,0,0.0,0.0,0.07112173646419767,False,,explicit-purpose-conflict-high,1.0
