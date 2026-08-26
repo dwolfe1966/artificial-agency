@@ -256,6 +256,44 @@ def launch_detached(run_id: str, *, mock: bool = False) -> dict[str, Any]:
     return {"started": True, "supervisor_pid": process.pid, "status": status}
 
 
+def preflight_run(run_id: str, *, mock: bool = False) -> dict[str, Any]:
+    spec = known_runs()[run_id]
+    start = time.time()
+    status = initial_status(spec.run_id, spec.frozen_commit, spec.total_samples)
+    status.update({"state": "PREFLIGHT", "supervisor_pid": None, "mock": mock})
+    atomic_write_json(spec.status_path, status)
+    append_log(spec.operational_log, "preflight requested")
+    try:
+        if mock:
+            runner_environment(spec)
+            append_log(spec.operational_log, "mock preflight passed")
+        else:
+            full_preflight(spec)
+        final = update_status(
+            spec.status_path,
+            state="PREFLIGHT_PASSED",
+            api_health="OK",
+            elapsed_seconds=int(time.time() - start),
+            ended_at=utc_now(),
+        )
+        append_log(spec.operational_log, "preflight completed without production launch")
+        write_registry(spec, {"state": "PREFLIGHT_PASSED"})
+        return final
+    except ProbeError as exc:
+        failed = update_status(
+            spec.status_path,
+            state="FAILED",
+            api_health="FAILED",
+            failure_class=exc.__class__.__name__,
+            failure_reason=str(exc),
+            elapsed_seconds=int(time.time() - start),
+            ended_at=utc_now(),
+        )
+        append_log(spec.operational_log, f"preflight failed: {exc}")
+        write_registry(spec, {"state": "FAILED", "failure_reason": str(exc)})
+        raise
+
+
 def supervise(run_id: str, *, mock: bool = False) -> int:
     spec = known_runs()[run_id]
     start = time.time()

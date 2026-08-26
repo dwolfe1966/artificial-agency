@@ -44,6 +44,7 @@ def test_workflow_inputs_map_to_runner_commands() -> None:
         "start",
         "002A",
     ]
+    assert runner_command("preflight", "002A")[-2:] == ["preflight", "002A"]
     assert runner_command("status", "002A")[-2:] == ["status", "002A"]
     assert runner_command("health", "002A")[-2:] == ["health", "002A"]
     assert runner_command("stop", "002A")[-2:] == ["stop", "002A"]
@@ -80,12 +81,14 @@ def test_workflow_inputs_map_to_runner_commands() -> None:
     assert runner_command("resume", "004B")[-2:] == ["resume", "004B"]
     assert runner_command("finalize", "004B")[-2:] == ["finalize", "004B"]
     assert runner_command("start", "005B")[-2:] == ["start", "005B"]
+    assert runner_command("preflight", "005B")[-2:] == ["preflight", "005B"]
     assert runner_command("status", "005B")[-2:] == ["status", "005B"]
     assert runner_command("health", "005B")[-2:] == ["health", "005B"]
     assert runner_command("stop", "005B")[-2:] == ["stop", "005B"]
     assert runner_command("resume", "005B")[-2:] == ["resume", "005B"]
     assert runner_command("finalize", "005B")[-2:] == ["finalize", "005B"]
     assert runner_command("start", "005C")[-2:] == ["start", "005C"]
+    assert runner_command("preflight", "005C")[-2:] == ["preflight", "005C"]
     assert runner_command("status", "005C")[-2:] == ["status", "005C"]
     assert runner_command("health", "005C")[-2:] == ["health", "005C"]
     assert runner_command("stop", "005C")[-2:] == ["stop", "005C"]
@@ -116,6 +119,7 @@ def test_workflow_declares_only_supported_dispatch_inputs() -> None:
     ]
     assert dispatch["action"]["options"] == [
         "start",
+        "preflight",
         "status",
         "health",
         "stop",

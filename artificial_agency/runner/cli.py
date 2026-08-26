@@ -8,6 +8,7 @@ from .supervisor import (
     finalize_run,
     health_report,
     launch_detached,
+    preflight_run,
     resume_run,
     status_report,
     stop_run,
@@ -18,7 +19,7 @@ from .supervisor import (
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="python -m artificial_agency.runner")
     sub = parser.add_subparsers(dest="command", required=True)
-    for name in ("start", "resume"):
+    for name in ("start", "resume", "preflight"):
         p = sub.add_parser(name)
         p.add_argument("run_id")
         p.add_argument("--mock", action="store_true")
@@ -42,6 +43,9 @@ def main(argv: list[str] | None = None) -> None:
             print(f"Run {args.run_id} supervisor started: PID {result['supervisor_pid']}")
     elif args.command == "status":
         print(status_report(args.run_id))
+    elif args.command == "preflight":
+        result = preflight_run(args.run_id, mock=args.mock)
+        print(f"Run {args.run_id} preflight: {result.get('state', 'UNKNOWN')}")
     elif args.command == "health":
         print(health_report(args.run_id))
     elif args.command == "stop":
@@ -65,4 +69,3 @@ def main(argv: list[str] | None = None) -> None:
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-

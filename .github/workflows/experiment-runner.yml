@@ -22,6 +22,7 @@ on:
         type: choice
         options:
           - start
+          - preflight
           - status
           - health
           - stop
@@ -64,7 +65,7 @@ jobs:
             *) echo "Unsupported run_id"; exit 2 ;;
           esac
           case "${{ inputs.action }}" in
-            start|status|health|stop|resume|finalize) ;;
+            start|preflight|status|health|stop|resume|finalize) ;;
             *) echo "Unsupported action"; exit 2 ;;
           esac
 
@@ -75,6 +76,12 @@ jobs:
           python3 -m venv .venv
           .venv/bin/python -m pip install --upgrade pip
           .venv/bin/python -m pip install -e ".[dev]"
+          if [[ "${{ inputs.run_id }}" == "005B" ]]; then
+            .venv/bin/python -m pip install "anthropic>=0.39.0"
+          fi
+          if [[ "${{ inputs.run_id }}" == "005C" ]]; then
+            .venv/bin/python -m pip install "google-genai>=1.0.0"
+          fi
 
       - name: Verify execution context
         shell: bash

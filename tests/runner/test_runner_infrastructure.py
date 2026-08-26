@@ -195,6 +195,34 @@ def test_successful_canary_allows_preflight_to_complete(
     assert env["PYTHONPATH"]
 
 
+def test_preflight_command_does_not_launch_production(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec = make_spec(tmp_path)
+    probes = PassingProbes()
+    monkeypatch.setattr(supervisor, "known_runs", lambda: {"002A": spec})
+    monkeypatch.setattr(
+        "artificial_agency.runner.preflight.scientific_preflight",
+        lambda spec: None,
+    )
+    monkeypatch.setattr(
+        "artificial_agency.runner.preflight.environment_preflight",
+        lambda spec, env: None,
+    )
+    monkeypatch.setattr(
+        supervisor,
+        "full_preflight",
+        lambda spec: full_preflight(spec, probes),
+    )
+
+    status = supervisor.preflight_run("002A")
+
+    assert status["state"] == "PREFLIGHT_PASSED"
+    assert status["api_health"] == "OK"
+    assert "inspect_pid" not in status
+    assert probes.calls == ["dns", "https", "auth", "canary"]
+
+
 def test_status_does_not_expose_behavioral_results(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

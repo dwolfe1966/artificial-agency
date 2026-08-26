@@ -3,7 +3,15 @@ from __future__ import annotations
 from .config import known_runs
 
 RUNNER_LABELS = ("self-hosted", "macOS", "artificial-agency")
-SUPPORTED_ACTIONS = ("start", "status", "health", "stop", "resume", "finalize")
+SUPPORTED_ACTIONS = (
+    "start",
+    "preflight",
+    "status",
+    "health",
+    "stop",
+    "resume",
+    "finalize",
+)
 
 
 def runner_command(action: str, run_id: str) -> list[str]:
