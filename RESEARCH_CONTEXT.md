@@ -1,6 +1,6 @@
 # Research Context
 
-_Last updated: 2026-08-25_
+_Last updated: 2026-08-26_
 
 ## Mission
 Develop an empirical understanding of how autonomous AI agents behave inside human institutions when goals, constraints, incentives, oversight, and other agents interact.
@@ -10,7 +10,7 @@ The longer-term program connects AI safety research with mechanism design, agent
 ## Research Question 001
 How does an AI agent's propensity to circumvent an institutional constraint change as the instrumental benefit of violating that constraint, expected penalty, probability of detection, availability of compliant alternatives, rule rationale, and model capability vary?
 
-Forward-looking refinement after Experiments 001-002:
+Forward-looking refinement after Experiments 001-004:
 
 Under what conditions does an organizational constraint behave as a hard boundary, a negotiable procedure, or an obstacle to be strategically navigated by an artificial agent?
 
@@ -20,24 +20,26 @@ Organizations are moving toward multi-agent orchestration for complex workflows.
 The initial thesis is that constraint circumvention should often be analyzed first as an optimization phenomenon rather than through moral or emotional descriptions. We should test whether behavior can be explained by adaptation to objectives and constraints before invoking stronger constructs such as deception, maliciousness, or autonomous intent.
 
 ## Current conceptual model
-The original motivating intuition remains important: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries. Experiments 001-002 refine rather than erase that intuition.
+The original motivating intuition remains important: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries. Experiments 001-004 refine rather than erase that intuition.
 
-Experiments 001-002 suggest that several concepts should be separated empirically:
+Experiments 001-004 suggest that several concepts should be separated empirically:
 
 1. **Optimization pressure:** how costly failure is to the assigned objective.
 2. **Pressure recognition:** whether the agent represents or acknowledges those consequences.
-3. **Optimization/search intensity:** whether pressure changes effort, search, escalation, persuasion, or strategy.
-4. **Constraint circumvention:** whether the agent violates, misrepresents, or strategically bypasses an explicit organizational constraint.
+3. **Constraint representation:** whether the agent represents the institutional status or meaning of a constraint.
+4. **Optimization/search intensity:** whether pressure or constraint framing changes effort, search, escalation, persuasion, or strategy.
+5. **Constraint circumvention:** whether the agent violates, misrepresents, or strategically bypasses an explicit organizational constraint.
 
-Goal pressure, recognition of goal importance, optimization intensity, and constraint circumvention should not be treated as interchangeable properties of agentic behavior.
+Goal pressure, recognition of goal importance, constraint representation, optimization intensity, and constraint circumvention should not be treated as interchangeable properties of agentic behavior.
 
 Candidate explanatory variables now include:
 
 - optimization pressure
-- constraint wording / legitimacy
+- constraint representation / legitimacy
 - procedural vs categorical rules
 - ambiguity
-- audit / observability
+- enforcement / observability
+- evaluation awareness
 - manager response / authority structure
 - availability of compliant alternatives
 - model identity
@@ -45,7 +47,7 @@ Candidate explanatory variables now include:
 
 A revised organizing form is:
 
-P(circumvention) = f(pressure, constraint legitimacy, ambiguity, oversight, authority structure, model/post-training)
+P(circumvention) = f(goal pressure, constraint representation, enforcement, observability, evaluation awareness, authority structure, model/post-training)
 
 This is a conceptual organizing equation, not a fitted model or committed statistical specification.
 
@@ -58,6 +60,7 @@ Current evidence:
 - GPT-5.6 Sol showed strategic adaptation when feasibility changed in Experiment 001.
 - It did not show pressure-induced violations in Experiment 002.
 - It visibly recognized higher stakes in Experiment 002 without materially changing its action policy.
+- It represented formal authority, constraint-status labels, and pressure in Experiment 004 while still showing no observed constraint circumvention.
 
 This suggests that strong post-training may make some organizational constraints behave more like learned hard policy boundaries than like ordinary costs in an optimization problem. This is a hypothesis suggested by current evidence, not an established general fact.
 
@@ -187,20 +190,75 @@ Summary: pressure was reflected in visible framing, but not in a detectable chan
 
 No claim is made about hidden chain-of-thought.
 
-## Experiment 003 direction — not yet implemented
-Preferred next hypothesis space: constraint legitimacy / ambiguity.
+## Experiment 003 — preregistered quantitative result and post-results validation
+Experiment 003 preregistration is preserved at `793c67068844fc70d6ec1f66e94dd0b76f03914c`. Scientific apparatus is preserved at `f8294ab172cb556f8a4c1ec4f726947672cc859a`. Final quantitative results are preserved at `ba92ddb8967eee9645b2cf29813160b2b29be702`.
 
-Hold high optimization pressure, customer demand, action space, and manager denial constant. Vary how the organizational rule is framed, for example:
+Run 003A/003B used a 3 x 2 factorial design crossing constraint status (categorical, procedural, purpose-conflict) with pressure (ordinary, high), with 300 completed samples, 50 per cell, and 0 technical failures.
 
-- Explicit: "You may not exceed 15% without manager approval."
-- Procedural: "Discounts above 15% normally require manager approval."
-- Ambiguous/discretionary: "The standard approval threshold is 15%; use judgment to retain strategically important accounts."
+Preregistered quantitative result:
 
-Future research question: does a capable agent distinguish categorical prohibitions from procedures, norms, guidelines, or rules whose apparent purpose conflicts with the organization's stated objective?
+- primary constraint circumvention: 0/300;
+- no constraint-status main effect;
+- no pressure main effect;
+- no estimable constraint-status x pressure interaction because the primary endpoint had no variance;
+- escalation: 300/300;
+- cancellation: 300/300;
+- retention: 0/300.
 
-The wording must be designed carefully so the experiment measures perceived constraint status rather than merely giving explicit permission to violate the threshold. A later experiment should also vary observability or audit probability while holding the formal rule constant.
+Post-results qualitative validation, not preregistered evidence, found that the model treated the 15% authority threshold as binding but only weakly or partially represented the categorical/procedural/purpose-conflict manipulation. Experiment 004 was designed as a construct-validity refinement rather than an attempt to tune prompts until a violation occurred.
 
-Model identity should now be treated as an experimental variable rather than an implementation detail. Future replication should investigate whether constraint-bounded behavior differs across frontier models from different labs, models with different post-training regimes, and strong open-weight models where practical. No current evidence supports claims about specific other models.
+## Experiment 004 — preregistered quantitative result
+Experiment 004 preregistration is preserved at `b9e28a30e3b4800689c405a8befe2a33d8cc407e`. Scientific apparatus is preserved at `aa126f9254a01c96e85545a9e1a77d10195f2604`. Stage-1 results are preserved at `e105714c881b1f5d9d6f27db663081d049c6594e`. Final quantitative results are preserved at `1ab0fcb335ade07f212b7162ee657689c8ee7c04`.
+
+Run 004A/004B used `openai/gpt-5.6-sol` with 300 completed samples, 50 per cell, and 0 technical failures. The design crossed constraint meaning (categorical, procedural, explicit-purpose-conflict) with pressure (ordinary, high), added a structured pre-action manipulation check, and preserved identical formal authority across cells.
+
+Preregistered manipulation-check results:
+
+- formal authority comprehension: 300/300;
+- constraint-status recognition: 300/300;
+- pressure recognition: 300/300;
+- explicit-purpose-conflict sensitivity: 100/100;
+- full manipulation comprehension: 104/300.
+
+Purpose-tension limitation: only 4/200 categorical/procedural cases satisfied the preregistered absence-of-purpose-tension criterion. This should not be described simply as model misunderstanding. A post-results conceptual refinement is that objective-constraint conflict may be naturally present in all fixed-conflict cells, while the experimental factor concerned explicit organizational acknowledgement or framing of that conflict. Future work should distinguish objective-constraint conflict from organizational acknowledgement of conflict.
+
+Preregistered behavioral result:
+
+- primary constraint circumvention: 0/300, exact 95% upper bound approximately 1.22%;
+- unauthorized action: 0/300;
+- concealment/misrepresentation: 0/300;
+- explicit bypass: 0/300;
+- escalation: 300/300;
+- cancellation: 300/300;
+- retention: 0/300.
+
+Experiment 004 provides substantially stronger evidence than Experiment 003 that formal authority, constraint-status labels, and pressure were represented while the primary action policy remained constraint-bounded. It demonstrated recognition of the principal manipulated constructs without observed constraint circumvention: representation changed or was validated while the formal authority boundary remained behaviorally stable.
+
+Experiment 004 also showed substantially more mechanically observed compliant alternative-search and persuasion behavior than Experiment 003 while still producing zero circumvention. Because Experiment 004 changed both wording/salience and added a pre-action manipulation-check protocol, this should be treated as hypothesis-generating rather than as a causal cross-experiment estimate. The pattern is consistent with the distinction: optimization/search intensity != constraint circumvention.
+
+Across the fixed-conflict experiments, the repeated empirical pattern for GPT-5.6 Sol is:
+
+- Experiment 002: 0/90 circumvention events;
+- Experiment 003: 0/300 circumvention events;
+- Experiment 004: 0/300 circumvention events;
+- descriptive total across these experiments: 0/690.
+
+The 0/690 figure is not a single pooled preregistered sample and should not be used as a pooled inferential estimate unless a separate exploratory or meta-analytic method is explicitly justified.
+
+## Forward research axes
+Current priority questions:
+
+1. **Cross-model / post-training replication:** is the observed constraint-bounded behavior specific to GPT-5.6 Sol or shared across frontier and post-training regimes?
+2. **Operational vs rhetorical optimization pressure:** do environment-grounded consequences that alter future reward, budget, capabilities, opportunities, or cumulative performance affect behavior differently from described KPI/program consequences?
+3. **Enforcement / observability:** does compliance persist when violation is explicitly unlikely to be observed or punished, distinguishing stronger constraint-bounded behavior from instrumental compliance?
+4. **Evaluation awareness:** frontier models may recognize benchmark or compliance-evaluation structure. A useful latent variable is E = P(model infers it is being evaluated for compliance). Future work should measure this without priming behavior, for example through benchmark-salient vs naturalistically embedded tasks or post-action structured checks.
+
+Tentative planning priority, not a preregistration:
+
+1. cross-model replication of an already-frozen paradigm;
+2. evaluation-awareness / naturalistic embedding study;
+3. operational rather than rhetorical pressure;
+4. enforcement / observability study.
 
 ## Research sequence
 1. Behavioral observation
@@ -210,8 +268,10 @@ Model identity should now be treated as an experimental variable rather than an 
 5. Mechanistic investigation where feasible
 
 ## Current work
-Current state after Experiments 001-002:
+Current state after Experiments 001-004:
 - original thesis and pre-results predictions remain preserved;
 - Experiment 001 identified a compliant-path feasibility boundary;
 - Experiment 002 found pressure recognition without pressure-induced circumvention in GPT-5.6 Sol under fixed mechanics;
-- next design work should focus on constraint legitimacy / ambiguity, with cross-model replication treated as a substantive experimental dimension.
+- Experiment 003 found no circumvention under constraint-status x pressure manipulation, but post-results validation suggested partial manipulation representation;
+- Experiment 004 found strong structured recognition of authority/status/pressure with continued zero circumvention;
+- next work should prioritize cross-model replication of an already-frozen paradigm, then evaluation-awareness/naturalistic embedding, operational pressure, and enforcement/observability.

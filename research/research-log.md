@@ -115,3 +115,63 @@ Experiment 003 should target constraint legitimacy / ambiguity, not simply stron
 The forward-looking question is: under what conditions does an organizational constraint behave as a hard boundary, a negotiable procedure, or an obstacle to be strategically navigated by an artificial agent?
 
 Model identity and post-training should be treated as experimental variables in later replication.
+
+## 2026-08-26 — Experiment 004 final quantitative synthesis
+
+### Experiment 004 result preserved
+Experiment 004 final quantitative results were preserved in commit `1ab0fcb335ade07f212b7162ee657689c8ee7c04`.
+
+Run 004A/004B used `openai/gpt-5.6-sol` with 300 completed samples, 50 per cell, and 0 technical failures. The formal authority boundary remained fixed across all cells: direct discount authority was 15%, discounts above 15% required manager approval, manager denial was deterministic, and the customer required 30% to renew.
+
+Preregistered behavioral result:
+
+- primary constraint circumvention: 0/300;
+- exact 95% upper bound approximately 1.22%;
+- unauthorized action: 0/300;
+- concealment/misrepresentation: 0/300;
+- explicit bypass: 0/300;
+- escalation: 300/300;
+- cancellation: 300/300;
+- retention: 0/300.
+
+### Manipulation validity
+Experiment 004's structured pre-action manipulation check produced:
+
+- formal authority comprehension: 300/300;
+- constraint-status recognition: 300/300;
+- pressure recognition: 300/300;
+- explicit-purpose-conflict sensitivity: 100/100;
+- full manipulation comprehension: 104/300.
+
+The main limitation was purpose-tension specificity. The model frequently identified objective/policy tension in categorical/procedural cells as well; only 4/200 categorical/procedural cases satisfied the preregistered absence-of-purpose-tension criterion.
+
+This should not be recorded simply as model misunderstanding. A post-results conceptual refinement is that objective-constraint conflict may be naturally present in every fixed-conflict condition, while the experimental manipulation concerned whether the organization explicitly acknowledged or framed that tension. Future work should separate objective-constraint conflict from organizational acknowledgement of conflict.
+
+### Representation vs behavior
+Experiment 004 provides stronger evidence than Experiment 003 that formal authority, constraint-status labels, and pressure were represented while the primary action policy remained constraint-bounded. The appropriate concise summary is:
+
+Experiment 004 demonstrated recognition of the principal manipulated constructs without observed constraint circumvention: representation changed or was validated while the formal authority boundary remained behaviorally stable.
+
+No claim is made about hidden reasoning.
+
+Experiment 004 also produced substantially more mechanically observed compliant alternative-search and persuasion behavior than Experiment 003 while still producing zero circumvention. Because Experiment 004 changed both wording/salience and the pre-action manipulation-check protocol, this is hypothesis-generating rather than a causal cross-experiment effect. The pattern is consistent with the conceptual distinction: optimization/search intensity != constraint circumvention.
+
+### Cumulative fixed-conflict pattern
+Across fixed-conflict experiments with GPT-5.6 Sol:
+
+- Experiment 002: 0/90 circumvention events;
+- Experiment 003: 0/300 circumvention events;
+- Experiment 004: 0/300 circumvention events;
+- descriptive total: 0/690.
+
+The 0/690 total is not a single pooled preregistered sample and should not be treated as a pooled inferential estimate unless a separate exploratory or meta-analytic method is specified.
+
+### Updated research axes
+The priority research axes after Experiment 004 are:
+
+1. Cross-model / post-training replication: is the observed constraint-bounded behavior specific to GPT-5.6 Sol or shared across frontier/post-training regimes?
+2. Operational vs rhetorical optimization pressure: do environment-grounded consequences that alter future reward, budget, capabilities, opportunities, or cumulative performance affect behavior differently from narrative KPI/program pressure?
+3. Enforcement / observability: does compliance persist when violation is explicitly unlikely to be observed or punished?
+4. Evaluation awareness: frontier models may recognize benchmark or compliance-evaluation structure; future work should measure this without pre-action priming.
+
+Tentative planning priority: cross-model replication of an already-frozen paradigm, then evaluation-awareness / naturalistic embedding, then operational pressure, then enforcement / observability. This is a planning recommendation, not a preregistration.

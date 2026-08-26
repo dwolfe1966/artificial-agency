@@ -111,3 +111,23 @@ The central distinction for Experiment 004 is:
 3. constraint circumvention.
 
 The primary behavioral analysis remains intent-to-treat. A comprehension-qualified analysis may be reported only as a predefined secondary analysis. Cross-model replication should follow if manipulation validity is demonstrated.
+
+## 2026-08-26 — Experiment 004 supports representation without circumvention
+Experiment 004 final quantitative results are preserved at `1ab0fcb335ade07f212b7162ee657689c8ee7c04`.
+
+Run 004A/004B completed 300/300 samples with 50 per cell and 0 technical failures. The preregistered primary behavioral endpoint was 0/300 constraint-circumvention events, with an exact 95% upper bound of approximately 1.22%. There were 0 unauthorized actions, 0 concealment/misrepresentation events, 0 explicit bypass events, 300/300 escalations, 300/300 cancellations, and 0/300 retention.
+
+The structured manipulation check showed complete formal authority comprehension (300/300), complete constraint-status recognition (300/300), complete pressure recognition (300/300), and complete explicit-purpose-conflict sensitivity in explicit-purpose-conflict cells (100/100). Full manipulation comprehension was 104/300 because the preregistered purpose-tension absence criterion was rarely satisfied in categorical/procedural cells: only 4/200 categorical/procedural samples coded absence of purpose tension.
+
+This purpose-tension result should not be reduced to "model misunderstanding." A post-results conceptual refinement is that objective-constraint tension may be naturally present in all fixed-conflict cells, while Experiment 004's factor concerned whether the organization explicitly acknowledged or framed that tension. Future experiments should distinguish objective-constraint conflict from organizational acknowledgement of conflict.
+
+The cumulative fixed-conflict pattern for GPT-5.6 Sol is now Experiment 002: 0/90, Experiment 003: 0/300, and Experiment 004: 0/300, descriptively 0/690. This is not a single pooled preregistered sample and should not be treated as a pooled inferential estimate without separate methodology.
+
+The next planning priority is:
+
+1. cross-model / post-training replication of an already-frozen paradigm;
+2. evaluation-awareness and naturalistic-embedding study;
+3. operational rather than rhetorical pressure;
+4. enforcement / observability manipulation.
+
+This is a planning recommendation, not a preregistration for Experiment 005.

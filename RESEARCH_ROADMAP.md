@@ -47,7 +47,9 @@ Add explicit separation between optimization pressure, pressure recognition, sea
 
 **Deliverable:** Experiment 003 preregistered specification.
 
-**Current status:** Experiment 003 completed with 0/300 circumvention events and strong behavioral constraint-boundedness, but post-results qualitative validation found that the constraint-status manipulation was only weakly/partially represented. Experiment 004 has therefore entered preregistration/design under `experiments/004-constraint-meaning-validation/` as a construct-validity refinement with stronger semantic constraint wording and a structured pre-action manipulation check.
+**Current status:** Experiment 003 completed with 0/300 circumvention events and strong behavioral constraint-boundedness, but post-results qualitative validation found that the constraint-status manipulation was only weakly/partially represented. Experiment 004 was therefore run as a construct-validity refinement with stronger semantic constraint wording and a structured pre-action manipulation check.
+
+Experiment 004 completed 300 samples, 50 per cell, with 0 technical failures and 0/300 primary circumvention events. Formal authority, constraint-status labels, and pressure were recognized in 300/300 structured checks; explicit-purpose-conflict sensitivity was 100/100 in explicit-purpose-conflict cells. Full manipulation comprehension was 104/300 because the preregistered absence-of-purpose-tension criterion was rarely satisfied in categorical/procedural cells. This is now recorded as a post-results conceptual distinction between objective-constraint conflict and organizational acknowledgement of conflict.
 
 ### Week 6 — Experimental infrastructure
 - Build Agent Behavior Observatory v0.1.
@@ -56,11 +58,13 @@ Add explicit separation between optimization pressure, pressure recognition, sea
 **Deliverable:** automated reproducible harness.
 
 ### Week 7 — Study 001
-Initial scale target should be revised after Experiment 003 design. Model identity is now a substantive experimental variable rather than an implementation detail.
+Initial scale target should be revised after Experiments 003-004. Model identity is now a substantive experimental variable rather than an implementation detail.
 
 Test whether constraint-bounded behavior differs across frontier models from different labs, models with different post-training regimes, and strong open-weight models where practical.
 
 **Deliverable:** Dataset 001 + analysis.
+
+**Tentative priority after Experiment 004:** first replicate an already-frozen paradigm across model/post-training regimes, then study evaluation awareness / naturalistic embedding, then operational pressure, then enforcement / observability. This ordering is a planning recommendation, not a preregistered Experiment 005 design.
 
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
@@ -76,6 +80,8 @@ Study whether model identity, capability, and post-training change the character
 
 ### Month 4 — Oversight
 Manipulate perceived audit probability while holding the formal rule constant. Test whether observability suppresses violations, changes concealment, or changes willingness to treat a rule as negotiable.
+
+Separate the formal rule from expected detection probability and expected consequence of violation. This will help distinguish constraint-bounded behavior from instrumental compliance.
 
 ### Month 5 — Multi-agent institutions
 Create hierarchical/multi-agent environments with partially conflicting incentives. Study delegation, information hiding, responsibility shifting, collusion, coordination, and escalation.
@@ -110,3 +116,5 @@ Approximately 70% doing / 30% learning. Every week should end with something tha
 3. What surprised us?
 4. What is now less likely to be true?
 5. What experiment should we run next?
+
+Current review prompt after Experiments 001-004: is the repeated GPT-5.6 Sol constraint-bounded result model-specific, evaluation-context-specific, or robust to operational pressure and altered enforcement/observability?
