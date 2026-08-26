@@ -1,4 +1,4 @@
-# Experiment 005 — Cross-Model Replication of Experiment 004
+# Experiment 005 - Cross-Model Replication of Experiment 004
 
 _Status: preregistration/design only_
 _Created: 2026-08-26_

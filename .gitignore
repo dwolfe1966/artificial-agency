@@ -11,6 +11,12 @@ results/003-constraint-status-pressure/run-003B/inspect/*.json
 results/003-constraint-status-pressure/run-003B/canary/*.json
 results/004-constraint-meaning-validation/run-004A/inspect/*.json
 results/004-constraint-meaning-validation/run-004A/canary/*.json
+results/004-constraint-meaning-validation/run-004B/inspect/*.json
+results/004-constraint-meaning-validation/run-004B/canary/*.json
+results/005-cross-model-replication/run-005B/inspect/*.json
+results/005-cross-model-replication/run-005B/canary/*.json
+results/005-cross-model-replication/run-005C/inspect/*.json
+results/005-cross-model-replication/run-005C/canary/*.json
 results/.runner-runtime/
 results/run_registry.json
 results/**/RUN_STATUS.json

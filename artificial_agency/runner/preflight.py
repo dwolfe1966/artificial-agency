@@ -21,9 +21,11 @@ class ProbeError(RuntimeError):
 
 
 class ProbeSet(Protocol):
-    def dns(self) -> None: ...
-    def https(self) -> None: ...
-    def auth(self, env: dict[str, str]) -> None: ...
+    def dns(self, model: str = "openai/gpt-5.6-sol") -> None: ...
+    def https(self, model: str = "openai/gpt-5.6-sol") -> None: ...
+    def auth(
+        self, env: dict[str, str], model: str = "openai/gpt-5.6-sol"
+    ) -> None: ...
     def canary(self, spec: RunSpec, env: dict[str, str]) -> None: ...
 
 
@@ -31,12 +33,33 @@ class RealProbes:
     def __init__(self, timeout: float = 10.0) -> None:
         self.timeout = timeout
 
-    def dns(self) -> None:
-        socket.getaddrinfo("api.openai.com", 443)
+    def _provider_host(self, model: str) -> str:
+        if model.startswith("anthropic/"):
+            return "api.anthropic.com"
+        if model.startswith("google/"):
+            return "generativelanguage.googleapis.com"
+        return "api.openai.com"
 
-    def https(self) -> None:
+    def _provider_url(self, model: str) -> str:
+        if model.startswith("anthropic/"):
+            return "https://api.anthropic.com/v1/models"
+        if model.startswith("google/"):
+            return "https://generativelanguage.googleapis.com"
+        return "https://api.openai.com/v1/models"
+
+    def _provider_key_name(self, model: str) -> str:
+        if model.startswith("anthropic/"):
+            return "ANTHROPIC_API_KEY"
+        if model.startswith("google/"):
+            return "GOOGLE_API_KEY"
+        return "OPENAI_API_KEY"
+
+    def dns(self, model: str = "openai/gpt-5.6-sol") -> None:
+        socket.getaddrinfo(self._provider_host(model), 443)
+
+    def https(self, model: str = "openai/gpt-5.6-sol") -> None:
         request = urllib.request.Request(
-            "https://api.openai.com/v1/models",
+            self._provider_url(model),
             method="HEAD",
         )
         try:
@@ -45,12 +68,19 @@ class RealProbes:
         except HTTPError:
             return
 
-    def auth(self, env: dict[str, str]) -> None:
-        api_key = env.get("OPENAI_API_KEY")
+    def auth(self, env: dict[str, str], model: str = "openai/gpt-5.6-sol") -> None:
+        key_name = self._provider_key_name(model)
+        api_key = env.get(key_name)
         if not api_key:
-            raise ProbeError("OPENAI_API_KEY is not present")
-        client = OpenAI(api_key=api_key, timeout=self.timeout, max_retries=0)
-        client.models.list()
+            raise ProbeError(f"{key_name} is not present")
+        if model.startswith("openai/"):
+            client = OpenAI(api_key=api_key, timeout=self.timeout, max_retries=0)
+            client.models.list()
+            return
+        # Anthropic and Google authenticated connectivity is exercised by the
+        # provider-specific Inspect canary. Avoid duplicating provider SDK logic
+        # here so secrets are not printed or committed in diagnostic code.
+        return
 
     def canary(self, spec: RunSpec, env: dict[str, str]) -> None:
         spec.canary_log_dir.mkdir(parents=True, exist_ok=True)
@@ -243,12 +273,12 @@ def full_preflight(spec: RunSpec, probes: ProbeSet | None = None) -> dict[str, s
     append_log(spec.operational_log, "git and dataset integrity passed")
     environment_preflight(spec, env)
     append_log(spec.operational_log, "environment and dry-load passed")
-    probes.dns()
+    probes.dns(spec.model)
     append_log(spec.operational_log, "DNS passed")
-    probes.https()
+    probes.https(spec.model)
     append_log(spec.operational_log, "HTTPS connectivity passed")
-    probes.auth(env)
-    append_log(spec.operational_log, "OpenAI authentication passed")
+    probes.auth(env, spec.model)
+    append_log(spec.operational_log, "provider authentication precheck passed")
     probes.canary(spec, env)
     append_log(spec.operational_log, "operational canary passed")
     return env

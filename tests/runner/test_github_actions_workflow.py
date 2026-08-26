@@ -79,6 +79,18 @@ def test_workflow_inputs_map_to_runner_commands() -> None:
     assert runner_command("stop", "004B")[-2:] == ["stop", "004B"]
     assert runner_command("resume", "004B")[-2:] == ["resume", "004B"]
     assert runner_command("finalize", "004B")[-2:] == ["finalize", "004B"]
+    assert runner_command("start", "005B")[-2:] == ["start", "005B"]
+    assert runner_command("status", "005B")[-2:] == ["status", "005B"]
+    assert runner_command("health", "005B")[-2:] == ["health", "005B"]
+    assert runner_command("stop", "005B")[-2:] == ["stop", "005B"]
+    assert runner_command("resume", "005B")[-2:] == ["resume", "005B"]
+    assert runner_command("finalize", "005B")[-2:] == ["finalize", "005B"]
+    assert runner_command("start", "005C")[-2:] == ["start", "005C"]
+    assert runner_command("status", "005C")[-2:] == ["status", "005C"]
+    assert runner_command("health", "005C")[-2:] == ["health", "005C"]
+    assert runner_command("stop", "005C")[-2:] == ["stop", "005C"]
+    assert runner_command("resume", "005C")[-2:] == ["resume", "005C"]
+    assert runner_command("finalize", "005C")[-2:] == ["finalize", "005C"]
 
 
 def test_invalid_actions_and_run_ids_fail_safely() -> None:
@@ -98,6 +110,8 @@ def test_workflow_declares_only_supported_dispatch_inputs() -> None:
         "003B",
         "004A",
         "004B",
+        "005B",
+        "005C",
         "PERSISTENCE_DIAGNOSTIC",
     ]
     assert dispatch["action"]["options"] == [
@@ -116,7 +130,11 @@ def test_secret_values_are_never_printed_by_generated_commands() -> None:
     assert "echo $OPENAI_API_KEY" not in workflow_text
     assert "printenv OPENAI_API_KEY" not in workflow_text
     assert "OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}" in workflow_text
+    assert "ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}" in workflow_text
+    assert "GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}" in workflow_text
     assert 'test -n "${OPENAI_API_KEY:-}"' in workflow_text
+    assert 'test -n "${ANTHROPIC_API_KEY:-}"' in workflow_text
+    assert 'test -n "${GOOGLE_API_KEY:-}"' in workflow_text
     assert (
         'if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" || "${{ inputs.run_id }}" == "003B" || "${{ inputs.run_id }}" == "004A" || "${{ inputs.run_id }}" == "004B" ]]; then'
         in workflow_text
@@ -240,3 +258,25 @@ def test_runner_registers_004b_with_frozen_stage2_sample_counts() -> None:
     }
     assert "--checkpoint" in spec.inspect_args
     assert "turn:1" in spec.inspect_args
+
+
+def test_workflow_allows_only_registered_exp005_cross_model_runs() -> None:
+    workflow_text = WORKFLOW.read_text(encoding="utf-8")
+
+    assert '- "005B"' in workflow_text
+    assert '- "005C"' in workflow_text
+    assert "002A|003A|003B|004A|004B|005B|005C|PERSISTENCE_DIAGNOSTIC" in (
+        workflow_text
+    )
+    assert "ANTHROPIC_API_KEY" in workflow_text
+    assert "GOOGLE_API_KEY" in workflow_text
+
+
+def test_runner_registers_005_cross_model_runs() -> None:
+    from artificial_agency.runner.config import known_runs
+
+    runs = known_runs()
+    assert runs["005B"].model == "anthropic/claude-sonnet-5"
+    assert runs["005C"].model == "google/gemini-3.7-flash"
+    assert runs["005B"].total_samples == 300
+    assert runs["005C"].total_samples == 300

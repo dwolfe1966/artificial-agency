@@ -1,6 +1,6 @@
 # Experiment 005 Changelog
 
-## 2026-08-26 — Preregister cross-model replication design
+## 2026-08-26 - Preregister cross-model replication design
 Created a preregistration/design package for cross-model replication of the
 frozen Experiment 004 paradigm.
 
@@ -18,3 +18,19 @@ Key decisions:
 
 No executable apparatus or runner registration was implemented in this commit.
 No model samples were run.
+
+## 2026-08-26 - Implement cross-model run definitions
+Implemented no-sample production run definitions for `005B` and `005C`.
+
+Key implementation choices:
+
+- reused the frozen Experiment 004 rendered inputs, tools, environment loop,
+  manipulation check, and scorer;
+- added model-specific sample namespaces without changing model-visible task
+  content;
+- registered full 300-sample model-specific runs with Runner v2;
+- documented provider-specific generation-control differences before
+  execution;
+- kept provider authentication in runner/environment secrets only.
+
+No production model samples were run.

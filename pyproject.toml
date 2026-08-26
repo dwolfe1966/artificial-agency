@@ -4,6 +4,8 @@ version = "0.1.0"
 description = "Empirical apparatus for artificial agency research."
 requires-python = ">=3.11"
 dependencies = [
+  "anthropic>=0.39.0",
+  "google-genai>=1.0.0",
   "inspect-ai>=0.3.260",
   "openai>=3.1.0",
 ]

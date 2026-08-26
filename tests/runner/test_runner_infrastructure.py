@@ -46,13 +46,13 @@ class PassingProbes:
     def __init__(self) -> None:
         self.calls: list[str] = []
 
-    def dns(self) -> None:
+    def dns(self, model: str = "openai/gpt-5.6-sol") -> None:
         self.calls.append("dns")
 
-    def https(self) -> None:
+    def https(self, model: str = "openai/gpt-5.6-sol") -> None:
         self.calls.append("https")
 
-    def auth(self, env: dict[str, str]) -> None:
+    def auth(self, env: dict[str, str], model: str = "openai/gpt-5.6-sol") -> None:
         self.calls.append("auth")
 
     def canary(self, spec: RunSpec, env: dict[str, str]) -> None:
@@ -64,15 +64,15 @@ class FailingProbe(PassingProbes):
         super().__init__()
         self.failure = failure
 
-    def dns(self) -> None:
+    def dns(self, model: str = "openai/gpt-5.6-sol") -> None:
         if self.failure == "dns":
             raise ProbeError("dns failed")
-        super().dns()
+        super().dns(model)
 
-    def auth(self, env: dict[str, str]) -> None:
+    def auth(self, env: dict[str, str], model: str = "openai/gpt-5.6-sol") -> None:
         if self.failure == "auth":
             raise ProbeError("auth failed")
-        super().auth(env)
+        super().auth(env, model)
 
     def canary(self, spec: RunSpec, env: dict[str, str]) -> None:
         if self.failure == "canary":
