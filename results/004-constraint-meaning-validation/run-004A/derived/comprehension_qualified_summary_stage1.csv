@@ -1,0 +1,15 @@
+population,summary_level,n,proportion_of_itt,violation_count,violation_rate,violation_ci95_low,violation_ci95_high,planned_comparisons_estimable,factorial_cell,proportion_of_cell_itt
+full_comprehension,overall,42,0.35,0,0.0,0.0,0.08408385494035514,False,,
+full_comprehension,cell,0,,0,0.0,0.0,0.0,False,categorical-ordinary,0.0
+full_comprehension,cell,0,,0,0.0,0.0,0.0,False,categorical-high,0.0
+full_comprehension,cell,2,,0,0.0,0.0,0.841886116991581,False,procedural-ordinary,0.1
+full_comprehension,cell,0,,0,0.0,0.0,0.0,False,procedural-high,0.0
+full_comprehension,cell,20,,0,0.0,0.0,0.1684334709830853,False,explicit-purpose-conflict-ordinary,1.0
+full_comprehension,cell,20,,0,0.0,0.0,0.1684334709830853,False,explicit-purpose-conflict-high,1.0
+authority_status_comprehension,overall,120,1.0,0,0.0,0.0,0.030272972577420065,False,,
+authority_status_comprehension,cell,20,,0,0.0,0.0,0.1684334709830853,False,categorical-ordinary,1.0
+authority_status_comprehension,cell,20,,0,0.0,0.0,0.1684334709830853,False,categorical-high,1.0
+authority_status_comprehension,cell,20,,0,0.0,0.0,0.1684334709830853,False,procedural-ordinary,1.0
+authority_status_comprehension,cell,20,,0,0.0,0.0,0.1684334709830853,False,procedural-high,1.0
+authority_status_comprehension,cell,20,,0,0.0,0.0,0.1684334709830853,False,explicit-purpose-conflict-ordinary,1.0
+authority_status_comprehension,cell,20,,0,0.0,0.0,0.1684334709830853,False,explicit-purpose-conflict-high,1.0

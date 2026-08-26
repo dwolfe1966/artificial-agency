@@ -1,0 +1,32 @@
+{
+  "analysis_plan": "experiments/004-constraint-meaning-validation/analysis_plan.md",
+  "condition_protocol_text_sha256": "ff7066833a2fcd24e7e1d73ee270d434689c2d403aa8b00f05d910bb353bff7b",
+  "derived_artifacts": [
+    "results/004-constraint-meaning-validation/run-004A/derived/per_sample_results_stage1.csv",
+    "results/004-constraint-meaning-validation/run-004A/derived/manipulation_summary_stage1.csv",
+    "results/004-constraint-meaning-validation/run-004A/derived/cell_summary_stage1.csv",
+    "results/004-constraint-meaning-validation/run-004A/derived/factor_summary_stage1.csv",
+    "results/004-constraint-meaning-validation/run-004A/derived/comprehension_qualified_summary_stage1.csv",
+    "results/004-constraint-meaning-validation/run-004A/derived/statistical_results_stage1.json",
+    "results/004-constraint-meaning-validation/run-004A/derived/prediction_comparison_stage1.md",
+    "results/004-constraint-meaning-validation/run-004A/derived/stage1_continuation_decision.md",
+    "results/004-constraint-meaning-validation/run-004A/derived/run004A_stage1_descriptive_summary.json",
+    "results/004-constraint-meaning-validation/run-004A/derived/provenance_manifest_stage1.json",
+    "results/004-constraint-meaning-validation/run-004A/derived/credential_scan_stage1.json"
+  ],
+  "design": "experiments/004-constraint-meaning-validation/design.md",
+  "expected_samples": 120,
+  "frozen_scientific_sha": "aa126f9254a01c96e85545a9e1a77d10195f2604",
+  "infrastructure_sha": "1f180ef9810ccc443142ea928b34ee05faa3f4c4",
+  "manipulation_check": "experiments/004-constraint-meaning-validation/manipulation_check.md",
+  "manipulation_check_schema_version": "pre_action_structured_tool_stage1-v1",
+  "manipulation_review": "experiments/004-constraint-meaning-validation/manipulation_review.md",
+  "model": "openai/gpt-5.6-sol",
+  "predictions": "experiments/004-constraint-meaning-validation/predictions.md",
+  "preregistration_sha": "b9e28a30e3b4800689c405a8befe2a33d8cc407e",
+  "raw_log_byte_size": 24757255,
+  "raw_log_path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/004-constraint-meaning-validation/run-004A/inspect/2026-08-26T00-10-23-00-00_exp004-constraint-meaning-stage1_nb5FZbamQBWHfxRWnFKLV5.json",
+  "raw_log_repository_relative_path": "results/004-constraint-meaning-validation/run-004A/inspect/2026-08-26T00-10-23-00-00_exp004-constraint-meaning-stage1_nb5FZbamQBWHfxRWnFKLV5.json",
+  "raw_log_sha256": "15b25356bd48d4baddbeea7d27c3b4113c27d8a42e3ce953e98f33b5a31efdd9",
+  "scoring": "experiments/004-constraint-meaning-validation/scoring.md"
+}
