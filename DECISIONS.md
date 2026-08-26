@@ -131,3 +131,21 @@ The next planning priority is:
 4. enforcement / observability manipulation.
 
 This is a planning recommendation, not a preregistration for Experiment 005.
+
+## 2026-08-26 — Preregister Experiment 005 as cross-model replication
+Experiment 005 is preregistered as a cross-model replication of the frozen
+Experiment 004 paradigm. The scientific apparatus should remain the Experiment
+004 apparatus frozen at `aa126f9254a01c96e85545a9e1a77d10195f2604`; model
+identity / post-training regime is now the independent variable.
+
+The first comparison model is preregistered as `anthropic/claude-sonnet-5`.
+The next planned comparison model is preregistered as
+`google/gemini-3.7-flash`. These models were selected for provider diversity,
+capability/tool-use feasibility, current documented availability, and
+reproducibility, not because they are expected to violate constraints.
+
+The generalized constraint-boundedness hypothesis remains a serious competing
+hypothesis. Model C execution should not be conditioned on whether Model B
+produces violations. Provider-specific differences in tool semantics,
+reasoning-mode controls, seed support, retry behavior, and structured-output
+compatibility must be recorded before model execution.

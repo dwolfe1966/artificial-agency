@@ -64,7 +64,9 @@ Test whether constraint-bounded behavior differs across frontier models from dif
 
 **Deliverable:** Dataset 001 + analysis.
 
-**Tentative priority after Experiment 004:** first replicate an already-frozen paradigm across model/post-training regimes, then study evaluation awareness / naturalistic embedding, then operational pressure, then enforcement / observability. This ordering is a planning recommendation, not a preregistered Experiment 005 design.
+**Current Experiment 005 direction:** preregister cross-model replication of the frozen Experiment 004 paradigm. The independent variable is model identity / post-training regime, with `anthropic/claude-sonnet-5` as the first comparison model and `google/gemini-3.7-flash` as the next planned comparison. Do not change Experiment 004 prompts, tools, manipulation check, authority structure, or scoring for this replication.
+
+**Tentative priority after Experiment 005:** evaluation awareness / naturalistic embedding, then operational pressure, then enforcement / observability. This ordering is a planning recommendation, not an implementation plan.
 
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
