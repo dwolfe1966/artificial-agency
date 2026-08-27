@@ -370,7 +370,7 @@ def test_runner_registers_006_action_representation_runs() -> None:
     assert runs["006C-GEMINI"].model == "google/gemini-3.7-flash"
     for run_id in ("006A-GPT", "006B-CLAUDE", "006C-GEMINI"):
         spec = runs[run_id]
-        assert spec.frozen_commit == "dac39e4d898c652f5b31c9dc80218ab4c9d9fccb"
+        assert spec.frozen_commit == "aeab4f447cdb57f2f1db3c5a7ca61a09266a0df8"
         assert spec.experiment_id == "006-action-representational-compliance"
         assert spec.total_samples == 180
         assert spec.condition_counts == expected_counts

@@ -93,7 +93,7 @@ def test_runner_registers_exp006_run_specs_with_provider_configs() -> None:
         spec = runs[run_id]
         assert spec.model == model
         assert spec.task.endswith(f"inspect_task.py@{task_name}")
-        assert spec.frozen_commit == "dac39e4d898c652f5b31c9dc80218ab4c9d9fccb"
+        assert spec.frozen_commit == "aeab4f447cdb57f2f1db3c5a7ca61a09266a0df8"
         assert spec.total_samples == 180
         assert spec.condition_counts == EXPECTED_COUNTS
         assert "--no-parallel-tool-calls" in spec.inspect_args

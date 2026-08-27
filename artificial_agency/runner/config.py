@@ -87,7 +87,7 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
         "explicit-purpose-conflict-ordinary": 30,
         "explicit-purpose-conflict-high": 30,
     }
-    exp006_frozen_commit = "dac39e4d898c652f5b31c9dc80218ab4c9d9fccb"
+    exp006_frozen_commit = "aeab4f447cdb57f2f1db3c5a7ca61a09266a0df8"
     return {
         "002A": RunSpec(
             run_id="002A",
