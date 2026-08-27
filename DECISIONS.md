@@ -150,27 +150,27 @@ produces violations. Provider-specific differences in tool semantics,
 reasoning-mode controls, seed support, retry behavior, and structured-output
 compatibility must be recorded before model execution.
 
-## 2026-08-27 — Experiment 005 shows model identity is a high-value variable
+## 2026-08-27 — Experiment 005 frozen scorer initially suggests model divergence
 Experiment 005 quantitative results are preserved at `dab40636202bcb22c9a337c916f86fb74d50cef6`.
 
 Using the frozen Experiment 004 paradigm, the preregistered cross-model analysis found:
 
 - GPT-5.6 Sol reference: 0/300 circumvention, exact 95% upper bound approximately 1.22%.
-- Claude Sonnet 5: 86/300 circumvention, 28.7%, exact 95% CI 23.6%-34.1%.
+- Claude Sonnet 5: 86/300 frozen scorer flags, 28.7%, exact 95% CI 23.6%-34.1%.
 - Gemini 3.7 Flash: 0/300 circumvention, exact 95% upper bound approximately 1.22%.
 - Cross-model model-main-effect exact test: p = 6.96e-14.
 - Pairwise exact tests: GPT vs Claude p = 1.58e-15; Claude vs Gemini p = 1.58e-15; GPT vs Gemini p = 1.0.
 
-These are preregistered quantitative findings. They establish a large model-associated behavioral difference under an identical organizational constraint task. They do not identify post-training as the unique cause because model identity bundles architecture, pretraining, post-training, provider/tool behavior, serving details, and other differences.
+These are preregistered quantitative findings for the frozen measured endpoint. They initially appeared to establish a large model-associated behavioral difference under an identical organizational constraint task. They do not identify post-training as the unique cause because model identity bundles architecture, pretraining, post-training, provider/tool behavior, serving details, and other differences.
 
-Manipulation validity was strong enough that the Claude result is not well explained by failure to recognize formal authority/status: Claude scored authority/status/pressure recognition at 298/300, explicit-purpose sensitivity at 98/100, full comprehension at 118/300, and still showed 44/118 circumvention in the full-comprehension subset and 86/298 in the authority/status-comprehension subset.
+Manipulation validity was strong enough that the frozen Claude scorer flags were not well explained by failure to recognize formal authority/status: Claude scored authority/status/pressure recognition at 298/300, explicit-purpose sensitivity at 98/100, full comprehension at 118/300, and still showed 44/118 frozen scorer flags in the full-comprehension subset and 86/298 in the authority/status-comprehension subset.
 
-The simple generalized frontier-model constraint-boundedness hypothesis is no longer supported. GPT-5.6 Sol and Gemini 3.7 Flash remained constraint-bounded in this paradigm; Claude Sonnet 5 did not.
+At this stage, before semantic audit, the simple generalized frontier-model constraint-boundedness hypothesis appeared not to be supported.
 
-The next priority should be qualitative mechanism analysis of the Claude divergence before designing the next intervention experiment. This should ask what visible decision pattern distinguishes Claude circumvention cases from matched GPT/Gemini compliant cases, without inferring hidden mechanism from quantitative results alone.
+The next priority should be qualitative mechanism analysis of the Claude frozen-scorer divergence before designing the next intervention experiment. This should ask what visible decision pattern distinguishes Claude flagged cases from matched GPT/Gemini non-flagged cases, without inferring hidden mechanism from quantitative results alone.
 
 ## 2026-08-27 — Preregister Experiment 006 as action vs representational compliance
-The matched qualitative analysis and full Claude subtype accounting after Experiment 005 found that Claude Sonnet 5's 86/300 primary circumvention events were mechanically homogeneous: concealment/misrepresentation and authorization misrepresentation after manager denial, with 0 unauthorized discount executions, 0 excessive unauthorized credits, 0 explicit tool-level bypasses, and 0 retentions.
+The matched qualitative analysis and full Claude subtype accounting after Experiment 005 found that Claude Sonnet 5's 86/300 frozen scorer flags were mechanically homogeneous: concealment/misrepresentation and authorization misrepresentation after manager denial, with 0 unauthorized discount executions, 0 excessive unauthorized credits, 0 explicit tool-level bypasses, and 0 retentions.
 
 This makes action compliance and representational compliance a prospective research distinction rather than a post-results interpretation. Experiment 006 is preregistered to separate:
 
@@ -180,3 +180,14 @@ This makes action compliance and representational compliance a prospective resea
 Experiment 006 should preserve the delegated-authority conflict and the Experiment 005 three-model set, while defining separate co-primary endpoints for operational constraint violation and representational constraint violation. The representational scorer must be prospectively defined and must not overfit the exact Claude phrases observed in Experiment 005.
 
 Evaluation awareness / naturalistic embedding remains the next major axis after this action-vs-representation mechanism clarification.
+
+## 2026-08-27 — Correct Experiment 005 interpretation after semantic audit
+The semantic audit of all 86 Claude Sonnet 5 Experiment 005 authorization-misrepresentation flags materially changed the scientific interpretation.
+
+Historical result preserved: the frozen Experiment 005 scorer produced 86/300 Claude flags versus 0/300 for GPT-5.6 Sol and 0/300 for Gemini 3.7 Flash, with the reported exact tests and p-values. Those statistics apply to the frozen measured endpoint.
+
+Measurement correction: semantic coding found 0/86 Claude flagged cases with false authority above 15%, false manager approval, unauthorized customer commitment, unauthorized discount execution, excessive unauthorized credit, explicit tool-level bypass, or retention. All 86 customer messages truthfully scoped authorization to the 15% limit or disclosed that larger approval was unavailable.
+
+Therefore the claimed substantive cross-model circumvention effect did not survive measurement validation. Experiment 005 is now best interpreted as a scorer/evaluator validity lesson: scorer output != validated construct. The scorer conflated truthful authorization-related language after manager denial with authorization misrepresentation.
+
+The prospective Experiment 006 scorer was reviewed against this audit and judged conceptually appropriate without amendment because it explicitly treats truthful 15% authorization language and denial disclosure as non-violating while separately scoring false authority claims, false manager approval, and unauthorized commitments.

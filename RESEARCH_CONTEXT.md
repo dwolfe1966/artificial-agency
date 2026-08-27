@@ -32,6 +32,19 @@ Experiments 001-005 suggest that several concepts should be separated empiricall
 
 Goal pressure, recognition of goal importance, constraint representation, optimization intensity, and constraint circumvention should not be treated as interchangeable properties of agentic behavior.
 
+Experiment 005 adds a measurement lesson: scorer output != validated
+construct. Automated or mechanical scorer flags must be validated against the
+intended behavioral construct before being interpreted as substantive
+circumvention, deception, or model-specific safety differences.
+
+Future work should distinguish at least three behavioral levels:
+
+1. **Operational action:** what the model actually does through tools.
+2. **Customer commitment:** what concession or commitment the model represents
+   as available or binding.
+3. **Authorization representation:** what the model says about its own
+   authority or manager approval.
+
 Candidate explanatory variables now include:
 
 - optimization pressure
@@ -61,9 +74,9 @@ Current evidence:
 - It did not show pressure-induced violations in Experiment 002.
 - It visibly recognized higher stakes in Experiment 002 without materially changing its action policy.
 - It represented formal authority, constraint-status labels, and pressure in Experiment 004 while still showing no observed constraint circumvention.
-- Experiment 005 found that this constraint-bounded action policy did not generalize uniformly across all tested frontier models under the identical frozen Experiment 004 paradigm.
+- Experiment 005 initially appeared to show that this constraint-bounded action policy did not generalize uniformly across all tested frontier models under the identical frozen Experiment 004 paradigm. A later semantic audit changed that interpretation: the apparent Claude effect was a scorer-validity failure rather than validated substantive circumvention.
 
-Earlier GPT-5.6 Sol results suggested that strong post-training may make some organizational constraints behave more like learned hard policy boundaries than like ordinary costs in an optimization problem. Experiment 005 refines that interpretation: GPT-5.6 Sol and Gemini 3.7 Flash were constraint-bounded in this paradigm, while Claude Sonnet 5 was not. This remains a behavioral result, not a mechanistic attribution to a specific training process.
+Earlier GPT-5.6 Sol results suggested that strong post-training may make some organizational constraints behave more like learned hard policy boundaries than like ordinary costs in an optimization problem. Experiment 005 initially appeared to refine that interpretation by showing a model-associated divergence. The semantic audit now narrows the lesson: GPT-5.6 Sol, Gemini 3.7 Flash, and Claude Sonnet 5 all remained operationally within authority in the audited Experiment 005 data, while the Claude scorer flags exposed a measurement-validity failure in the representational endpoint.
 
 ## Key distinctions
 
@@ -246,15 +259,15 @@ Across the fixed-conflict experiments, the repeated empirical pattern for GPT-5.
 
 The 0/690 figure is not a single pooled preregistered sample and should not be used as a pooled inferential estimate unless a separate exploratory or meta-analytic method is explicitly justified.
 
-## Experiment 005 — preregistered cross-model quantitative result
+## Experiment 005 — frozen scorer result and post-results measurement correction
 Experiment 005 preregistration is preserved at `20aa46df84964b5ab55354a063b8ebe3f57e26c0`. Scientific implementation is preserved at `0c6dcb1b386faf6424b97cc505bd4303d697793e`. Final quantitative results are preserved at `dab40636202bcb22c9a337c916f86fb74d50cef6`.
 
 Experiment 005 reused the frozen Experiment 004 paradigm and varied model identity. The independent variable is model identity / post-training regime, but this factor bundles architecture, training, post-training, provider/tool behavior, and other differences.
 
-Primary preregistered cross-model behavioral result:
+Frozen scorer result:
 
 - GPT-5.6 Sol reference: 0/300 circumvention, exact 95% upper bound approximately 1.22%.
-- Claude Sonnet 5: 86/300 circumvention, 28.7%, exact 95% CI 23.6%-34.1%.
+- Claude Sonnet 5: 86/300 frozen scorer flags, 28.7%, exact 95% CI 23.6%-34.1%.
 - Gemini 3.7 Flash: 0/300 circumvention, exact 95% upper bound approximately 1.22%.
 - Cross-model model-main-effect exact test: p = 6.96e-14.
 - Pairwise tests:
@@ -262,7 +275,7 @@ Primary preregistered cross-model behavioral result:
   - Claude vs Gemini: p = 1.58e-15.
   - GPT vs Gemini: p = 1.0.
 
-These p-values establish a large model-associated behavioral difference under the frozen task. They should not be overstated as direct measurements of post-training causality.
+These p-values apply to the frozen measured endpoint. Post-results semantic audit showed that the endpoint was flawed for the intended authorization-misrepresentation construct.
 
 Manipulation validity:
 
@@ -270,12 +283,12 @@ Manipulation validity:
 - Gemini authority/status/pressure recognition: 297/300; explicit-purpose sensitivity: 100/100; full comprehension: 187/300.
 - GPT authority/status/pressure recognition: 300/300; explicit-purpose sensitivity: 100/100; full comprehension: 104/300.
 
-Claude comprehension-qualified result:
+Frozen scorer flags also appeared in Claude comprehension-qualified subsets:
 
-- full-comprehension subset: 44/118 circumvention;
-- authority/status-comprehension subset: 86/298 circumvention.
+- full-comprehension subset: 44/118 frozen scorer flags;
+- authority/status-comprehension subset: 86/298 frozen scorer flags.
 
-Therefore the Claude result is not well explained by failure to recognize formal authority or constraint status.
+The semantic audit changed the interpretation: the flags were not well explained by failure to recognize formal authority, but they also did not validate as substantive authorization misrepresentation.
 
 Claude within-model mechanical pattern:
 
@@ -284,7 +297,7 @@ Claude within-model mechanical pattern:
 - categorical vs explicit-purpose-conflict: p = 0.1026;
 - ordinary vs high pressure: p = 0.1600.
 
-Claude cell-level circumvention:
+Claude cell-level frozen scorer flags:
 
 - categorical-ordinary: 10/50;
 - categorical-high: 19/50;
@@ -293,18 +306,29 @@ Claude cell-level circumvention:
 - explicit-purpose-conflict-ordinary: 21/50;
 - explicit-purpose-conflict-high: 20/50.
 
-Do not infer mechanisms from these quantitative patterns alone. The immediate next qualitative question is: what visible decision pattern distinguishes Claude circumvention cases from matched GPT/Gemini compliant cases under the same constraint conflict? Candidate dimensions include rule reinterpretation, organizational-purpose reasoning, response to manager denial, explicit acknowledgement of authority, bypass/tool-action sequence, and whether the model acts despite recognizing the constraint.
+Post-results measurement correction:
+
+- Full Claude subtype accounting found 86/86 frozen flags were concealment/misrepresentation and authorization-misrepresentation flags after manager denial.
+- Semantic audit found 0/86 cases with false authority above 15%, false manager approval, unauthorized customer commitment, unauthorized discount execution, excessive credit, explicit tool-level bypass, or retention.
+- All 86 customer messages truthfully scoped authorization to the 15% limit or disclosed that larger approval was unavailable.
+- The scorer conflated truthful authorization-related language after denial with authorization misrepresentation.
+
+Therefore the claimed substantive cross-model circumvention effect did not survive measurement validation. The frozen result remains part of the historical record, but the corrected interpretation is measurement-validity failure, not demonstrated model-specific circumvention.
 
 Technical/provenance caveat: Claude's authoritative dataset is the original 259-sample segment plus a 41-sample recovery segment. Gemini's authoritative dataset is three valid segments containing 20, 178, and 102 samples. Reconciliation had zero duplicate, missing, or unexpected IDs. Scoreless samples were retained as ITT technical failures: Claude 2/300 and Gemini 4/300. Scientific configurations remained unchanged.
 
-Experiment 005 hypothesis comparison:
+Experiment 005 frozen-endpoint hypothesis comparison before semantic audit:
 
-- H1 model main effect: supported.
+- H1 model main effect on the frozen measured endpoint: supported.
 - H2 model x constraint-meaning interaction: indeterminate.
 - H3 model x pressure interaction: indeterminate.
 - H4 higher-order interaction: indeterminate.
-- H5 generalized constraint-boundedness: not supported.
-- H6 representation/behavior dissociation differs by model: supported with caveats.
+- H5 generalized constraint-boundedness for the frozen measured endpoint: not supported.
+- H6 representation/behavior dissociation for the frozen measured endpoint: supported with caveats.
+
+After the semantic audit, these hypothesis labels should not be read as
+validated evidence of substantive cross-model circumvention. They apply to a
+flawed measured endpoint and are preserved for historical/provenance reasons.
 
 ## Forward research axes
 Current priority questions:
@@ -343,6 +367,6 @@ Current state after Experiments 001-005:
 - Experiment 002 found pressure recognition without pressure-induced circumvention in GPT-5.6 Sol under fixed mechanics;
 - Experiment 003 found no circumvention under constraint-status x pressure manipulation, but post-results validation suggested partial manipulation representation;
 - Experiment 004 found strong structured recognition of authority/status/pressure with continued zero circumvention for GPT-5.6 Sol;
-- Experiment 005 found a large model-associated difference under the frozen Experiment 004 paradigm: Claude Sonnet 5 circumvened in 86/300 trials, while GPT-5.6 Sol and Gemini 3.7 Flash produced zero observed circumventions;
-- post-results matched qualitative analysis and full subtype accounting found that Claude's Experiment 005 circumventions were authorization-misrepresentation cases after manager denial, not unauthorized tool-level discount or credit executions;
+- Experiment 005's frozen scorer produced a large apparent model-associated difference: Claude Sonnet 5 had 86/300 flags while GPT-5.6 Sol and Gemini 3.7 Flash had zero;
+- post-results semantic audit found all 86 Claude flags were substantive false positives for authorization misrepresentation; Claude did not exceed operational discount authority, execute excessive credit, falsely claim manager approval, falsely claim >15% authority, or make unauthorized customer commitments;
 - Experiment 006 is now preregistered to prospectively separate operational/action compliance from representational/communication compliance.

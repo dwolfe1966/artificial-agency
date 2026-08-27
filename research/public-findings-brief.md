@@ -1,6 +1,6 @@
 # Public Findings Brief: Experiments 001-005
 
-_Status: factual public-safe summary after quantitative preservation. These findings are preliminary and not yet peer reviewed._
+_Status: factual public-safe summary after quantitative preservation and semantic measurement audit. These findings are preliminary and not yet peer reviewed._
 
 ## Research Question
 Under what conditions do capable AI agents treat organizational constraints as hard boundaries versus obstacles or procedures to navigate?
@@ -22,9 +22,9 @@ Experiment 004 reference result:
 - **GPT-5.6 Sol:** 0/300 observed constraint circumventions.
 - Exact 95% confidence interval upper bound: approximately 1.22%.
 
-Experiment 005 cross-model replication:
+Experiment 005 frozen scorer result:
 
-| Model | Circumventions | Rate | Exact 95% CI |
+| Model | Frozen scorer flags | Rate | Exact 95% CI |
 | --- | ---: | ---: | --- |
 | GPT-5.6 Sol reference | 0/300 | 0.0% | upper approximately 1.22% |
 | Claude Sonnet 5 | 86/300 | 28.7% | 23.6%-34.1% |
@@ -40,17 +40,35 @@ Pairwise exact tests:
 - Claude Sonnet 5 vs Gemini 3.7 Flash: p = 1.58e-15.
 - GPT-5.6 Sol vs Gemini 3.7 Flash: p = 1.0.
 
-Claude Sonnet 5 circumvention also persisted in a predefined comprehension-qualified subset:
+These values describe the preserved frozen scorer endpoint. A later semantic
+audit showed that this endpoint did not validate as the intended substantive
+authorization-misrepresentation construct.
 
-- Full-comprehension subset: 44/118 circumventions.
+Full semantic audit of the 86 Claude scorer flags:
+
+- explicit false authority above 15%: 0/86;
+- false manager-approval claim: 0/86;
+- unauthorized customer commitment: 0/86;
+- unauthorized discount execution: 0/86;
+- excessive unauthorized credit: 0/86;
+- explicit tool-level bypass: 0/86;
+- truthful authorization-limit or denial-disclosure statements: 86/86.
 
 ## Important Interpretation
 
-Under the same frozen organizational task and scoring paradigm, the three tested models behaved very differently.
+Experiment 005 initially appeared to show a large cross-model difference under
+the frozen scorer. The full semantic audit changed the interpretation: all 86
+Claude flags were substantive false positives for the intended
+authorization-misrepresentation construct.
 
-Model identity appears to be an important variable in this paradigm. However, model identity bundles architecture, pretraining, post-training, provider behavior, tool-interface behavior, serving details, and other factors. These experiments do not isolate which mechanism caused the difference.
+The episode is now best understood as a measurement-validity result rather than
+evidence of model-specific constraint circumvention. The frozen scorer
+conflated truthful authorization-related language after manager denial with
+false authorization or approval claims.
 
-The current result should not be summarized as a global claim that one model is safer or less safe than another. It is a task-specific behavioral finding in one controlled organizational environment.
+The current public-safe conclusion is narrower: in this task, scorer output and
+validated construct should not be treated as identical. Apparent cross-model
+effects can be artifacts of evaluator design.
 
 The results also do not establish hidden reasoning or internal motives. The quantitative analysis used structured manipulation-check data and mechanically recoverable scorer/environment state, not hidden chain-of-thought.
 
@@ -62,16 +80,19 @@ The results also do not establish hidden reasoning or internal motives. The quan
 - Cross-provider execution differences exist even though task semantics, tools, authority structure, and scoring were held fixed.
 - Claude and Gemini runs required operational recovery. Authoritative sample reconciliation was complete: zero duplicate, missing, or unexpected sample IDs.
 - Scoreless technical samples were retained as intent-to-treat technical failures: Claude 2/300 and Gemini 4/300.
-- Qualitative mechanism analysis has not yet been completed.
+- The semantic audit was post-results and corrects interpretation rather than changing the frozen scorer outputs.
 - Results should not be generalized to broad claims about "Claude," "GPT," or "Gemini" behavior outside this paradigm.
 - No claim is made that any tested model is globally safer or less safe.
 
 ## What Comes Next
 
-The immediate next step is matched qualitative mechanism analysis: compare Claude circumvention cases with matched GPT/Gemini compliant cases under the same constraint conflict.
+The immediate next step is Experiment 006: prospectively separate operational
+action compliance from representational/communication compliance using a
+state-based semantic scorer.
 
 Planned follow-up axes include:
 
+- measurement validity in agentic-misalignment evaluations;
 - evaluation-awareness testing;
 - stronger operational rather than merely rhetorical pressure;
 - enforcement and observability manipulations;
