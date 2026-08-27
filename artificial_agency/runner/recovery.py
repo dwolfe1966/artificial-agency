@@ -49,13 +49,16 @@ def build_recovery_plan(spec: RunSpec) -> RecoveryPlan:
     expected_set = set(expected)
     segments = tuple(inspect_log_metadata(path) for path in json_logs(spec.log_dir))
     source = max(segments, key=lambda segment: segment.sample_count, default=None)
-    source_ids = tuple(source.sample_ids if source else ())
+    source_ids = tuple(sample_id for segment in segments for sample_id in segment.sample_ids)
     seen: set[str] = set()
     duplicates: list[str] = []
-    for sample_id in source_ids:
-        if sample_id in seen and sample_id not in duplicates:
-            duplicates.append(sample_id)
-        seen.add(sample_id)
+    for segment in segments:
+        segment_seen: set[str] = set()
+        for sample_id in segment.sample_ids:
+            if sample_id in segment_seen and sample_id not in duplicates:
+                duplicates.append(sample_id)
+            segment_seen.add(sample_id)
+            seen.add(sample_id)
     unexpected = sorted(sample_id for sample_id in seen if sample_id not in expected_set)
     completed_expected = expected_set.intersection(seen)
     missing = tuple(sample_id for sample_id in expected if sample_id not in completed_expected)

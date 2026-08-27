@@ -83,12 +83,14 @@ def write_registry(spec: RunSpec, updates: dict[str, Any]) -> None:
 def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]:
     task = spec.task
     if recovery:
-        if spec.run_id != "005B":
+        if spec.run_id not in {"005B", "005C"}:
             raise RuntimeError(f"runner-level recovery is not configured for {spec.run_id}")
-        task = (
-            "artificial_agency/runner/"
-            "exp005_recovery_task.py@exp005_model_b_claude_sonnet5_recovery_missing"
+        task_name = (
+            "exp005_model_b_claude_sonnet5_recovery_missing"
+            if spec.run_id == "005B"
+            else "exp005_model_c_gemini37_flash_recovery_missing"
         )
+        task = f"artificial_agency/runner/exp005_recovery_task.py@{task_name}"
     return [
         sys.executable,
         "-m",

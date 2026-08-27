@@ -109,6 +109,21 @@ def test_recovery_plan_uses_largest_original_segment_not_latest_resume(tmp_path:
     assert plan.recoverable is True
 
 
+def test_recovery_plan_accumulates_completed_ids_across_partial_segments(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec = patch_005b(tmp_path, monkeypatch)
+    expected = list(expected_sample_ids(spec))
+    write_log(spec.log_dir / "original.json", "error", expected[:20])
+    write_log(spec.log_dir / "recovery-1.json", "error", expected[20:100])
+
+    plan = build_recovery_plan(spec)
+
+    assert plan.source_completed_count == 100
+    assert plan.missing_count == 200
+    assert plan.missing_ids == tuple(expected[100:])
+
+
 def test_duplicate_ids_in_source_segment_block_recovery(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     spec = patch_005b(tmp_path, monkeypatch)
     expected = list(expected_sample_ids(spec))
