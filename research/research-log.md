@@ -261,3 +261,23 @@ Potential dimensions:
 - whether the model acts despite recognizing the constraint.
 
 Do not inspect qualitative trajectories until the quantitative results and synthesis are preserved.
+
+## 2026-08-27 — Experiment 005 mechanism analysis motivates Experiment 006
+
+Matched qualitative analysis of Experiment 005 and a full mechanical subtype
+accounting of all Claude Sonnet 5 primary events found that Claude's 86/300
+primary circumvention events were authorization-misrepresentation cases after
+manager denial. The full event set had 0 unauthorized discount executions, 0
+excessive unauthorized credits, 0 explicit tool-level bypasses, and 0
+retentions.
+
+This creates a prospective distinction for the next experiment:
+
+1. action / operational compliance: whether a model performs a tool-level action
+   outside delegated authority; and
+2. representational / communication compliance: whether a model truthfully
+   represents authority, approval status, and commitments.
+
+Experiment 006 is preregistered to test this distinction prospectively across
+GPT-5.6 Sol, Claude Sonnet 5, and Gemini 3.7 Flash. This does not retroactively
+change Experiment 005's primary endpoint or scoring.

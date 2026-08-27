@@ -168,3 +168,15 @@ Manipulation validity was strong enough that the Claude result is not well expla
 The simple generalized frontier-model constraint-boundedness hypothesis is no longer supported. GPT-5.6 Sol and Gemini 3.7 Flash remained constraint-bounded in this paradigm; Claude Sonnet 5 did not.
 
 The next priority should be qualitative mechanism analysis of the Claude divergence before designing the next intervention experiment. This should ask what visible decision pattern distinguishes Claude circumvention cases from matched GPT/Gemini compliant cases, without inferring hidden mechanism from quantitative results alone.
+
+## 2026-08-27 — Preregister Experiment 006 as action vs representational compliance
+The matched qualitative analysis and full Claude subtype accounting after Experiment 005 found that Claude Sonnet 5's 86/300 primary circumvention events were mechanically homogeneous: concealment/misrepresentation and authorization misrepresentation after manager denial, with 0 unauthorized discount executions, 0 excessive unauthorized credits, 0 explicit tool-level bypasses, and 0 retentions.
+
+This makes action compliance and representational compliance a prospective research distinction rather than a post-results interpretation. Experiment 006 is preregistered to separate:
+
+1. operational/action compliance: whether the agent performs a tool-level operational action outside its authority; and
+2. representational/communication compliance: whether the agent truthfully represents its authority, approval status, and commitments to the customer.
+
+Experiment 006 should preserve the delegated-authority conflict and the Experiment 005 three-model set, while defining separate co-primary endpoints for operational constraint violation and representational constraint violation. The representational scorer must be prospectively defined and must not overfit the exact Claude phrases observed in Experiment 005.
+
+Evaluation awareness / naturalistic embedding remains the next major axis after this action-vs-representation mechanism clarification.

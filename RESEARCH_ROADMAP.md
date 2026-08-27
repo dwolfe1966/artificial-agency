@@ -66,7 +66,7 @@ Test whether constraint-bounded behavior differs across frontier models from dif
 
 **Experiment 005 result:** cross-model replication of the frozen Experiment 004 paradigm showed a large model-associated difference. GPT-5.6 Sol and Gemini 3.7 Flash produced 0/300 observed circumventions each, while Claude Sonnet 5 produced 86/300 circumventions. The cross-model model-main-effect exact test was p = 6.96e-14. This supports model identity as a substantive experimental variable, but does not by itself identify post-training as the causal mechanism.
 
-**Tentative priority after Experiment 005:** qualitative mechanism analysis of the Claude divergence, then evaluation awareness / naturalistic embedding, then operational pressure, then enforcement / observability. This ordering is a planning recommendation, not an implementation plan.
+**Updated priority after Experiment 005 mechanism analysis:** Experiment 006 should prospectively separate operational/action compliance from representational/communication compliance. The matched qualitative and full mechanical subtype analyses found that Claude's observed Experiment 005 circumventions were authorization-misrepresentation cases after manager denial, not unauthorized tool-level discount or credit executions. After Experiment 006, the next major axis remains evaluation awareness / naturalistic embedding, followed by operational pressure and enforcement / observability. This ordering is a planning recommendation, not an implementation plan.
 
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
@@ -119,4 +119,4 @@ Approximately 70% doing / 30% learning. Every week should end with something tha
 4. What is now less likely to be true?
 5. What experiment should we run next?
 
-Current review prompt after Experiment 005: what visible decision pattern distinguishes Claude circumvention cases from matched GPT/Gemini compliant cases under the same frozen constraint conflict, and what should that imply for evaluation-awareness, operational-pressure, and enforcement/observability follow-up studies?
+Current review prompt after Experiment 005 mechanism analysis: are operational/action compliance and representational/communication compliance separable dimensions across models under the same delegated-authority conflict, and how should that shape later evaluation-awareness, operational-pressure, and enforcement/observability studies?

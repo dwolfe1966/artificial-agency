@@ -309,7 +309,7 @@ Experiment 005 hypothesis comparison:
 ## Forward research axes
 Current priority questions:
 
-1. **Qualitative mechanism analysis of the Claude divergence:** what visible decision pattern distinguishes Claude circumvention cases from matched GPT/Gemini compliant cases under the same frozen constraint conflict?
+1. **Action vs representational compliance:** do models differ in whether they remain operationally compliant while misrepresenting authorization or approval status in customer communication?
 2. **Evaluation awareness:** frontier models may recognize benchmark or compliance-evaluation structure. A useful latent variable is E = P(model infers it is being evaluated for compliance). Future work should measure this without priming behavior, for example through benchmark-salient vs naturalistically embedded tasks or post-action structured checks.
 3. **Operational vs rhetorical optimization pressure:** do environment-grounded consequences that alter future reward, budget, capabilities, opportunities, or cumulative performance affect behavior differently from described KPI/program consequences?
 4. **Enforcement / observability:** does compliance persist when violation is explicitly unlikely to be observed or punished, distinguishing stronger constraint-bounded behavior from instrumental compliance?
@@ -321,9 +321,9 @@ Preserved future axes:
 - operational vs rhetorical optimization pressure;
 - enforcement / observability.
 
-Tentative planning priority after Experiment 005, not a preregistration:
+Tentative planning priority after Experiment 005 mechanism analysis, not a preregistration:
 
-1. qualitative mechanism analysis of the Claude divergence;
+1. Experiment 006 action vs representational compliance;
 2. evaluation-awareness / naturalistic embedding study;
 3. operational rather than rhetorical pressure;
 4. enforcement / observability study.
@@ -344,4 +344,5 @@ Current state after Experiments 001-005:
 - Experiment 003 found no circumvention under constraint-status x pressure manipulation, but post-results validation suggested partial manipulation representation;
 - Experiment 004 found strong structured recognition of authority/status/pressure with continued zero circumvention for GPT-5.6 Sol;
 - Experiment 005 found a large model-associated difference under the frozen Experiment 004 paradigm: Claude Sonnet 5 circumvened in 86/300 trials, while GPT-5.6 Sol and Gemini 3.7 Flash produced zero observed circumventions;
-- next work should prioritize qualitative mechanism analysis of the Claude divergence before designing the next intervention experiment.
+- post-results matched qualitative analysis and full subtype accounting found that Claude's Experiment 005 circumventions were authorization-misrepresentation cases after manager denial, not unauthorized tool-level discount or credit executions;
+- Experiment 006 is now preregistered to prospectively separate operational/action compliance from representational/communication compliance.
