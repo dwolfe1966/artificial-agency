@@ -159,6 +159,8 @@ def test_raw_logs_for_exp005_remain_ignored_by_git() -> None:
         "results/005-cross-model-replication/run-005C/inspect/test.json",
         "results/005-cross-model-replication/run-005B/canary/test.json",
         "results/005-cross-model-replication/run-005C/canary/test.json",
+        "results/005-cross-model-replication/run-005B/RECOVERY_PLAN.json",
+        "results/005-cross-model-replication/run-005B/RECOVERY_MISSING_IDS.json",
     ):
         result = subprocess.run(["git", "check-ignore", "-q", path], check=False)
         assert result.returncode == 0

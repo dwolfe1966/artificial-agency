@@ -24,3 +24,5 @@ results/**/RUN_LOCK.json
 results/**/RUNNER.pid
 results/**/runner-supervisor.out
 results/**/operational.log
+results/**/RECOVERY_PLAN.json
+results/**/RECOVERY_MISSING_IDS.json
