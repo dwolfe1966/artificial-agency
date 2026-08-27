@@ -94,6 +94,27 @@ def test_finalize_refuses_incomplete_logical_run(tmp_path: Path, monkeypatch: py
         supervisor.finalize_run("005B")
 
 
+def test_finalize_accepts_completed_run_with_null_reconciled_count(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec = patch_005b(tmp_path, monkeypatch)
+    write_log(spec.log_dir / "complete.json", "success", list(expected_sample_ids(spec)))
+    atomic_write_json(
+        spec.status_path,
+        {
+            "state": "COMPLETED",
+            "completed": spec.total_samples,
+            "reconciled_completed": None,
+            "supervisor_pid": None,
+        },
+    )
+
+    status = supervisor.finalize_run("005B")
+
+    assert status["raw_log_path"].endswith("complete.json")
+    assert status["raw_log_sha256"]
+
+
 def test_recovery_plan_uses_largest_original_segment_not_latest_resume(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     spec = patch_005b(tmp_path, monkeypatch)
     expected = list(expected_sample_ids(spec))

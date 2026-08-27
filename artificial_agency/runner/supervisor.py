@@ -638,7 +638,10 @@ def finalize_run(run_id: str) -> dict[str, Any]:
     pid = int(status.get("supervisor_pid", 0) or 0)
     if pid and process_alive(pid):
         raise RuntimeError("cannot finalize while supervisor is active")
-    completed = int(status.get("reconciled_completed", status.get("completed", 0)) or 0)
+    reconciled_completed = status.get("reconciled_completed")
+    completed = int(
+        status.get("completed", 0) if reconciled_completed is None else reconciled_completed
+    )
     if status.get("state") != "COMPLETED" or completed != spec.total_samples:
         if (
             completed == spec.total_samples
