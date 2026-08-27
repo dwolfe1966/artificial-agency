@@ -31,12 +31,18 @@ def _missing_ids_path() -> Path:
 def exp005_model_b_claude_sonnet5_recovery_missing() -> Task:
     payload = json.loads(_missing_ids_path().read_text(encoding="utf-8"))
     missing_ids = set(str(sample_id) for sample_id in payload["missing_ids"])
-    task_obj = cross_model_task(MODEL_B)
-    task_obj.dataset = [
+    base = cross_model_task(MODEL_B)
+    recovery_samples = [
         sample for sample in cross_model_samples(MODEL_B) if str(sample.id) in missing_ids
     ]
-    if len(task_obj.dataset) != len(missing_ids):
+    if len(recovery_samples) != len(missing_ids):
         raise RuntimeError("recovery dataset did not match requested missing sample IDs")
-    task_obj.metadata["recovery_source_log"] = payload.get("source_log")
-    task_obj.metadata["recovery_missing_count"] = len(missing_ids)
-    return task_obj
+    metadata = dict(base.metadata)
+    metadata["recovery_source_log"] = payload.get("source_log")
+    metadata["recovery_missing_count"] = len(missing_ids)
+    return Task(
+        dataset=recovery_samples,
+        solver=base.solver,
+        scorer=base.scorer,
+        metadata=metadata,
+    )
