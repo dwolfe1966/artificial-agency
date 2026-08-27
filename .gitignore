@@ -17,6 +17,12 @@ results/005-cross-model-replication/run-005B/inspect/*.json
 results/005-cross-model-replication/run-005B/canary/*.json
 results/005-cross-model-replication/run-005C/inspect/*.json
 results/005-cross-model-replication/run-005C/canary/*.json
+results/006-action-representational-compliance/run-006A-GPT/inspect/*.json
+results/006-action-representational-compliance/run-006A-GPT/canary/*.json
+results/006-action-representational-compliance/run-006B-CLAUDE/inspect/*.json
+results/006-action-representational-compliance/run-006B-CLAUDE/canary/*.json
+results/006-action-representational-compliance/run-006C-GEMINI/inspect/*.json
+results/006-action-representational-compliance/run-006C-GEMINI/canary/*.json
 results/.runner-runtime/
 results/run_registry.json
 results/**/RUN_STATUS.json

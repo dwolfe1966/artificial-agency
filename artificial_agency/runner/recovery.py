@@ -41,6 +41,23 @@ def expected_sample_ids(spec: RunSpec) -> tuple[str, ...]:
         run = MODEL_B if spec.run_id == "005B" else MODEL_C
         samples: list[Sample] = cross_model_samples(run)
         return tuple(str(sample.id) for sample in samples)
+    if spec.run_id in {"006A-GPT", "006B-CLAUDE", "006C-GEMINI"}:
+        from artificial_agency.experiments.exp006.config import (
+            MODEL_A_GPT,
+            MODEL_B_CLAUDE,
+            MODEL_C_GEMINI,
+        )
+        from artificial_agency.experiments.exp006.inspect_task import (
+            action_representation_samples,
+        )
+
+        run = {
+            "006A-GPT": MODEL_A_GPT,
+            "006B-CLAUDE": MODEL_B_CLAUDE,
+            "006C-GEMINI": MODEL_C_GEMINI,
+        }[spec.run_id]
+        samples = action_representation_samples(run)
+        return tuple(str(sample.id) for sample in samples)
     raise ValueError(f"runner-level sample-id recovery is not defined for {spec.run_id}")
 
 
