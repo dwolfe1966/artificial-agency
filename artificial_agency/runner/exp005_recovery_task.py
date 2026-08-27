@@ -16,7 +16,7 @@ from artificial_agency.runner.exp005_cross_model_task import (
 )
 
 
-def _missing_ids_path() -> Path:
+def _missing_ids_path(run: CrossModelRun) -> Path:
     configured = os.environ.get("AA_RUNNER_RECOVERY_IDS_PATH")
     if configured:
         return Path(configured)
@@ -24,13 +24,13 @@ def _missing_ids_path() -> Path:
         repository_root()
         / "results"
         / "005-cross-model-replication"
-        / "run-005B"
+        / run.run_id
         / "RECOVERY_MISSING_IDS.json"
     )
 
 
 def _recovery_task(run: CrossModelRun) -> Task:
-    payload = json.loads(_missing_ids_path().read_text(encoding="utf-8"))
+    payload = json.loads(_missing_ids_path(run).read_text(encoding="utf-8"))
     missing_ids = set(str(sample_id) for sample_id in payload["missing_ids"])
     base = cross_model_task(run)
     recovery_samples = [
