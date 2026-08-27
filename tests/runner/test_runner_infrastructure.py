@@ -341,7 +341,21 @@ def test_finalization_calculates_raw_log_sha256(
     spec.log_dir.mkdir(parents=True)
     raw_log = spec.log_dir / "sample.json"
     raw_log.write_text(
-        json.dumps({"status": "success", "samples": [{"id": str(i)} for i in range(90)]}),
+        json.dumps(
+            {
+                "status": "success",
+                "samples": [
+                    {
+                        "id": str(i),
+                        "completed_at": "2026-08-27T00:00:00+00:00",
+                        "output": {"completion": "redacted"},
+                        "scores": {"score": {"value": "complete"}},
+                        "turn_count": 1,
+                    }
+                    for i in range(90)
+                ],
+            }
+        ),
         encoding="utf-8",
     )
     atomic_write_json(

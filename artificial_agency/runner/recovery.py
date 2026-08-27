@@ -22,6 +22,7 @@ class RecoveryPlan:
     duplicate_ids: tuple[str, ...]
     unexpected_ids: tuple[str, ...]
     missing_ids: tuple[str, ...]
+    invalid_ids: tuple[str, ...]
     segments: tuple[InspectLogMetadata, ...]
 
     @property
@@ -66,12 +67,11 @@ def build_recovery_plan(spec: RunSpec) -> RecoveryPlan:
     expected_set = set(expected)
     segments = tuple(inspect_log_metadata(path) for path in json_logs(spec.log_dir))
     source = max(segments, key=lambda segment: segment.sample_count, default=None)
-    source_ids = tuple(sample_id for segment in segments for sample_id in segment.sample_ids)
     seen: set[str] = set()
     duplicates: list[str] = []
     for segment in segments:
         segment_seen: set[str] = set()
-        for sample_id in segment.sample_ids:
+        for sample_id in segment.valid_sample_ids:
             if sample_id in segment_seen and sample_id not in duplicates:
                 duplicates.append(sample_id)
             segment_seen.add(sample_id)
@@ -79,6 +79,12 @@ def build_recovery_plan(spec: RunSpec) -> RecoveryPlan:
     unexpected = sorted(sample_id for sample_id in seen if sample_id not in expected_set)
     completed_expected = expected_set.intersection(seen)
     missing = tuple(sample_id for sample_id in expected if sample_id not in completed_expected)
+    invalid = tuple(
+        sample_id
+        for sample_id in expected
+        if sample_id in {invalid for segment in segments for invalid in segment.invalid_sample_ids}
+        and sample_id not in completed_expected
+    )
     return RecoveryPlan(
         run_id=spec.run_id,
         expected_total=spec.total_samples,
@@ -88,6 +94,7 @@ def build_recovery_plan(spec: RunSpec) -> RecoveryPlan:
         duplicate_ids=tuple(sorted(duplicates)),
         unexpected_ids=tuple(unexpected),
         missing_ids=missing,
+        invalid_ids=invalid,
         segments=segments,
     )
 
@@ -107,9 +114,11 @@ def write_recovery_plan(spec: RunSpec, plan: RecoveryPlan) -> Path:
             "byte_size": segment.byte_size,
             "sha256": segment.sha256,
             "status": segment.status,
-            "sample_count": segment.sample_count,
-            "error_summary": segment.error_summary,
-        }
+                "sample_count": segment.sample_count,
+                "valid_sample_count": segment.valid_sample_count,
+                "invalid_sample_count": len(segment.invalid_sample_ids),
+                "error_summary": segment.error_summary,
+            }
         for segment in plan.segments
     ]
     atomic_write_json(path, payload)
@@ -121,6 +130,7 @@ def write_recovery_plan(spec: RunSpec, plan: RecoveryPlan) -> Path:
             "source_log": plan.source_log,
             "missing_count": plan.missing_count,
             "missing_ids": list(plan.missing_ids),
+            "invalid_ids": list(plan.invalid_ids),
         },
     )
     return path
@@ -130,5 +140,5 @@ def reconciled_unique_count(spec: RunSpec, segment_paths: list[Path]) -> int:
     expected = set(expected_sample_ids(spec))
     completed: set[str] = set()
     for path in segment_paths:
-        completed.update(expected.intersection(inspect_log_metadata(path).sample_ids))
+        completed.update(expected.intersection(inspect_log_metadata(path).valid_sample_ids))
     return len(completed)

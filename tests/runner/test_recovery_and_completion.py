@@ -21,8 +21,44 @@ def write_log(path: Path, status: str, sample_ids: list[str], error: str | None 
     path.parent.mkdir(parents=True, exist_ok=True)
     payload: dict[str, object] = {
         "status": status,
-        "samples": [{"id": sample_id} for sample_id in sample_ids],
+        "samples": [
+            {
+                "id": sample_id,
+                "completed_at": "2026-08-27T00:00:00+00:00",
+                "output": {"completion": "redacted"},
+                "scores": {"score": {"value": "complete"}},
+                "turn_count": 1,
+            }
+            for sample_id in sample_ids
+        ],
     }
+    if error:
+        payload["error"] = {"message": error}
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+
+def write_log_with_invalid_samples(
+    path: Path,
+    status: str,
+    sample_ids: list[str],
+    invalid_ids: set[str],
+    error: str | None = None,
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    samples = []
+    for sample_id in sample_ids:
+        sample: dict[str, object] = {
+            "id": sample_id,
+            "completed_at": "2026-08-27T00:00:00+00:00",
+            "output": {"completion": "redacted"},
+            "scores": {"score": {"value": "complete"}},
+            "turn_count": 1,
+        }
+        if sample_id in invalid_ids:
+            sample["scores"] = {}
+            sample["turn_count"] = 0
+        samples.append(sample)
+    payload: dict[str, object] = {"status": status, "samples": samples}
     if error:
         payload["error"] = {"message": error}
     path.write_text(json.dumps(payload), encoding="utf-8")
@@ -143,6 +179,43 @@ def test_recovery_plan_accumulates_completed_ids_across_partial_segments(
     assert plan.source_completed_count == 100
     assert plan.missing_count == 200
     assert plan.missing_ids == tuple(expected[100:])
+
+
+def test_recovery_plan_reruns_structurally_invalid_scoreless_ids(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec = patch_005b(tmp_path, monkeypatch)
+    expected = list(expected_sample_ids(spec))
+    invalid_ids = {expected[-2], expected[-1]}
+    write_log_with_invalid_samples(
+        spec.log_dir / "all-ids-with-invalid-tail.json",
+        "error",
+        expected,
+        invalid_ids,
+        "attempt timeout",
+    )
+
+    plan = build_recovery_plan(spec)
+
+    assert plan.source_completed_count == 298
+    assert plan.missing_count == 2
+    assert plan.missing_ids == tuple(expected[-2:])
+    assert plan.invalid_ids == tuple(expected[-2:])
+    assert plan.recoverable is True
+
+
+def test_reconciled_count_ignores_invalid_records_when_valid_recovery_exists(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec = patch_005b(tmp_path, monkeypatch)
+    expected = list(expected_sample_ids(spec))
+    invalid_ids = {expected[-2], expected[-1]}
+    original = spec.log_dir / "all-ids-with-invalid-tail.json"
+    recovery = spec.log_dir / "valid-recovery-tail.json"
+    write_log_with_invalid_samples(original, "error", expected, invalid_ids)
+    write_log(recovery, "success", expected[-2:])
+
+    assert reconciled_unique_count(spec, [original, recovery]) == 300
 
 
 def test_duplicate_ids_in_source_segment_block_recovery(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

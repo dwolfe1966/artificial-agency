@@ -15,14 +15,27 @@ class InspectLogMetadata:
     sha256: str
     status: str | None
     sample_ids: tuple[str, ...]
+    valid_sample_ids: tuple[str, ...] = ()
+    invalid_sample_ids: tuple[str, ...] = ()
     error_summary: str | None = None
 
     @property
     def sample_count(self) -> int:
         return len(self.sample_ids)
 
+    @property
+    def valid_sample_count(self) -> int:
+        return len(self.valid_sample_ids)
+
 
 SUCCESS_STATUSES = {"success", "completed"}
+
+
+def _positive_turn_count(sample: dict[str, Any]) -> bool:
+    try:
+        return int(sample.get("turn_count") or 0) > 0
+    except (TypeError, ValueError):
+        return False
 
 
 def json_logs(log_dir: Path) -> list[Path]:
@@ -53,6 +66,8 @@ def inspect_log_metadata(path: Path) -> InspectLogMetadata:
     checksum = hashlib.sha256(raw).hexdigest()
     status: str | None = None
     sample_ids: list[str] = []
+    valid_sample_ids: list[str] = []
+    invalid_sample_ids: list[str] = []
     error_summary: str | None = None
     try:
         data = json.loads(raw.decode("utf-8"))
@@ -63,6 +78,8 @@ def inspect_log_metadata(path: Path) -> InspectLogMetadata:
             sha256=checksum,
             status=None,
             sample_ids=(),
+            valid_sample_ids=(),
+            invalid_sample_ids=(),
             error_summary="unreadable inspect json",
         )
     if isinstance(data, dict):
@@ -72,7 +89,20 @@ def inspect_log_metadata(path: Path) -> InspectLogMetadata:
         if isinstance(samples, list):
             for sample in samples:
                 if isinstance(sample, dict) and sample.get("id") is not None:
-                    sample_ids.append(str(sample["id"]))
+                    sample_id = str(sample["id"])
+                    sample_ids.append(sample_id)
+                    scores = sample.get("scores")
+                    valid = (
+                        bool(sample.get("completed_at"))
+                        and sample.get("output") is not None
+                        and isinstance(scores, dict)
+                        and bool(scores)
+                        and _positive_turn_count(sample)
+                    )
+                    if valid:
+                        valid_sample_ids.append(sample_id)
+                    else:
+                        invalid_sample_ids.append(sample_id)
         if status not in SUCCESS_STATUSES:
             error_summary = _safe_error_summary(data)
     return InspectLogMetadata(
@@ -81,6 +111,8 @@ def inspect_log_metadata(path: Path) -> InspectLogMetadata:
         sha256=checksum,
         status=status,
         sample_ids=tuple(sample_ids),
+        valid_sample_ids=tuple(valid_sample_ids),
+        invalid_sample_ids=tuple(invalid_sample_ids),
         error_summary=error_summary,
     )
 
@@ -118,7 +150,7 @@ def count_completed_samples(log_dir: Path) -> int:
     log = latest_json_log(log_dir)
     if log is None:
         return 0
-    return inspect_log_metadata(log).sample_count
+    return inspect_log_metadata(log).valid_sample_count
 
 
 def token_usage(log_dir: Path) -> int | None:

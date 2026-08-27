@@ -511,7 +511,8 @@ def status_report(run_id: str) -> str:
     pid = int(status.get("supervisor_pid", 0) or 0)
     alive = process_alive(pid) if pid else False
     raw_bytes = status.get("raw_log_bytes", raw_log_bytes(spec.log_dir))
-    completed = status.get("reconciled_completed", status.get("completed", 0))
+    reconciled_completed = status.get("reconciled_completed")
+    completed = status.get("completed", 0) if reconciled_completed is None else reconciled_completed
     lines = [
         f"RUN {run_id}",
         f"Status: {status.get('state', 'UNKNOWN')}",
