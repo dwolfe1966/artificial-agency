@@ -20,6 +20,8 @@ from .config import (
 )
 from .inspect_ops import (
     count_completed_samples,
+    inspect_log_metadata,
+    inspect_log_success,
     latest_json_log,
     raw_log_bytes,
     safe_log_summary,
@@ -27,6 +29,7 @@ from .inspect_ops import (
     token_usage,
 )
 from .preflight import ProbeError, full_preflight, runner_environment
+from .recovery import build_recovery_plan, reconciled_unique_count, write_recovery_plan
 from .state import (
     append_log,
     atomic_write_json,
@@ -77,13 +80,21 @@ def write_registry(spec: RunSpec, updates: dict[str, Any]) -> None:
     atomic_write_json(registry_path, registry)
 
 
-def build_inspect_command(spec: RunSpec) -> list[str]:
+def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]:
+    task = spec.task
+    if recovery:
+        if spec.run_id != "005B":
+            raise RuntimeError(f"runner-level recovery is not configured for {spec.run_id}")
+        task = (
+            "artificial_agency/runner/"
+            "exp005_recovery_task.py@exp005_model_b_claude_sonnet5_recovery_missing"
+        )
     return [
         sys.executable,
         "-m",
         "inspect_ai",
         "eval",
-        spec.task,
+        task,
         *spec.inspect_args,
         "--log-dir",
         str(spec.log_dir),
@@ -175,7 +186,7 @@ def launch_via_launchd(spec: RunSpec, command: list[str], env: dict[str, str]) -
     }
 
 
-def launch_detached(run_id: str, *, mock: bool = False) -> dict[str, Any]:
+def launch_detached(run_id: str, *, mock: bool = False, recovery: bool = False) -> dict[str, Any]:
     spec = known_runs()[run_id]
     locked, lock = acquire_lock(spec)
     if not locked:
@@ -186,7 +197,14 @@ def launch_detached(run_id: str, *, mock: bool = False) -> dict[str, Any]:
         }
 
     status = initial_status(spec.run_id, spec.frozen_commit, spec.total_samples)
-    status.update({"state": "STARTING", "supervisor_pid": None, "mock": mock})
+    status.update(
+        {
+            "state": "STARTING",
+            "supervisor_pid": None,
+            "mock": mock,
+            "recovery": recovery,
+        }
+    )
     atomic_write_json(spec.status_path, status)
     append_log(spec.operational_log, "runner start requested")
 
@@ -200,6 +218,8 @@ def launch_detached(run_id: str, *, mock: bool = False) -> dict[str, Any]:
     ]
     if mock:
         command.append("--mock")
+    if recovery:
+        command.append("--recovery")
     env = runner_environment(spec)
     if should_use_launchd_handoff():
         launch = launch_via_launchd(spec, command, env)
@@ -294,7 +314,7 @@ def preflight_run(run_id: str, *, mock: bool = False) -> dict[str, Any]:
         raise
 
 
-def supervise(run_id: str, *, mock: bool = False) -> int:
+def supervise(run_id: str, *, mock: bool = False, recovery: bool = False) -> int:
     spec = known_runs()[run_id]
     start = time.time()
     update_status(
@@ -315,7 +335,7 @@ def supervise(run_id: str, *, mock: bool = False) -> int:
             env = full_preflight(spec)
         update_status(spec.status_path, state="RUNNING", api_health="OK")
         append_log(spec.operational_log, "production run started")
-        command = build_inspect_command(spec)
+        command = build_inspect_command(spec, recovery=recovery)
         with spec.stdout_path.open("ab") as output:
             child = subprocess.Popen(
                 command if not mock else [sys.executable, "-c", "import time; time.sleep(0.2)"],
@@ -333,11 +353,38 @@ def supervise(run_id: str, *, mock: bool = False) -> int:
             return_code = child.returncode
 
         refresh_operational_status(spec, start)
-        final_state = "COMPLETED" if return_code == 0 else "FAILED"
+        latest = latest_json_log(spec.log_dir)
+        inspect_status = inspect_log_metadata(latest).status if latest else None
+        completed = count_completed_samples(spec.log_dir)
+        reconciled_completed = None
+        if recovery and latest:
+            recovery_plan = read_json(spec.status_path.parent / "RECOVERY_PLAN.json", {})
+            source_log = recovery_plan.get("source_log")
+            if source_log:
+                reconciled_completed = reconciled_unique_count(
+                    spec,
+                    [Path(str(source_log)), latest],
+                )
+                completed = reconciled_completed
+        if return_code != 0:
+            final_state = "FAILED"
+        elif completed == spec.total_samples and inspect_log_success(spec.log_dir):
+            final_state = "COMPLETED"
+        else:
+            final_state = "INCOMPLETE"
+        failure_reason = None
+        if final_state == "INCOMPLETE":
+            failure_reason = (
+                f"incomplete inspect run: completed {completed}/{spec.total_samples}; "
+                f"inspect_status={inspect_status or 'UNKNOWN'}; exit_code={return_code}"
+            )
         update_status(
             spec.status_path,
             state=final_state,
             exit_code=return_code,
+            inspect_status=inspect_status,
+            reconciled_completed=reconciled_completed,
+            failure_reason=failure_reason,
             elapsed_seconds=int(time.time() - start),
             ended_at=utc_now(),
         )
@@ -443,10 +490,11 @@ def status_report(run_id: str) -> str:
     pid = int(status.get("supervisor_pid", 0) or 0)
     alive = process_alive(pid) if pid else False
     raw_bytes = status.get("raw_log_bytes", raw_log_bytes(spec.log_dir))
+    completed = status.get("reconciled_completed", status.get("completed", 0))
     lines = [
         f"RUN {run_id}",
         f"Status: {status.get('state', 'UNKNOWN')}",
-        f"Completed: {status.get('completed', 0)} / {status.get('total', spec.total_samples)}",
+        f"Completed: {completed} / {status.get('total', spec.total_samples)}",
         f"Supervisor PID: {pid if pid else 'n/a'} ({'alive' if alive else 'not active'})",
         f"Inspect PID: {status.get('inspect_pid', 'n/a')}",
         f"Technical failures: {status.get('technical_failures', 0)}",
@@ -479,10 +527,12 @@ def health_report(run_id: str) -> str:
         classification = "completed"
     elif alive and state in {"RUNNING", "PREFLIGHT", "STARTING"}:
         classification = "healthy"
-    elif lock and not alive and state not in {"COMPLETED", "FAILED", "STOPPED"}:
+    elif lock and not alive and state not in {"COMPLETED", "FAILED", "STOPPED", "INCOMPLETE"}:
         classification = "stale lock"
     elif state == "FAILED":
         classification = "process exited"
+    elif state == "INCOMPLETE":
+        classification = "incomplete"
     else:
         classification = "not started"
     raw = safe_log_summary(spec.log_dir)
@@ -527,13 +577,37 @@ def resume_run(run_id: str, *, mock: bool = False) -> dict[str, Any]:
     spec = known_runs()[run_id]
     status = read_json(spec.status_path, {})
     completed = int(status.get("completed", 0) or 0)
+    plan = None
+    if not mock and completed < spec.total_samples:
+        plan = build_recovery_plan(spec)
+        write_recovery_plan(spec, plan)
+        if not plan.recoverable:
+            update_status(
+                spec.status_path,
+                state="INCOMPLETE",
+                resume_uses="runner-level missing-sample recovery refused",
+                completed_before_resume=completed,
+                recovery_source_completed=plan.source_completed_count,
+                recovery_missing=plan.missing_count,
+                recovery_blocked_reason="duplicate or unexpected sample IDs in source segment",
+            )
+            append_log(spec.operational_log, "resume refused; recovery plan is not recoverable")
+            raise RuntimeError("recovery plan is not safely recoverable")
     update_status(
         spec.status_path,
         state="RESUME_REQUESTED",
-        resume_uses="inspect eval retry/checkpoint when raw log is resumable",
+        resume_uses=(
+            "runner-level missing-sample recovery"
+            if plan is not None
+            else "inspect eval retry/checkpoint when raw log is resumable"
+        ),
         completed_before_resume=completed,
+        recovery_source_completed=plan.source_completed_count if plan else None,
+        recovery_missing=plan.missing_count if plan else None,
     )
     append_log(spec.operational_log, f"resume requested completed={completed}")
+    if plan is not None:
+        return launch_detached(run_id, mock=mock, recovery=True)
     return launch_detached(run_id, mock=mock)
 
 
@@ -543,6 +617,12 @@ def finalize_run(run_id: str) -> dict[str, Any]:
     pid = int(status.get("supervisor_pid", 0) or 0)
     if pid and process_alive(pid):
         raise RuntimeError("cannot finalize while supervisor is active")
+    completed = int(status.get("reconciled_completed", status.get("completed", 0)) or 0)
+    if status.get("state") != "COMPLETED" or completed != spec.total_samples:
+        raise RuntimeError(
+            f"cannot finalize incomplete run: state={status.get('state', 'UNKNOWN')} "
+            f"completed={completed}/{spec.total_samples}"
+        )
     log = latest_json_log(spec.log_dir)
     checksum = None
     size = 0

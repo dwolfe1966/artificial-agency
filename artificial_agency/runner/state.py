@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 
-TERMINAL_STATES = {"COMPLETED", "FAILED", "STOPPED", "INTERRUPTED"}
+TERMINAL_STATES = {"COMPLETED", "FAILED", "STOPPED", "INTERRUPTED", "INCOMPLETE"}
 
 
 def utc_now() -> str:
@@ -76,4 +76,3 @@ def process_alive(pid: int) -> bool:
     except PermissionError:
         return True
     return True
-

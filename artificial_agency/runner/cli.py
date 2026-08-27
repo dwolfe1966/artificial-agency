@@ -29,6 +29,7 @@ def main(argv: list[str] | None = None) -> None:
     p = sub.add_parser("_supervise")
     p.add_argument("run_id")
     p.add_argument("--mock", action="store_true")
+    p.add_argument("--recovery", action="store_true")
 
     args = parser.parse_args(argv)
     if args.command != "_supervise" and args.run_id not in known_runs():
@@ -62,7 +63,7 @@ def main(argv: list[str] | None = None) -> None:
         if result.get("raw_log_sha256"):
             print(f"Raw log SHA-256: {result['raw_log_sha256']}")
     elif args.command == "_supervise":
-        raise SystemExit(supervise(args.run_id, mock=args.mock))
+        raise SystemExit(supervise(args.run_id, mock=args.mock, recovery=args.recovery))
     else:
         raise SystemExit(2)
 

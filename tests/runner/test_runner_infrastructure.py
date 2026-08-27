@@ -340,8 +340,14 @@ def test_finalization_calculates_raw_log_sha256(
     monkeypatch.setattr(supervisor, "repository_root", lambda: tmp_path)
     spec.log_dir.mkdir(parents=True)
     raw_log = spec.log_dir / "sample.json"
-    raw_log.write_text('{"samples":[]}\n', encoding="utf-8")
-    atomic_write_json(spec.status_path, {"state": "COMPLETED", "supervisor_pid": 999_999_999})
+    raw_log.write_text(
+        json.dumps({"status": "success", "samples": [{"id": str(i)} for i in range(90)]}),
+        encoding="utf-8",
+    )
+    atomic_write_json(
+        spec.status_path,
+        {"state": "COMPLETED", "completed": 90, "supervisor_pid": 999_999_999},
+    )
 
     status = supervisor.finalize_run("002A")
 
