@@ -22,6 +22,7 @@ from .inspect_ops import (
     count_completed_samples,
     inspect_log_metadata,
     inspect_log_success,
+    json_logs,
     latest_json_log,
     raw_log_bytes,
     safe_log_summary,
@@ -360,13 +361,9 @@ def supervise(run_id: str, *, mock: bool = False, recovery: bool = False) -> int
         completed = count_completed_samples(spec.log_dir)
         reconciled_completed = None
         if recovery and latest:
-            recovery_plan = read_json(spec.status_path.parent / "RECOVERY_PLAN.json", {})
-            source_log = recovery_plan.get("source_log")
-            if source_log:
-                reconciled_completed = reconciled_unique_count(
-                    spec,
-                    [Path(str(source_log)), latest],
-                )
+            segment_paths = json_logs(spec.log_dir)
+            if segment_paths:
+                reconciled_completed = reconciled_unique_count(spec, segment_paths)
                 completed = reconciled_completed
         if return_code != 0:
             final_state = "FAILED"
@@ -468,6 +465,12 @@ def run_persistence_diagnostic(spec: RunSpec, start: float) -> int:
 def refresh_operational_status(spec: RunSpec, start: float | None = None) -> dict[str, Any]:
     runtime = runtime_home(repository_root(), spec.run_id)
     completed = count_completed_samples(spec.log_dir)
+    reconciled_completed = None
+    if (spec.status_path.parent / "RECOVERY_PLAN.json").exists():
+        try:
+            reconciled_completed = reconciled_unique_count(spec, json_logs(spec.log_dir))
+        except ValueError:
+            reconciled_completed = None
     buffered = samplebuffer_counts(runtime)
     raw = safe_log_summary(spec.log_dir)
     usage = token_usage(spec.log_dir)
@@ -479,6 +482,8 @@ def refresh_operational_status(spec: RunSpec, start: float | None = None) -> dic
         **raw,
         **buffered,
     }
+    if reconciled_completed is not None:
+        updates["reconciled_completed"] = reconciled_completed
     if usage is not None:
         updates["token_usage"] = usage
     return update_status(spec.status_path, **{k: v for k, v in updates.items() if v is not None})
@@ -621,10 +626,21 @@ def finalize_run(run_id: str) -> dict[str, Any]:
         raise RuntimeError("cannot finalize while supervisor is active")
     completed = int(status.get("reconciled_completed", status.get("completed", 0)) or 0)
     if status.get("state") != "COMPLETED" or completed != spec.total_samples:
-        raise RuntimeError(
-            f"cannot finalize incomplete run: state={status.get('state', 'UNKNOWN')} "
-            f"completed={completed}/{spec.total_samples}"
-        )
+        if (
+            completed == spec.total_samples
+            and status.get("state") == "INCOMPLETE"
+            and inspect_log_success(spec.log_dir)
+        ):
+            status = update_status(
+                spec.status_path,
+                state="COMPLETED",
+                reconciliation_finalized_from_segments=True,
+            )
+        else:
+            raise RuntimeError(
+                f"cannot finalize incomplete run: state={status.get('state', 'UNKNOWN')} "
+                f"completed={completed}/{spec.total_samples}"
+            )
     log = latest_json_log(spec.log_dir)
     checksum = None
     size = 0

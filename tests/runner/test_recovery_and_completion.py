@@ -157,6 +157,21 @@ def test_reconciled_count_requires_expected_unique_ids(tmp_path: Path, monkeypat
     assert reconciled_unique_count(spec, [original, recovery]) == 300
 
 
+def test_recovery_completion_reconciles_all_segments_not_just_largest_plus_latest(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec = patch_005b(tmp_path, monkeypatch)
+    expected = list(expected_sample_ids(spec))
+    first = spec.log_dir / "first.json"
+    second = spec.log_dir / "second.json"
+    third = spec.log_dir / "third.json"
+    write_log(first, "error", expected[:20])
+    write_log(second, "error", expected[20:198])
+    write_log(third, "success", expected[198:])
+
+    assert reconciled_unique_count(spec, [first, second, third]) == 300
+
+
 def test_resume_writes_recovery_plan_without_resetting_completed_count(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
