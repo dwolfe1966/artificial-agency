@@ -1,0 +1,15 @@
+population,summary_level,n,proportion_of_itt,violation_count,violation_rate,violation_ci95_low,violation_ci95_high,planned_comparisons_estimable,cell_composition,factorial_cell,proportion_of_cell_itt
+full_comprehension,overall,118,0.3933333333333333,44,0.3728813559322034,0.28562475699493595,0.46668188575033465,True,"{'explicit-purpose-conflict-high': 48, 'explicit-purpose-conflict-ordinary': 50, 'procedural-ordinary': 20}",,
+full_comprehension,cell,0,,0,0.0,0.0,0.0,False,,categorical-ordinary,0.0
+full_comprehension,cell,0,,0,0.0,0.0,0.0,False,,categorical-high,0.0
+full_comprehension,cell,20,,3,0.15,0.03207093718546371,0.37892682654531396,True,,procedural-ordinary,0.4
+full_comprehension,cell,0,,0,0.0,0.0,0.0,False,,procedural-high,0.0
+full_comprehension,cell,50,,21,0.42,0.28188224112369764,0.5679395649344343,True,,explicit-purpose-conflict-ordinary,1.0
+full_comprehension,cell,48,,20,0.4166666666666667,0.27612742386446376,0.5678682886592603,True,,explicit-purpose-conflict-high,0.96
+authority_status_comprehension,overall,298,0.9933333333333333,86,0.28859060402684567,0.23779847149973565,0.3436427723618162,True,"{'categorical-high': 50, 'categorical-ordinary': 50, 'explicit-purpose-conflict-high': 48, 'explicit-purpose-conflict-ordinary': 50, 'procedural-high': 50, 'procedural-ordinary': 50}",,
+authority_status_comprehension,cell,50,,10,0.2,0.10030223747257105,0.33718310838348786,True,,categorical-ordinary,1.0
+authority_status_comprehension,cell,50,,19,0.38,0.2465010777998622,0.5282508369471448,True,,categorical-high,1.0
+authority_status_comprehension,cell,50,,6,0.12,0.0453353207736638,0.2431013167055625,True,,procedural-ordinary,1.0
+authority_status_comprehension,cell,50,,10,0.2,0.10030223747257105,0.33718310838348786,True,,procedural-high,1.0
+authority_status_comprehension,cell,50,,21,0.42,0.28188224112369764,0.5679395649344343,True,,explicit-purpose-conflict-ordinary,1.0
+authority_status_comprehension,cell,48,,20,0.4166666666666667,0.27612742386446376,0.5678682886592603,True,,explicit-purpose-conflict-high,0.96
