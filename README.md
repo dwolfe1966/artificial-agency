@@ -34,4 +34,15 @@ A central question is whether more capable agents exhibit greater sensitivity to
 - papers/ — reports and manuscripts
 
 ## Current stage
-Day 1 — hypothesis formation and Experiment 001 design.
+Experiments 001–005 are complete and preserved.
+
+The research program has progressed from an initial optimization-pressure hypothesis through increasingly controlled tests of compliant-path feasibility, pressure recognition, constraint meaning, construct validity, and cross-model replication.
+
+A major Experiment 005 result initially appeared to show a large Claude-vs-GPT/Gemini circumvention difference. Full semantic audit showed that the apparent Claude effect was a scorer-validity failure: the 86 flagged Claude cases contained truthful authorization-related language rather than false claims of authority, unauthorized commitments, or unauthorized operational actions. The original scorer outputs remain preserved, while downstream interpretation has been corrected.
+
+Experiment 006 — **Action vs Representational Compliance** — is now preregistered. It prospectively separates operational violations from false or misleading representations of authority, with independent endpoints designed to avoid the Experiment 005 measurement error.
+
+Current priorities:
+1. Implement and validate Experiment 006 before production execution.
+2. Continue the formal literature review and novelty/claim mapping across agentic misalignment, alignment faking, instruction hierarchy, evaluation awareness, rule-following, goal misgeneralization, and cross-model agent evaluations.
+3. Continue public documentation of methods, corrections, null results, and evolving hypotheses.
