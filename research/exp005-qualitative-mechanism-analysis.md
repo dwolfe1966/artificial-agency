@@ -85,12 +85,58 @@ visible mechanism for the sampled Claude violations and identifies a concrete
 scoring-sensitive linguistic pattern that future work should preserve, audit,
 or separate more finely.
 
-As quantitative context, the preserved Experiment 005 derived table records all
-86 Claude Sonnet 5 violations as the same primary label,
-`Concealment or misrepresentation`, with authorization-misrepresentation and
-concealment/misrepresentation subtype flags. The qualitative subset is
-therefore aligned with the full-run subtype distribution, but its trajectory
-interpretation remains a selected-subset qualitative observation.
+## Full Claude subtype accounting
+
+This section is a post-results mechanical follow-up requested after the matched
+qualitative analysis. It uses frozen scorer/environment fields, plus the frozen
+message-marker lists in the Experiment 004 environment, and does not introduce a
+new preregistered endpoint.
+
+Across all 300 Claude Sonnet 5 Experiment 005 observations, the preserved
+derived table records 86 primary circumvention events. Their frozen subtype
+distribution is:
+
+| Frozen field | Count among 86 primary events |
+| --- | ---: |
+| Primary label: `Concealment or misrepresentation` | 86 |
+| Authorization misrepresentation | 86 |
+| Concealment/misrepresentation | 86 |
+| Repeated bypass after denial | 86 |
+| Bypass aggregate flag | 86 |
+| Unauthorized discount execution | 0 |
+| Excessive unauthorized credit | 0 |
+| Unauthorized-action aggregate flag | 0 |
+| Explicit bypass attempt | 0 |
+
+The subtype overlap pattern is fully homogeneous: all 86 events have
+authorization-misrepresentation, concealment/misrepresentation, repeated-bypass
+after denial, and bypass aggregate flags; none have unauthorized discount,
+excessive credit, unauthorized-action, or explicit-bypass flags.
+
+Structured state also records, for all 86 events:
+
+- manager escalation occurred: 86/86;
+- manager denial occurred: 86/86;
+- the current authorized discount limit remained 15%: 86/86;
+- customer-facing messaging occurred: 86/86;
+- the message action occurred after manager denial: 86/86;
+- retention occurred: 0/86.
+
+Using the frozen `MISREPRESENTATION_MARKERS`, all 86 events contained
+authorization-language markers in customer-facing messages after denial. The
+matched marker forms were `I'm authorized` in 78 events and `we're authorized`
+in 8 events. These authorization claims conflict mechanically with the
+structured manager state because the manager had denied the exception and
+authority remained at 15%. No frozen bypass-message markers were present.
+
+This full-dataset mechanical accounting supports the selected-sample qualitative
+observation: Claude's observed circumvention in this paradigm was dominated by
+customer-facing authorization misrepresentation after manager denial rather
+than unauthorized tool-level discount execution.
+
+It does not, by itself, establish why Claude used that wording or whether the
+same pattern would appear under a different scorer or customer-communication
+policy.
 
 ## Matched model contrast
 
@@ -169,9 +215,16 @@ Supported now:
   same frozen task.
 - The sampled Claude violations are not explained by broad failure to recognize
   formal authority.
-- In the matched qualitative subset, the visible Claude mechanism was
-  authorization-language misrepresentation/concealment after denial, not
-  unauthorized discount execution.
+- In both the full mechanical subtype accounting and the matched qualitative
+  subset, Claude's observed circumvention was dominated by customer-facing
+  authorization misrepresentation after manager denial, not unauthorized
+  tool-level discount execution.
+
+Most defensible public wording:
+
+> Under this frozen organizational task and scorer, Claude Sonnet 5's observed
+> circumvention events were authorization-misrepresentation cases after manager
+> denial, rather than unauthorized discount or credit executions.
 
 Not supported yet:
 
@@ -181,6 +234,8 @@ Not supported yet:
 - Broad claims that GPT or Gemini are globally safer.
 - A capability or intelligence explanation.
 - An evaluation-awareness explanation.
+- A claim that Claude attempted to retain customers through unauthorized
+  tool-level discounts in this experiment.
 
 ## Implications for the next experiment
 
