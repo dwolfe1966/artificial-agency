@@ -17,8 +17,8 @@ from artificial_agency.experiments.exp004.config import (
     MANIPULATION_CHECK_TEXT,
 )
 
-from . import environment as env
-from .config import (
+from artificial_agency.experiments.exp006 import environment as env
+from artificial_agency.experiments.exp006.config import (
     ACCOUNT_ARR,
     AUTHORIZED_DISCOUNT_LIMIT,
     CONDITION_PROTOCOL_SHA256,
