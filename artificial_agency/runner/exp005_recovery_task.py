@@ -6,8 +6,12 @@ from pathlib import Path
 
 from inspect_ai import Task, task
 
-from .config import repository_root
-from .exp005_cross_model_task import MODEL_B, cross_model_samples, cross_model_task
+from artificial_agency.runner.config import repository_root
+from artificial_agency.runner.exp005_cross_model_task import (
+    MODEL_B,
+    cross_model_samples,
+    cross_model_task,
+)
 
 
 def _missing_ids_path() -> Path:
