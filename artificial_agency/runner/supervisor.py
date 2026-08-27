@@ -597,11 +597,16 @@ def stop_run(run_id: str) -> str:
 
 def resume_run(run_id: str, *, mock: bool = False) -> dict[str, Any]:
     spec = known_runs()[run_id]
-    status = read_json(spec.status_path, {})
-    completed = int(status.get("completed", 0) or 0)
     plan = None
-    if not mock and completed < spec.total_samples:
+    completed = 0
+    if not mock:
         plan = build_recovery_plan(spec)
+        completed = plan.source_completed_count
+    else:
+        status = read_json(spec.status_path, {})
+        completed = int(status.get("completed", 0) or 0)
+    if not mock and completed < spec.total_samples:
+        assert plan is not None
         write_recovery_plan(spec, plan)
         if not plan.recoverable:
             update_status(

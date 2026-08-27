@@ -204,6 +204,28 @@ def test_recovery_plan_reruns_structurally_invalid_scoreless_ids(
     assert plan.recoverable is True
 
 
+def test_recovery_plan_ignores_nonterminal_retry_segments(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec = patch_005b(tmp_path, monkeypatch)
+    expected = list(expected_sample_ids(spec))
+    invalid_ids = {expected[-2], expected[-1]}
+    write_log_with_invalid_samples(
+        spec.log_dir / "original-error.json",
+        "error",
+        expected,
+        invalid_ids,
+    )
+    write_log(spec.log_dir / "stopped-retry.json", "started", expected[:39])
+
+    plan = build_recovery_plan(spec)
+
+    assert plan.source_completed_count == 298
+    assert plan.missing_ids == tuple(expected[-2:])
+    assert plan.duplicate_ids == ()
+    assert plan.recoverable is True
+
+
 def test_reconciled_count_ignores_invalid_records_when_valid_recovery_exists(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -216,6 +238,35 @@ def test_reconciled_count_ignores_invalid_records_when_valid_recovery_exists(
     write_log(recovery, "success", expected[-2:])
 
     assert reconciled_unique_count(spec, [original, recovery]) == 300
+
+
+def test_resume_uses_structural_recovery_plan_over_stale_completed_status(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec = patch_005b(tmp_path, monkeypatch)
+    expected = list(expected_sample_ids(spec))
+    invalid_ids = {expected[-2], expected[-1]}
+    write_log_with_invalid_samples(
+        spec.log_dir / "all-ids-with-invalid-tail.json",
+        "error",
+        expected,
+        invalid_ids,
+    )
+    atomic_write_json(spec.status_path, {"state": "INCOMPLETE", "completed": spec.total_samples})
+    monkeypatch.setattr(
+        supervisor,
+        "launch_detached",
+        lambda run_id, mock=False, recovery=False: {"started": True, "recovery": recovery},
+    )
+
+    result = supervisor.resume_run("005B")
+    status = read_json(spec.status_path)
+    recovery_ids = read_json(spec.status_path.parent / "RECOVERY_MISSING_IDS.json")
+
+    assert result == {"started": True, "recovery": True}
+    assert status["completed_before_resume"] == 298
+    assert status["recovery_missing"] == 2
+    assert recovery_ids["missing_ids"] == expected[-2:]
 
 
 def test_duplicate_ids_in_source_segment_block_recovery(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

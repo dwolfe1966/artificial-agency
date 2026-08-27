@@ -62,14 +62,19 @@ def expected_sample_ids(spec: RunSpec) -> tuple[str, ...]:
     raise ValueError(f"runner-level sample-id recovery is not defined for {spec.run_id}")
 
 
+def _authoritative_segments(segments: tuple[InspectLogMetadata, ...]) -> tuple[InspectLogMetadata, ...]:
+    return tuple(segment for segment in segments if segment.status in {"success", "completed", "error"})
+
+
 def build_recovery_plan(spec: RunSpec) -> RecoveryPlan:
     expected = expected_sample_ids(spec)
     expected_set = set(expected)
     segments = tuple(inspect_log_metadata(path) for path in json_logs(spec.log_dir))
-    source = max(segments, key=lambda segment: segment.sample_count, default=None)
+    authoritative = _authoritative_segments(segments)
+    source = max(authoritative, key=lambda segment: segment.valid_sample_count, default=None)
     seen: set[str] = set()
     duplicates: list[str] = []
-    for segment in segments:
+    for segment in authoritative:
         segment_seen: set[str] = set()
         for sample_id in segment.valid_sample_ids:
             if sample_id in segment_seen and sample_id not in duplicates:
@@ -82,7 +87,7 @@ def build_recovery_plan(spec: RunSpec) -> RecoveryPlan:
     invalid = tuple(
         sample_id
         for sample_id in expected
-        if sample_id in {invalid for segment in segments for invalid in segment.invalid_sample_ids}
+        if sample_id in {invalid for segment in authoritative for invalid in segment.invalid_sample_ids}
         and sample_id not in completed_expected
     )
     return RecoveryPlan(
