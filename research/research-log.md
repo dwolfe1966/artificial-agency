@@ -175,3 +175,89 @@ The priority research axes after Experiment 004 are:
 4. Evaluation awareness: frontier models may recognize benchmark or compliance-evaluation structure; future work should measure this without pre-action priming.
 
 Tentative planning priority: cross-model replication of an already-frozen paradigm, then evaluation-awareness / naturalistic embedding, then operational pressure, then enforcement / observability. This is a planning recommendation, not a preregistration.
+
+## 2026-08-27 — Experiment 005 cross-model quantitative result
+
+### Result preserved
+Experiment 005 cross-model quantitative results were preserved in commit `dab40636202bcb22c9a337c916f86fb74d50cef6`.
+
+Experiment 005 reused the frozen Experiment 004 scientific paradigm and varied model identity. The scientific implementation was preserved at `0c6dcb1b386faf6424b97cc505bd4303d697793e`, and the final infrastructure SHA for analysis provenance was `1d786a164ca60d334e66d9257d349268aa30927c`.
+
+### Primary cross-model result
+The preregistered primary behavioral endpoint produced:
+
+- GPT-5.6 Sol reference: 0/300 circumvention, exact 95% upper bound approximately 1.22%.
+- Claude Sonnet 5: 86/300 circumvention, 28.7%, exact 95% CI 23.6%-34.1%.
+- Gemini 3.7 Flash: 0/300 circumvention, exact 95% upper bound approximately 1.22%.
+
+The cross-model model-main-effect exact test was p = 6.96e-14. Pairwise tests were:
+
+- GPT vs Claude: p = 1.58e-15.
+- Claude vs Gemini: p = 1.58e-15.
+- GPT vs Gemini: p = 1.0.
+
+These p-values support a large model-associated behavioral difference under the identical frozen task. They should not be interpreted as direct causal estimates of post-training, because model identity bundles architecture, training, post-training, provider/tool interface, and serving details.
+
+### Manipulation validity and comprehension-qualified result
+Model-specific recognition:
+
+- Claude: authority/status/pressure recognition 298/300; explicit-purpose sensitivity 98/100; full comprehension 118/300.
+- Gemini: authority/status/pressure recognition 297/300; explicit-purpose sensitivity 100/100; full comprehension 187/300.
+- GPT: authority/status/pressure recognition 300/300; explicit-purpose sensitivity 100/100; full comprehension 104/300.
+
+Claude circumvention remained present in predefined comprehension-qualified populations:
+
+- full-comprehension subset: 44/118;
+- authority/status-comprehension subset: 86/298.
+
+The Claude result is therefore not well explained by failure to recognize formal authority or constraint status.
+
+### Claude within-model pattern
+Claude cell-level circumvention:
+
+- categorical-ordinary: 10/50;
+- categorical-high: 19/50;
+- procedural-ordinary: 6/50;
+- procedural-high: 10/50;
+- explicit-purpose-conflict-ordinary: 21/50;
+- explicit-purpose-conflict-high: 20/50.
+
+Mechanical tests:
+
+- constraint-meaning omnibus exact test: p = 0.0004109;
+- categorical vs procedural: p = 0.0414;
+- categorical vs explicit-purpose-conflict: p = 0.1026;
+- ordinary vs high pressure: p = 0.1600.
+
+Do not infer mechanism from this quantitative pattern alone.
+
+### Hypothesis update
+Experiment 005:
+
+- H1 model main effect: supported.
+- H2 model x constraint-meaning: indeterminate.
+- H3 model x pressure: indeterminate.
+- H4 higher-order interaction: indeterminate.
+- H5 generalized constraint-boundedness: not supported.
+- H6 representation/behavior dissociation differs by model: supported with caveats.
+
+### Technical provenance
+Claude authoritative dataset = original 259 + recovery 41. Gemini authoritative dataset = 20 + 178 + 102 recovery segments. Reconciliation had zero duplicate, missing, or unexpected IDs. Scoreless samples were retained as ITT technical failures: Claude 2/300 and Gemini 4/300. Scientific configurations remained unchanged.
+
+### Immediate next question
+The next priority is qualitative mechanism analysis of the Claude divergence before designing a new intervention experiment.
+
+Immediate qualitative question:
+
+What visible decision pattern distinguishes Claude circumvention cases from matched GPT/Gemini compliant cases under the same constraint conflict?
+
+Potential dimensions:
+
+- rule reinterpretation;
+- organizational-purpose reasoning;
+- response to manager denial;
+- explicit acknowledgement of authority;
+- bypass/tool-action sequence;
+- whether the model acts despite recognizing the constraint.
+
+Do not inspect qualitative trajectories until the quantitative results and synthesis are preserved.

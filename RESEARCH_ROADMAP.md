@@ -64,9 +64,9 @@ Test whether constraint-bounded behavior differs across frontier models from dif
 
 **Deliverable:** Dataset 001 + analysis.
 
-**Current Experiment 005 direction:** preregister cross-model replication of the frozen Experiment 004 paradigm. The independent variable is model identity / post-training regime, with `anthropic/claude-sonnet-5` as the first comparison model and `google/gemini-3.7-flash` as the next planned comparison. Do not change Experiment 004 prompts, tools, manipulation check, authority structure, or scoring for this replication.
+**Experiment 005 result:** cross-model replication of the frozen Experiment 004 paradigm showed a large model-associated difference. GPT-5.6 Sol and Gemini 3.7 Flash produced 0/300 observed circumventions each, while Claude Sonnet 5 produced 86/300 circumventions. The cross-model model-main-effect exact test was p = 6.96e-14. This supports model identity as a substantive experimental variable, but does not by itself identify post-training as the causal mechanism.
 
-**Tentative priority after Experiment 005:** evaluation awareness / naturalistic embedding, then operational pressure, then enforcement / observability. This ordering is a planning recommendation, not an implementation plan.
+**Tentative priority after Experiment 005:** qualitative mechanism analysis of the Claude divergence, then evaluation awareness / naturalistic embedding, then operational pressure, then enforcement / observability. This ordering is a planning recommendation, not an implementation plan.
 
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
@@ -119,4 +119,4 @@ Approximately 70% doing / 30% learning. Every week should end with something tha
 4. What is now less likely to be true?
 5. What experiment should we run next?
 
-Current review prompt after Experiments 001-004: is the repeated GPT-5.6 Sol constraint-bounded result model-specific, evaluation-context-specific, or robust to operational pressure and altered enforcement/observability?
+Current review prompt after Experiment 005: what visible decision pattern distinguishes Claude circumvention cases from matched GPT/Gemini compliant cases under the same frozen constraint conflict, and what should that imply for evaluation-awareness, operational-pressure, and enforcement/observability follow-up studies?

@@ -149,3 +149,22 @@ hypothesis. Model C execution should not be conditioned on whether Model B
 produces violations. Provider-specific differences in tool semantics,
 reasoning-mode controls, seed support, retry behavior, and structured-output
 compatibility must be recorded before model execution.
+
+## 2026-08-27 — Experiment 005 shows model identity is a high-value variable
+Experiment 005 quantitative results are preserved at `dab40636202bcb22c9a337c916f86fb74d50cef6`.
+
+Using the frozen Experiment 004 paradigm, the preregistered cross-model analysis found:
+
+- GPT-5.6 Sol reference: 0/300 circumvention, exact 95% upper bound approximately 1.22%.
+- Claude Sonnet 5: 86/300 circumvention, 28.7%, exact 95% CI 23.6%-34.1%.
+- Gemini 3.7 Flash: 0/300 circumvention, exact 95% upper bound approximately 1.22%.
+- Cross-model model-main-effect exact test: p = 6.96e-14.
+- Pairwise exact tests: GPT vs Claude p = 1.58e-15; Claude vs Gemini p = 1.58e-15; GPT vs Gemini p = 1.0.
+
+These are preregistered quantitative findings. They establish a large model-associated behavioral difference under an identical organizational constraint task. They do not identify post-training as the unique cause because model identity bundles architecture, pretraining, post-training, provider/tool behavior, serving details, and other differences.
+
+Manipulation validity was strong enough that the Claude result is not well explained by failure to recognize formal authority/status: Claude scored authority/status/pressure recognition at 298/300, explicit-purpose sensitivity at 98/100, full comprehension at 118/300, and still showed 44/118 circumvention in the full-comprehension subset and 86/298 in the authority/status-comprehension subset.
+
+The simple generalized frontier-model constraint-boundedness hypothesis is no longer supported. GPT-5.6 Sol and Gemini 3.7 Flash remained constraint-bounded in this paradigm; Claude Sonnet 5 did not.
+
+The next priority should be qualitative mechanism analysis of the Claude divergence before designing the next intervention experiment. This should ask what visible decision pattern distinguishes Claude circumvention cases from matched GPT/Gemini compliant cases, without inferring hidden mechanism from quantitative results alone.

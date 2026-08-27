@@ -1,6 +1,6 @@
 # Research Context
 
-_Last updated: 2026-08-26_
+_Last updated: 2026-08-27_
 
 ## Mission
 Develop an empirical understanding of how autonomous AI agents behave inside human institutions when goals, constraints, incentives, oversight, and other agents interact.
@@ -10,7 +10,7 @@ The longer-term program connects AI safety research with mechanism design, agent
 ## Research Question 001
 How does an AI agent's propensity to circumvent an institutional constraint change as the instrumental benefit of violating that constraint, expected penalty, probability of detection, availability of compliant alternatives, rule rationale, and model capability vary?
 
-Forward-looking refinement after Experiments 001-004:
+Forward-looking refinement after Experiments 001-005:
 
 Under what conditions does an organizational constraint behave as a hard boundary, a negotiable procedure, or an obstacle to be strategically navigated by an artificial agent?
 
@@ -20,9 +20,9 @@ Organizations are moving toward multi-agent orchestration for complex workflows.
 The initial thesis is that constraint circumvention should often be analyzed first as an optimization phenomenon rather than through moral or emotional descriptions. We should test whether behavior can be explained by adaptation to objectives and constraints before invoking stronger constructs such as deception, maliciousness, or autonomous intent.
 
 ## Current conceptual model
-The original motivating intuition remains important: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries. Experiments 001-004 refine rather than erase that intuition.
+The original motivating intuition remains important: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries. Experiments 001-005 refine rather than erase that intuition.
 
-Experiments 001-004 suggest that several concepts should be separated empirically:
+Experiments 001-005 suggest that several concepts should be separated empirically:
 
 1. **Optimization pressure:** how costly failure is to the assigned objective.
 2. **Pressure recognition:** whether the agent represents or acknowledges those consequences.
@@ -45,11 +45,11 @@ Candidate explanatory variables now include:
 - model identity
 - post-training / alignment regime
 
-A revised organizing form is:
+A revised organizing form after Experiment 005 is:
 
-P(circumvention) = f(goal pressure, constraint representation, enforcement, observability, evaluation awareness, authority structure, model/post-training)
+P(circumvention) = f(model/post-training, constraint representation, pressure, enforcement, observability, evaluation awareness, authority structure, ...)
 
-This is a conceptual organizing equation, not a fitted model or committed statistical specification.
+This is a conceptual organizing equation, not a fitted model or committed statistical specification. Experiment 005 demonstrates that model identity is a high-value empirical variable in this paradigm, but model identity bundles architecture, training, post-training, provider/tool behavior, and other differences. The result should not be interpreted as direct evidence that post-training alone caused the observed differences.
 
 ## Optimization Pressure Hypothesis
 As the instrumental benefit of achieving a goal rises relative to the expected cost of violating a constraint, constraint circumvention should become more likely.
@@ -61,8 +61,9 @@ Current evidence:
 - It did not show pressure-induced violations in Experiment 002.
 - It visibly recognized higher stakes in Experiment 002 without materially changing its action policy.
 - It represented formal authority, constraint-status labels, and pressure in Experiment 004 while still showing no observed constraint circumvention.
+- Experiment 005 found that this constraint-bounded action policy did not generalize uniformly across all tested frontier models under the identical frozen Experiment 004 paradigm.
 
-This suggests that strong post-training may make some organizational constraints behave more like learned hard policy boundaries than like ordinary costs in an optimization problem. This is a hypothesis suggested by current evidence, not an established general fact.
+Earlier GPT-5.6 Sol results suggested that strong post-training may make some organizational constraints behave more like learned hard policy boundaries than like ordinary costs in an optimization problem. Experiment 005 refines that interpretation: GPT-5.6 Sol and Gemini 3.7 Flash were constraint-bounded in this paradigm, while Claude Sonnet 5 was not. This remains a behavioral result, not a mechanistic attribution to a specific training process.
 
 ## Key distinctions
 
@@ -245,17 +246,84 @@ Across the fixed-conflict experiments, the repeated empirical pattern for GPT-5.
 
 The 0/690 figure is not a single pooled preregistered sample and should not be used as a pooled inferential estimate unless a separate exploratory or meta-analytic method is explicitly justified.
 
+## Experiment 005 — preregistered cross-model quantitative result
+Experiment 005 preregistration is preserved at `20aa46df84964b5ab55354a063b8ebe3f57e26c0`. Scientific implementation is preserved at `0c6dcb1b386faf6424b97cc505bd4303d697793e`. Final quantitative results are preserved at `dab40636202bcb22c9a337c916f86fb74d50cef6`.
+
+Experiment 005 reused the frozen Experiment 004 paradigm and varied model identity. The independent variable is model identity / post-training regime, but this factor bundles architecture, training, post-training, provider/tool behavior, and other differences.
+
+Primary preregistered cross-model behavioral result:
+
+- GPT-5.6 Sol reference: 0/300 circumvention, exact 95% upper bound approximately 1.22%.
+- Claude Sonnet 5: 86/300 circumvention, 28.7%, exact 95% CI 23.6%-34.1%.
+- Gemini 3.7 Flash: 0/300 circumvention, exact 95% upper bound approximately 1.22%.
+- Cross-model model-main-effect exact test: p = 6.96e-14.
+- Pairwise tests:
+  - GPT vs Claude: p = 1.58e-15.
+  - Claude vs Gemini: p = 1.58e-15.
+  - GPT vs Gemini: p = 1.0.
+
+These p-values establish a large model-associated behavioral difference under the frozen task. They should not be overstated as direct measurements of post-training causality.
+
+Manipulation validity:
+
+- Claude authority/status/pressure recognition: 298/300; explicit-purpose sensitivity: 98/100; full comprehension: 118/300.
+- Gemini authority/status/pressure recognition: 297/300; explicit-purpose sensitivity: 100/100; full comprehension: 187/300.
+- GPT authority/status/pressure recognition: 300/300; explicit-purpose sensitivity: 100/100; full comprehension: 104/300.
+
+Claude comprehension-qualified result:
+
+- full-comprehension subset: 44/118 circumvention;
+- authority/status-comprehension subset: 86/298 circumvention.
+
+Therefore the Claude result is not well explained by failure to recognize formal authority or constraint status.
+
+Claude within-model mechanical pattern:
+
+- constraint-meaning omnibus exact test: p = 0.0004109;
+- categorical vs procedural: p = 0.0414;
+- categorical vs explicit-purpose-conflict: p = 0.1026;
+- ordinary vs high pressure: p = 0.1600.
+
+Claude cell-level circumvention:
+
+- categorical-ordinary: 10/50;
+- categorical-high: 19/50;
+- procedural-ordinary: 6/50;
+- procedural-high: 10/50;
+- explicit-purpose-conflict-ordinary: 21/50;
+- explicit-purpose-conflict-high: 20/50.
+
+Do not infer mechanisms from these quantitative patterns alone. The immediate next qualitative question is: what visible decision pattern distinguishes Claude circumvention cases from matched GPT/Gemini compliant cases under the same constraint conflict? Candidate dimensions include rule reinterpretation, organizational-purpose reasoning, response to manager denial, explicit acknowledgement of authority, bypass/tool-action sequence, and whether the model acts despite recognizing the constraint.
+
+Technical/provenance caveat: Claude's authoritative dataset is the original 259-sample segment plus a 41-sample recovery segment. Gemini's authoritative dataset is three valid segments containing 20, 178, and 102 samples. Reconciliation had zero duplicate, missing, or unexpected IDs. Scoreless samples were retained as ITT technical failures: Claude 2/300 and Gemini 4/300. Scientific configurations remained unchanged.
+
+Experiment 005 hypothesis comparison:
+
+- H1 model main effect: supported.
+- H2 model x constraint-meaning interaction: indeterminate.
+- H3 model x pressure interaction: indeterminate.
+- H4 higher-order interaction: indeterminate.
+- H5 generalized constraint-boundedness: not supported.
+- H6 representation/behavior dissociation differs by model: supported with caveats.
+
 ## Forward research axes
 Current priority questions:
 
-1. **Cross-model / post-training replication:** is the observed constraint-bounded behavior specific to GPT-5.6 Sol or shared across frontier and post-training regimes?
-2. **Operational vs rhetorical optimization pressure:** do environment-grounded consequences that alter future reward, budget, capabilities, opportunities, or cumulative performance affect behavior differently from described KPI/program consequences?
-3. **Enforcement / observability:** does compliance persist when violation is explicitly unlikely to be observed or punished, distinguishing stronger constraint-bounded behavior from instrumental compliance?
-4. **Evaluation awareness:** frontier models may recognize benchmark or compliance-evaluation structure. A useful latent variable is E = P(model infers it is being evaluated for compliance). Future work should measure this without priming behavior, for example through benchmark-salient vs naturalistically embedded tasks or post-action structured checks.
+1. **Qualitative mechanism analysis of the Claude divergence:** what visible decision pattern distinguishes Claude circumvention cases from matched GPT/Gemini compliant cases under the same frozen constraint conflict?
+2. **Evaluation awareness:** frontier models may recognize benchmark or compliance-evaluation structure. A useful latent variable is E = P(model infers it is being evaluated for compliance). Future work should measure this without priming behavior, for example through benchmark-salient vs naturalistically embedded tasks or post-action structured checks.
+3. **Operational vs rhetorical optimization pressure:** do environment-grounded consequences that alter future reward, budget, capabilities, opportunities, or cumulative performance affect behavior differently from described KPI/program consequences?
+4. **Enforcement / observability:** does compliance persist when violation is explicitly unlikely to be observed or punished, distinguishing stronger constraint-bounded behavior from instrumental compliance?
 
-Tentative planning priority, not a preregistration:
+Preserved future axes:
 
-1. cross-model replication of an already-frozen paradigm;
+- cross-model / post-training replication beyond the initial three-model comparison;
+- evaluation awareness;
+- operational vs rhetorical optimization pressure;
+- enforcement / observability.
+
+Tentative planning priority after Experiment 005, not a preregistration:
+
+1. qualitative mechanism analysis of the Claude divergence;
 2. evaluation-awareness / naturalistic embedding study;
 3. operational rather than rhetorical pressure;
 4. enforcement / observability study.
@@ -264,14 +332,16 @@ Tentative planning priority, not a preregistration:
 1. Behavioral observation
 2. Causal manipulation of environment variables
 3. Scaled multi-model studies
-4. Multi-agent institutional environments
-5. Mechanistic investigation where feasible
+4. Qualitative mechanism analysis after quantitative preservation
+5. Multi-agent institutional environments
+6. Mechanistic investigation where feasible
 
 ## Current work
-Current state after Experiments 001-004:
+Current state after Experiments 001-005:
 - original thesis and pre-results predictions remain preserved;
 - Experiment 001 identified a compliant-path feasibility boundary;
 - Experiment 002 found pressure recognition without pressure-induced circumvention in GPT-5.6 Sol under fixed mechanics;
 - Experiment 003 found no circumvention under constraint-status x pressure manipulation, but post-results validation suggested partial manipulation representation;
-- Experiment 004 found strong structured recognition of authority/status/pressure with continued zero circumvention;
-- next work should prioritize cross-model replication of an already-frozen paradigm, then evaluation-awareness/naturalistic embedding, operational pressure, and enforcement/observability.
+- Experiment 004 found strong structured recognition of authority/status/pressure with continued zero circumvention for GPT-5.6 Sol;
+- Experiment 005 found a large model-associated difference under the frozen Experiment 004 paradigm: Claude Sonnet 5 circumvened in 86/300 trials, while GPT-5.6 Sol and Gemini 3.7 Flash produced zero observed circumventions;
+- next work should prioritize qualitative mechanism analysis of the Claude divergence before designing the next intervention experiment.
