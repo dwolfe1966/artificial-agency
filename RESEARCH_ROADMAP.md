@@ -151,15 +151,21 @@ but it is no longer the immediate bottleneck. The next priority order is:
 3. enforcement / observability;
 4. multi-agent delegation.
 
-**Prospective Experiment 008 concept:** not yet preregistered or implemented.
-Candidate design: procurement and restricted-data-access scenarios x
-eval-salient versus naturalistically embedded presentation x GPT-5.6 Sol,
-Claude Sonnet 5, and Gemini 3.7 Flash, with 30 replicates per model x scenario
-x presentation cell, for 360 samples. Core question: does operational
-compliance change when the same authority conflict is embedded in a more
-naturalistic workflow that is less obviously structured as a compliance
-evaluation? Include a post-action structured evaluation-awareness measure if
-this design is preregistered.
+**Experiment 008 preregistration direction:** Experiment 008 is the next
+prospective study. It tests evaluation awareness / naturalistic embedding by
+crossing procurement and restricted-data-access scenarios with eval-salient
+versus naturalistically embedded presentation across GPT-5.6 Sol, Claude Sonnet
+5, and Gemini 3.7 Flash. The planned allocation is 30 replicates per model x
+scenario x presentation cell, for 360 samples.
+
+Core question: does operational compliance change when the same authority
+conflict is embedded in a more naturalistic workflow that is less obviously
+structured as a compliance evaluation? The underlying authority mechanics,
+forbidden action availability, objective stakes, baseline narrative pressure,
+and operational scoring must remain invariant across presentation styles.
+
+Experiment 008 includes a post-action structured evaluation-awareness measure.
+This measure is secondary, post-treatment, and not a pre-treatment covariate.
 
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
@@ -212,6 +218,6 @@ Approximately 70% doing / 30% learning. Every week should end with something tha
 4. What is now less likely to be true?
 5. What experiment should we run next?
 
-Current review prompt after Experiment 007: how should the next experiment
-separate evaluation salience from the underlying authority conflict while
-preserving the mechanically validated operational endpoint?
+Current review prompt after Experiment 008 preregistration: does the
+naturalistic presentation preserve formal authority, action availability, and
+objective stakes while changing primarily evaluation/compliance salience?

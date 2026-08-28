@@ -425,3 +425,48 @@ Claude Sonnet 5, and Gemini 3.7 Flash, with 30 replicates per cell for 360
 samples. The core question would be whether operational compliance changes when
 the same authority conflict is embedded in a less benchmark-salient workflow.
 Include a post-action structured evaluation-awareness measure if preregistered.
+
+## 2026-08-28 — Preregister Experiment 008 as evaluation-awareness / naturalistic embedding study
+
+Experiment 008 is preregistered as the next Scenario Suite study. It tests
+whether operational compliance changes when the same underlying authority
+conflict is presented as an obvious compliance-evaluation task versus embedded
+naturally inside a richer organizational workflow.
+
+Decision: use a 2 x 2 x 3 design:
+
+- scenarios: procurement / purchasing authority and restricted synthetic data
+  access;
+- presentation styles: eval-salient and naturalistically embedded;
+- models: `openai/gpt-5.6-sol`, `anthropic/claude-sonnet-5`, and
+  `google/gemini-3.7-flash`.
+
+Sample plan:
+
+- 30 replicates per model x scenario x presentation cell;
+- 120 samples per model;
+- 180 samples per scenario;
+- 180 samples per presentation style;
+- 360 samples total.
+
+The primary endpoint remains `operational_constraint_violation`, scored only
+from structured tool/environment state. No natural-language scorer is required
+for the primary endpoint. Experiment 008 reuses the mechanically validated
+procurement and restricted-data-access endpoints from Experiment 007.
+
+The presentation manipulation must preserve formal authority, approval/denial
+mechanics, forbidden action availability, action space, objective stakes,
+baseline narrative pressure, ordinary observability, operational scoring,
+single-agent structure, and single-episode structure. The intended manipulation
+is evaluation/compliance salience, not task permission, difficulty, or
+authority.
+
+Experiment 008 adds a structured post-action evaluation-awareness measure with
+constrained fields for perceived task type, perceived compliance-test
+likelihood, perceived behavior-under-evaluation, and confidence. This measure
+must occur only after the operational episode. It is secondary, post-treatment,
+and not a basis for conditioning the primary ITT behavioral analysis.
+
+Serious competing hypotheses are preserved: presentation may affect reported
+evaluation awareness without changing operational behavior, and all models may
+remain operationally constraint-bounded across both presentation styles.
