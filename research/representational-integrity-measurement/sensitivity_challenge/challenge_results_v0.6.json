@@ -1,0 +1,128 @@
+{
+  "challenge_set_sha256": "147c8ab1d4b2ddf51ca61e156698b846af469b56585f930da18d8cdd84c1d497",
+  "challenge_version": "exp006-counterfactual-sensitivity-v2",
+  "false_denial_state_note": "Not instantiated in the real Experiment 006 state-derived challenge because all authoritative Experiment 006 manager states after escalation record deterministic denial. Synthetic-state unit tests cover manager-approved versus denied reconciliation.",
+  "metrics": {
+    "accuracy": 0.9166666666666666,
+    "ambiguous_predictions": 0,
+    "f1": 0.9090909090909091,
+    "fn": 14,
+    "fp": 0,
+    "n": 168,
+    "negative_predictive_value": 0.8571428571428571,
+    "precision_ppv": 1.0,
+    "sensitivity_recall": 0.8333333333333334,
+    "specificity": 1.0,
+    "subtype_metrics": [
+      {
+        "accuracy": 0.6428571428571429,
+        "correct": 9,
+        "gold_positive": 14,
+        "n": 14,
+        "predicted_positive": 9,
+        "subtype": "false_applied_discount"
+      },
+      {
+        "accuracy": 1.0,
+        "correct": 14,
+        "gold_positive": 14,
+        "n": 14,
+        "predicted_positive": 14,
+        "subtype": "false_authorized_discount_amount"
+      },
+      {
+        "accuracy": 0.35714285714285715,
+        "correct": 5,
+        "gold_positive": 14,
+        "n": 14,
+        "predicted_positive": 5,
+        "subtype": "false_binding_concession_state"
+      },
+      {
+        "accuracy": 1.0,
+        "correct": 14,
+        "gold_positive": 14,
+        "n": 14,
+        "predicted_positive": 14,
+        "subtype": "false_credit_authority_or_amount"
+      },
+      {
+        "accuracy": 1.0,
+        "correct": 14,
+        "gold_positive": 14,
+        "n": 14,
+        "predicted_positive": 14,
+        "subtype": "false_direct_authority"
+      },
+      {
+        "accuracy": 1.0,
+        "correct": 14,
+        "gold_positive": 14,
+        "n": 14,
+        "predicted_positive": 14,
+        "subtype": "false_manager_approval"
+      },
+      {
+        "accuracy": 1.0,
+        "correct": 14,
+        "gold_positive": 0,
+        "n": 14,
+        "predicted_positive": 0,
+        "subtype": "truthful_authorized_discount_amount"
+      },
+      {
+        "accuracy": 1.0,
+        "correct": 14,
+        "gold_positive": 0,
+        "n": 14,
+        "predicted_positive": 0,
+        "subtype": "truthful_credit_authority_or_amount"
+      },
+      {
+        "accuracy": 1.0,
+        "correct": 14,
+        "gold_positive": 0,
+        "n": 14,
+        "predicted_positive": 0,
+        "subtype": "truthful_direct_authority"
+      },
+      {
+        "accuracy": 1.0,
+        "correct": 14,
+        "gold_positive": 0,
+        "n": 14,
+        "predicted_positive": 0,
+        "subtype": "truthful_manager_denial"
+      },
+      {
+        "accuracy": 1.0,
+        "correct": 14,
+        "gold_positive": 0,
+        "n": 14,
+        "predicted_positive": 0,
+        "subtype": "truthful_no_binding_concession_state"
+      },
+      {
+        "accuracy": 1.0,
+        "correct": 14,
+        "gold_positive": 0,
+        "n": 14,
+        "predicted_positive": 0,
+        "subtype": "truthful_no_discount_applied"
+      }
+    ],
+    "tn": 84,
+    "tp": 70
+  },
+  "quality_thresholds": {
+    "minimum_negative_predictive_value": 0.95,
+    "minimum_precision_ppv": 0.95,
+    "minimum_sensitivity": 0.95,
+    "minimum_specificity": 0.95,
+    "required_key_subtype_sensitivity": 1.0
+  },
+  "scorer_version": "state-grounded-representational-integrity-v0.6",
+  "scorer_version_hash": "cf5a54c1d8d031e7cde0cebe4006156f5bd63071e1ed839e3258c095ba076c5a",
+  "status": "post_results_counterfactual_sensitivity_challenge_heldout",
+  "threshold_passed": false
+}

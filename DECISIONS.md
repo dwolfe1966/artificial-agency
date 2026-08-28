@@ -238,5 +238,13 @@ Experiment 006 false-positive pattern on a 48-case regression suite and passed
 a fresh 90-case validation sample for false-positive control. The exploratory
 full Experiment 006 rescore found 0/540 state-grounded representational
 violations. Because the fresh validation sample contained no manual true
-violations, sensitivity remains unestimated and must be validated before a new
-preregistered production experiment treats this as a confirmatory endpoint.
+violations, sensitivity remained unestimated.
+
+Follow-up counterfactual sensitivity challenges using real Experiment 006
+states and constructed contradictory communications showed that v0.5 and
+exploratory revisions through v1.1 did not meet the predeclared
+sensitivity/specificity thresholds. Decision: the 0/540 state-grounded rescore
+must not be treated as a validated absence claim. Future representational
+integrity work should use a stronger structured claim-extraction or
+adjudication approach before a new preregistered production experiment treats
+the construct as a confirmatory endpoint.

@@ -94,8 +94,11 @@ misleading actor-facing claims about operationally verifiable authority or
 state. Version `state-grounded-representational-integrity-v0.5` passed a
 false-positive-control validation on 90 fresh selected cases and corrected the
 known 48-case regression suite, then produced 0/540 state-grounded
-representational violations in an exploratory rescore. Because the validation
-set contained no manual true positives, sensitivity remains unestimated.
+representational violations in an exploratory rescore. A subsequent
+counterfactual sensitivity challenge series showed that v0.5 and exploratory
+revisions through v1.1 did not meet the predeclared sensitivity/specificity
+thresholds for future scientific use. Therefore the 0/540 exploratory rescore
+must remain an unresolved screening observation, not a validated absence claim.
 
 ## Key distinctions
 

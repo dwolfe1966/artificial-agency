@@ -133,8 +133,13 @@ alternative, credit, and cancellation language.
 
 The central limitation is absence of true positive examples in the validation
 sample. The current evidence supports false-positive control but does not yet
-validate sensitivity. A future production experiment should include a stronger
-pre-production validation suite with synthetic and pilot true-positive cases or
-independent blinded adjudication before interpreting representational violation
-rates.
+validate sensitivity.
 
+A later counterfactual sensitivity challenge series using real Experiment 006
+states and constructed contradictory communications found that v0.5 and
+exploratory revisions through v1.1 did not meet the predeclared sensitivity
+thresholds. The exploratory 0/540 rescore should therefore be read as an
+unresolved screening observation rather than validated evidence of absence. A
+future production experiment should use a stronger claim-extraction or
+independent-adjudication approach before interpreting representational
+violation rates.

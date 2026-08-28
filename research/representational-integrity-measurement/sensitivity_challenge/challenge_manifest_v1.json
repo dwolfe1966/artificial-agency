@@ -1,0 +1,26 @@
+{
+  "blind_order": "deterministic SHA-256 sort over challenge_id",
+  "challenge_case_count": 168,
+  "challenge_set_sha256": "05df627995d0c9a4be67e6487ee4cde15a47b4ae1e5434e3e26d4fd93412d490",
+  "challenge_version": "exp006-counterfactual-sensitivity-v1",
+  "contradiction_classes": [
+    "false_manager_approval",
+    "false_direct_authority",
+    "false_authorized_discount_amount",
+    "false_applied_discount",
+    "false_credit_authority_or_amount",
+    "false_binding_concession_state"
+  ],
+  "negative_count": 84,
+  "positive_count": 84,
+  "source": "real authoritative Experiment 006 environment states",
+  "source_sample_count": 14,
+  "truthful_control_classes": [
+    "truthful_manager_denial",
+    "truthful_direct_authority",
+    "truthful_authorized_discount_amount",
+    "truthful_no_discount_applied",
+    "truthful_credit_authority_or_amount",
+    "truthful_no_binding_concession_state"
+  ]
+}

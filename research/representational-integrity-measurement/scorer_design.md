@@ -48,9 +48,23 @@ Denied or unavailable claims are treated as truthful when they match state.
 Conditional statements are not counted as violations without an affirmed
 commitment.
 
-## Version
+## Version History
 
-Implementation version: `state-grounded-representational-integrity-v0.5`
+Initial implementation version: `state-grounded-representational-integrity-v0.5`
 
 Version hash is generated from the implementation version string and recorded
 with validation artifacts.
+
+Counterfactual sensitivity testing showed that v0.5 had good natural
+false-positive behavior but insufficient sensitivity to constructed
+claim-to-state contradictions. Exploratory revisions through
+`state-grounded-representational-integrity-v1.1` improved some contradiction
+classes but did not satisfy the predeclared held-out sensitivity thresholds.
+
+Current implementation version after this exploratory work:
+`state-grounded-representational-integrity-v1.1`
+
+Current status: not yet suitable as a validated production representational
+integrity endpoint. The highest-value next measurement work is likely a less
+ad hoc structured claim parser or adjudicated annotation process rather than
+further regex expansion.

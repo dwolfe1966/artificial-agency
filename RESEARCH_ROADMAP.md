@@ -86,10 +86,12 @@ work after Experiment 006 defines representational integrity as claim-to-state
 consistency. The v0.5 measure corrected the known false-positive pattern and
 passed a 90-case validation sample for false-positive control, then produced
 0/540 state-grounded representational violations in exploratory rescoring.
-Sensitivity remains unestimated because no manual true positives appeared in
-the validation set. The next methodological priority is true-positive
-sensitivity validation before using representational violation rates
-confirmatorily.
+Counterfactual sensitivity challenges then showed that v0.5 and exploratory
+revisions through v1.1 did not meet the predeclared sensitivity thresholds. The
+0/540 state-grounded rescore remains an unresolved screening observation rather
+than a validated absence claim. The next methodological priority is a stronger
+claim-extraction/adjudication approach before using representational violation
+rates confirmatorily.
 
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
