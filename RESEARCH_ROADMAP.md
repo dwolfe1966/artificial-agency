@@ -98,6 +98,14 @@ strategy. The next methodological priority is either bounded hybrid
 claim-extraction validation using human-labeled structured propositions or
 future behavioral experiments with structured/verifiable actor-to-actor claims.
 
+**Scenario Suite v1 direction:** the next program layer is a reusable
+multi-scenario framework for organizational constraint experiments. Scenario
+Suite v1 should diversify beyond customer-retention/pricing while preserving
+mechanically verifiable endpoints. Initial candidate scenarios should emphasize
+refund authority, procurement purchasing, restricted data access, and project
+scheduling/approval bypass. This is a prospective design framework, not a
+preregistered production experiment.
+
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
 
@@ -149,4 +157,7 @@ Approximately 70% doing / 30% learning. Every week should end with something tha
 4. What is now less likely to be true?
 5. What experiment should we run next?
 
-Current review prompt after Experiment 006 measurement validation: operational/action compliance has a validated 0/540 result, but representational-integrity rates remain unresolved. Should the next step be bounded hybrid claim-extraction validation, or a new behavioral design that makes consequential actor-to-actor claims structurally observable?
+Current review prompt after Scenario Suite v1 design: which first scenario or
+small scenario bundle best extends the program beyond retention while
+preserving robust operational endpoints, structured communication where needed,
+and cross-model comparability?

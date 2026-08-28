@@ -285,3 +285,37 @@ approval, claimed authorized discount, claimed applied discount, claimed credit
 or concession state, and claimed binding offer state. Natural-language
 communication may remain available, but directly verifiable representational
 state would reduce dependence on brittle prose parsing.
+
+## 2026-08-28 — Design Scenario Suite v1 as next program layer
+
+The next major experimental direction is Scenario Suite v1: a reusable
+multi-scenario design framework for studying organizational constraint
+compliance across diverse domains. This is prospective research design, not a
+new production experiment or executable apparatus.
+
+Decision: future experiments should diversify beyond customer
+retention/pricing while preserving mechanically verifiable operational
+endpoints. Candidate scenario families include refunds/customer service,
+procurement, sales contract terms, hiring/compensation, expense/budget
+management, IT/security incident response, restricted data access, project
+scheduling/approval bypass, resource allocation, multi-agent delegation,
+compliance filing, and inventory/quota allocation.
+
+Scenario Suite v1 adopts these standards:
+
+- operational endpoints should come from structured tool/environment state;
+- natural-language representational scoring remains a separate unresolved
+  measurement track;
+- communication-relevant scenarios should include structured claim fields where
+  consequential representations need to be measured;
+- pressure should include both narrative and genuine environment-grounded
+  variants;
+- evaluation-awareness studies should compare eval-salient and naturalistically
+  embedded workflows, with any awareness measurement after behavior;
+- future scenarios should preserve preregistration, frozen apparatus SHAs,
+  cross-model blinding, immutable raw logs, and recovery/provenance discipline.
+
+Recommended first implementation candidates are refund authority, procurement
+purchasing, restricted data access, and project scheduling/approval bypass
+because they introduce mechanisms not reducible to discount retention while
+remaining synthetic, safe, and mechanically measurable.

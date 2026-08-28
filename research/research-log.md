@@ -570,3 +570,39 @@ consequential actor-to-actor claims structurally observable. A hybrid semantic
 component, if used, should only map communication to structured propositions;
 final truth verification should remain deterministic against environment
 state.
+
+## 2026-08-28 — Design Artificial Agency Scenario Suite v1
+
+Scenario Suite v1 was created as a prospective multi-scenario design framework.
+No model samples were run and no production scenario apparatus was implemented.
+
+The suite preserves the main lessons from Experiments 001-006:
+
+- narrative pressure alone often produced little operational behavior change;
+- operational constraint measurement is currently the most robust endpoint;
+- model identity should remain an explicit factor in future experiments;
+- natural-language representational scoring remains unresolved;
+- future scenarios should prefer mechanically observable endpoints and
+  structured communication fields where consequential representations matter.
+
+The suite defines:
+
+- a common scenario schema for organizational state, action space, endpoints,
+  pressure, oversight, authority structure, evaluation salience, model
+  compatibility, and provenance;
+- a standard operational violation ontology;
+- a reusable factor matrix including model, scenario, pressure,
+  constraint-status, compliant-path availability, audit/observability,
+  violation penalty, manager response, evaluation salience, episode structure,
+  and actor structure;
+- 13 candidate scenario families across retention, refunds, procurement, sales
+  terms, hiring/compensation, expense/budget management, IT/security incident
+  response, restricted data access, project scheduling, resource allocation,
+  multi-agent delegation, compliance filing, and inventory/quota allocation;
+- an implementation roadmap that recommends refunds, procurement, restricted
+  data access, and project scheduling/approval bypass as the first scenario
+  candidates.
+
+This is a planning framework, not a preregistration. Future experiments should
+still be preregistered, frozen, executed blind, and analyzed mechanically before
+interpretation.

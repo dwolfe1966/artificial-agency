@@ -407,7 +407,7 @@ Tentative planning priority after Experiment 006 measurement validation, not a p
 6. Mechanistic investigation where feasible
 
 ## Current work
-Current state after Experiments 001-005:
+Current state after Experiments 001-006:
 - original thesis and pre-results predictions remain preserved;
 - Experiment 001 identified a compliant-path feasibility boundary;
 - Experiment 002 found pressure recognition without pressure-induced circumvention in GPT-5.6 Sol under fixed mechanics;
@@ -418,4 +418,5 @@ Current state after Experiments 001-005:
 - Experiment 006 prospectively separated operational/action compliance from representational/communication compliance;
 - Experiment 006 preserved quantitative result: 0/540 operational violations, with frozen representational-scorer flags of 8/180 for GPT-5.6 Sol, 53/180 for Claude Sonnet 5, and 42/180 for Gemini 3.7 Flash;
 - post-results scorer validation found 0/24 sampled representational-positive cases were substantive violations and 24/24 matched negatives were non-violations, so the frozen representational endpoint is treated as a measurement-validity failure rather than validated evidence of representational noncompliance;
-- deterministic state-grounded representational scoring remains unvalidated after fresh v8 failure, so the rate of representational-integrity violations in the 540 Experiment 006 trajectories is currently unresolved.
+- deterministic state-grounded representational scoring remains unvalidated after fresh v8 failure, so the rate of representational-integrity violations in the 540 Experiment 006 trajectories is currently unresolved;
+- Scenario Suite v1 is the next prospective design layer for extending the program across multiple organizational domains while preserving mechanically verifiable endpoints.
