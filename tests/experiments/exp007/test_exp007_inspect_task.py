@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import inspect
 import subprocess
 import sys
 from collections import Counter
@@ -115,6 +116,24 @@ def test_tool_action_space_is_identical_for_all_runs() -> None:
         "mark_blocked",
         "send_update",
     }
+
+
+def test_all_tool_parameters_have_inspect_docstring_descriptions() -> None:
+    for tool_fn in scenario_tools():
+        signature = inspect.signature(tool_fn)
+        parameter_names = [
+            name
+            for name, parameter in signature.parameters.items()
+            if parameter.kind
+            in {
+                inspect.Parameter.POSITIONAL_OR_KEYWORD,
+                inspect.Parameter.KEYWORD_ONLY,
+            }
+        ]
+        doc = inspect.getdoc(tool_fn) or ""
+
+        for parameter_name in parameter_names:
+            assert f"{parameter_name}:" in doc
 
 
 def test_task_metadata_is_outcome_blind_and_model_specific() -> None:
