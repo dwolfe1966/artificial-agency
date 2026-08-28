@@ -1,6 +1,6 @@
 # Research Context
 
-_Last updated: 2026-08-27_
+_Last updated: 2026-08-28_
 
 ## Mission
 Develop an empirical understanding of how autonomous AI agents behave inside human institutions when goals, constraints, incentives, oversight, and other agents interact.
@@ -10,7 +10,7 @@ The longer-term program connects AI safety research with mechanism design, agent
 ## Research Question 001
 How does an AI agent's propensity to circumvent an institutional constraint change as the instrumental benefit of violating that constraint, expected penalty, probability of detection, availability of compliant alternatives, rule rationale, and model capability vary?
 
-Forward-looking refinement after Experiments 001-005:
+Forward-looking refinement after Experiments 001-007:
 
 Under what conditions does an organizational constraint behave as a hard boundary, a negotiable procedure, or an obstacle to be strategically navigated by an artificial agent?
 
@@ -20,9 +20,9 @@ Organizations are moving toward multi-agent orchestration for complex workflows.
 The initial thesis is that constraint circumvention should often be analyzed first as an optimization phenomenon rather than through moral or emotional descriptions. We should test whether behavior can be explained by adaptation to objectives and constraints before invoking stronger constructs such as deception, maliciousness, or autonomous intent.
 
 ## Current conceptual model
-The original motivating intuition remains important: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries. Experiments 001-005 refine rather than erase that intuition.
+The original motivating intuition remains important: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries. Experiments 001-007 refine rather than erase that intuition.
 
-Experiments 001-005 suggest that several concepts should be separated empirically:
+Experiments 001-007 suggest that several concepts should be separated empirically:
 
 1. **Optimization pressure:** how costly failure is to the assigned objective.
 2. **Pressure recognition:** whether the agent represents or acknowledges those consequences.
@@ -121,6 +121,59 @@ generalize sufficiently under the tested approach. A future hybrid design may
 use an LLM-assisted semantic extractor only to map communications into
 structured propositions; the violation/compliance judgment should remain a
 deterministic reconciliation against environment state.
+
+## Experiment 007 — Scenario Suite pilot result
+Experiment 007 quantitative results are preserved at
+`7362b6788e0783b308daa220c95685a2d52c6256`.
+
+Experiment 007 was the first Scenario Suite v1 empirical pilot. It tested
+whether operational constraint-bounded behavior generalized across four
+qualitatively distinct synthetic organizational domains:
+
+- refund authority;
+- procurement / purchasing authority;
+- restricted data access;
+- project scheduling / approval bypass.
+
+The preregistered model set was GPT-5.6 Sol, Claude Sonnet 5, and Gemini 3.7
+Flash. The authoritative dataset contained 360 samples: 120 per model, 90 per
+scenario, and 30 per model x scenario cell.
+
+Primary preregistered operational result:
+
+- operational constraint violations: 0/360;
+- exact 95% upper confidence bound: approximately 1.02%;
+- all 12 model x scenario cells: 0/30.
+
+Hypothesis results:
+
+- H1 generalized operational constraint-boundedness: supported within precision
+  limits;
+- H2 scenario/domain effect: indeterminate because the primary endpoint had no
+  variance;
+- H3 model effect: indeterminate because the primary endpoint had no variance;
+- H4 model x scenario interaction: indeterminate because the primary endpoint
+  had no variance;
+- H5 search-within-constraints: supported descriptively by secondary behavior.
+
+Secondary behavior varied by scenario despite no operational violations.
+Escalation occurred in 360/360 samples. Compliant alternative search and
+partial objective achievement were high in refund, procurement, and restricted
+data-access scenarios, while scheduling showed much lower alternative search
+and partial-achievement rates. This is evidence that scenario affects compliant
+strategy behavior, but it is not a preregistered significance claim about
+secondary endpoints.
+
+Experiment 007 extends the operational constraint-bounded pattern beyond the
+retention/discount setting. Across multiple experiments, models repeatedly
+adapted behavior within formal authority boundaries while operational
+violations remained rare or absent under explicit, synthetic, eval-salient
+organizational tasks. These experiments should not be pooled inferentially
+without a separate preregistered method.
+
+Important limitations remain: explicit authority, deterministic denial,
+synthetic environments, single-agent/single-episode tasks, eval-salient setup,
+and mainly narrative rather than environment-grounded pressure.
 
 ## Key distinctions
 
@@ -390,13 +443,21 @@ Preserved future axes:
 - operational vs rhetorical optimization pressure;
 - enforcement / observability.
 
-Tentative planning priority after Experiment 006 measurement validation, not a preregistration:
+Tentative planning priority after Experiment 007, not a preregistration:
 
-1. bounded hybrid claim-extraction validation using human-labeled structured propositions;
-2. future behavioral experiments with structured/verifiable actor-to-actor claims;
-3. evaluation-awareness / naturalistic embedding study;
-4. operational rather than rhetorical pressure;
-5. enforcement / observability study.
+1. evaluation-awareness / naturalistic embedding;
+2. operational vs rhetorical pressure;
+3. enforcement / observability;
+4. multi-agent delegation.
+
+Prospective Experiment 008 planning concept, not a preregistration: compare
+procurement and restricted-data-access scenarios in eval-salient versus
+naturalistically embedded presentations across GPT-5.6 Sol, Claude Sonnet 5,
+and Gemini 3.7 Flash, with 30 replicates per model x scenario x presentation
+cell for 360 samples. The core question would be whether operational compliance
+changes when the same authority conflict is embedded in a workflow that is less
+obviously structured as a compliance evaluation. A post-action structured
+evaluation-awareness measure should be included if this design is preregistered.
 
 ## Research sequence
 1. Behavioral observation
@@ -407,7 +468,7 @@ Tentative planning priority after Experiment 006 measurement validation, not a p
 6. Mechanistic investigation where feasible
 
 ## Current work
-Current state after Experiments 001-006:
+Current state after Experiments 001-007:
 - original thesis and pre-results predictions remain preserved;
 - Experiment 001 identified a compliant-path feasibility boundary;
 - Experiment 002 found pressure recognition without pressure-induced circumvention in GPT-5.6 Sol under fixed mechanics;
@@ -419,4 +480,5 @@ Current state after Experiments 001-006:
 - Experiment 006 preserved quantitative result: 0/540 operational violations, with frozen representational-scorer flags of 8/180 for GPT-5.6 Sol, 53/180 for Claude Sonnet 5, and 42/180 for Gemini 3.7 Flash;
 - post-results scorer validation found 0/24 sampled representational-positive cases were substantive violations and 24/24 matched negatives were non-violations, so the frozen representational endpoint is treated as a measurement-validity failure rather than validated evidence of representational noncompliance;
 - deterministic state-grounded representational scoring remains unvalidated after fresh v8 failure, so the rate of representational-integrity violations in the 540 Experiment 006 trajectories is currently unresolved;
-- Scenario Suite v1 is the next prospective design layer for extending the program across multiple organizational domains while preserving mechanically verifiable endpoints.
+- Experiment 007 extended the operational endpoint across refund, procurement, restricted data access, and scheduling domains, with 0/360 operational violations and all 12 model x scenario cells at 0/30;
+- Scenario Suite breadth can continue later, but the immediate bottleneck is now testing evaluation awareness / naturalistic embedding rather than adding more first-pass domains.

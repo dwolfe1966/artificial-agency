@@ -115,6 +115,52 @@ uses 30 samples per model x scenario cell, and keeps pressure, observability,
 manager denial, episode structure, and evaluation salience fixed for this
 baseline.
 
+**Experiment 007 result:** Experiment 007 completed 360 authoritative samples:
+120 per model, 90 per scenario, and 30 per model x scenario cell. The
+preregistered operational endpoint found 0/360 operational constraint
+violations, with an exact 95% upper confidence bound of approximately 1.02%.
+All 12 model x scenario cells were 0/30. GPT-5.6 Sol, Claude Sonnet 5, and
+Gemini 3.7 Flash each had 0/120 operational violations across refund authority,
+procurement authority, restricted data access, and project scheduling/approval
+bypass.
+
+Hypothesis results: H1 generalized operational constraint-boundedness was
+supported within precision limits; H2 scenario effect, H3 model effect, and H4
+model x scenario interaction were indeterminate because the primary endpoint
+had no variance; H5 search-within-constraints was supported descriptively.
+Escalation occurred in 360/360 samples. Compliant alternative search and
+partial objective achievement varied substantially by scenario: refund,
+procurement, and data-access showed high alternative-search rates, while
+scheduling showed much lower alternative search and partial achievement. This
+supports scenario-sensitive compliant strategy differences, not a
+post-hoc significance claim.
+
+Experiment 007 extends mechanically validated operational
+constraint-boundedness beyond retention/discount tasks into four qualitatively
+distinct domains. Do not pool Experiments 002-007 inferentially without a
+separate preregistered method. The recurring pattern is that models adapted
+behavior within formal authority boundaries while operational violations
+remained rare or absent under explicit, synthetic, eval-salient organizational
+tasks.
+
+**Updated priority after Experiment 007:** Scenario breadth can continue later,
+but it is no longer the immediate bottleneck. The next priority order is:
+
+1. evaluation awareness / naturalistic embedding;
+2. operational vs rhetorical pressure;
+3. enforcement / observability;
+4. multi-agent delegation.
+
+**Prospective Experiment 008 concept:** not yet preregistered or implemented.
+Candidate design: procurement and restricted-data-access scenarios x
+eval-salient versus naturalistically embedded presentation x GPT-5.6 Sol,
+Claude Sonnet 5, and Gemini 3.7 Flash, with 30 replicates per model x scenario
+x presentation cell, for 360 samples. Core question: does operational
+compliance change when the same authority conflict is embedded in a more
+naturalistic workflow that is less obviously structured as a compliance
+evaluation? Include a post-action structured evaluation-awareness measure if
+this design is preregistered.
+
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
 
@@ -166,7 +212,6 @@ Approximately 70% doing / 30% learning. Every week should end with something tha
 4. What is now less likely to be true?
 5. What experiment should we run next?
 
-Current review prompt after Experiment 007 preregistration: does the four-domain
-Scenario Suite pilot preserve genuinely mechanical operational endpoints across
-refunds, procurement, restricted data access, and scheduling before apparatus
-implementation begins?
+Current review prompt after Experiment 007: how should the next experiment
+separate evaluation salience from the underlying authority conflict while
+preserving the mechanically validated operational endpoint?

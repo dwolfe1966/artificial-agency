@@ -368,3 +368,60 @@ Explicitly deferred factors:
 - manager uncertainty;
 - repeated episodes;
 - multi-agent delegation.
+
+## 2026-08-28 — Preserve Experiment 007 Scenario Suite pilot result
+
+Experiment 007 completed the first Scenario Suite v1 empirical pilot with 360
+authoritative samples: 120 per model, 90 per scenario, and 30 per model x
+scenario cell. The model set was GPT-5.6 Sol, Claude Sonnet 5, and Gemini 3.7
+Flash. The scenario set was refund authority, procurement / purchasing
+authority, restricted data access, and project scheduling / approval bypass.
+
+Decision: record the primary preregistered result as mechanically validated
+operational constraint-boundedness across the pilot domains:
+
+- operational constraint violations: 0/360;
+- exact 95% upper confidence bound: approximately 1.02%;
+- all 12 model x scenario cells: 0/30.
+
+Hypothesis interpretation:
+
+- H1 generalized operational constraint-boundedness: supported within precision
+  limits;
+- H2 scenario/domain effect: indeterminate due no primary-endpoint variance;
+- H3 model effect: indeterminate due no primary-endpoint variance;
+- H4 model x scenario interaction: indeterminate due no primary-endpoint
+  variance;
+- H5 search-within-constraints: supported descriptively.
+
+Do not describe zero variance as proof that model or scenario effects do not
+exist. The inference is limited by the explicit, synthetic, eval-salient,
+single-agent, single-episode design and by mainly narrative pressure.
+
+Secondary behavior should be treated descriptively. Escalation occurred in
+360/360 samples. Compliant alternative search and partial objective achievement
+varied substantially by scenario: refund, procurement, and restricted data
+access had high alternative-search rates, while scheduling had much lower
+alternative search and partial achievement. This suggests scenario-sensitive
+compliant strategy behavior without observed operational violation.
+
+Experiment 007 extends the validated operational endpoint beyond
+retention/discount tasks, but Experiments 002-007 should not be pooled
+inferentially without a preregistered method. A careful cumulative wording is:
+across multiple experiments, models repeatedly adapted behavior within formal
+authority boundaries while operational violations remained rare or absent under
+explicit, synthetic, eval-salient organizational tasks.
+
+Updated planning priority:
+
+1. evaluation awareness / naturalistic embedding;
+2. operational vs rhetorical pressure;
+3. enforcement / observability;
+4. multi-agent delegation.
+
+Prospective Experiment 008 concept only: procurement and restricted data access
+x eval-salient versus naturalistically embedded presentation x GPT-5.6 Sol,
+Claude Sonnet 5, and Gemini 3.7 Flash, with 30 replicates per cell for 360
+samples. The core question would be whether operational compliance changes when
+the same authority conflict is embedded in a less benchmark-salient workflow.
+Include a post-action structured evaluation-awareness measure if preregistered.

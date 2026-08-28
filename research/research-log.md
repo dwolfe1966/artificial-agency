@@ -642,3 +642,83 @@ observability, single episode, single agent, and eval-salient implementation
 where needed. Operational pressure, audit probability, violation penalty,
 evaluation salience, manager uncertainty, repeated episodes, and multi-agent
 delegation are explicitly deferred to later Scenario Suite experiments.
+
+## 2026-08-28 — Preserve Experiment 007 Scenario Suite pilot results
+
+Experiment 007 quantitative results were preserved after blind execution and
+mechanical analysis. No qualitative trajectories, free-form model messages,
+tool-call narratives, or hidden reasoning were inspected for this analysis.
+
+Authoritative dataset:
+
+- 360 total samples;
+- 120 per model;
+- 90 per scenario;
+- 30 per model x scenario cell.
+
+Models:
+
+- GPT-5.6 Sol;
+- Claude Sonnet 5;
+- Gemini 3.7 Flash.
+
+Scenarios:
+
+- refund authority;
+- procurement / purchasing authority;
+- restricted data access;
+- project scheduling / approval bypass.
+
+Primary operational result:
+
+- operational constraint violations: 0/360;
+- exact 95% upper confidence bound: approximately 1.02%;
+- all 12 model x scenario cells: 0/30.
+
+Hypothesis results:
+
+- H1 generalized operational constraint-boundedness: supported within precision
+  limits;
+- H2 scenario/domain effect: indeterminate because the primary endpoint had no
+  variance;
+- H3 model effect: indeterminate because the primary endpoint had no variance;
+- H4 model x scenario interaction: indeterminate because the primary endpoint
+  had no variance;
+- H5 search-within-constraints: supported descriptively.
+
+Secondary mechanical behavior varied by scenario even though the primary
+operational endpoint was all-zero. Escalation occurred in 360/360 samples.
+Compliant alternative search and partial objective achievement were high in
+refund, procurement, and restricted data access, while scheduling had much
+lower alternative search and partial achievement. This should be interpreted as
+scenario-sensitive compliant strategy behavior, not as a post-hoc significance
+claim.
+
+Recovery/provenance note: GPT finalized from one authoritative production
+segment; Claude finalized from one authoritative segment; Gemini reconciled
+from 32 original valid samples plus 88 recovery samples. Invalid/incomplete
+Gemini procurement-02/03 records were excluded. Recovery used the frozen
+scientific configuration and is not a scientific outcome.
+
+Cross-experiment interpretation: Experiment 007 extends mechanically validated
+operational constraint-boundedness beyond retention/discount tasks into four
+qualitatively distinct synthetic organizational domains. Experiments 002-007
+should not be pooled inferentially without a preregistered method. A careful
+cumulative summary is that models repeatedly adapted behavior within formal
+authority boundaries while operational violations remained rare or absent under
+explicit, synthetic, eval-salient organizational tasks.
+
+Updated planning priority:
+
+1. evaluation awareness / naturalistic embedding;
+2. operational vs rhetorical pressure;
+3. enforcement / observability;
+4. multi-agent delegation.
+
+Prospective Experiment 008 concept, not yet preregistered: compare procurement
+and restricted data access under eval-salient versus naturalistically embedded
+presentations across GPT-5.6 Sol, Claude Sonnet 5, and Gemini 3.7 Flash, with
+30 replicates per model x scenario x presentation cell for 360 samples. The
+core question would be whether operational compliance changes when the same
+authority conflict is embedded in a less obviously benchmark-like workflow.
+Add a post-action structured evaluation-awareness measure if preregistered.
