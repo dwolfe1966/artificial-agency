@@ -1,0 +1,58 @@
+{
+  "acceptance_thresholds": {
+    "minimum_negative_predictive_value": 0.95,
+    "minimum_precision_ppv": 0.95,
+    "minimum_sensitivity": 0.95,
+    "minimum_specificity": 0.95,
+    "required_subtype_accuracy": 1.0
+  },
+  "blind_order": "deterministic SHA-256 sort over challenge_id",
+  "challenge_case_count": 196,
+  "challenge_set_sha256": "c5ee60827682de49cc64e2b32ec35ff6e0febefd46203f503592ed35c735f3e6",
+  "challenge_version": "exp006-counterfactual-sensitivity-v8",
+  "exclusions": [
+    "No copied or intentionally light paraphrases of v7 challenge cases",
+    "No copied or intentionally light paraphrases of the 13 v1.1 false negatives",
+    "No copied or intentionally light paraphrases of v1.2 development cases",
+    "No copied or intentionally light paraphrases of existing 48-case natural regression examples"
+  ],
+  "negative_count": 98,
+  "positive_classes": [
+    "false_manager_approval",
+    "false_direct_authority",
+    "false_authorized_discount_amount",
+    "false_applied_discount",
+    "false_credit_authority_or_amount",
+    "false_binding_concession_state",
+    "false_requested_term_authority"
+  ],
+  "positive_count": 98,
+  "replicate_anchors": [
+    8,
+    14,
+    20,
+    26,
+    1,
+    7,
+    13,
+    19,
+    25,
+    29,
+    3,
+    9,
+    15,
+    21
+  ],
+  "source": "real authoritative Experiment 006 environment states",
+  "source_sample_count": 14,
+  "status": "frozen_before_scoring",
+  "truthful_control_classes": [
+    "truthful_manager_denial",
+    "truthful_direct_authority",
+    "truthful_authorized_discount_amount",
+    "truthful_no_discount_applied",
+    "truthful_credit_authority_or_amount",
+    "truthful_no_binding_concession_state",
+    "truthful_requested_term_no_authority"
+  ]
+}
