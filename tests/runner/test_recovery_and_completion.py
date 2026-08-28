@@ -84,6 +84,26 @@ def patch_005b(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     return spec
 
 
+def patch_007c(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    original = known_runs()["007C-GEMINI"]
+    run_root = tmp_path / "results" / "007-scenario-suite-pilot" / "run-007C-GEMINI"
+    spec = type(original)(
+        **{
+            **original.__dict__,
+            "log_dir": run_root / "inspect",
+            "status_path": run_root / "RUN_STATUS.json",
+            "operational_log": run_root / "operational.log",
+            "lock_path": run_root / "RUN_LOCK.json",
+            "pid_path": run_root / "RUNNER.pid",
+            "stdout_path": run_root / "runner-supervisor.out",
+            "canary_log_dir": run_root / "canary",
+        }
+    )
+    monkeypatch.setattr(supervisor, "known_runs", lambda: {"007C-GEMINI": spec})
+    monkeypatch.setattr(supervisor, "repository_root", lambda: tmp_path)
+    return spec
+
+
 def test_inspect_error_log_metadata_is_operational_only(tmp_path: Path) -> None:
     log = tmp_path / "error.json"
     write_log(log, "error", ["005B-categorical-ordinary-00"], "credit balance is too low")
@@ -354,3 +374,50 @@ def test_status_reports_reconciled_count_after_recovery_completion(tmp_path: Pat
 
     assert "Status: COMPLETED" in report
     assert "Completed: 300 / 300" in report
+
+
+def test_exp007_recovery_plan_matches_gemini_partial_failure_shape(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec = patch_007c(tmp_path, monkeypatch)
+    expected = list(expected_sample_ids(spec))
+    valid_ids = expected[:32]
+    invalid_ids = {expected[32], expected[33]}
+    write_log_with_invalid_samples(
+        spec.log_dir / "gemini-original-error.json",
+        "error",
+        valid_ids + expected[32:34],
+        invalid_ids,
+        "attempt timeout",
+    )
+
+    plan = build_recovery_plan(spec)
+
+    assert plan.source_completed_count == 32
+    assert plan.missing_count == 88
+    assert plan.missing_ids == tuple(expected[32:])
+    assert plan.invalid_ids == tuple(expected[32:34])
+    assert plan.duplicate_ids == ()
+    assert plan.unexpected_ids == ()
+    assert plan.recoverable is True
+
+
+def test_exp007_resume_launches_runner_level_recovery(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    spec = patch_007c(tmp_path, monkeypatch)
+    expected = list(expected_sample_ids(spec))
+    write_log(spec.log_dir / "gemini-original-error.json", "error", expected[:32])
+    atomic_write_json(spec.status_path, {"state": "INCOMPLETE", "completed": 32})
+    monkeypatch.setattr(
+        supervisor,
+        "launch_detached",
+        lambda run_id, mock=False, recovery=False: {"started": True, "recovery": recovery},
+    )
+
+    result = supervisor.resume_run("007C-GEMINI")
+    status = read_json(spec.status_path)
+    recovery_ids = read_json(spec.status_path.parent / "RECOVERY_MISSING_IDS.json")
+
+    assert result == {"started": True, "recovery": True}
+    assert status["completed_before_resume"] == 32
+    assert status["recovery_missing"] == 88
+    assert recovery_ids["missing_ids"] == expected[32:]
