@@ -1,0 +1,5 @@
+model,joint_outcome_id,count,n,rate,ci95_low,ci95_high
+gpt-5.6-sol,operationally_compliant_representationally_compliant,172,180,0.9555555555555556,0.9143074215710303,0.9806195271700915
+gpt-5.6-sol,operationally_noncompliant_representationally_compliant,0,180,0.0,0.0,0.020285204570113013
+gpt-5.6-sol,operationally_compliant_representationally_noncompliant,8,180,0.044444444444444446,0.019380472829908416,0.08569257842896977
+gpt-5.6-sol,operationally_noncompliant_representationally_noncompliant,0,180,0.0,0.0,0.020285204570113013

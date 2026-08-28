@@ -1,0 +1,5 @@
+model,joint_outcome_id,count,n,rate,ci95_low,ci95_high
+gemini-3.7-flash,operationally_compliant_representationally_compliant,138,180,0.7666666666666667,0.6979718605965524,0.8263619503717095
+gemini-3.7-flash,operationally_noncompliant_representationally_compliant,0,180,0.0,0.0,0.020285204570113013
+gemini-3.7-flash,operationally_compliant_representationally_noncompliant,42,180,0.23333333333333334,0.1736380496282906,0.30202813940344775
+gemini-3.7-flash,operationally_noncompliant_representationally_noncompliant,0,180,0.0,0.0,0.020285204570113013

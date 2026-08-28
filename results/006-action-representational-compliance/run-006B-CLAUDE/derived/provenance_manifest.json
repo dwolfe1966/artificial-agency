@@ -1,0 +1,59 @@
+{
+  "derived_artifacts": [
+    "results/006-action-representational-compliance/run-006B-CLAUDE/derived/per_sample_results.csv",
+    "results/006-action-representational-compliance/run-006B-CLAUDE/derived/cell_summary.csv",
+    "results/006-action-representational-compliance/run-006B-CLAUDE/derived/factor_summary.csv",
+    "results/006-action-representational-compliance/run-006B-CLAUDE/derived/joint_state_summary.csv",
+    "results/006-action-representational-compliance/run-006B-CLAUDE/derived/statistical_results.json",
+    "results/006-action-representational-compliance/run-006B-CLAUDE/derived/provenance_manifest.json",
+    "results/006-action-representational-compliance/run-006B-CLAUDE/derived/credential_scan.json"
+  ],
+  "model": "claude-sonnet-5",
+  "model_id": "anthropic/claude-sonnet-5",
+  "provider": "anthropic",
+  "run_id": "006B-CLAUDE",
+  "segments": [
+    {
+      "byte_size": 39474002,
+      "error_summary": "inspect_log_status_error",
+      "invalid_sample_records": 2,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/006-action-representational-compliance/run-006B-CLAUDE/inspect/2026-08-27T19-47-07-00-00_exp006-model-b-claude-sonnet5_MxYyzYwtTJRkroXPm8vwhY.json",
+      "raw_status": "error",
+      "repository_relative_path": "results/006-action-representational-compliance/run-006B-CLAUDE/inspect/2026-08-27T19-47-07-00-00_exp006-model-b-claude-sonnet5_MxYyzYwtTJRkroXPm8vwhY.json",
+      "role": "authoritative",
+      "sample_records": 180,
+      "segment_id": "original",
+      "sha256": "b2df4d9d1d6ef9fd4816ecfc4ca4343624c09cb21e53ce42c9c7a6118794c303",
+      "sha256_matches_expected": true,
+      "valid_sample_records": 178
+    },
+    {
+      "byte_size": 465246,
+      "error_summary": null,
+      "invalid_sample_records": 0,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/006-action-representational-compliance/run-006B-CLAUDE/inspect/2026-08-27T21-38-26-00-00_exp006-model-b-claude-sonnet5-recovery-missing_9xx4AxbfyZHBvAHiH7DU9f.json",
+      "raw_status": "success",
+      "repository_relative_path": "results/006-action-representational-compliance/run-006B-CLAUDE/inspect/2026-08-27T21-38-26-00-00_exp006-model-b-claude-sonnet5-recovery-missing_9xx4AxbfyZHBvAHiH7DU9f.json",
+      "role": "authoritative",
+      "sample_records": 2,
+      "segment_id": "recovery_missing",
+      "sha256": "ebdafd2213fd3b1f42f5ee01a141c3658d6baf3db1a0bd00ec93e4dea5138f75",
+      "sha256_matches_expected": true,
+      "valid_sample_records": 2
+    },
+    {
+      "byte_size": 8665126,
+      "error_summary": null,
+      "invalid_sample_records": 0,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/006-action-representational-compliance/run-006B-CLAUDE/inspect/2026-08-27T21-23-42-00-00_exp006-model-b-claude-sonnet5_kzqhtAyBQuYAUYCfznJviS.json",
+      "raw_status": "started",
+      "repository_relative_path": "results/006-action-representational-compliance/run-006B-CLAUDE/inspect/2026-08-27T21-23-42-00-00_exp006-model-b-claude-sonnet5_kzqhtAyBQuYAUYCfznJviS.json",
+      "role": "provenance_only",
+      "sample_records": 40,
+      "segment_id": "interrupted_retry_evidence",
+      "sha256": "7db57cfababeb64447da71a137797311fd1cf1b5fb8a7bebf561900218458482",
+      "sha256_matches_expected": true,
+      "valid_sample_records": 40
+    }
+  ]
+}

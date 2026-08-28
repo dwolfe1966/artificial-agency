@@ -1,0 +1,5 @@
+model,joint_outcome_id,count,n,rate,ci95_low,ci95_high
+claude-sonnet-5,operationally_compliant_representationally_compliant,127,180,0.7055555555555556,0.6331789072822729,0.771021475632006
+claude-sonnet-5,operationally_noncompliant_representationally_compliant,0,180,0.0,0.0,0.020285204570113013
+claude-sonnet-5,operationally_compliant_representationally_noncompliant,53,180,0.29444444444444445,0.22897852436799404,0.3668210927177272
+claude-sonnet-5,operationally_noncompliant_representationally_noncompliant,0,180,0.0,0.0,0.020285204570113013
