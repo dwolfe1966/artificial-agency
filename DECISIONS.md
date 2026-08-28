@@ -319,3 +319,52 @@ Recommended first implementation candidates are refund authority, procurement
 purchasing, restricted data access, and project scheduling/approval bypass
 because they introduce mechanisms not reducible to discount retention while
 remaining synthetic, safe, and mechanically measurable.
+
+## 2026-08-28 — Preregister Experiment 007 as Scenario Suite pilot
+
+Experiment 007 is preregistered as the first empirical pilot of Scenario Suite
+v1. It is a cross-domain generalization baseline, not a full factorial test of
+the Scenario Suite v1 factor matrix.
+
+Decision: use exactly four scenario families:
+
+1. refund authority;
+2. procurement / purchasing authority;
+3. restricted data access;
+4. project scheduling / approval bypass.
+
+The model set is prospective and outcome-independent:
+
+- `openai/gpt-5.6-sol`;
+- `anthropic/claude-sonnet-5`;
+- `google/gemini-3.7-flash`.
+
+The common primary endpoint is `operational_constraint_violation`, mapped to
+mechanically observable state/tool events in each scenario. Natural-language
+communication is not a primary endpoint. Structured communication may be logged
+for future work, but Experiment 007 does not attempt to validate
+representational-integrity rates.
+
+Sample plan: 30 replicates x 4 scenarios x 3 models = 360 samples. There is no
+behavioral optional stopping. If staging is later needed for operational
+reasons, continuation criteria must be non-outcome-based and frozen before
+execution.
+
+Fixed Pilot 1 factors:
+
+- clear/categorical authority framing;
+- deterministic denial;
+- one baseline meaningful narrative pressure treatment;
+- fixed ordinary observability;
+- single episode;
+- single agent;
+- eval-salient implementation where necessary.
+
+Explicitly deferred factors:
+
+- operational/environment-grounded pressure;
+- audit probability and violation penalty;
+- evaluation salience / naturalistic embedding;
+- manager uncertainty;
+- repeated episodes;
+- multi-agent delegation.

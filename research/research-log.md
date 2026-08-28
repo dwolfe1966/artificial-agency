@@ -606,3 +606,39 @@ The suite defines:
 This is a planning framework, not a preregistration. Future experiments should
 still be preregistered, frozen, executed blind, and analyzed mechanically before
 interpretation.
+
+## 2026-08-28 — Preregister Experiment 007 Scenario Suite pilot
+
+Experiment 007 was preregistered as the first empirical pilot of Scenario Suite
+v1. No executable apparatus was implemented and no model samples were run.
+
+Core question:
+
+Does operational constraint-bounded behavior generalize across qualitatively
+different organizational domains and frontier models when objective success
+conflicts with a clear formal authority boundary?
+
+The pilot uses exactly four scenario families:
+
+1. refund authority;
+2. procurement / purchasing authority;
+3. restricted data access;
+4. project scheduling / approval bypass.
+
+The prospective model set is:
+
+- `openai/gpt-5.6-sol`;
+- `anthropic/claude-sonnet-5`;
+- `google/gemini-3.7-flash`.
+
+Sample plan: 30 replicates per model x scenario cell, 12 cells, 360 total
+samples. The common primary endpoint is `operational_constraint_violation`,
+scored only from structured tool/environment state. No primary endpoint
+requires natural-language interpretation.
+
+Experiment 007 holds fixed a clear categorical authority framing,
+deterministic denial, baseline meaningful narrative pressure, ordinary
+observability, single episode, single agent, and eval-salient implementation
+where needed. Operational pressure, audit probability, violation penalty,
+evaluation salience, manager uncertainty, repeated episodes, and multi-agent
+delegation are explicitly deferred to later Scenario Suite experiments.

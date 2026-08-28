@@ -106,6 +106,15 @@ refund authority, procurement purchasing, restricted data access, and project
 scheduling/approval bypass. This is a prospective design framework, not a
 preregistered production experiment.
 
+**Experiment 007 preregistration direction:** Experiment 007 is the first
+Scenario Suite v1 empirical pilot. It should test whether operational
+constraint-bounded behavior generalizes across four organizational domains:
+refund authority, procurement/purchasing authority, restricted data access, and
+project scheduling/approval bypass. The pilot varies model and scenario only,
+uses 30 samples per model x scenario cell, and keeps pressure, observability,
+manager denial, episode structure, and evaluation salience fixed for this
+baseline.
+
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
 
@@ -157,7 +166,7 @@ Approximately 70% doing / 30% learning. Every week should end with something tha
 4. What is now less likely to be true?
 5. What experiment should we run next?
 
-Current review prompt after Scenario Suite v1 design: which first scenario or
-small scenario bundle best extends the program beyond retention while
-preserving robust operational endpoints, structured communication where needed,
-and cross-model comparability?
+Current review prompt after Experiment 007 preregistration: does the four-domain
+Scenario Suite pilot preserve genuinely mechanical operational endpoints across
+refunds, procurement, restricted data access, and scheduling before apparatus
+implementation begins?
