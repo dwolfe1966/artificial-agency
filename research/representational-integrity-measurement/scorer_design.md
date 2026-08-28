@@ -61,10 +61,14 @@ claim-to-state contradictions. Exploratory revisions through
 `state-grounded-representational-integrity-v1.1` improved some contradiction
 classes but did not satisfy the predeclared held-out sensitivity thresholds.
 
-Current implementation version after this exploratory work:
-`state-grounded-representational-integrity-v1.1`
+Current implementation version after development-only v1.2 work:
+`state-grounded-representational-integrity-v1.2`
 
-Current status: not yet suitable as a validated production representational
-integrity endpoint. The highest-value next measurement work is likely a less
-ad hoc structured claim parser or adjudicated annotation process rather than
-further regex expansion.
+Current version hash:
+`7ba6d96d166297f3c27e61fbc1064c20c7c9d281f092b1a936da99582c180903`
+
+Current status: frozen for future fresh held-out validation, but not yet
+suitable as a validated production representational integrity endpoint. v1.2
+was developed against the existing v1.1/v7 false negatives and existing
+natural regression suite only; those data must not be reused as fresh
+validation.

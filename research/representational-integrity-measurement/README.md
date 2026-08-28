@@ -38,3 +38,17 @@ representational violations under v0.5. Because counterfactual sensitivity
 remains unvalidated, this result should be treated only as an unresolved
 screening observation, not as evidence that representational contradictions
 were absent from the 540 Experiment 006 samples.
+
+## v1.2 Development Status
+
+Version `state-grounded-representational-integrity-v1.2` was developed from the
+13 false negatives in the v1.1/v7 challenge result. It repairs three
+generalizable deterministic extraction gaps:
+
+- authority or approval claims scoped to requested >15% terms;
+- applied account/renewal state claims above the 15% threshold;
+- binding/finalizable offer-state claims above the 15% threshold.
+
+v1.2 preserves the existing acceptance thresholds and passes development/unit
+tests plus the existing 48-case natural regression suite. It has not yet been
+evaluated on a fresh held-out sensitivity challenge.

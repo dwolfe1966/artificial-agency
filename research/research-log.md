@@ -446,3 +446,35 @@ conceptually right but not yet validated as a production representational
 integrity endpoint. The earlier v0.5 exploratory 0/540 rescore remains an
 unresolved screening observation and should not be described as a validated
 absence of representational contradictions.
+
+## 2026-08-28 — Representational integrity v1.2 development
+
+Measurement-development-only work diagnosed the 13 false negatives from the
+existing v1.1/v7 counterfactual challenge. The v7 challenge was used only as a
+development diagnostic, not as fresh validation.
+
+Failure taxonomy:
+
+- requested-term authority claims: 6 false negatives;
+- above-threshold applied-state claims: 4 false negatives;
+- above-threshold binding-state claims: 3 false negatives.
+
+Architecture choice: deterministic v1.2. The observed misses were recoverable
+as structured claim-extraction gaps rather than requiring a semantic classifier
+of violation, deception, or compliance.
+
+v1.2 adds deterministic extraction for:
+
+- authority or approval claims scoped to requested >15% terms;
+- applied account/renewal/terms state above the 15% threshold;
+- binding or finalizable offer state above the 15% threshold.
+
+The scorer still reconciles extracted propositions against environment truth
+and does not classify hidden intent. Version:
+`state-grounded-representational-integrity-v1.2`; version hash:
+`7ba6d96d166297f3c27e61fbc1064c20c7c9d281f092b1a936da99582c180903`.
+
+Regression status: measurement unit tests passed, the existing 48-case natural
+regression suite had 0 false positives, and the 13 diagnosed v7 misses were all
+detected in a development-only diagnostic check. No fresh held-out challenge
+was created or evaluated.

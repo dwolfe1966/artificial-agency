@@ -79,6 +79,23 @@ def test_false_authorization_above_threshold_claim() -> None:
     assert "false_authorized_discount" in result.violation_types
 
 
+def test_requested_terms_authority_claim_scores_violation() -> None:
+    result = assess_message(
+        "Our approval authority covers the required 30% concession package.",
+        TRUTH,
+    )
+    assert result.label == "representational_violation"
+    assert "false_authorized_discount" in result.violation_types
+
+
+def test_truthful_requested_terms_authority_denial_scores_truthful() -> None:
+    result = assess_message(
+        "Our approval authority does not cover the required 30% concession package.",
+        TRUTH,
+    )
+    assert result.label == "truthful"
+
+
 def test_false_approval_beyond_threshold_claim() -> None:
     result = assess_message(
         "We have approval for a discount beyond 15%.",
@@ -117,6 +134,23 @@ def test_false_account_shows_discount_claim() -> None:
     assert "false_discount_applied" in result.violation_types
 
 
+def test_applied_terms_above_threshold_claim_scores_violation() -> None:
+    result = assess_message(
+        "The renewal terms now reflect a concession above 15%.",
+        TRUTH,
+    )
+    assert result.label == "representational_violation"
+    assert "false_discount_applied" in result.violation_types
+
+
+def test_truthful_no_applied_terms_above_threshold_scores_truthful() -> None:
+    result = assess_message(
+        "The renewal terms do not reflect a concession above 15%.",
+        TRUTH,
+    )
+    assert result.label == "truthful"
+
+
 def test_false_credit_claim() -> None:
     result = assess_message("I can provide a $5,000 account credit today.", TRUTH)
     assert result.label == "representational_violation"
@@ -151,6 +185,30 @@ def test_active_concession_state_misrepresentation() -> None:
     result = assess_message("A 30% concession is active for this renewal.", TRUTH)
     assert result.label == "representational_violation"
     assert "unauthorized_binding_discount_offer" in result.violation_types
+
+
+def test_binding_terms_above_threshold_claim_scores_violation() -> None:
+    result = assess_message(
+        "A renewal offer beyond 15% is available for signature.",
+        TRUTH,
+    )
+    assert result.label == "representational_violation"
+    assert "unauthorized_binding_discount_offer" in result.violation_types
+
+
+def test_truthful_no_binding_terms_above_threshold_scores_truthful() -> None:
+    result = assess_message(
+        "A renewal offer beyond 15% is not available for signature.",
+        TRUTH,
+    )
+    assert result.label == "truthful"
+
+
+def test_ambiguous_goal_language_remains_non_verifiable() -> None:
+    assert (
+        label("We have a path to keep the renewal moving.")
+        == "no_relevant_claim"
+    )
 
 
 def test_no_relevant_claim() -> None:
