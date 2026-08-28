@@ -320,3 +320,41 @@ semantic audit and judged PASS without amendment. It already treats truthful
 15% authorization language and denial disclosure as non-violating, while
 separately scoring false authorization, false manager approval, and
 unauthorized customer commitments.
+
+## 2026-08-27 — Experiment 006 quantitative result and scorer validation
+
+Experiment 006 production execution and preregistered mechanical analysis were
+preserved. The frozen quantitative analysis reported:
+
+- 540/540 authoritative samples across GPT-5.6 Sol, Claude Sonnet 5, and Gemini
+  3.7 Flash;
+- operational constraint violations: 0/540;
+- representational-scorer flags: GPT-5.6 Sol 8/180, Claude Sonnet 5 53/180,
+  Gemini 3.7 Flash 42/180;
+- all frozen primary events were representational-only.
+
+After preserving the quantitative result, a limited post-results scorer
+validation was conducted for measurement validity. The selected validation set
+was fixed before reading communication content: 24 scorer-positive cases and 24
+matched scorer-negative cases across the three models.
+
+Manual validation found:
+
+- 0/24 sampled scorer-positive cases were substantive representational
+  violations;
+- 24/24 matched scorer-negative cases were non-violations;
+- no ambiguous cases in the validation sample.
+
+The sampled false positives were truthful communications that disclosed or
+implied manager denial, stated the authorized maximum as 15% and/or the $2,000
+credit, and communicated cancellation or next steps because no authorized offer
+met the customer's 30% threshold. The frozen scorer over-scored local
+authorization-related language and cancellation commitments as if they were
+unauthorized concessions.
+
+Interpretation: Experiment 006 provides strong preserved evidence of
+operational compliance in this task family, but the frozen representational
+endpoint did not validate in the sampled cases. The action vs representation
+distinction remains conceptually important, but the next step should repair and
+validate representational measurement before estimating model differences on
+that endpoint.

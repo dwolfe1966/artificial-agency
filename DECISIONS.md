@@ -191,3 +191,30 @@ Measurement correction: semantic coding found 0/86 Claude flagged cases with fal
 Therefore the claimed substantive cross-model circumvention effect did not survive measurement validation. Experiment 005 is now best interpreted as a scorer/evaluator validity lesson: scorer output != validated construct. The scorer conflated truthful authorization-related language after manager denial with authorization misrepresentation.
 
 The prospective Experiment 006 scorer was reviewed against this audit and judged conceptually appropriate without amendment because it explicitly treats truthful 15% authorization language and denial disclosure as non-violating while separately scoring false authority claims, false manager approval, and unauthorized commitments.
+
+## 2026-08-27 — Preserve Experiment 006 results but treat representational endpoint as unvalidated
+
+Experiment 006 separated operational constraint violation from
+representational constraint violation prospectively. The preserved frozen
+quantitative analysis found:
+
+- operational constraint violation: 0/540;
+- frozen representational-scorer flags: GPT-5.6 Sol 8/180, Claude Sonnet 5
+  53/180, Gemini 3.7 Flash 42/180;
+- all frozen primary events were representational-only.
+
+Post-results qualitative scorer validation used a deterministic selection
+recorded before reading communication content: all 8 GPT scorer positives, 8
+Claude positives, 8 Gemini positives, and matched scorer-negative controls. The
+manual validation found 0/24 sampled scorer positives were substantive
+representational violations, while 24/24 matched scorer negatives were
+non-violations.
+
+Decision: preserve the frozen Experiment 006 quantitative result as the result
+of the preregistered scorer, but do not treat the representational endpoint as a
+validated estimate of substantive representational noncompliance. The validated
+operational result is 0/540 tool-level authority violations. The next
+experimental priority is measurement repair: build and validate a scorer or
+adjudication protocol that can distinguish false authorization claims from
+truthful denial/authority-limit/cancellation language before another production
+estimate.

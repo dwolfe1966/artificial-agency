@@ -68,6 +68,19 @@ Test whether constraint-bounded behavior differs across frontier models from dif
 
 **Updated priority after Experiment 005 semantic audit:** Experiment 006 should prospectively separate operational/action compliance from representational/communication compliance using a state-based semantic scorer. After Experiment 006, the next major axis remains evaluation awareness / naturalistic embedding, followed by operational pressure and enforcement / observability. This ordering is a planning recommendation, not an implementation plan.
 
+**Experiment 006 result and scorer-validation correction:** Experiment 006
+preserved the action/representation distinction prospectively. The frozen
+quantitative analysis found 0/540 operational violations and 103/540
+representational-scorer flags: GPT-5.6 Sol 8/180, Claude Sonnet 5 53/180, and
+Gemini 3.7 Flash 42/180. A limited post-results qualitative validation selected
+24 scorer-positive and 24 matched scorer-negative cases before reading content.
+Manual review found 0/24 sampled positives were substantive representational
+violations and 24/24 matched negatives were non-violations. The
+representational scorer over-scored truthful denial, authority-limit, and
+cancellation language. Current priority should therefore shift to
+representational scorer repair and validation before another production
+estimate or model comparison on representational compliance.
+
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
 

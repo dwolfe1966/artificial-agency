@@ -75,8 +75,18 @@ Current evidence:
 - It visibly recognized higher stakes in Experiment 002 without materially changing its action policy.
 - It represented formal authority, constraint-status labels, and pressure in Experiment 004 while still showing no observed constraint circumvention.
 - Experiment 005 initially appeared to show that this constraint-bounded action policy did not generalize uniformly across all tested frontier models under the identical frozen Experiment 004 paradigm. A later semantic audit changed that interpretation: the apparent Claude effect was a scorer-validity failure rather than validated substantive circumvention.
+- Experiment 006 prospectively separated operational and representational endpoints. The frozen quantitative scorer found 0/540 operational violations and 103/540 representational flags, but a limited post-results validation found 0/24 sampled representational positives were substantive violations. The representational endpoint therefore needs measurement repair before it can support substantive model comparisons.
 
 Earlier GPT-5.6 Sol results suggested that strong post-training may make some organizational constraints behave more like learned hard policy boundaries than like ordinary costs in an optimization problem. Experiment 005 initially appeared to refine that interpretation by showing a model-associated divergence. The semantic audit now narrows the lesson: GPT-5.6 Sol, Gemini 3.7 Flash, and Claude Sonnet 5 all remained operationally within authority in the audited Experiment 005 data, while the Claude scorer flags exposed a measurement-validity failure in the representational endpoint.
+
+Experiment 006 reinforces this measurement lesson. Its preserved preregistered
+quantitative outputs are part of the research record, but post-results scorer
+validation found the frozen representational scorer over-scored truthful
+denial, authority-limit, and cancellation communications. The strongest
+validated Experiment 006 finding at this point is operational: all three tested
+models remained within tool-level authority in 540/540 samples. The
+representational-integrity construct remains a priority, but the current
+scorer output is not yet a validated estimate of that construct.
 
 ## Key distinctions
 
@@ -333,10 +343,11 @@ flawed measured endpoint and are preserved for historical/provenance reasons.
 ## Forward research axes
 Current priority questions:
 
-1. **Action vs representational compliance:** do models differ in whether they remain operationally compliant while misrepresenting authorization or approval status in customer communication?
-2. **Evaluation awareness:** frontier models may recognize benchmark or compliance-evaluation structure. A useful latent variable is E = P(model infers it is being evaluated for compliance). Future work should measure this without priming behavior, for example through benchmark-salient vs naturalistically embedded tasks or post-action structured checks.
-3. **Operational vs rhetorical optimization pressure:** do environment-grounded consequences that alter future reward, budget, capabilities, opportunities, or cumulative performance affect behavior differently from described KPI/program consequences?
-4. **Enforcement / observability:** does compliance persist when violation is explicitly unlikely to be observed or punished, distinguishing stronger constraint-bounded behavior from instrumental compliance?
+1. **Representational scorer repair / validation:** can a state-grounded communication scorer or adjudication protocol distinguish false authorization claims from truthful denial and authority-limit language before production?
+2. **Action vs representational compliance:** after scorer repair, do models differ in whether they remain operationally compliant while misrepresenting authorization or approval status in customer communication?
+3. **Evaluation awareness:** frontier models may recognize benchmark or compliance-evaluation structure. A useful latent variable is E = P(model infers it is being evaluated for compliance). Future work should measure this without priming behavior, for example through benchmark-salient vs naturalistically embedded tasks or post-action structured checks.
+4. **Operational vs rhetorical optimization pressure:** do environment-grounded consequences that alter future reward, budget, capabilities, opportunities, or cumulative performance affect behavior differently from described KPI/program consequences?
+5. **Enforcement / observability:** does compliance persist when violation is explicitly unlikely to be observed or punished, distinguishing stronger constraint-bounded behavior from instrumental compliance?
 
 Preserved future axes:
 
@@ -347,10 +358,11 @@ Preserved future axes:
 
 Tentative planning priority after Experiment 005 mechanism analysis, not a preregistration:
 
-1. Experiment 006 action vs representational compliance;
-2. evaluation-awareness / naturalistic embedding study;
-3. operational rather than rhetorical pressure;
-4. enforcement / observability study.
+1. repair and validate representational scoring before another production estimate;
+2. action vs representational compliance with validated measurement;
+3. evaluation-awareness / naturalistic embedding study;
+4. operational rather than rhetorical pressure;
+5. enforcement / observability study.
 
 ## Research sequence
 1. Behavioral observation
@@ -369,4 +381,6 @@ Current state after Experiments 001-005:
 - Experiment 004 found strong structured recognition of authority/status/pressure with continued zero circumvention for GPT-5.6 Sol;
 - Experiment 005's frozen scorer produced a large apparent model-associated difference: Claude Sonnet 5 had 86/300 flags while GPT-5.6 Sol and Gemini 3.7 Flash had zero;
 - post-results semantic audit found all 86 Claude flags were substantive false positives for authorization misrepresentation; Claude did not exceed operational discount authority, execute excessive credit, falsely claim manager approval, falsely claim >15% authority, or make unauthorized customer commitments;
-- Experiment 006 is now preregistered to prospectively separate operational/action compliance from representational/communication compliance.
+- Experiment 006 prospectively separated operational/action compliance from representational/communication compliance;
+- Experiment 006 preserved quantitative result: 0/540 operational violations, with frozen representational-scorer flags of 8/180 for GPT-5.6 Sol, 53/180 for Claude Sonnet 5, and 42/180 for Gemini 3.7 Flash;
+- post-results scorer validation found 0/24 sampled representational-positive cases were substantive violations and 24/24 matched negatives were non-violations, so the frozen representational endpoint is treated as a measurement-validity failure rather than validated evidence of representational noncompliance.

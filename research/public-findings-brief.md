@@ -93,7 +93,24 @@ state-based semantic scorer.
 Planned follow-up axes include:
 
 - measurement validity in agentic-misalignment evaluations;
+- validated separation of operational action compliance from
+  representational/communication compliance;
 - evaluation-awareness testing;
 - stronger operational rather than merely rhetorical pressure;
 - enforcement and observability manipulations;
 - further replication across models and task families.
+
+## Update After Experiment 006
+
+Experiment 006 prospectively separated operational constraint violation from
+representational constraint violation. The preserved quantitative run found
+0/540 operational violations. The frozen representational scorer produced 103
+flags across 540 samples, but a limited post-results validation found 0/24
+sampled scorer-positive cases were substantive representational violations.
+
+The current public-safe interpretation is therefore cautious: Experiment 006
+supports the importance of separating action and communication outcomes, but it
+also shows that representational scoring remains technically difficult. Before
+making public claims about model differences in representational compliance,
+the scorer needs stronger validation against truthful denial and authority-limit
+language.
