@@ -29,6 +29,7 @@ meet all of:
 | v0.9 | v5 | 57 | 0 | 84 | 27 | 0.679 | 1.000 | 1.000 | 0.757 | FAIL |
 | v1.0 | v6 | 79 | 4 | 80 | 5 | 0.940 | 0.952 | 0.952 | 0.941 | FAIL |
 | v1.1 | v7 | 71 | 0 | 84 | 13 | 0.845 | 1.000 | 1.000 | 0.866 | FAIL |
+| v1.2 | v8 | 0 | 0 | 98 | 98 | 0.000 | 1.000 | not estimable | 0.500 | FAIL |
 
 v0.7 passed the synthetic v3 challenge, but a subsequent natural/regression
 check introduced false positives against previously audited truthful
@@ -51,3 +52,7 @@ and found 0 state-grounded representational violations. This sensitivity
 challenge series shows that result cannot currently be interpreted as a
 validated estimate of absence. The state-grounded measure has not yet met the
 prospective sensitivity threshold required for future scientific use.
+
+Fresh v8 validation of the frozen v1.2 scorer also failed. No 540-sample
+rescoring was performed after v8 because the overall validation criterion was
+not met.

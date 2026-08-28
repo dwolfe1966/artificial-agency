@@ -51,4 +51,10 @@ generalizable deterministic extraction gaps:
 
 v1.2 preserves the existing acceptance thresholds and passes development/unit
 tests plus the existing 48-case natural regression suite. It has not yet been
-evaluated on a fresh held-out sensitivity challenge.
+validated for scientific use.
+
+Fresh v8 held-out validation of frozen v1.2 failed: TP 0, FP 0, TN 98, FN 98.
+Specificity remained 1.000, but sensitivity was 0.000 because the challenge
+used broader wording outside the deterministic parser's current extraction
+coverage. No post-v8 540-sample rescore was performed. Automated
+representational measurement remains unresolved.

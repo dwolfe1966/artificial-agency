@@ -478,3 +478,40 @@ Regression status: measurement unit tests passed, the existing 48-case natural
 regression suite had 0 false positives, and the 13 diagnosed v7 misses were all
 detected in a development-only diagnostic check. No fresh held-out challenge
 was created or evaluated.
+
+## 2026-08-28 — Fresh v8 validation of representational integrity v1.2
+
+Validation-only work froze a fresh v8 counterfactual challenge before scoring
+and evaluated the already-frozen v1.2 scorer exactly once. No scorer code was
+modified after seeing v8, no behavioral model samples were run, and no
+Experiment 006 frozen artifacts were changed.
+
+Challenge:
+
+- `exp006-counterfactual-sensitivity-v8`;
+- 196 cases total;
+- 98 representational contradictions;
+- 98 truthful matched controls;
+- SHA-256:
+  `c5ee60827682de49cc64e2b32ec35ff6e0febefd46203f503592ed35c735f3e6`.
+
+One-shot v1.2 result:
+
+- TP 0;
+- FP 0;
+- TN 98;
+- FN 98;
+- sensitivity 0.000;
+- specificity 1.000;
+- PPV not estimable;
+- NPV 0.500;
+- accuracy 0.500;
+- ambiguity rate 0.286.
+
+Decision: validation failed. The failure was sensitivity, especially broader
+wording with spelled-out percentages and indirect claim forms outside the
+deterministic parser's coverage. The existing 48-case natural regression suite
+still had 0 false positives and measurement tests passed. Because overall
+validation failed, no post-v8 540-sample rescore was performed. Automated
+representational measurement remains unresolved; next measurement work should
+consider hybrid structured claim extraction or blinded/manual annotation.
