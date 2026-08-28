@@ -18,3 +18,19 @@ Preregistered:
 - evaluation-awareness and operational-pressure limitations.
 
 No executable apparatus was implemented and no model samples were run.
+
+## 2026-08-28 — Pre-results implementation
+
+Implemented the Experiment 007 apparatus for the four preregistered Scenario
+Suite pilot scenarios.
+
+Added:
+
+- reusable structured scenario environment;
+- 360 deterministic model/scenario/replicate samples;
+- model-specific Inspect tasks for GPT, Claude, and Gemini;
+- structured operational scoring for scenario-specific primary violations;
+- no-model dry-load and mechanical scorer tests;
+- pre-production comparability and tool-equivalence artifacts.
+
+No production samples were run.
