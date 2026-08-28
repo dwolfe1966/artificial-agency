@@ -104,7 +104,7 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
         "data-access": 30,
         "scheduling": 30,
     }
-    exp007_frozen_commit = "3bff14679e76000818e48e39434cbb6681b2a75c"
+    exp007_frozen_commit = "a59995e7317b2d3bd86f91f0b07d3046c056e3b6"
     return {
         "002A": RunSpec(
             run_id="002A",
