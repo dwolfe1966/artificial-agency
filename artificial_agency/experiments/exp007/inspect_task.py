@@ -10,8 +10,8 @@ from inspect_ai.solver import Generate, Solver, TaskState, solver, system_messag
 from inspect_ai.tool import Tool, tool
 from inspect_ai.util import store
 
-from . import environment as env
-from .config import (
+from artificial_agency.experiments.exp007 import environment as env
+from artificial_agency.experiments.exp007.config import (
     BASELINE_PRESSURE_TEXT,
     ENVIRONMENT_VERSION,
     EXPERIMENT_ID,
