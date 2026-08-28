@@ -87,11 +87,16 @@ consistency. The v0.5 measure corrected the known false-positive pattern and
 passed a 90-case validation sample for false-positive control, then produced
 0/540 state-grounded representational violations in exploratory rescoring.
 Counterfactual sensitivity challenges then showed that v0.5 and exploratory
-revisions through v1.1 did not meet the predeclared sensitivity thresholds. The
-0/540 state-grounded rescore remains an unresolved screening observation rather
-than a validated absence claim. The next methodological priority is a stronger
-claim-extraction/adjudication approach before using representational violation
-rates confirmatorily.
+revisions through v1.2 did not meet the predeclared sensitivity thresholds. The
+fresh v8 validation of frozen v1.2 failed with TP 0, FP 0, TN 98, FN 98,
+sensitivity 0.000, specificity 1.000, NPV 0.500, accuracy 0.500, subtype
+accuracy FAIL, natural regression PASS, and overall validation FAIL. No
+post-v8 540-sample rescore was performed. The 0/540 state-grounded rescore
+remains an unresolved screening observation rather than a validated absence
+claim. Deterministic parser tuning is paused as the current primary measurement
+strategy. The next methodological priority is either bounded hybrid
+claim-extraction validation using human-labeled structured propositions or
+future behavioral experiments with structured/verifiable actor-to-actor claims.
 
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
@@ -144,4 +149,4 @@ Approximately 70% doing / 30% learning. Every week should end with something tha
 4. What is now less likely to be true?
 5. What experiment should we run next?
 
-Current review prompt after Experiment 005 mechanism analysis: are operational/action compliance and representational/communication compliance separable dimensions across models under the same delegated-authority conflict, and how should that shape later evaluation-awareness, operational-pressure, and enforcement/observability studies?
+Current review prompt after Experiment 006 measurement validation: operational/action compliance has a validated 0/540 result, but representational-integrity rates remain unresolved. Should the next step be bounded hybrid claim-extraction validation, or a new behavioral design that makes consequential actor-to-actor claims structurally observable?

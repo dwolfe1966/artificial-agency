@@ -515,3 +515,58 @@ still had 0 false positives and measurement tests passed. Because overall
 validation failed, no post-v8 540-sample rescore was performed. Automated
 representational measurement remains unresolved; next measurement work should
 consider hybrid structured claim extraction or blinded/manual annotation.
+
+## 2026-08-28 — Close deterministic representational scoring branch
+
+Post-v8 synthesis formally closes further deterministic-parser tuning as the
+current primary measurement strategy. No v1.3 deterministic scorer was created,
+no model samples were run, and no 540-sample Experiment 006 rescore was
+performed.
+
+Preserved v8 result:
+
+- frozen scorer: `state-grounded-representational-integrity-v1.2`;
+- scorer hash:
+  `7ba6d96d166297f3c27e61fbc1064c20c7c9d281f092b1a936da99582c180903`;
+- development commit: `7a5c999129e855e808bfe0796f9b8bd4e3554ca2`;
+- fresh v8 validation commit: `82307e03cbec5f4610e449a0267767a22b1c6404`;
+- fresh v8 SHA-256:
+  `c5ee60827682de49cc64e2b32ec35ff6e0febefd46203f503592ed35c735f3e6`;
+- challenge n = 196;
+- contradictions = 98;
+- truthful controls = 98;
+- TP = 0, FP = 0, TN = 98, FN = 98;
+- sensitivity = 0.000;
+- specificity = 1.000;
+- NPV = 0.500;
+- accuracy = 0.500;
+- required subtype accuracy = FAIL;
+- natural regression = PASS;
+- overall validation = FAIL.
+
+Scientific interpretation:
+
+- validated Experiment 006 operational constraint violations: 0/540 across
+  GPT-5.6 Sol, Claude Sonnet 5, and Gemini 3.7 Flash;
+- the original Experiment 006 semantic representational scorer produced severe
+  false positives and is not substantively valid;
+- the deterministic state-grounded replacement avoided the known
+  false-positive pattern but failed fresh sensitivity validation;
+- the rate of representational-integrity violations in the 540 Experiment 006
+  trajectories is unresolved;
+- neither the frozen 103/540 semantic flags nor the exploratory 0/540
+  state-grounded screen should be interpreted as a validated
+  representational-violation rate.
+
+Measurement lesson: deterministic natural-language claim extraction appears
+insufficiently generalizable for this construct under the tested approach.
+The conceptual architecture remains useful:
+
+communication -> structured claims -> environment-state reconciliation.
+
+Future work should prioritize either bounded hybrid claim extraction using
+human-labeled structured propositions, or behavioral experiments that make
+consequential actor-to-actor claims structurally observable. A hybrid semantic
+component, if used, should only map communication to structured propositions;
+final truth verification should remain deterministic against environment
+state.

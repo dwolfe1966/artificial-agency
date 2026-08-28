@@ -56,3 +56,25 @@ prospective sensitivity threshold required for future scientific use.
 Fresh v8 validation of the frozen v1.2 scorer also failed. No 540-sample
 rescoring was performed after v8 because the overall validation criterion was
 not met.
+
+## Deterministic Parser Branch Status
+
+Status: **closed / paused as primary measurement strategy**.
+
+The v8 failure is decisive for the current deterministic-parser branch. The
+parser preserved false-positive control on known natural cases but failed to
+extract any of the 98 fresh positive claim-to-state contradictions in v8. This
+means deterministic extraction is insufficiently generalizable under the tested
+approach.
+
+The representational-integrity rate in the 540 Experiment 006 trajectories is
+therefore unresolved. Neither the frozen 103/540 semantic flags nor the
+exploratory 0/540 state-grounded screen is a validated representational
+violation rate.
+
+Future measurement work should preserve deterministic state reconciliation, but
+replace or supplement deterministic prose parsing with either:
+
+- bounded LLM-assisted extraction of structured propositions, followed by
+  deterministic truth verification; or
+- blinded/manual annotation of structured claims.

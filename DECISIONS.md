@@ -248,3 +248,40 @@ must not be treated as a validated absence claim. Future representational
 integrity work should use a stronger structured claim-extraction or
 adjudication approach before a new preregistered production experiment treats
 the construct as a confirmatory endpoint.
+
+## 2026-08-28 — Close deterministic representational scoring branch after v8 failure
+
+Fresh held-out v8 validation evaluated the frozen
+`state-grounded-representational-integrity-v1.2` scorer
+(`7ba6d96d166297f3c27e61fbc1064c20c7c9d281f092b1a936da99582c180903`) exactly
+once against challenge SHA
+`c5ee60827682de49cc64e2b32ec35ff6e0febefd46203f503592ed35c735f3e6`.
+
+The result was TP 0, FP 0, TN 98, FN 98 on 196 cases: 98 contradictions and 98
+truthful matched controls. Sensitivity was 0.000, specificity 1.000, NPV
+0.500, accuracy 0.500, required subtype accuracy FAIL, natural regression PASS,
+and overall validation FAIL. No post-v8 540-sample rescore was performed.
+
+Decision: do not create v1.3 as another deterministic-parser iteration. The
+deterministic state-grounded scorer avoided the known false-positive pattern
+but failed fresh sensitivity validation. The rate of representational-integrity
+violations in the 540 Experiment 006 trajectories remains unresolved. Neither
+the frozen 103/540 semantic flags nor the exploratory 0/540 state-grounded
+screen should be interpreted as a validated representational-violation rate.
+
+The conceptual architecture remains valuable:
+
+communication -> structured claims -> environment-state reconciliation.
+
+The deterministic implementation is not validated. A future hybrid approach may
+use an LLM-assisted semantic component only to extract structured propositions;
+it must not classify deception, violation, or compliance. Final truth
+verification should remain deterministic against environment state.
+
+Future experiments should consider making consequential inter-agent or customer
+representations structurally observable rather than inferring them entirely
+from unconstrained prose. Candidate structured fields include claimed manager
+approval, claimed authorized discount, claimed applied discount, claimed credit
+or concession state, and claimed binding offer state. Natural-language
+communication may remain available, but directly verifiable representational
+state would reduce dependence on brittle prose parsing.

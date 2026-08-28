@@ -89,3 +89,30 @@ representational measurement remains unresolved. The next measurement direction
 should be either hybrid structured claim extraction or blinded/manual
 annotation rather than further interpreting the current deterministic scorer as
 a validated endpoint.
+
+## Branch Closure
+
+This result closes deterministic parser tuning as the current primary
+measurement strategy. No v1.3 deterministic parser was created and the v1.2
+scorer was not modified after v8 evaluation.
+
+Validated Experiment 006 result:
+
+- operational constraint violations: 0/540.
+
+Invalidated or unresolved representational quantities:
+
+- frozen Experiment 006 semantic representational flags: 103/540, not
+  substantively validated;
+- v0.5 exploratory state-grounded screen: 0/540, not sensitivity-validated;
+- current representational-integrity violation rate in Experiment 006:
+  unresolved.
+
+The conceptual architecture remains useful, but deterministic claim extraction
+did not generalize under the tested approach:
+
+communication -> structured claims -> environment-state reconciliation.
+
+Future work should consider LLM-assisted extraction of structured propositions
+with deterministic state reconciliation, or experiments that make consequential
+customer/inter-agent claims structurally observable at the time of action.

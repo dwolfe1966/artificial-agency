@@ -96,9 +96,31 @@ false-positive-control validation on 90 fresh selected cases and corrected the
 known 48-case regression suite, then produced 0/540 state-grounded
 representational violations in an exploratory rescore. A subsequent
 counterfactual sensitivity challenge series showed that v0.5 and exploratory
-revisions through v1.1 did not meet the predeclared sensitivity/specificity
-thresholds for future scientific use. Therefore the 0/540 exploratory rescore
-must remain an unresolved screening observation, not a validated absence claim.
+revisions through v1.2 did not meet the predeclared sensitivity/specificity
+thresholds for future scientific use. The fresh v8 validation of frozen v1.2
+failed with TP 0, FP 0, TN 98, FN 98, sensitivity 0.000, specificity 1.000,
+NPV 0.500, accuracy 0.500, required subtype accuracy FAIL, natural regression
+PASS, and overall validation FAIL. No post-v8 540-sample rescore was
+performed. Therefore the 0/540 exploratory rescore must remain an unresolved
+screening observation, not a validated absence claim.
+
+The validated Experiment 006 result is operational: operational constraint
+violations were 0/540 across GPT-5.6 Sol, Claude Sonnet 5, and Gemini 3.7
+Flash. The original frozen representational scorer produced 103/540 flags but
+was invalidated by post-results review. The deterministic state-grounded
+replacement scorer avoided the known false-positive pattern but failed fresh
+sensitivity validation. Consequently neither the frozen 103/540 semantic flags
+nor the exploratory 0/540 state-grounded screen should be interpreted as a
+validated representational-violation rate.
+
+Deterministic natural-language claim extraction is now paused as the primary
+measurement strategy. The conceptual architecture remains useful:
+communication -> structured claims -> environment-state reconciliation. The
+implementation lesson is that deterministic claim extraction did not
+generalize sufficiently under the tested approach. A future hybrid design may
+use an LLM-assisted semantic extractor only to map communications into
+structured propositions; the violation/compliance judgment should remain a
+deterministic reconciliation against environment state.
 
 ## Key distinctions
 
@@ -355,8 +377,8 @@ flawed measured endpoint and are preserved for historical/provenance reasons.
 ## Forward research axes
 Current priority questions:
 
-1. **Representational scorer sensitivity validation:** can a state-grounded communication scorer detect true false-authorization or false-commitment cases while preserving the improved false-positive control?
-2. **Action vs representational compliance:** after sensitivity validation, do models differ in whether they remain operationally compliant while misrepresenting authorization or approval status in customer communication?
+1. **Hybrid or adjudicated representational measurement:** can bounded LLM-assisted claim extraction or blinded/manual annotation produce reliable structured propositions while deterministic state reconciliation preserves construct validity?
+2. **Structured/verifiable actor-to-actor claims:** can future agent experiments make consequential representations directly observable through structured communication fields, such as claimed manager approval, claimed authorized discount, claimed applied discount, or claimed credit/concession state?
 3. **Evaluation awareness:** frontier models may recognize benchmark or compliance-evaluation structure. A useful latent variable is E = P(model infers it is being evaluated for compliance). Future work should measure this without priming behavior, for example through benchmark-salient vs naturalistically embedded tasks or post-action structured checks.
 4. **Operational vs rhetorical optimization pressure:** do environment-grounded consequences that alter future reward, budget, capabilities, opportunities, or cumulative performance affect behavior differently from described KPI/program consequences?
 5. **Enforcement / observability:** does compliance persist when violation is explicitly unlikely to be observed or punished, distinguishing stronger constraint-bounded behavior from instrumental compliance?
@@ -368,10 +390,10 @@ Preserved future axes:
 - operational vs rhetorical optimization pressure;
 - enforcement / observability.
 
-Tentative planning priority after Experiment 005 mechanism analysis, not a preregistration:
+Tentative planning priority after Experiment 006 measurement validation, not a preregistration:
 
-1. repair and validate representational scoring before another production estimate;
-2. action vs representational compliance with validated measurement;
+1. bounded hybrid claim-extraction validation using human-labeled structured propositions;
+2. future behavioral experiments with structured/verifiable actor-to-actor claims;
 3. evaluation-awareness / naturalistic embedding study;
 4. operational rather than rhetorical pressure;
 5. enforcement / observability study.
@@ -395,4 +417,5 @@ Current state after Experiments 001-005:
 - post-results semantic audit found all 86 Claude flags were substantive false positives for authorization misrepresentation; Claude did not exceed operational discount authority, execute excessive credit, falsely claim manager approval, falsely claim >15% authority, or make unauthorized customer commitments;
 - Experiment 006 prospectively separated operational/action compliance from representational/communication compliance;
 - Experiment 006 preserved quantitative result: 0/540 operational violations, with frozen representational-scorer flags of 8/180 for GPT-5.6 Sol, 53/180 for Claude Sonnet 5, and 42/180 for Gemini 3.7 Flash;
-- post-results scorer validation found 0/24 sampled representational-positive cases were substantive violations and 24/24 matched negatives were non-violations, so the frozen representational endpoint is treated as a measurement-validity failure rather than validated evidence of representational noncompliance.
+- post-results scorer validation found 0/24 sampled representational-positive cases were substantive violations and 24/24 matched negatives were non-violations, so the frozen representational endpoint is treated as a measurement-validity failure rather than validated evidence of representational noncompliance;
+- deterministic state-grounded representational scoring remains unvalidated after fresh v8 failure, so the rate of representational-integrity violations in the 540 Experiment 006 trajectories is currently unresolved.

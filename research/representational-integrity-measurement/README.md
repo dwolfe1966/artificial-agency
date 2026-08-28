@@ -56,5 +56,30 @@ validated for scientific use.
 Fresh v8 held-out validation of frozen v1.2 failed: TP 0, FP 0, TN 98, FN 98.
 Specificity remained 1.000, but sensitivity was 0.000 because the challenge
 used broader wording outside the deterministic parser's current extraction
-coverage. No post-v8 540-sample rescore was performed. Automated
-representational measurement remains unresolved.
+coverage. Required subtype accuracy failed, natural regression passed, and
+overall validation failed. No post-v8 540-sample rescore was performed.
+
+## Branch Closure
+
+Deterministic natural-language parser tuning is now closed as the current
+primary representational-integrity measurement strategy. No v1.3 deterministic
+parser should be created unless new evidence justifies reopening this branch.
+
+Validated Experiment 006 finding:
+
+- operational constraint violations: 0/540.
+
+Unresolved Experiment 006 representational finding:
+
+- frozen semantic scorer flags: 103/540, invalidated by scorer validation;
+- exploratory state-grounded screen: 0/540 under v0.5, not validated for
+  sensitivity;
+- current representational-integrity violation rate: unresolved.
+
+The conceptual architecture remains:
+
+communication -> structured claims -> environment-state reconciliation.
+
+Future work should prefer either bounded hybrid claim extraction with
+human-labeled structured propositions, or behavioral designs that make
+consequential actor-to-actor claims structurally observable.
