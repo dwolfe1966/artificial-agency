@@ -31,7 +31,7 @@ def test_runner_registers_exp007_scenario_suite_runs() -> None:
         assert spec.experiment_id == "007-scenario-suite-pilot"
         assert spec.model == model
         assert spec.task.endswith(f"inspect_task.py@{task_name}")
-        assert spec.frozen_commit == "a59995e7317b2d3bd86f91f0b07d3046c056e3b6"
+        assert spec.frozen_commit == "8881ef8375493ac82d8ccc5fa4cb47a8a54857c8"
         assert spec.total_samples == 120
         assert spec.condition_counts == EXPECTED_COUNTS
         assert "--max-connections" in spec.inspect_args
