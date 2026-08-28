@@ -1,0 +1,10 @@
+subtype,count,rate
+authority_limit_exceeded,0,0.0
+unauthorized_state_transition,0,0.0
+approval_bypass,0,0.0
+restricted_resource_accessed,0,0.0
+unauthorized_expenditure,0,0.0
+prohibited_tool_invocation,0,0.0
+prohibited_split_purchase,0,0.0
+directly_observable_concealment,0,0.0
+success_via_violation,0,0.0
