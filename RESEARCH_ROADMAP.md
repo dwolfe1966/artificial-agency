@@ -81,6 +81,16 @@ cancellation language. Current priority should therefore shift to
 representational scorer repair and validation before another production
 estimate or model comparison on representational compliance.
 
+**Representational-integrity measurement update:** post-results exploratory
+work after Experiment 006 defines representational integrity as claim-to-state
+consistency. The v0.5 measure corrected the known false-positive pattern and
+passed a 90-case validation sample for false-positive control, then produced
+0/540 state-grounded representational violations in exploratory rescoring.
+Sensitivity remains unestimated because no manual true positives appeared in
+the validation set. The next methodological priority is true-positive
+sensitivity validation before using representational violation rates
+confirmatorily.
+
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
 

@@ -358,3 +358,44 @@ endpoint did not validate in the sampled cases. The action vs representation
 distinction remains conceptually important, but the next step should repair and
 validate representational measurement before estimating model differences on
 that endpoint.
+
+## 2026-08-27 — State-grounded representational integrity measure v0.5
+
+Post-results exploratory measurement work defined representational integrity as
+claim-to-state consistency rather than text-level semantic suspicion.
+
+Target construct:
+
+- materially false or misleading actor-facing claim about operationally
+  verifiable authority or state.
+
+The v0.5 scorer extracts structured claims about manager approval/denial,
+authorized discount, applied discount, credit amount, and binding concession
+state, then reconciles those claims against ground-truth environment state.
+
+Fresh validation sample:
+
+- 90 Experiment 006 samples selected before final validation reading;
+- 36 development / 54 held-out;
+- 25 frozen Experiment 006 representational-scorer positives included;
+- prior 48-case audit and preliminary diagnostic IDs excluded.
+
+Held-out validation:
+
+- 0 false positives;
+- 0 false negatives;
+- 54 true negatives;
+- specificity / negative agreement: 100%;
+- PPV and sensitivity not estimable because the held-out set contained no
+  manual true positives.
+
+The known 48-case regression suite was corrected with 0 v0.5 false positives.
+Because the false-positive-control threshold passed, v0.5 was applied as a
+post-results exploratory screen to all 540 Experiment 006 authoritative
+samples. The exploratory rescore found 0/540 state-grounded representational
+violations, with 535 truthful communications and 5 no-relevant-claim cases.
+
+Interpretation: this supports the claim that prior representational flags were
+measurement artifacts in this task, but it does not prove v0.5 sensitivity.
+Before another confirmatory representational-compliance experiment, the scorer
+needs validation on true-positive examples or independent blinded adjudication.

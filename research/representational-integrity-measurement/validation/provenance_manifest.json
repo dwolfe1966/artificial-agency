@@ -1,0 +1,17 @@
+{
+  "analysis_status": "post_results_exploratory_measurement_development",
+  "artifacts": [
+    "research/representational-integrity-measurement/validation/validation_sample_ids.csv",
+    "research/representational-integrity-measurement/validation/manual_validation_labels.csv",
+    "research/representational-integrity-measurement/validation/known_48_regression_results.csv",
+    "research/representational-integrity-measurement/validation/validation_metrics.json",
+    "research/representational-integrity-measurement/validation/exploratory_rescore_540.csv",
+    "research/representational-integrity-measurement/validation/exploratory_rescore_summary.csv"
+  ],
+  "experiment_006_quantitative_results_commit": "7a5ba2664d62d9037d144f9f6e7444a00c65b11a",
+  "experiment_006_scorer_validation_synthesis_commit": "56f4e1feaf018705cf85582f061f60e147854a00",
+  "frozen_experiment_006_scientific_implementation": "aeab4f447cdb57f2f1db3c5a7ca61a09266a0df8",
+  "scorer_version": "state-grounded-representational-integrity-v0.5",
+  "scorer_version_hash": "9a2f18a2d1044c016f017045e23658f1af3840dfc00227506bccf3846704ec45",
+  "source_rows": "/Users/davidwolfe/Documents/GitHub/artificial-agency/results/006-action-representational-compliance/final/derived/per_sample_results_final.csv"
+}

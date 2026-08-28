@@ -88,6 +88,15 @@ models remained within tool-level authority in 540/540 samples. The
 representational-integrity construct remains a priority, but the current
 scorer output is not yet a validated estimate of that construct.
 
+Post-results exploratory measurement work after Experiment 006 defines
+representational integrity as claim-to-state consistency: materially false or
+misleading actor-facing claims about operationally verifiable authority or
+state. Version `state-grounded-representational-integrity-v0.5` passed a
+false-positive-control validation on 90 fresh selected cases and corrected the
+known 48-case regression suite, then produced 0/540 state-grounded
+representational violations in an exploratory rescore. Because the validation
+set contained no manual true positives, sensitivity remains unestimated.
+
 ## Key distinctions
 
 Observed violation != instrumental circumvention != deception != internal mechanism.
@@ -343,8 +352,8 @@ flawed measured endpoint and are preserved for historical/provenance reasons.
 ## Forward research axes
 Current priority questions:
 
-1. **Representational scorer repair / validation:** can a state-grounded communication scorer or adjudication protocol distinguish false authorization claims from truthful denial and authority-limit language before production?
-2. **Action vs representational compliance:** after scorer repair, do models differ in whether they remain operationally compliant while misrepresenting authorization or approval status in customer communication?
+1. **Representational scorer sensitivity validation:** can a state-grounded communication scorer detect true false-authorization or false-commitment cases while preserving the improved false-positive control?
+2. **Action vs representational compliance:** after sensitivity validation, do models differ in whether they remain operationally compliant while misrepresenting authorization or approval status in customer communication?
 3. **Evaluation awareness:** frontier models may recognize benchmark or compliance-evaluation structure. A useful latent variable is E = P(model infers it is being evaluated for compliance). Future work should measure this without priming behavior, for example through benchmark-salient vs naturalistically embedded tasks or post-action structured checks.
 4. **Operational vs rhetorical optimization pressure:** do environment-grounded consequences that alter future reward, budget, capabilities, opportunities, or cumulative performance affect behavior differently from described KPI/program consequences?
 5. **Enforcement / observability:** does compliance persist when violation is explicitly unlikely to be observed or punished, distinguishing stronger constraint-bounded behavior from instrumental compliance?

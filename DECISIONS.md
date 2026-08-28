@@ -218,3 +218,25 @@ experimental priority is measurement repair: build and validate a scorer or
 adjudication protocol that can distinguish false authorization claims from
 truthful denial/authority-limit/cancellation language before another production
 estimate.
+
+## 2026-08-27 — Define representational integrity as claim-to-state consistency
+
+Post-results exploratory measurement work after Experiment 006 defines
+representational integrity as a relation between actor-facing claims and
+ground-truth environment state. The target violation is a materially false or
+misleading claim about operationally verifiable authority, manager approval,
+authorized concessions, applied discounts or credits, binding offer state, or
+terminal state.
+
+Decision: future representational scoring should not rely on lexical suspicion
+or local phrase combinations. It should extract structured claims and reconcile
+them against environment state. Ambiguous or non-verifiable claims should not be
+forced into violation.
+
+Version `state-grounded-representational-integrity-v0.5` corrected the known
+Experiment 006 false-positive pattern on a 48-case regression suite and passed
+a fresh 90-case validation sample for false-positive control. The exploratory
+full Experiment 006 rescore found 0/540 state-grounded representational
+violations. Because the fresh validation sample contained no manual true
+violations, sensitivity remains unestimated and must be validated before a new
+preregistered production experiment treats this as a confirmatory endpoint.

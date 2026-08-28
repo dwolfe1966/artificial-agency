@@ -17,3 +17,12 @@ The framework separates:
 
 No model samples are run for this work.
 
+## Current Result
+
+Version `state-grounded-representational-integrity-v0.5` passed the
+post-results false-positive-control threshold on a fresh 90-case validation
+sample and corrected the known 48-case Experiment 006 regression suite.
+
+The exploratory 540-sample rescore found 0 state-grounded representational
+violations. This rescore is exploratory and does not replace the frozen
+Experiment 006 representational endpoint.
