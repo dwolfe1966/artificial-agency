@@ -21,6 +21,9 @@ on:
           - "007A-GPT"
           - "007B-CLAUDE"
           - "007C-GEMINI"
+          - "008A-GPT"
+          - "008B-CLAUDE"
+          - "008C-GEMINI"
           - "PERSISTENCE_DIAGNOSTIC"
       action:
         description: "Runner action"
@@ -67,7 +70,7 @@ jobs:
         run: |
           set -euo pipefail
           case "${{ inputs.run_id }}" in
-            002A|003A|003B|004A|004B|005B|005C|006A-GPT|006B-CLAUDE|006C-GEMINI|007A-GPT|007B-CLAUDE|007C-GEMINI|PERSISTENCE_DIAGNOSTIC) ;;
+            002A|003A|003B|004A|004B|005B|005C|006A-GPT|006B-CLAUDE|006C-GEMINI|007A-GPT|007B-CLAUDE|007C-GEMINI|008A-GPT|008B-CLAUDE|008C-GEMINI|PERSISTENCE_DIAGNOSTIC) ;;
             *) echo "Unsupported run_id"; exit 2 ;;
           esac
           case "${{ inputs.action }}" in
@@ -82,10 +85,10 @@ jobs:
           python3 -m venv .venv
           .venv/bin/python -m pip install --upgrade pip
           .venv/bin/python -m pip install -e ".[dev]"
-          if [[ "${{ inputs.run_id }}" == "005B" || "${{ inputs.run_id }}" == "006B-CLAUDE" || "${{ inputs.run_id }}" == "007B-CLAUDE" ]]; then
+          if [[ "${{ inputs.run_id }}" == "005B" || "${{ inputs.run_id }}" == "006B-CLAUDE" || "${{ inputs.run_id }}" == "007B-CLAUDE" || "${{ inputs.run_id }}" == "008B-CLAUDE" ]]; then
             .venv/bin/python -m pip install "anthropic>=0.39.0"
           fi
-          if [[ "${{ inputs.run_id }}" == "005C" || "${{ inputs.run_id }}" == "006C-GEMINI" || "${{ inputs.run_id }}" == "007C-GEMINI" ]]; then
+          if [[ "${{ inputs.run_id }}" == "005C" || "${{ inputs.run_id }}" == "006C-GEMINI" || "${{ inputs.run_id }}" == "007C-GEMINI" || "${{ inputs.run_id }}" == "008C-GEMINI" ]]; then
             .venv/bin/python -m pip install "google-genai>=1.0.0"
           fi
 
@@ -93,21 +96,21 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" || "${{ inputs.run_id }}" == "003B" || "${{ inputs.run_id }}" == "004A" || "${{ inputs.run_id }}" == "004B" || "${{ inputs.run_id }}" == "006A-GPT" || "${{ inputs.run_id }}" == "007A-GPT" ]]; then
+          if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" || "${{ inputs.run_id }}" == "003B" || "${{ inputs.run_id }}" == "004A" || "${{ inputs.run_id }}" == "004B" || "${{ inputs.run_id }}" == "006A-GPT" || "${{ inputs.run_id }}" == "007A-GPT" || "${{ inputs.run_id }}" == "008A-GPT" ]]; then
             test -n "${OPENAI_API_KEY:-}" || {
               echo "OPENAI_API_KEY is not configured for this runner."
               exit 2
             }
             launchctl setenv OPENAI_API_KEY "${OPENAI_API_KEY}"
           fi
-          if [[ "${{ inputs.run_id }}" == "005B" || "${{ inputs.run_id }}" == "006B-CLAUDE" || "${{ inputs.run_id }}" == "007B-CLAUDE" ]]; then
+          if [[ "${{ inputs.run_id }}" == "005B" || "${{ inputs.run_id }}" == "006B-CLAUDE" || "${{ inputs.run_id }}" == "007B-CLAUDE" || "${{ inputs.run_id }}" == "008B-CLAUDE" ]]; then
             test -n "${ANTHROPIC_API_KEY:-}" || {
               echo "ANTHROPIC_API_KEY is not configured for this runner."
               exit 2
             }
             launchctl setenv ANTHROPIC_API_KEY "${ANTHROPIC_API_KEY}"
           fi
-          if [[ "${{ inputs.run_id }}" == "005C" || "${{ inputs.run_id }}" == "006C-GEMINI" || "${{ inputs.run_id }}" == "007C-GEMINI" ]]; then
+          if [[ "${{ inputs.run_id }}" == "005C" || "${{ inputs.run_id }}" == "006C-GEMINI" || "${{ inputs.run_id }}" == "007C-GEMINI" || "${{ inputs.run_id }}" == "008C-GEMINI" ]]; then
             test -n "${GOOGLE_API_KEY:-}" || {
               echo "GOOGLE_API_KEY is not configured for this runner."
               exit 2

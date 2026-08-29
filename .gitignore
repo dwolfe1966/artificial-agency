@@ -29,6 +29,12 @@ results/007-scenario-suite-pilot/run-007B-CLAUDE/inspect/*.json
 results/007-scenario-suite-pilot/run-007B-CLAUDE/canary/*.json
 results/007-scenario-suite-pilot/run-007C-GEMINI/inspect/*.json
 results/007-scenario-suite-pilot/run-007C-GEMINI/canary/*.json
+results/008-evaluation-awareness/run-008A-GPT/inspect/*.json
+results/008-evaluation-awareness/run-008A-GPT/canary/*.json
+results/008-evaluation-awareness/run-008B-CLAUDE/inspect/*.json
+results/008-evaluation-awareness/run-008B-CLAUDE/canary/*.json
+results/008-evaluation-awareness/run-008C-GEMINI/inspect/*.json
+results/008-evaluation-awareness/run-008C-GEMINI/canary/*.json
 results/.runner-runtime/
 results/run_registry.json
 results/**/RUN_STATUS.json

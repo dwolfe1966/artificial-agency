@@ -93,6 +93,9 @@ def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]
             "007A-GPT",
             "007B-CLAUDE",
             "007C-GEMINI",
+            "008A-GPT",
+            "008B-CLAUDE",
+            "008C-GEMINI",
         }:
             raise RuntimeError(f"runner-level recovery is not configured for {spec.run_id}")
         if spec.run_id in {"005B", "005C"}:
@@ -109,13 +112,20 @@ def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]
                 "006C-GEMINI": "exp006_model_c_gemini37_flash_recovery_missing",
             }[spec.run_id]
             task = f"artificial_agency/runner/exp006_recovery_task.py@{task_name}"
-        else:
+        elif spec.run_id in {"007A-GPT", "007B-CLAUDE", "007C-GEMINI"}:
             task_name = {
                 "007A-GPT": "exp007_model_a_gpt56_sol_recovery_missing",
                 "007B-CLAUDE": "exp007_model_b_claude_sonnet5_recovery_missing",
                 "007C-GEMINI": "exp007_model_c_gemini37_flash_recovery_missing",
             }[spec.run_id]
             task = f"artificial_agency/runner/exp007_recovery_task.py@{task_name}"
+        else:
+            task_name = {
+                "008A-GPT": "exp008_model_a_gpt56_sol_recovery_missing",
+                "008B-CLAUDE": "exp008_model_b_claude_sonnet5_recovery_missing",
+                "008C-GEMINI": "exp008_model_c_gemini37_flash_recovery_missing",
+            }[spec.run_id]
+            task = f"artificial_agency/runner/exp008_recovery_task.py@{task_name}"
     return [
         sys.executable,
         "-m",

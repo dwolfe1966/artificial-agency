@@ -151,6 +151,28 @@ def test_workflow_inputs_map_to_runner_commands() -> None:
         "finalize",
         "006C-GEMINI",
     ]
+    assert runner_command("start", "008A-GPT")[-2:] == ["start", "008A-GPT"]
+    assert runner_command("preflight", "008B-CLAUDE")[-2:] == [
+        "preflight",
+        "008B-CLAUDE",
+    ]
+    assert runner_command("status", "008C-GEMINI")[-2:] == [
+        "status",
+        "008C-GEMINI",
+    ]
+    assert runner_command("health", "008A-GPT")[-2:] == ["health", "008A-GPT"]
+    assert runner_command("stop", "008B-CLAUDE")[-2:] == [
+        "stop",
+        "008B-CLAUDE",
+    ]
+    assert runner_command("resume", "008C-GEMINI")[-2:] == [
+        "resume",
+        "008C-GEMINI",
+    ]
+    assert runner_command("finalize", "008A-GPT")[-2:] == [
+        "finalize",
+        "008A-GPT",
+    ]
 
 
 def test_invalid_actions_and_run_ids_fail_safely() -> None:
@@ -178,6 +200,9 @@ def test_workflow_declares_only_supported_dispatch_inputs() -> None:
         "007A-GPT",
         "007B-CLAUDE",
         "007C-GEMINI",
+        "008A-GPT",
+        "008B-CLAUDE",
+        "008C-GEMINI",
         "PERSISTENCE_DIAGNOSTIC",
     ]
     assert dispatch["action"]["options"] == [
@@ -203,7 +228,7 @@ def test_secret_values_are_never_printed_by_generated_commands() -> None:
     assert 'test -n "${ANTHROPIC_API_KEY:-}"' in workflow_text
     assert 'test -n "${GOOGLE_API_KEY:-}"' in workflow_text
     assert (
-        'if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" || "${{ inputs.run_id }}" == "003B" || "${{ inputs.run_id }}" == "004A" || "${{ inputs.run_id }}" == "004B" || "${{ inputs.run_id }}" == "006A-GPT" || "${{ inputs.run_id }}" == "007A-GPT" ]]; then'
+        'if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" || "${{ inputs.run_id }}" == "003B" || "${{ inputs.run_id }}" == "004A" || "${{ inputs.run_id }}" == "004B" || "${{ inputs.run_id }}" == "006A-GPT" || "${{ inputs.run_id }}" == "007A-GPT" || "${{ inputs.run_id }}" == "008A-GPT" ]]; then'
         in workflow_text
     )
     assert 'launchctl setenv OPENAI_API_KEY "${OPENAI_API_KEY}"' in workflow_text
@@ -336,7 +361,7 @@ def test_workflow_allows_registered_exp005_and_exp006_cross_model_runs() -> None
     assert '- "006B-CLAUDE"' in workflow_text
     assert '- "006C-GEMINI"' in workflow_text
     assert (
-        "002A|003A|003B|004A|004B|005B|005C|006A-GPT|006B-CLAUDE|006C-GEMINI|007A-GPT|007B-CLAUDE|007C-GEMINI|PERSISTENCE_DIAGNOSTIC"
+        "002A|003A|003B|004A|004B|005B|005C|006A-GPT|006B-CLAUDE|006C-GEMINI|007A-GPT|007B-CLAUDE|007C-GEMINI|008A-GPT|008B-CLAUDE|008C-GEMINI|PERSISTENCE_DIAGNOSTIC"
         in workflow_text
     )
     assert "ANTHROPIC_API_KEY" in workflow_text
@@ -352,12 +377,23 @@ def test_workflow_allows_registered_exp007_scenario_suite_runs() -> None:
     assert '- "007B-CLAUDE"' in workflow_text
     assert '- "007C-GEMINI"' in workflow_text
     assert (
-        "002A|003A|003B|004A|004B|005B|005C|006A-GPT|006B-CLAUDE|006C-GEMINI|007A-GPT|007B-CLAUDE|007C-GEMINI|PERSISTENCE_DIAGNOSTIC"
+        "002A|003A|003B|004A|004B|005B|005C|006A-GPT|006B-CLAUDE|006C-GEMINI|007A-GPT|007B-CLAUDE|007C-GEMINI|008A-GPT|008B-CLAUDE|008C-GEMINI|PERSISTENCE_DIAGNOSTIC"
         in workflow_text
     )
     assert 'inputs.run_id }}" == "007A-GPT"' in workflow_text
     assert 'inputs.run_id }}" == "007B-CLAUDE"' in workflow_text
     assert 'inputs.run_id }}" == "007C-GEMINI"' in workflow_text
+
+
+def test_workflow_allows_registered_exp008_evaluation_awareness_runs() -> None:
+    workflow_text = WORKFLOW.read_text(encoding="utf-8")
+
+    assert '- "008A-GPT"' in workflow_text
+    assert '- "008B-CLAUDE"' in workflow_text
+    assert '- "008C-GEMINI"' in workflow_text
+    assert 'inputs.run_id }}" == "008A-GPT"' in workflow_text
+    assert 'inputs.run_id }}" == "008B-CLAUDE"' in workflow_text
+    assert 'inputs.run_id }}" == "008C-GEMINI"' in workflow_text
 
 
 def test_runner_registers_005_cross_model_runs() -> None:
@@ -391,6 +427,30 @@ def test_runner_registers_006_action_representation_runs() -> None:
         assert spec.frozen_commit == "aeab4f447cdb57f2f1db3c5a7ca61a09266a0df8"
         assert spec.experiment_id == "006-action-representational-compliance"
         assert spec.total_samples == 180
+        assert spec.condition_counts == expected_counts
+        assert "--checkpoint" in spec.inspect_args
+        assert "turn:1" in spec.inspect_args
+
+
+def test_runner_registers_008_evaluation_awareness_runs() -> None:
+    from artificial_agency.runner.config import known_runs
+
+    runs = known_runs()
+    expected_counts = {
+        "procurement-eval-salient": 30,
+        "procurement-naturalistic": 30,
+        "data-access-eval-salient": 30,
+        "data-access-naturalistic": 30,
+    }
+
+    assert runs["008A-GPT"].model == "openai/gpt-5.6-sol"
+    assert runs["008B-CLAUDE"].model == "anthropic/claude-sonnet-5"
+    assert runs["008C-GEMINI"].model == "google/gemini-3.7-flash"
+    for run_id in ("008A-GPT", "008B-CLAUDE", "008C-GEMINI"):
+        spec = runs[run_id]
+        assert spec.frozen_commit == "02f7098dea80156ae48faee5ee091659f538beee"
+        assert spec.experiment_id == "008-evaluation-awareness"
+        assert spec.total_samples == 120
         assert spec.condition_counts == expected_counts
         assert "--checkpoint" in spec.inspect_args
         assert "turn:1" in spec.inspect_args
