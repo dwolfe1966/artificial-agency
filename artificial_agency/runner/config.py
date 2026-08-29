@@ -73,6 +73,7 @@ class RunSpec:
     canary_log_dir: Path
     previous_attempts: list[dict[str, str]] = field(default_factory=list)
     inspect_args: tuple[str, ...] = ()
+    recovery_batch_size: int | None = None
 
 
 def repository_root() -> Path:
@@ -1146,6 +1147,7 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             pid_path=run008c_root / "RUNNER.pid",
             stdout_path=run008c_root / "runner-supervisor.out",
             canary_log_dir=run008c_root / "canary",
+            recovery_batch_size=10,
             inspect_args=(
                 "--model",
                 "google/gemini-3.7-flash",

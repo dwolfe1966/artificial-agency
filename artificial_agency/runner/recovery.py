@@ -162,13 +162,23 @@ def write_recovery_plan(spec: RunSpec, plan: RecoveryPlan) -> Path:
     ]
     atomic_write_json(path, payload)
     ids_path = spec.status_path.parent / "RECOVERY_MISSING_IDS.json"
+    batch_size = spec.recovery_batch_size
+    selected_missing_ids = (
+        plan.missing_ids[:batch_size]
+        if batch_size is not None and batch_size > 0
+        else plan.missing_ids
+    )
     atomic_write_json(
         ids_path,
         {
             "run_id": spec.run_id,
             "source_log": plan.source_log,
             "missing_count": plan.missing_count,
-            "missing_ids": list(plan.missing_ids),
+            "batch_size": batch_size,
+            "batch_missing_count": len(selected_missing_ids),
+            "remaining_after_batch": max(plan.missing_count - len(selected_missing_ids), 0),
+            "missing_ids": list(selected_missing_ids),
+            "all_missing_ids": list(plan.missing_ids),
             "invalid_ids": list(plan.invalid_ids),
         },
     )

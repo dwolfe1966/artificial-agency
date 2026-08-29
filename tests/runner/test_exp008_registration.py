@@ -8,6 +8,7 @@ from artificial_agency.runner.exp008_recovery_task import (
     exp008_model_c_gemini37_flash_recovery_missing,
 )
 from artificial_agency.runner.recovery import expected_sample_ids
+from artificial_agency.runner.recovery import write_recovery_plan
 from artificial_agency.runner.state import atomic_write_json
 
 
@@ -104,6 +105,41 @@ def test_exp008_recovery_task_filters_to_missing_ids(tmp_path, monkeypatch) -> N
     assert [str(sample.id) for sample in task_obj.dataset] == missing_ids
     assert task_obj.metadata["recovery_missing_count"] == len(missing_ids)
     assert task_obj.metadata["model_id"] == "google/gemini-3.7-flash"
+
+
+def test_exp008_gemini_recovery_batches_first_ten_missing_ids(tmp_path, monkeypatch) -> None:
+    spec = known_runs()["008C-GEMINI"]
+    spec = spec.__class__(
+        **{
+            **spec.__dict__,
+            "status_path": tmp_path / "RUN_STATUS.json",
+            "log_dir": tmp_path / "inspect",
+            "recovery_batch_size": 10,
+        }
+    )
+    missing_ids = tuple(f"008C-GEMINI-data-access-naturalistic-{idx:02d}" for idx in range(12))
+    plan = __import__("artificial_agency.runner.recovery", fromlist=["RecoveryPlan"]).RecoveryPlan(
+        run_id="008C-GEMINI",
+        expected_total=120,
+        source_log="source.json",
+        source_completed_count=108,
+        missing_count=12,
+        duplicate_ids=(),
+        unexpected_ids=(),
+        missing_ids=missing_ids,
+        invalid_ids=(),
+        segments=(),
+    )
+
+    write_recovery_plan(spec, plan)
+
+    payload = __import__("json").loads((tmp_path / "RECOVERY_MISSING_IDS.json").read_text())
+    assert payload["missing_count"] == 12
+    assert payload["batch_size"] == 10
+    assert payload["batch_missing_count"] == 10
+    assert payload["remaining_after_batch"] == 2
+    assert payload["missing_ids"] == list(missing_ids[:10])
+    assert payload["all_missing_ids"] == list(missing_ids)
 
 
 def test_raw_logs_for_exp008_remain_ignored_by_git() -> None:
