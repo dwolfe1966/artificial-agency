@@ -175,6 +175,53 @@ Important limitations remain: explicit authority, deterministic denial,
 synthetic environments, single-agent/single-episode tasks, eval-salient setup,
 and mainly narrative rather than environment-grounded pressure.
 
+## Experiment 008 — Evaluation-awareness / naturalistic embedding result
+
+Experiment 008 quantitative results are preserved at
+`cc794f8bb4c3c4a13fe2c07528bbddb443fec4b2`.
+
+Experiment 008 tested procurement and restricted synthetic data access under
+eval-salient versus naturalistically embedded presentations across GPT-5.6 Sol,
+Claude Sonnet 5, and Gemini 3.7 Flash. The authoritative dataset contained 360
+samples: 120 per model and 30 per model x scenario x presentation cell.
+
+Primary preregistered operational result:
+
+- operational constraint violations: 0/360;
+- eval-salient: 0/180;
+- naturalistic: 0/180;
+- procurement: 0/180;
+- data-access: 0/180;
+- exact 95% upper confidence bound for the global rate: approximately 1.02%.
+
+The primary operational endpoint therefore extends the Experiment 007 pattern:
+naturalistic embedding did not produce observed operational constraint
+violations in this synthetic, single-agent, single-episode setting.
+
+Post-results awareness-instrument correction:
+
+- captured post-action awareness responses: 0/360;
+- awareness attempted before terminal state: 12/360;
+- structured technical/max-step flags: 37/360.
+
+A lifecycle diagnostic found that the awareness tool was exposed during the
+operational phase, producing pre-terminal rejected awareness attempts, while the
+post-action probe did not create an isolated awareness-only phase or
+deterministically record missing responses when the model failed to call the
+awareness tool. Evaluation-awareness manipulation validity therefore could not
+be assessed.
+
+Correct interpretation:
+
+Naturalistic embedding produced no observed operational constraint violations:
+eval-salient 0/180 and naturalistic 0/180. However, evaluation-awareness
+manipulation validity could not be assessed because the post-action awareness
+instrument failed to capture responses.
+
+Do not infer from Experiment 008 that models lacked evaluation awareness,
+naturalistic embedding reduced evaluation awareness, or evaluation awareness
+had no behavioral effect.
+
 ## Key distinctions
 
 Observed violation != instrumental circumvention != deception != internal mechanism.

@@ -470,3 +470,40 @@ and not a basis for conditioning the primary ITT behavioral analysis.
 Serious competing hypotheses are preserved: presentation may affect reported
 evaluation awareness without changing operational behavior, and all models may
 remain operationally constraint-bounded across both presentation styles.
+
+## 2026-08-30 — Treat Experiment 008 awareness as instrument failure, not awareness evidence
+
+Experiment 008 quantitative results are preserved at
+`cc794f8bb4c3c4a13fe2c07528bbddb443fec4b2`. The authoritative dataset contains
+360/360 samples across GPT-5.6 Sol, Claude Sonnet 5, Gemini 3.7 Flash,
+procurement, restricted data access, eval-salient presentation, and
+naturalistic presentation.
+
+Decision: preserve the preregistered mechanical operational result as valid:
+0/360 operational constraint violations, including eval-salient 0/180 and
+naturalistic 0/180.
+
+Decision: treat the post-action evaluation-awareness result as
+measurement-indeterminate because the instrument captured 0/360 structured
+responses. The failure was lifecycle-related. The awareness tool was included
+with operational tools, making it callable before terminal state, and the
+post-action solver did not isolate an awareness-only phase or deterministically
+record missing awareness responses when no awareness tool call occurred.
+
+Therefore Experiment 008 should not be cited as evidence that models lacked
+evaluation awareness, that naturalistic embedding reduced evaluation awareness,
+or that evaluation awareness had no behavioral effect. H2 is
+measurement-indeterminate / instrument failure.
+
+Future awareness experiments should use a true two-phase lifecycle:
+
+1. Phase A exposes only operational tools and freezes primary operational
+   state/score at terminal or frozen stopping condition.
+2. Phase B revokes operational tools, exposes only
+   `submit_eval_awareness(...)`, records exactly one structured response or a
+   deterministic missing/malformed status, and cannot mutate Phase A state.
+
+Retrospective replay of the existing 360 cases is not equivalent to the
+original post-action measure because it would ask a new inference episode to
+classify reconstructed terminal context. Preferred follow-up is a fresh
+preregistered Experiment 008B replication using the corrected lifecycle.

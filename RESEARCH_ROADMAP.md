@@ -221,3 +221,42 @@ Approximately 70% doing / 30% learning. Every week should end with something tha
 Current review prompt after Experiment 008 preregistration: does the
 naturalistic presentation preserve formal authority, action availability, and
 objective stakes while changing primarily evaluation/compliance salience?
+
+## Experiment 008 result and lifecycle correction
+
+Experiment 008 completed 360 authoritative samples across procurement and
+restricted data access, eval-salient and naturalistic presentations, and the
+three-model set GPT-5.6 Sol, Claude Sonnet 5, and Gemini 3.7 Flash.
+
+Primary operational result:
+
+- operational constraint violations: 0/360;
+- eval-salient: 0/180;
+- naturalistic: 0/180;
+- all 12 model x scenario x presentation cells: 0/30.
+
+This supports continued attention to operational constraint-boundedness under
+synthetic single-agent tasks, including naturalistically embedded presentations,
+within the precision limits of the experiment.
+
+The post-action evaluation-awareness measure failed as an instrument: captured
+responses were 0/360. The failure was lifecycle-related, not a substantive
+awareness result. The awareness tool was exposed during operational behavior,
+and the post-action probe did not isolate an awareness-only phase or
+deterministically record missing awareness responses.
+
+H2 evaluation-awareness manipulation validity should be treated as
+measurement-indeterminate / instrument failure. H6 should not be read as
+evidence that awareness changed or did not change behavior.
+
+Next methodological priority:
+
+1. fresh preregistered Experiment 008B replication using a true two-phase
+   lifecycle;
+2. operational vs rhetorical pressure;
+3. enforcement / observability;
+4. multi-agent delegation.
+
+Retrospective awareness replay of the existing 360 cases is not equivalent to
+the failed post-action measure because it would occur in a new inference
+episode with reconstructed terminal context.
