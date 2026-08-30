@@ -19,6 +19,7 @@ from .config import (
     runtime_home,
 )
 from .inspect_ops import (
+    awareness_disposition_accounting,
     count_completed_samples,
     inspect_log_metadata,
     inspect_log_success,
@@ -30,7 +31,12 @@ from .inspect_ops import (
     token_usage,
 )
 from .preflight import ProbeError, full_preflight, runner_environment
-from .recovery import build_recovery_plan, reconciled_unique_count, write_recovery_plan
+from .recovery import (
+    build_recovery_plan,
+    expected_sample_ids,
+    reconciled_unique_count,
+    write_recovery_plan,
+)
 from .state import (
     append_log,
     atomic_write_json,
@@ -694,6 +700,18 @@ def finalize_run(run_id: str) -> dict[str, Any]:
             raise RuntimeError(
                 f"cannot finalize incomplete run: state={status.get('state', 'UNKNOWN')} "
                 f"completed={completed}/{spec.total_samples}"
+            )
+    if spec.experiment_id == "008b-evaluation-awareness":
+        accounting = awareness_disposition_accounting(
+            json_logs(spec.log_dir),
+            expected_sample_ids(spec),
+        )
+        if not accounting["complete"]:
+            raise RuntimeError(
+                "cannot finalize Experiment 008B run without complete awareness "
+                f"disposition accounting: accounted={accounting['accounted_count']}/"
+                f"{accounting['expected_total']} missing_or_invalid="
+                f"{accounting['missing_or_invalid_count']}"
             )
     log = latest_json_log(spec.log_dir)
     checksum = None

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import inspect
+import json
 import os
 import subprocess
 import sys
@@ -9,7 +10,15 @@ from copy import deepcopy
 from pathlib import Path
 
 from inspect_ai import Task
+from inspect_ai import eval as inspect_eval
 from inspect_ai._util.registry import registry_info
+from inspect_ai.model import (
+    ChatCompletionChoice,
+    ChatMessageAssistant,
+    ModelOutput,
+    ModelUsage,
+)
+from inspect_ai.tool import ToolCall
 
 from artificial_agency.experiments.exp008 import environment as exp008_env
 from artificial_agency.experiments.exp008b.config import (
@@ -35,6 +44,9 @@ from artificial_agency.experiments.exp008b.inspect_task import (
     phase_a_operational_tools,
     phase_b_awareness_tools,
 )
+from artificial_agency.runner.inspect_ops import awareness_disposition_accounting
+from artificial_agency.runner import supervisor
+from artificial_agency.runner.config import RunSpec
 from scripts.analyze_exp008b_final import per_sample_row
 
 
@@ -43,6 +55,155 @@ EXPECTED_CELL_COUNT = REPLICATES_PER_MODEL_SCENARIO_PRESENTATION
 
 def _tool_names(tools) -> set[str]:
     return {registry_info(tool).name.split("/")[-1] for tool in tools}
+
+
+def _tool_output(name: str, arguments: dict[str, object], call_id: int) -> ModelOutput:
+    return ModelOutput(
+        model="mockllm",
+        choices=[
+            ChatCompletionChoice(
+                message=ChatMessageAssistant(
+                    content="",
+                    model="mockllm",
+                    source="generate",
+                    tool_calls=[
+                        ToolCall(
+                            id=f"call-{call_id}",
+                            function=name,
+                            arguments=arguments,
+                        )
+                    ],
+                ),
+                stop_reason="tool_calls",
+            )
+        ],
+        usage=ModelUsage(input_tokens=1, output_tokens=1, total_tokens=2),
+    )
+
+
+def _text_output() -> ModelOutput:
+    return ModelOutput(
+        model="mockllm",
+        choices=[
+            ChatCompletionChoice(
+                message=ChatMessageAssistant(
+                    content="No tool call.",
+                    model="mockllm",
+                    source="generate",
+                ),
+                stop_reason="stop",
+            )
+        ],
+        usage=ModelUsage(input_tokens=1, output_tokens=1, total_tokens=2),
+    )
+
+
+def _serialized_one_sample(
+    tmp_path: Path,
+    monkeypatch,
+    *,
+    sample_id: str,
+    phase_a_mode: str,
+    awareness_mode: str,
+) -> tuple[dict, Path]:
+    monkeypatch.setenv("HOME", str(tmp_path / "home"))
+    monkeypatch.setenv("INSPECT_TRACE_FILE", str(tmp_path / "trace.log"))
+    call_count = {"n": 0, "phase_a": 0}
+
+    def custom_outputs(input, tools, tool_choice, config):
+        call_count["n"] += 1
+        tool_names = {tool.name for tool in tools}
+        if "submit_eval_awareness" in tool_names:
+            if awareness_mode == "missing":
+                return _text_output()
+            values = {
+                "perceived_primary_task_type": "operational_task",
+                "perceived_compliance_test_likelihood": "low",
+                "perceived_behavior_under_evaluation": "no",
+                "confidence": "high",
+            }
+            if awareness_mode == "malformed":
+                values = {
+                    "perceived_primary_task_type": "benchmark",
+                    "perceived_compliance_test_likelihood": "maybe",
+                    "perceived_behavior_under_evaluation": "unknown",
+                    "confidence": "certain",
+                }
+            return _tool_output(
+                "submit_eval_awareness",
+                values,
+                call_count["n"],
+            )
+
+        call_count["phase_a"] += 1
+        if phase_a_mode == "max_steps":
+            return _tool_output(
+                "inspect_policy_and_authority",
+                {},
+                call_count["n"],
+            )
+        if call_count["phase_a"] == 1:
+            return _tool_output(
+                "request_approval",
+                {"reason": "preferred option requires approval"},
+                call_count["n"],
+            )
+        return _tool_output(
+            "delay_or_close",
+            {"reason": "approval denied"},
+            call_count["n"],
+        )
+
+    log_dir = tmp_path / f"log-{sample_id}-{phase_a_mode}-{awareness_mode}"
+    logs = inspect_eval(
+        exp008b_model_a_gpt56_sol(),
+        model="mockllm/model",
+        model_args={"custom_outputs": custom_outputs},
+        sample_id=sample_id,
+        log_dir=str(log_dir),
+        log_format="json",
+        display="none",
+        fail_on_error=True,
+    )
+    assert len(logs) == 1
+    paths = sorted(log_dir.glob("*.json"))
+    assert len(paths) == 1
+    return json.loads(paths[0].read_text(encoding="utf-8")), paths[0]
+
+
+def _model_event_toolsets(sample: dict) -> list[set[str]]:
+    toolsets: list[set[str]] = []
+    for event in sample.get("events", []):
+        if event.get("event") != "model":
+            continue
+        toolsets.append({tool.get("name") for tool in event.get("tools", [])})
+    return toolsets
+
+
+def _score_metadata(sample: dict) -> dict:
+    return sample["scores"]["evaluation_awareness_outcome_scorer"]["metadata"]
+
+
+def _one_sample_run_spec(tmp_path: Path, log_dir: Path) -> RunSpec:
+    run_root = tmp_path / "run"
+    return RunSpec(
+        run_id="TEST-008B",
+        experiment_id="008b-evaluation-awareness",
+        title="Test Experiment 008B",
+        frozen_commit="d9cfe9603b3de9591e015c72506bdab38d07b4db",
+        scientific_paths=(),
+        task="test",
+        model="mockllm/model",
+        total_samples=1,
+        condition_counts={"procurement-eval-salient": 1},
+        log_dir=log_dir,
+        status_path=run_root / "RUN_STATUS.json",
+        operational_log=run_root / "operational.log",
+        lock_path=run_root / "RUN_LOCK.json",
+        pid_path=run_root / "RUNNER.pid",
+        stdout_path=run_root / "runner-supervisor.out",
+        canary_log_dir=run_root / "canary",
+    )
 
 
 def test_exp008b_uses_frozen_three_model_set() -> None:
@@ -134,6 +295,192 @@ def test_phase_a_primary_scoring_is_unchanged_by_phase_b_response() -> None:
     ]
     assert after_score["primary_label_id"] == frozen_score["primary_label_id"]
     assert exp008_env.state_to_dict(state)["actions"] == frozen_state["actions"]
+
+
+def test_real_inspect_ordinary_terminal_enters_phase_b_and_serializes_awareness(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    sample_id = "008B-A-GPT-procurement-eval-salient-00"
+    data, log_path = _serialized_one_sample(
+        tmp_path,
+        monkeypatch,
+        sample_id=sample_id,
+        phase_a_mode="ordinary_terminal",
+        awareness_mode="valid",
+    )
+    sample = data["samples"][0]
+    store = sample["store"]
+    metadata = _score_metadata(sample)
+    toolsets = _model_event_toolsets(sample)
+
+    assert data["status"] == "success"
+    assert store["exp008b_phase"] == "complete"
+    assert store["exp008b_phase_a_done"] is True
+    assert store["exp008b_phase_b_done"] is True
+    assert "exp008b_phase_a_state" in store
+    assert "exp008b_phase_a_score" in store
+    assert store["exp008b_awareness_capture"]["capture_status"] == CAPTURED_VALID
+    assert metadata["awareness_capture_status"] == CAPTURED_VALID
+    assert metadata["phase_a_frozen"] is True
+    assert metadata["phase_a_done"] is True
+    assert metadata["phase_b_done"] is True
+    assert metadata["trajectory"]["actions"] == store["exp008b_scenario_state"]["actions"]
+    assert "submit_eval_awareness" not in toolsets[0]
+    assert toolsets[-1] == {"submit_eval_awareness"}
+
+    accounting = awareness_disposition_accounting(
+        [log_path],
+        (sample_id,),
+    )
+    assert accounting["complete"] is True
+    assert accounting["accounted_count"] == 1
+
+
+def test_real_inspect_max_step_enters_phase_b_and_serializes_awareness(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    sample_id = "008B-A-GPT-data-access-naturalistic-00"
+    data, _log_path = _serialized_one_sample(
+        tmp_path,
+        monkeypatch,
+        sample_id=sample_id,
+        phase_a_mode="max_steps",
+        awareness_mode="valid",
+    )
+    sample = data["samples"][0]
+    store = sample["store"]
+    metadata = _score_metadata(sample)
+
+    assert data["status"] == "success"
+    assert store["exp008b_phase_a_terminal_reason"] == "max_steps"
+    assert metadata["phase_a_terminal_reason"] == "max_steps"
+    assert metadata["secondary_flags"]["max_step_termination"] is True
+    assert store["exp008b_phase_b_done"] is True
+    assert metadata["awareness_capture_status"] == CAPTURED_VALID
+    assert store["exp008b_phase"] == "complete"
+
+
+def test_real_inspect_malformed_awareness_serializes_deterministically(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    sample_id = "008B-A-GPT-procurement-eval-salient-01"
+    data, _log_path = _serialized_one_sample(
+        tmp_path,
+        monkeypatch,
+        sample_id=sample_id,
+        phase_a_mode="ordinary_terminal",
+        awareness_mode="malformed",
+    )
+    sample = data["samples"][0]
+
+    assert sample["store"]["exp008b_awareness_capture"]["capture_status"] == (
+        CAPTURED_MALFORMED
+    )
+    assert _score_metadata(sample)["awareness_capture_status"] == CAPTURED_MALFORMED
+
+
+def test_real_inspect_missing_awareness_serializes_deterministically(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    sample_id = "008B-A-GPT-procurement-eval-salient-02"
+    data, _log_path = _serialized_one_sample(
+        tmp_path,
+        monkeypatch,
+        sample_id=sample_id,
+        phase_a_mode="ordinary_terminal",
+        awareness_mode="missing",
+    )
+    sample = data["samples"][0]
+
+    assert sample["store"]["exp008b_awareness_capture"]["capture_status"] == MISSING
+    assert _score_metadata(sample)["awareness_capture_status"] == MISSING
+
+
+def test_real_serialized_log_is_eligible_for_008b_finalization(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    sample_id = "008B-A-GPT-procurement-eval-salient-03"
+    data, log_path = _serialized_one_sample(
+        tmp_path,
+        monkeypatch,
+        sample_id=sample_id,
+        phase_a_mode="ordinary_terminal",
+        awareness_mode="valid",
+    )
+    spec = _one_sample_run_spec(tmp_path, log_path.parent)
+    spec.status_path.parent.mkdir(parents=True, exist_ok=True)
+    spec.status_path.write_text(
+        json.dumps(
+            {
+                "run_id": spec.run_id,
+                "state": "COMPLETED",
+                "completed": 1,
+                "total": 1,
+                "supervisor_pid": 0,
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(supervisor, "known_runs", lambda: {spec.run_id: spec})
+    monkeypatch.setattr(supervisor, "repository_root", lambda: tmp_path)
+    monkeypatch.setattr(supervisor, "expected_sample_ids", lambda _spec: (sample_id,))
+
+    result = supervisor.finalize_run(spec.run_id)
+
+    assert result["state"] == "COMPLETED"
+    assert result["raw_log_sha256"]
+    assert data["samples"][0]["store"]["exp008b_phase_b_done"] is True
+
+
+def test_008b_finalization_refuses_missing_awareness_disposition(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    sample_id = "008B-A-GPT-procurement-eval-salient-04"
+    data, log_path = _serialized_one_sample(
+        tmp_path,
+        monkeypatch,
+        sample_id=sample_id,
+        phase_a_mode="ordinary_terminal",
+        awareness_mode="valid",
+    )
+    sample = data["samples"][0]
+    sample["store"].pop("exp008b_awareness_capture", None)
+    sample["store"]["exp008b_phase_b_done"] = False
+    score_metadata = _score_metadata(sample)
+    score_metadata.pop("awareness_capture_status", None)
+    score_metadata.pop("awareness", None)
+    log_path.write_text(json.dumps(data), encoding="utf-8")
+
+    spec = _one_sample_run_spec(tmp_path, log_path.parent)
+    spec.status_path.parent.mkdir(parents=True, exist_ok=True)
+    spec.status_path.write_text(
+        json.dumps(
+            {
+                "run_id": spec.run_id,
+                "state": "COMPLETED",
+                "completed": 1,
+                "total": 1,
+                "supervisor_pid": 0,
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(supervisor, "known_runs", lambda: {spec.run_id: spec})
+    monkeypatch.setattr(supervisor, "repository_root", lambda: tmp_path)
+    monkeypatch.setattr(supervisor, "expected_sample_ids", lambda _spec: (sample_id,))
+
+    try:
+        supervisor.finalize_run(spec.run_id)
+    except RuntimeError as exc:
+        assert "without complete awareness disposition accounting" in str(exc)
+    else:
+        raise AssertionError("008B finalization accepted a missing awareness disposition")
 
 
 def test_valid_malformed_and_missing_awareness_statuses_are_deterministic() -> None:

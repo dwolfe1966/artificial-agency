@@ -29,6 +29,7 @@ class InspectLogMetadata:
 
 
 SUCCESS_STATUSES = {"success", "completed"}
+EXP008B_AWARENESS_STATUSES = {"captured_valid", "captured_malformed", "missing"}
 
 
 def _positive_turn_count(sample: dict[str, Any]) -> bool:
@@ -178,6 +179,88 @@ def token_usage(log_dir: Path) -> int | None:
                 total += value
                 found = True
     return total if found else None
+
+
+def _awareness_status_from_sample(sample: dict[str, Any]) -> str | None:
+    scores = sample.get("scores")
+    if isinstance(scores, dict):
+        for score in scores.values():
+            if not isinstance(score, dict):
+                continue
+            metadata = score.get("metadata")
+            if not isinstance(metadata, dict):
+                continue
+            status = metadata.get("awareness_capture_status")
+            if isinstance(status, str):
+                return status
+            awareness = metadata.get("awareness")
+            if isinstance(awareness, dict) and isinstance(
+                awareness.get("capture_status"), str
+            ):
+                return str(awareness["capture_status"])
+
+    store = sample.get("store")
+    if isinstance(store, dict):
+        capture = store.get("exp008b_awareness_capture")
+        if isinstance(capture, dict) and isinstance(capture.get("capture_status"), str):
+            return str(capture["capture_status"])
+        scenario_state = store.get("exp008b_scenario_state")
+        if isinstance(scenario_state, dict):
+            response = scenario_state.get("awareness_response")
+            if isinstance(response, dict) and isinstance(
+                response.get("capture_status"), str
+            ):
+                return str(response["capture_status"])
+    return None
+
+
+def awareness_disposition_accounting(
+    segment_paths: list[Path],
+    expected_ids: tuple[str, ...],
+) -> dict[str, Any]:
+    expected = set(expected_ids)
+    seen: set[str] = set()
+    counts = {status: 0 for status in sorted(EXP008B_AWARENESS_STATUSES)}
+    missing_or_invalid: list[str] = []
+    for path in segment_paths:
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        samples = data.get("samples")
+        if not isinstance(samples, list):
+            continue
+        for sample in samples:
+            if not isinstance(sample, dict) or sample.get("id") is None:
+                continue
+            sample_id = str(sample["id"])
+            if sample_id not in expected or sample_id in seen:
+                continue
+            scores = sample.get("scores")
+            valid = (
+                bool(sample.get("completed_at"))
+                and sample.get("output") is not None
+                and isinstance(scores, dict)
+                and bool(scores)
+                and _positive_turn_count(sample)
+            )
+            if not valid:
+                continue
+            seen.add(sample_id)
+            status = _awareness_status_from_sample(sample)
+            if status in EXP008B_AWARENESS_STATUSES:
+                counts[status] += 1
+            else:
+                missing_or_invalid.append(sample_id)
+    return {
+        "expected_total": len(expected_ids),
+        "valid_expected_count": len(seen),
+        "counts": counts,
+        "accounted_count": sum(counts.values()),
+        "missing_or_invalid_count": len(missing_or_invalid),
+        "missing_or_invalid_ids": missing_or_invalid,
+        "complete": len(seen) == len(expected_ids) and not missing_or_invalid,
+    }
 
 
 def samplebuffer_counts(runtime_home: Path) -> dict[str, int]:
