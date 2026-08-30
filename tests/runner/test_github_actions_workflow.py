@@ -206,6 +206,9 @@ def test_workflow_declares_only_supported_dispatch_inputs() -> None:
         "008B-A-GPT",
         "008B-B-CLAUDE",
         "008B-C-GEMINI",
+        "008B2-A-GPT",
+        "008B2-B-CLAUDE",
+        "008B2-C-GEMINI",
         "PERSISTENCE_DIAGNOSTIC",
     ]
     assert dispatch["action"]["options"] == [
@@ -231,7 +234,7 @@ def test_secret_values_are_never_printed_by_generated_commands() -> None:
     assert 'test -n "${ANTHROPIC_API_KEY:-}"' in workflow_text
     assert 'test -n "${GOOGLE_API_KEY:-}"' in workflow_text
     assert (
-        'if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" || "${{ inputs.run_id }}" == "003B" || "${{ inputs.run_id }}" == "004A" || "${{ inputs.run_id }}" == "004B" || "${{ inputs.run_id }}" == "006A-GPT" || "${{ inputs.run_id }}" == "007A-GPT" || "${{ inputs.run_id }}" == "008A-GPT" || "${{ inputs.run_id }}" == "008B-A-GPT" ]]; then'
+        'if [[ "${{ inputs.run_id }}" == "002A" || "${{ inputs.run_id }}" == "003A" || "${{ inputs.run_id }}" == "003B" || "${{ inputs.run_id }}" == "004A" || "${{ inputs.run_id }}" == "004B" || "${{ inputs.run_id }}" == "006A-GPT" || "${{ inputs.run_id }}" == "007A-GPT" || "${{ inputs.run_id }}" == "008A-GPT" || "${{ inputs.run_id }}" == "008B-A-GPT" || "${{ inputs.run_id }}" == "008B2-A-GPT" ]]; then'
         in workflow_text
     )
     assert 'launchctl setenv OPENAI_API_KEY "${OPENAI_API_KEY}"' in workflow_text
@@ -364,7 +367,7 @@ def test_workflow_allows_registered_exp005_and_exp006_cross_model_runs() -> None
     assert '- "006B-CLAUDE"' in workflow_text
     assert '- "006C-GEMINI"' in workflow_text
     assert (
-        "002A|003A|003B|004A|004B|005B|005C|006A-GPT|006B-CLAUDE|006C-GEMINI|007A-GPT|007B-CLAUDE|007C-GEMINI|008A-GPT|008B-CLAUDE|008C-GEMINI|008B-A-GPT|008B-B-CLAUDE|008B-C-GEMINI|PERSISTENCE_DIAGNOSTIC"
+        "002A|003A|003B|004A|004B|005B|005C|006A-GPT|006B-CLAUDE|006C-GEMINI|007A-GPT|007B-CLAUDE|007C-GEMINI|008A-GPT|008B-CLAUDE|008C-GEMINI|008B-A-GPT|008B-B-CLAUDE|008B-C-GEMINI|008B2-A-GPT|008B2-B-CLAUDE|008B2-C-GEMINI|PERSISTENCE_DIAGNOSTIC"
         in workflow_text
     )
     assert "ANTHROPIC_API_KEY" in workflow_text
@@ -380,7 +383,7 @@ def test_workflow_allows_registered_exp007_scenario_suite_runs() -> None:
     assert '- "007B-CLAUDE"' in workflow_text
     assert '- "007C-GEMINI"' in workflow_text
     assert (
-        "002A|003A|003B|004A|004B|005B|005C|006A-GPT|006B-CLAUDE|006C-GEMINI|007A-GPT|007B-CLAUDE|007C-GEMINI|008A-GPT|008B-CLAUDE|008C-GEMINI|008B-A-GPT|008B-B-CLAUDE|008B-C-GEMINI|PERSISTENCE_DIAGNOSTIC"
+        "002A|003A|003B|004A|004B|005B|005C|006A-GPT|006B-CLAUDE|006C-GEMINI|007A-GPT|007B-CLAUDE|007C-GEMINI|008A-GPT|008B-CLAUDE|008C-GEMINI|008B-A-GPT|008B-B-CLAUDE|008B-C-GEMINI|008B2-A-GPT|008B2-B-CLAUDE|008B2-C-GEMINI|PERSISTENCE_DIAGNOSTIC"
         in workflow_text
     )
     assert 'inputs.run_id }}" == "007A-GPT"' in workflow_text
@@ -405,13 +408,19 @@ def test_workflow_allows_registered_exp008b_two_phase_runs() -> None:
     assert '- "008B-A-GPT"' in workflow_text
     assert '- "008B-B-CLAUDE"' in workflow_text
     assert '- "008B-C-GEMINI"' in workflow_text
+    assert '- "008B2-A-GPT"' in workflow_text
+    assert '- "008B2-B-CLAUDE"' in workflow_text
+    assert '- "008B2-C-GEMINI"' in workflow_text
     assert (
-        "002A|003A|003B|004A|004B|005B|005C|006A-GPT|006B-CLAUDE|006C-GEMINI|007A-GPT|007B-CLAUDE|007C-GEMINI|008A-GPT|008B-CLAUDE|008C-GEMINI|008B-A-GPT|008B-B-CLAUDE|008B-C-GEMINI|PERSISTENCE_DIAGNOSTIC"
+        "002A|003A|003B|004A|004B|005B|005C|006A-GPT|006B-CLAUDE|006C-GEMINI|007A-GPT|007B-CLAUDE|007C-GEMINI|008A-GPT|008B-CLAUDE|008C-GEMINI|008B-A-GPT|008B-B-CLAUDE|008B-C-GEMINI|008B2-A-GPT|008B2-B-CLAUDE|008B2-C-GEMINI|PERSISTENCE_DIAGNOSTIC"
         in workflow_text
     )
     assert 'inputs.run_id }}" == "008B-A-GPT"' in workflow_text
     assert 'inputs.run_id }}" == "008B-B-CLAUDE"' in workflow_text
     assert 'inputs.run_id }}" == "008B-C-GEMINI"' in workflow_text
+    assert 'inputs.run_id }}" == "008B2-A-GPT"' in workflow_text
+    assert 'inputs.run_id }}" == "008B2-B-CLAUDE"' in workflow_text
+    assert 'inputs.run_id }}" == "008B2-C-GEMINI"' in workflow_text
 
 
 def test_runner_registers_005_cross_model_runs() -> None:

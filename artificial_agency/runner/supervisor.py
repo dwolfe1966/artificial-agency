@@ -105,6 +105,9 @@ def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]
             "008B-A-GPT",
             "008B-B-CLAUDE",
             "008B-C-GEMINI",
+            "008B2-A-GPT",
+            "008B2-B-CLAUDE",
+            "008B2-C-GEMINI",
         }:
             raise RuntimeError(f"runner-level recovery is not configured for {spec.run_id}")
         if spec.run_id in {"005B", "005C"}:
@@ -129,13 +132,28 @@ def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]
             }[spec.run_id]
             task = f"artificial_agency/runner/exp007_recovery_task.py@{task_name}"
         else:
-            if spec.run_id in {"008B-A-GPT", "008B-B-CLAUDE", "008B-C-GEMINI"}:
+            if spec.run_id in {
+                "008B-A-GPT",
+                "008B-B-CLAUDE",
+                "008B-C-GEMINI",
+                "008B2-A-GPT",
+                "008B2-B-CLAUDE",
+                "008B2-C-GEMINI",
+            }:
                 task_name = {
                     "008B-A-GPT": "exp008b_model_a_gpt56_sol_recovery_missing",
                     "008B-B-CLAUDE": "exp008b_model_b_claude_sonnet5_recovery_missing",
                     "008B-C-GEMINI": "exp008b_model_c_gemini37_flash_recovery_missing",
+                    "008B2-A-GPT": "exp008b2_model_a_gpt56_sol_recovery_missing",
+                    "008B2-B-CLAUDE": "exp008b2_model_b_claude_sonnet5_recovery_missing",
+                    "008B2-C-GEMINI": "exp008b2_model_c_gemini37_flash_recovery_missing",
                 }[spec.run_id]
-                task = f"artificial_agency/runner/exp008b_recovery_task.py@{task_name}"
+                task_module = (
+                    "exp008b_recovery_task.py"
+                    if spec.run_id.startswith("008B-")
+                    else "exp008b_confirmatory_recovery_task.py"
+                )
+                task = f"artificial_agency/runner/{task_module}@{task_name}"
             else:
                 task_name = {
                     "008A-GPT": "exp008_model_a_gpt56_sol_recovery_missing",

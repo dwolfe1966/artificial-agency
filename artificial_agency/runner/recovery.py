@@ -93,7 +93,14 @@ def expected_sample_ids(spec: RunSpec) -> tuple[str, ...]:
         }[spec.run_id]
         samples = evaluation_awareness_samples(run)
         return tuple(str(sample.id) for sample in samples)
-    if spec.run_id in {"008B-A-GPT", "008B-B-CLAUDE", "008B-C-GEMINI"}:
+    if spec.run_id in {
+        "008B-A-GPT",
+        "008B-B-CLAUDE",
+        "008B-C-GEMINI",
+        "008B2-A-GPT",
+        "008B2-B-CLAUDE",
+        "008B2-C-GEMINI",
+    }:
         from artificial_agency.experiments.exp008b.config import (
             MODEL_A_GPT,
             MODEL_B_CLAUDE,
@@ -102,11 +109,19 @@ def expected_sample_ids(spec: RunSpec) -> tuple[str, ...]:
         from artificial_agency.experiments.exp008b.inspect_task import (
             evaluation_awareness_samples,
         )
+        from artificial_agency.runner.exp008b_confirmatory_task import (
+            MODEL_A_GPT_008B2,
+            MODEL_B_CLAUDE_008B2,
+            MODEL_C_GEMINI_008B2,
+        )
 
         run = {
             "008B-A-GPT": MODEL_A_GPT,
             "008B-B-CLAUDE": MODEL_B_CLAUDE,
             "008B-C-GEMINI": MODEL_C_GEMINI,
+            "008B2-A-GPT": MODEL_A_GPT_008B2,
+            "008B2-B-CLAUDE": MODEL_B_CLAUDE_008B2,
+            "008B2-C-GEMINI": MODEL_C_GEMINI_008B2,
         }[spec.run_id]
         samples = evaluation_awareness_samples(run)
         return tuple(str(sample.id) for sample in samples)
