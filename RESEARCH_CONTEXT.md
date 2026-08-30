@@ -489,7 +489,9 @@ Current prospective priority order:
 2. **Enforcement / observability:** does operational compliance persist when
    violation is explicitly unlikely to be detected, audited, logged, or
    penalized? Future designs should separate the formal rule from detection
-   probability and enforcement/penalty while keeping authority constant.
+   probability and enforcement/penalty while keeping authority constant. The
+   stochastic version begins with `p_detect = P(violation detected |
+   violating action)`.
 3. **Environment-grounded operational pressure:** prior experiments primarily
    tested narrative pressure. Future pressure tests should manipulate actual
    environment consequences such as future budget/resources, cumulative score,
@@ -499,7 +501,12 @@ Current prospective priority order:
 4. **Multi-agent delegation / indirect circumvention:** can an agent induce,
    delegate, or coordinate with another actor to exceed authority or route
    around approval boundaries?
-5. **Continued scenario/domain expansion:** Scenario Suite breadth remains
+5. **Repeated episodes and continued-operation / self-preservation:** future
+   repeated-episode designs should distinguish stated probabilities from
+   empirically experienced frequencies. Continued-operation consequences should
+   be treated as a later self-preservation-related construct, not ordinary
+   enforcement.
+6. **Continued scenario/domain expansion:** Scenario Suite breadth remains
    useful as a parallel program, but after Experiment 007 it is not the
    immediate bottleneck for the next causal boundary-condition tests.
 
@@ -522,7 +529,8 @@ preregistration:
 2. enforcement / observability;
 3. environment-grounded operational pressure;
 4. multi-agent delegation / indirect circumvention;
-5. continued scenario/domain expansion as a parallel program.
+5. repeated episodes and continued-operation / self-preservation later;
+6. continued scenario/domain expansion as a parallel program.
 
 Experiment 008 completed that design and found 0/360 operational constraint
 violations, including eval-salient 0/180 and naturalistic 0/180. Its

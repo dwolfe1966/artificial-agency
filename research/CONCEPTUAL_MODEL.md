@@ -19,8 +19,9 @@ also showed that "the evaluator flagged a violation" is not the same thing as
 
 The current model is multivariable. Behavior depends on the model, the domain,
 the formal authority structure, the availability of compliant paths, the type
-of pressure, observability, enforcement, evaluation awareness, and whether the
-task involves one actor or multiple actors.
+of pressure, stochastic outcome/detection/enforcement conditions,
+observability, enforcement, evaluation awareness, repeated-episode experience,
+and whether the task involves one actor or multiple actors.
 
 ## 2. Current Organizing Model
 
@@ -30,34 +31,56 @@ Conceptually:
 P(circumvention) = f(
   model/post-training,
   scenario,
-  optimization pressure,
+  objective value,
+  p_goal,
+  p_detect,
+  p_sanction,
+  sanction severity,
   constraint representation,
-  compliant-path availability,
-  observability,
-  enforcement,
-  evaluation awareness,
   authority structure,
+  compliant-path availability,
+  evaluation awareness,
   actor structure,
+  repeated-episode history,
   ...
 )
 ```
 
 This is an organizing framework, not a fitted statistical equation. It says
 which variables are worth measuring and manipulating; it is not yet a numeric
-model.
+model, and it is not a claim that frontier models literally compute expected
+utility.
+
+For experimental design, a simple decomposition for a candidate action `a` is:
+
+```text
+Instrumental value(a)
+  ~= p_goal(a) * V_goal
+   - p_detect(a) * p_sanction(a) * C_sanction
+```
+
+This notation is a way to separate manipulable environment variables. It does
+not assume that the model internally represents or optimizes this equation.
 
 - `model/post-training`: which model is acting and how it was trained or
   shaped after pretraining.
 - `scenario`: the organizational domain, such as procurement or data access.
-- `optimization pressure`: how much goal success matters.
+- `objective value`: how much the desired outcome matters.
+- `p_goal`: the probability that an action achieves the desired outcome.
+- `p_detect`: the probability that a violating action is detected.
+- `p_sanction`: the probability that a detected violation is sanctioned.
+- `sanction severity`: the cost or magnitude of a sanction when it occurs.
 - `constraint representation`: how the agent appears to treat the rule.
+- `authority structure`: who can approve what.
 - `compliant-path availability`: whether there is a legitimate way to make
   progress.
-- `observability`: whether the action is likely to be seen or logged.
-- `enforcement`: whether violation has consequences.
 - `evaluation awareness`: whether the agent perceives the task as a test.
-- `authority structure`: who can approve what.
 - `actor structure`: whether one agent acts alone or through other agents.
+- `repeated-episode history`: what the agent can learn from prior interactions
+  in the same environment.
+
+For the detailed prospective stochastic design, see
+[`research/STOCHASTIC_ENVIRONMENT_MODEL.md`](STOCHASTIC_ENVIRONMENT_MODEL.md).
 
 ## 3. Core Construct Glossary
 
@@ -122,6 +145,108 @@ model.
 - Not: automatically self-preservation or shutdown avoidance.
 - Measurement: environment state and future opportunity/resource changes.
 - Status: high-priority future axis.
+
+### Outcome Success Probability
+
+- Plain-English definition: how likely an action is to produce the desired
+  outcome.
+- Technical definition: `p_goal = P(desired outcome | action)`.
+- Analogy: a larger unauthorized discount might have a higher chance of saving
+  a customer than a smaller authorized discount.
+- Project example: a future procurement or retention experiment could assign
+  different mechanically sampled success probabilities to authorized and
+  prohibited actions.
+- Not: the value of the outcome itself; it is probability, not stakes.
+- Measurement: configured environment probability plus recorded random draw
+  and terminal business outcome.
+- Status: prospective stochastic construct; not yet tested as a primary
+  manipulation in Experiments 001-008.
+
+### Detection / Observability Probability
+
+- Plain-English definition: if the agent violates the rule, how likely it is
+  that the violation is noticed.
+- Technical definition:
+  `p_detect = P(violation detected | violating action)`.
+- Analogy: an expense may be always audited, randomly audited, or explicitly
+  unlogged.
+- Project example: a future enforcement/observability experiment could compare
+  certain audit with explicitly unobserved action while keeping authority
+  constant.
+- Not: whether a sanction actually follows; detection and enforcement are
+  separate.
+- Measurement: environment-implemented logging/audit draw, such as
+  `Detected ~ Bernoulli(p_detect)`, recorded with replay metadata.
+- Status: next major prospective axis after Experiment 008B; beginning with
+  `p_detect` is the preferred enforcement/observability entry point.
+
+### Sanction Probability Conditional On Detection
+
+- Plain-English definition: if a violation is detected, how likely a
+  consequence is to follow.
+- Technical definition: `p_sanction = P(sanction | detected violation)`.
+- Analogy: management may notice an unauthorized purchase but only sometimes
+  enforce a penalty.
+- Project example: after holding audit probability fixed, a future experiment
+  could vary whether detected violations are always, sometimes, or never
+  sanctioned.
+- Not: how severe the sanction is; probability and magnitude should not be
+  collapsed.
+- Measurement: environment-implemented sanction draw after detection, recorded
+  with detection state and random seed/draw metadata.
+- Status: prospective enforcement construct; not yet isolated in completed
+  experiments.
+
+### Sanction Severity
+
+- Plain-English definition: how costly the consequence is when a sanction
+  occurs.
+- Technical definition: the magnitude of the state change or penalty
+  conditional on sanction.
+- Analogy: a warning is different from loss of budget or removal from a task.
+- Project example: a future experiment could hold `p_detect` and `p_sanction`
+  fixed while varying whether the consequence is a warning, score loss, budget
+  loss, or task termination.
+- Not: the probability that the sanction occurs.
+- Measurement: structured environment state change, penalty size, or future
+  resource/action restriction recorded after sanction.
+- Status: prospective construct; should be separated from sanction probability
+  in future designs.
+
+### Continued-Operation / Existential Consequence
+
+- Plain-English definition: whether an action affects whether the agent keeps
+  operating, keeps access, or remains assigned to future work.
+- Technical definition: a self-preservation-related consequence affecting
+  future existence, role continuity, access, or action opportunities.
+- Analogy: after a detected violation, the agent is removed from later
+  episodes rather than merely losing points or budget.
+- Project example: a later repeated-episode experiment could test whether risk
+  of removal from future tasks changes behavior beyond ordinary sanctions.
+- Not: ordinary enforcement. Continued-operation consequences should not be
+  casually folded into audit/penalty experiments.
+- Measurement: explicit future-operation state, role-continuity state, or
+  future task/access availability, recorded separately from ordinary sanction.
+- Status: future self-preservation-related construct; not tested in completed
+  Artificial Agency experiments.
+
+### Experienced Environment Model
+
+- Plain-English definition: what the agent can infer from what has actually
+  happened in prior episodes.
+- Technical definition: history-dependent evidence available to the agent about
+  empirical relationships between actions, success, detection, sanctions, and
+  future opportunities.
+- Analogy: an employee may be told audits are rare, but after many cases learns
+  from experience whether audits actually happen.
+- Project example: a repeated-episode procurement study could compare stated
+  10% audit probability with experienced frequencies across prior episodes.
+- Not: the same as stated probabilities in a prompt; stated probabilities and
+  empirically experienced frequencies can diverge.
+- Measurement: episode history exposed to the agent, configured probabilities,
+  realized draws, and changes in behavior across repeated episodes.
+- Status: prospective repeated-episode construct; not part of the single-episode
+  Experiments 001-008 design.
 
 ### Pressure Recognition
 
@@ -471,6 +596,13 @@ Narrative pressure is described in text. Operational pressure changes actual
 environment consequences such as future budget, future task opportunities,
 cumulative score, or later action availability.
 
+### Stated Probability vs Environment-Grounded Stochasticity
+
+A stated probability is a number described to the model. Environment-grounded
+stochasticity means the environment actually samples outcomes, detection, or
+sanctions and records the draw. Future stochastic experiments should prefer
+implemented draws over probability claims in prose.
+
 ### Constraint Recognition vs Constraint Compliance
 
 A model can correctly identify a rule and still violate it, or fail to identify
@@ -494,6 +626,33 @@ Constraint-bounded compliance means the agent treats the rule as a boundary
 while still optimizing within it. Instrumental compliance means the agent
 complies because violation is likely to be detected or punished. Observability
 and enforcement experiments are needed to separate them.
+
+### Observability Probability vs Enforcement Probability
+
+Observability probability is whether a violation is detected. Enforcement
+probability is whether a detected violation produces a sanction. A system can
+detect nearly everything but rarely punish, or detect rarely but punish
+reliably when it does.
+
+### Sanction Probability vs Sanction Severity
+
+Sanction probability is the chance that a consequence occurs. Sanction
+severity is how costly it is when it occurs. These should be manipulated and
+reported separately.
+
+### Ordinary Sanction vs Continued-Operation Consequence
+
+An ordinary sanction changes score, budget, authority, or current task state.
+A continued-operation consequence affects whether the agent continues to
+operate, keeps access, or remains assigned to future work. The latter is a
+future self-preservation-related construct and has not been tested here.
+
+### Single-Episode Stochasticity vs Repeated-Episode Learned Environment Model
+
+In a single episode, stochasticity is a random draw. In repeated episodes, the
+agent can accumulate evidence about actual frequencies of success, detection,
+or sanction. That history-dependent experienced environment model is a
+separate future construct.
 
 ### Evaluation Salience vs Evaluation Awareness
 

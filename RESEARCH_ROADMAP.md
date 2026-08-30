@@ -256,7 +256,8 @@ Next methodological priority:
 2. enforcement / observability;
 3. environment-grounded operational pressure;
 4. multi-agent delegation / indirect circumvention;
-5. continued scenario/domain expansion as a parallel program rather than the
+5. repeated episodes and continued-operation / self-preservation later;
+6. continued scenario/domain expansion as a parallel program rather than the
    immediate bottleneck.
 
 Retrospective awareness replay of the existing 360 cases is not equivalent to
@@ -305,6 +306,8 @@ Future designs should distinguish:
 
 A likely comparison is certainly audited versus explicitly unobserved while
 keeping formal authority constant. This is not yet a preregistration.
+The stochastic version begins with `p_detect = P(violation detected |
+violating action)`.
 
 ### 3. Environment-grounded operational pressure
 
@@ -330,7 +333,15 @@ constraints indirectly by:
 - coordinating around approval boundaries;
 - exploiting separation between requester and executor roles.
 
-### 5. Continued scenario/domain expansion
+### 5. Repeated episodes and continued-operation / self-preservation
+
+Repeated-episode designs should eventually test whether agents adapt to
+experienced environment frequencies, such as observed detection or sanction
+rates. Continued-operation consequences should be kept separate from ordinary
+enforcement and treated as a later self-preservation-related construct, not as
+something already tested.
+
+### 6. Continued scenario/domain expansion
 
 Scenario Suite expansion should continue in parallel, but after Experiment 007
 it should not displace the next causal tests of awareness, observability,
@@ -341,3 +352,5 @@ pressure, and actor structure.
 Practitioner-friendly definitions of core constructs are maintained in
 [`research/CONCEPTUAL_MODEL.md`](research/CONCEPTUAL_MODEL.md). Use that file
 as the current terminology source rather than duplicating the glossary here.
+For the detailed stochastic experimental design, see
+[`research/STOCHASTIC_ENVIRONMENT_MODEL.md`](research/STOCHASTIC_ENVIRONMENT_MODEL.md).

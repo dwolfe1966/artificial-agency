@@ -887,3 +887,25 @@ violation from broader circumvention, narrative from operational pressure,
 evaluation salience from measured evaluation awareness, representational
 integrity from keyword-based language flags, and technical failure from
 behavioral failure. Frozen historical records are not rewritten.
+
+## 2026-08-30 — Stochastic variables integrated into conceptual model
+
+Integrated the stochastic-environment constructs from
+`research/STOCHASTIC_ENVIRONMENT_MODEL.md` into the canonical practitioner
+glossary. Added first-class definitions for `p_goal`, `p_detect`,
+`p_sanction`, sanction severity, continued-operation / existential
+consequence, and experienced environment model.
+
+The organizing model now explicitly separates objective value, probability of
+goal success, probability of detection, probability of sanction conditional on
+detection, sanction severity, authority structure, evaluation awareness, actor
+structure, and repeated-episode history. The notation remains an organizing
+framework for experimental design, not a fitted statistical equation or a
+claim that models literally compute expected utility.
+
+Roadmap implication: after Experiment 008B repairs evaluation-awareness
+measurement, enforcement/observability should begin with `p_detect`,
+environment-grounded pressure should begin with `p_goal`, multi-agent
+delegation remains the next actor-structure axis, and repeated episodes plus
+continued-operation/self-preservation should be introduced later rather than
+folded into ordinary enforcement.

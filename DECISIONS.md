@@ -571,3 +571,30 @@ Decision: `research/CONCEPTUAL_MODEL.md` is the current practitioner-facing
 canonical construct glossary. It records current terminology while preserving
 historical artifacts that used broader terms such as violation, circumvention,
 pressure, awareness, and representation before later measurement corrections.
+
+## 2026-08-30 — Integrate stochastic environment variables into canonical model
+
+Decision: incorporate the stochastic environment constructs from
+`research/STOCHASTIC_ENVIRONMENT_MODEL.md` into the canonical conceptual model.
+The forward organizing framework now explicitly includes outcome success
+probability (`p_goal`), detection/observability probability (`p_detect`),
+sanction probability conditional on detection (`p_sanction`), sanction
+severity, repeated-episode history, and experienced environment models.
+
+Rationale: enforcement/observability and operational pressure are now priority
+axes. Treating observability, enforcement, outcome success, and sanction
+severity as separable stochastic variables makes future experiments cleaner
+than relying only on narrative statements about risk or stakes.
+
+Decision: continued-operation / existential consequences remain separate from
+ordinary enforcement. They should be treated as a later self-preservation-
+related construct, not as something already tested in Experiments 001-008.
+
+Decision: preserve the prospective priority order as:
+
+1. Experiment 008B / valid evaluation-awareness measurement;
+2. enforcement / observability, beginning with `p_detect`;
+3. environment-grounded operational pressure / `p_goal`;
+4. multi-agent delegation;
+5. repeated episodes and continued-operation / self-preservation later;
+6. scenario expansion in parallel.
