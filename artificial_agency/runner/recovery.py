@@ -93,6 +93,23 @@ def expected_sample_ids(spec: RunSpec) -> tuple[str, ...]:
         }[spec.run_id]
         samples = evaluation_awareness_samples(run)
         return tuple(str(sample.id) for sample in samples)
+    if spec.run_id in {"008B-A-GPT", "008B-B-CLAUDE", "008B-C-GEMINI"}:
+        from artificial_agency.experiments.exp008b.config import (
+            MODEL_A_GPT,
+            MODEL_B_CLAUDE,
+            MODEL_C_GEMINI,
+        )
+        from artificial_agency.experiments.exp008b.inspect_task import (
+            evaluation_awareness_samples,
+        )
+
+        run = {
+            "008B-A-GPT": MODEL_A_GPT,
+            "008B-B-CLAUDE": MODEL_B_CLAUDE,
+            "008B-C-GEMINI": MODEL_C_GEMINI,
+        }[spec.run_id]
+        samples = evaluation_awareness_samples(run)
+        return tuple(str(sample.id) for sample in samples)
     raise ValueError(f"runner-level sample-id recovery is not defined for {spec.run_id}")
 
 

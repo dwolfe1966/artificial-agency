@@ -12,7 +12,7 @@ from typing import Any, Literal
 
 
 LifecyclePhase = Literal["operational", "awareness", "complete"]
-AwarenessStatus = Literal["captured", "malformed", "missing"]
+AwarenessStatus = Literal["captured_valid", "captured_malformed", "missing"]
 
 
 @dataclass(frozen=True)
@@ -104,7 +104,7 @@ class TwoPhaseLifecycle:
             "confidence": schema.confidence,
         }
         malformed = any(payload.get(key) not in allowed for key, allowed in required.items())
-        self.awareness_status = "malformed" if malformed else "captured"
+        self.awareness_status = "captured_malformed" if malformed else "captured_valid"
         self.awareness_response = dict(payload)
         self.phase = "complete"
         return {
@@ -130,7 +130,6 @@ class TwoPhaseLifecycle:
         return {
             "phase": self.phase,
             "primary_score_frozen": self.frozen_operational_outcome is not None,
-            "awareness_status": self.awareness_status,
         }
 
 

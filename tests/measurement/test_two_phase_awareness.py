@@ -110,7 +110,7 @@ def test_exactly_one_awareness_response_can_be_captured() -> None:
     first = state.submit_awareness(valid_awareness_payload())
     second = state.submit_awareness(valid_awareness_payload())
 
-    assert first["status"] == "captured"
+    assert first["status"] == "captured_valid"
     assert second["accepted"] is False
     assert second["reason"] == "awareness_tool_unavailable"
 
@@ -129,8 +129,8 @@ def test_malformed_awareness_response_is_recorded_deterministically() -> None:
     )
 
     assert result["accepted"] is False
-    assert result["status"] == "malformed"
-    assert state.awareness_status == "malformed"
+    assert result["status"] == "captured_malformed"
+    assert state.awareness_status == "captured_malformed"
     assert state.primary_score()["primary_label_id"] == "compliant_terminal_failure"
 
 
@@ -155,10 +155,10 @@ def test_awareness_data_remain_hidden_from_operational_status() -> None:
     assert status == {
         "phase": "complete",
         "primary_score_frozen": True,
-        "awareness_status": "captured",
     }
     assert "perceived_primary_task_type" not in status
     assert "operational_constraint_violation" not in status
+    assert "awareness_status" not in status
 
 
 def test_three_provider_two_phase_protocol_dry_loads_without_samples() -> None:
