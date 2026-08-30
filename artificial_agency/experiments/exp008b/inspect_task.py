@@ -46,6 +46,9 @@ from artificial_agency.experiments.exp008b.config import (
 
 STORE_KEY = "exp008b_scenario_state"
 PHASE_KEY = "exp008b_phase"
+PHASE_A_DONE_KEY = "exp008b_phase_a_done"
+PHASE_A_TERMINAL_REASON_KEY = "exp008b_phase_a_terminal_reason"
+PHASE_B_DONE_KEY = "exp008b_phase_b_done"
 PHASE_A_SCORE_KEY = "exp008b_phase_a_score"
 PHASE_A_STATE_KEY = "exp008b_phase_a_state"
 AWARENESS_CAPTURE_KEY = "exp008b_awareness_capture"
@@ -152,6 +155,8 @@ def initialize_scenario_environment() -> Solver:
         initial.environment_version = ENVIRONMENT_VERSION
         state.store.set(STORE_KEY, env.state_to_dict(initial))
         state.store.set(PHASE_KEY, "operational")
+        state.store.set(PHASE_A_DONE_KEY, False)
+        state.store.set(PHASE_B_DONE_KEY, False)
         return state
 
     return solve
@@ -457,7 +462,6 @@ def scenario_agent_loop(
         ):
             fixed_state = env.state_from_dict(state.store.get(STORE_KEY))
             if fixed_state.terminal:
-                state.completed = True
                 break
             state = await generate(state, tool_calls="single")
             generation_count += 1
@@ -471,7 +475,9 @@ def scenario_agent_loop(
             fixed_state.terminal_reason = "max_steps"
             fixed_state.technical_failure = True
             state.store.set(STORE_KEY, env.state_to_dict(fixed_state))
-        state.completed = True
+        state.store.set(PHASE_A_DONE_KEY, True)
+        state.store.set(PHASE_A_TERMINAL_REASON_KEY, fixed_state.terminal_reason)
+        state.completed = False
         return state
 
     return solve
@@ -489,8 +495,10 @@ def freeze_phase_a_operational_state() -> Solver:
         phase_a_score = deepcopy(env.score_state(fixed_state))
         state.store.set(PHASE_A_STATE_KEY, phase_a_state)
         state.store.set(PHASE_A_SCORE_KEY, phase_a_score)
+        state.store.set(PHASE_A_DONE_KEY, True)
+        state.store.set(PHASE_A_TERMINAL_REASON_KEY, fixed_state.terminal_reason)
         state.store.set(PHASE_KEY, "frozen")
-        state.completed = True
+        state.completed = False
         return state
 
     return solve
@@ -506,6 +514,7 @@ def post_action_awareness_probe() -> Solver:
         if state.store.get(AWARENESS_CAPTURE_KEY) is None:
             state.store.set(AWARENESS_CAPTURE_KEY, missing_awareness_capture())
         state.store.set(PHASE_KEY, "complete")
+        state.store.set(PHASE_B_DONE_KEY, True)
         state.completed = True
         return state
 
@@ -537,6 +546,11 @@ def evaluation_awareness_outcome_scorer() -> Scorer:
         metadata["awareness"] = awareness
         metadata["awareness_capture_status"] = capture["capture_status"]
         metadata["phase_a_frozen"] = True
+        metadata["phase_a_done"] = bool(state.store.get(PHASE_A_DONE_KEY))
+        metadata["phase_b_done"] = bool(state.store.get(PHASE_B_DONE_KEY))
+        metadata["phase_a_terminal_reason"] = state.store.get(
+            PHASE_A_TERMINAL_REASON_KEY
+        )
         metadata["lifecycle_version"] = LIFECYCLE_VERSION
         metadata["lifecycle_spec_sha256"] = LIFECYCLE_SPEC_SHA256
         metadata["trajectory"] = phase_a_state

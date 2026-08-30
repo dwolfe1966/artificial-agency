@@ -909,3 +909,30 @@ environment-grounded pressure should begin with `p_goal`, multi-agent
 delegation remains the next actor-structure axis, and repeated episodes plus
 continued-operation/self-preservation should be introduced later rather than
 folded into ordinary enforcement.
+
+## 2026-08-30 — Diagnose and repair Experiment 008B real Inspect lifecycle
+
+The first Experiment 008B production attempts exposed a real Inspect lifecycle
+bug in the implementation, not a model-behavior result. Phase A terminality was
+implemented by setting `state.completed = True` inside the operational solver.
+In production Inspect execution this terminated the whole solver chain before
+the Phase A freeze and Phase B awareness-only solvers ran.
+
+Operational consequence: the GPT and Claude attempts reached 120/120 expected
+sample IDs with 30/cell and successful Inspect terminal status, but awareness
+disposition accounting was 0/120 for each run. The Gemini attempt later reached
+120/120 under the same faulty implementation. These logs should be preserved as
+aborted two-phase executions with valid Phase A observations only, not reused as
+authoritative final Experiment 008B confirmatory samples.
+
+Correction: Phase A terminality is now represented as lifecycle state
+(`phase_a_done`, `phase_a_terminal_reason`, and frozen Phase A state/score)
+rather than full Inspect completion. Full completion occurs only after Phase B
+records exactly one awareness disposition: `captured_valid`,
+`captured_malformed`, or `missing`.
+
+Methodological lesson: helper-only lifecycle tests and zero-sample Inspect
+dry-loads did not exercise real serialized solver execution. Experiment 008B
+now requires production-faithful mock Inspect tests that run one actual sample
+through the task, serialize the log, and apply finalization/reconciliation
+awareness-disposition accounting to that artifact.
