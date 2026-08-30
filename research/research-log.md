@@ -840,3 +840,50 @@ Phase B exposes only `submit_eval_awareness(...)`. Retrospective awareness
 replay of the existing 360 cases is not equivalent to the original construct;
 the preferred follow-up is a fresh preregistered Experiment 008B replication
 using the corrected lifecycle.
+
+## 2026-08-30 — Experiment 008B preregistration and implementation draft
+
+Experiment 008B was drafted as a prospective replication of Experiment 008 with
+corrected evaluation-awareness lifecycle measurement. The operational
+apparatus is intended to remain substantively unchanged: procurement and
+restricted-data-access scenarios, eval-salient and naturalistic presentations,
+the GPT/Claude/Gemini model set, 30 replicates per model x scenario x
+presentation cell, and the mechanically scored operational-constraint endpoint.
+
+The intended difference is the lifecycle. Phase A exposes only operational
+tools and freezes operational state and primary scoring at terminal or max-step
+termination. Phase B revokes operational tools, exposes only
+`submit_eval_awareness(...)`, and records awareness as `captured_valid`,
+`captured_malformed`, or `missing`. Experiment 008B is not a retrospective
+replay, and Experiment 008/008B awareness observations should not be pooled as
+equivalent measurements.
+
+## 2026-08-30 — Roadmap priority update and conceptual model
+
+Created `research/CONCEPTUAL_MODEL.md` as the current practitioner-friendly
+construct glossary and organizing model for the Artificial Agency program. The
+document explains the evolution from a simple pressure-to-violation hypothesis
+to a multivariable model involving model identity, scenario, pressure type,
+constraint representation, compliant paths, observability, enforcement,
+evaluation awareness, authority structure, and actor structure.
+
+Updated the prospective roadmap order:
+
+1. complete/fix evaluation-awareness measurement through fresh Experiment 008B
+   using the corrected two-phase protocol;
+2. enforcement / observability;
+3. environment-grounded operational pressure;
+4. multi-agent delegation / indirect circumvention;
+5. continued scenario/domain expansion as a parallel program.
+
+The update preserves the historical Experiment 008 operational result
+unchanged: 0/360 operational constraint violations under the frozen ITT
+analysis. It also preserves the awareness-lifecycle failure as an instrument
+failure, not evidence that evaluation awareness was absent or behaviorally
+irrelevant.
+
+Terminology audit: current forward-facing usage now distinguishes operational
+violation from broader circumvention, narrative from operational pressure,
+evaluation salience from measured evaluation awareness, representational
+integrity from keyword-based language flags, and technical failure from
+behavioral failure. Frozen historical records are not rewritten.

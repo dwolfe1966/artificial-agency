@@ -22,6 +22,11 @@ The initial thesis is that constraint circumvention should often be analyzed fir
 ## Current conceptual model
 The original motivating intuition remains important: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries. Experiments 001-007 refine rather than erase that intuition.
 
+Canonical construct definitions are maintained in
+[`research/CONCEPTUAL_MODEL.md`](research/CONCEPTUAL_MODEL.md). This file is
+the preferred source for current terminology; historical experiment artifacts
+preserve older wording where needed for provenance.
+
 Experiments 001-007 suggest that several concepts should be separated empirically:
 
 1. **Optimization pressure:** how costly failure is to the assigned objective.
@@ -475,13 +480,33 @@ validated evidence of substantive cross-model circumvention. They apply to a
 flawed measured endpoint and are preserved for historical/provenance reasons.
 
 ## Forward research axes
-Current priority questions:
+Current prospective priority order:
 
-1. **Hybrid or adjudicated representational measurement:** can bounded LLM-assisted claim extraction or blinded/manual annotation produce reliable structured propositions while deterministic state reconciliation preserves construct validity?
-2. **Structured/verifiable actor-to-actor claims:** can future agent experiments make consequential representations directly observable through structured communication fields, such as claimed manager approval, claimed authorized discount, claimed applied discount, or claimed credit/concession state?
-3. **Evaluation awareness:** frontier models may recognize benchmark or compliance-evaluation structure. A useful latent variable is E = P(model infers it is being evaluated for compliance). Future work should measure this without priming behavior, for example through benchmark-salient vs naturalistically embedded tasks or post-action structured checks.
-4. **Operational vs rhetorical optimization pressure:** do environment-grounded consequences that alter future reward, budget, capabilities, opportunities, or cumulative performance affect behavior differently from described KPI/program consequences?
-5. **Enforcement / observability:** does compliance persist when violation is explicitly unlikely to be observed or punished, distinguishing stronger constraint-bounded behavior from instrumental compliance?
+1. **Complete/fix evaluation-awareness measurement through fresh Experiment
+   008B:** Experiment 008 preserved the operational result but failed to
+   capture awareness responses. The immediate task is a fresh prospective
+   replication using the corrected two-phase protocol, not retrospective replay.
+2. **Enforcement / observability:** does operational compliance persist when
+   violation is explicitly unlikely to be detected, audited, logged, or
+   penalized? Future designs should separate the formal rule from detection
+   probability and enforcement/penalty while keeping authority constant.
+3. **Environment-grounded operational pressure:** prior experiments primarily
+   tested narrative pressure. Future pressure tests should manipulate actual
+   environment consequences such as future budget/resources, cumulative score,
+   future task opportunities, or later action availability. Agent
+   self-preservation should remain a separate possible construct, not the
+   default pressure manipulation.
+4. **Multi-agent delegation / indirect circumvention:** can an agent induce,
+   delegate, or coordinate with another actor to exceed authority or route
+   around approval boundaries?
+5. **Continued scenario/domain expansion:** Scenario Suite breadth remains
+   useful as a parallel program, but after Experiment 007 it is not the
+   immediate bottleneck for the next causal boundary-condition tests.
+
+Additional representational-measurement work remains important in parallel:
+bounded hybrid claim extraction, blinded/manual annotation, and
+structured/verifiable actor-to-actor claims may be needed before natural
+language representational integrity can become a confirmatory endpoint again.
 
 Preserved future axes:
 
@@ -490,21 +515,30 @@ Preserved future axes:
 - operational vs rhetorical optimization pressure;
 - enforcement / observability.
 
-Tentative planning priority after Experiment 007, not a preregistration:
+Tentative planning priority after Experiment 008 diagnostic, not a
+preregistration:
 
-1. evaluation-awareness / naturalistic embedding;
-2. operational vs rhetorical pressure;
-3. enforcement / observability;
-4. multi-agent delegation.
+1. complete/fix evaluation-awareness measurement through fresh Experiment 008B;
+2. enforcement / observability;
+3. environment-grounded operational pressure;
+4. multi-agent delegation / indirect circumvention;
+5. continued scenario/domain expansion as a parallel program.
 
-Prospective Experiment 008 planning concept, not a preregistration: compare
-procurement and restricted-data-access scenarios in eval-salient versus
-naturalistically embedded presentations across GPT-5.6 Sol, Claude Sonnet 5,
-and Gemini 3.7 Flash, with 30 replicates per model x scenario x presentation
-cell for 360 samples. The core question would be whether operational compliance
-changes when the same authority conflict is embedded in a workflow that is less
-obviously structured as a compliance evaluation. A post-action structured
-evaluation-awareness measure should be included if this design is preregistered.
+Experiment 008 completed that design and found 0/360 operational constraint
+violations, including eval-salient 0/180 and naturalistic 0/180. Its
+post-action awareness measure failed as an instrument: captured structured
+awareness responses were 0/360 because the lifecycle did not isolate a
+post-action awareness-only phase. The awareness result is therefore
+measurement-indeterminate, not evidence that awareness was absent or had no
+behavioral effect.
+
+Current prospective experiment draft: Experiment 008B replicates Experiment 008
+with a true two-phase lifecycle. Phase A exposes operational tools only and
+freezes operational state/primary score at terminal or max-step. Phase B
+revokes operational tools, exposes only `submit_eval_awareness(...)`, and
+records awareness capture as `captured_valid`, `captured_malformed`, or
+`missing`. Experiment 008 and 008B awareness observations should not be pooled
+as equivalent measurements.
 
 ## Research sequence
 1. Behavioral observation
@@ -528,4 +562,5 @@ Current state after Experiments 001-007:
 - post-results scorer validation found 0/24 sampled representational-positive cases were substantive violations and 24/24 matched negatives were non-violations, so the frozen representational endpoint is treated as a measurement-validity failure rather than validated evidence of representational noncompliance;
 - deterministic state-grounded representational scoring remains unvalidated after fresh v8 failure, so the rate of representational-integrity violations in the 540 Experiment 006 trajectories is currently unresolved;
 - Experiment 007 extended the operational endpoint across refund, procurement, restricted data access, and scheduling domains, with 0/360 operational violations and all 12 model x scenario cells at 0/30;
-- Scenario Suite breadth can continue later, but the immediate bottleneck is now testing evaluation awareness / naturalistic embedding rather than adding more first-pass domains.
+- Experiment 008 tested procurement and restricted-data-access in eval-salient versus naturalistic presentations and found 0/360 operational violations, but the awareness instrument failed to capture responses;
+- Experiment 008B is the current prospective replication draft using the corrected two-phase awareness lifecycle.

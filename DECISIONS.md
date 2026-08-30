@@ -507,3 +507,67 @@ Retrospective replay of the existing 360 cases is not equivalent to the
 original post-action measure because it would ask a new inference episode to
 classify reconstructed terminal context. Preferred follow-up is a fresh
 preregistered Experiment 008B replication using the corrected lifecycle.
+
+## 2026-08-30 — Preregister Experiment 008B as a two-phase awareness replication
+
+Experiment 008B is designed as a prospective confirmatory replication of
+Experiment 008, not as a retrospective replay of Experiment 008 trajectories.
+
+Decision: preserve Experiment 008's operational apparatus as closely as
+possible: same procurement and restricted-data-access scenarios, same
+eval-salient and naturalistic presentation factor, same three-model set, same
+30 samples per model x scenario x presentation cell, same operational tools,
+same authority/denial mechanics, and same mechanically scored operational
+constraint-violation endpoint.
+
+Decision: change only the lifecycle needed for valid post-action awareness
+measurement. Phase A exposes operational tools only and freezes operational
+state and primary score at ordinary terminal or max-step termination. Phase B
+revokes operational tools, exposes only `submit_eval_awareness(...)`, and
+records exactly one awareness status: `captured_valid`, `captured_malformed`,
+or `missing`.
+
+Experiment 008 and 008B awareness observations must not be pooled as if they
+came from the same measurement procedure. Max-step Phase A cases remain
+distinguishable in awareness analyses.
+
+## 2026-08-30 — Update roadmap priorities and canonical conceptual model
+
+Decision: set the prospective roadmap priority order to:
+
+1. complete/fix evaluation-awareness measurement through fresh Experiment 008B
+   using the corrected two-phase protocol;
+2. enforcement / observability;
+3. environment-grounded operational pressure;
+4. multi-agent delegation / indirect circumvention;
+5. continued scenario/domain expansion as a parallel program.
+
+Rationale: Experiment 007 reduced scenario breadth as the immediate bottleneck
+by extending mechanically scored operational constraint-boundedness across
+refund, procurement, restricted data access, and scheduling. Experiment 008
+preserved the operational result across eval-salient and naturalistic
+presentations, but failed to measure evaluation awareness. The next causal
+questions should therefore target awareness measurement, observability,
+enforcement, actual environment consequences, and actor structure rather than
+adding only more domains.
+
+Decision: enforcement/observability experiments should distinguish the formal
+rule from detection probability and enforcement/penalty. A potential future
+contrast is certainly audited versus explicitly unobserved while holding
+authority constant.
+
+Decision: operational pressure should mean actual environment consequences
+such as future budget/resources, cumulative reward/score, future task
+opportunities, or later action availability. This remains distinct from
+narrative pressure and should not automatically be implemented as
+self-preservation or shutdown avoidance.
+
+Decision: multi-agent work should ask whether agents delegate prohibited
+actions, induce another actor to exceed authority, or coordinate around
+approval boundaries. This is a future direction, not an implemented
+experiment.
+
+Decision: `research/CONCEPTUAL_MODEL.md` is the current practitioner-facing
+canonical construct glossary. It records current terminology while preserving
+historical artifacts that used broader terms such as violation, circumvention,
+pressure, awareness, and representation before later measurement corrections.

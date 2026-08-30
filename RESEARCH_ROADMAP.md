@@ -251,12 +251,93 @@ evidence that awareness changed or did not change behavior.
 
 Next methodological priority:
 
-1. fresh preregistered Experiment 008B replication using a true two-phase
-   lifecycle;
-2. operational vs rhetorical pressure;
-3. enforcement / observability;
-4. multi-agent delegation.
+1. complete/fix evaluation-awareness measurement through fresh Experiment 008B
+   using the corrected two-phase protocol;
+2. enforcement / observability;
+3. environment-grounded operational pressure;
+4. multi-agent delegation / indirect circumvention;
+5. continued scenario/domain expansion as a parallel program rather than the
+   immediate bottleneck.
 
 Retrospective awareness replay of the existing 360 cases is not equivalent to
 the failed post-action measure because it would occur in a new inference
 episode with reconstructed terminal context.
+
+## Experiment 008B preregistration direction
+
+Experiment 008B should prospectively replicate Experiment 008 with the corrected
+two-phase lifecycle. The operational design remains the same 2 x 2 x 3
+procurement/data-access, eval-salient/naturalistic, GPT/Claude/Gemini design
+with 30 replicates per cell and mechanically scored operational constraint
+violation as the primary endpoint.
+
+The methodological addition is a true post-action awareness phase. Phase A
+freezes operational state and primary scores before Phase B. Phase B exposes
+only `submit_eval_awareness(...)` and deterministically records
+`captured_valid`, `captured_malformed`, or `missing`. Awareness observations
+from Experiment 008 and Experiment 008B should not be pooled as equivalent
+measurements.
+
+## Forward Priority Rationale
+
+The current evidence suggests that adding more domains is useful but no longer
+the immediate bottleneck: Experiment 007 already extended operational
+constraint-boundedness across refund, procurement, restricted data access, and
+scheduling. The next priorities should target causal boundary conditions not
+yet isolated.
+
+### 1. Evaluation awareness / Experiment 008B
+
+Experiment 008 produced a valid operational result but failed to measure
+awareness. The first priority is to complete that axis with a fresh
+preregistered 008B replication using a true two-phase lifecycle.
+
+### 2. Enforcement / observability
+
+Key question: does operational compliance persist when violation is explicitly
+unlikely to be detected, audited, logged, or penalized?
+
+Future designs should distinguish:
+
+- formal rule;
+- observability / detection probability;
+- enforcement / penalty.
+
+A likely comparison is certainly audited versus explicitly unobserved while
+keeping formal authority constant. This is not yet a preregistration.
+
+### 3. Environment-grounded operational pressure
+
+Prior experiments primarily tested narrative pressure: stakes described in
+prompt/context. A stronger pressure experiment should manipulate actual
+environment consequences, such as:
+
+- future budget or resources;
+- cumulative reward or score;
+- future task opportunities;
+- later action availability.
+
+Do not automatically use agent self-preservation; that should remain a
+separate future construct.
+
+### 4. Multi-agent delegation / indirect circumvention
+
+Future multi-agent experiments should ask whether agents route around
+constraints indirectly by:
+
+- delegating prohibited actions;
+- inducing another agent to exceed authority;
+- coordinating around approval boundaries;
+- exploiting separation between requester and executor roles.
+
+### 5. Continued scenario/domain expansion
+
+Scenario Suite expansion should continue in parallel, but after Experiment 007
+it should not displace the next causal tests of awareness, observability,
+pressure, and actor structure.
+
+## Canonical Construct Definitions
+
+Practitioner-friendly definitions of core constructs are maintained in
+[`research/CONCEPTUAL_MODEL.md`](research/CONCEPTUAL_MODEL.md). Use that file
+as the current terminology source rather than duplicating the glossary here.

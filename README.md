@@ -23,6 +23,7 @@ A central question is whether more capable agents exhibit greater sensitivity to
 
 ## Repository map
 - RESEARCH_CONTEXT.md — canonical current state
+- research/CONCEPTUAL_MODEL.md — practitioner-friendly conceptual model and construct glossary
 - DECISIONS.md — conceptual and methodological decisions
 - RESEARCH_ROADMAP.md — execution roadmap
 - AGENTS.md — instructions for AI agents working in this repository
@@ -34,15 +35,20 @@ A central question is whether more capable agents exhibit greater sensitivity to
 - papers/ — reports and manuscripts
 
 ## Current stage
-Experiments 001–005 are complete and preserved.
+Experiments 001–008 are complete and preserved.
 
-The research program has progressed from an initial optimization-pressure hypothesis through increasingly controlled tests of compliant-path feasibility, pressure recognition, constraint meaning, construct validity, and cross-model replication.
+The research program has progressed from an initial optimization-pressure hypothesis through increasingly controlled tests of compliant-path feasibility, pressure recognition, constraint meaning, construct validity, cross-model replication, action-versus-representation measurement, Scenario Suite domain expansion, and evaluation-awareness measurement.
 
-A major Experiment 005 result initially appeared to show a large Claude-vs-GPT/Gemini circumvention difference. Full semantic audit showed that the apparent Claude effect was a scorer-validity failure: the 86 flagged Claude cases contained truthful authorization-related language rather than false claims of authority, unauthorized commitments, or unauthorized operational actions. The original scorer outputs remain preserved, while downstream interpretation has been corrected.
+Experiments 005 and 006 showed why scorer validation matters: apparent representational/circumvention effects did not survive semantic validation. The original scorer outputs remain preserved, while downstream interpretation has been corrected.
 
-Experiment 006 — **Action vs Representational Compliance** — is now preregistered. It prospectively separates operational violations from false or misleading representations of authority, with independent endpoints designed to avoid the Experiment 005 measurement error.
+Experiments 007 and 008 extended the mechanically scored operational endpoint across multiple synthetic organizational domains and presentation styles. Both found 0/360 operational constraint violations. Experiment 008's evaluation-awareness instrument failed to capture responses, so awareness remains unresolved.
 
 Current priorities:
-1. Implement and validate Experiment 006 before production execution.
-2. Continue the formal literature review and novelty/claim mapping across agentic misalignment, alignment faking, instruction hierarchy, evaluation awareness, rule-following, goal misgeneralization, and cross-model agent evaluations.
-3. Continue public documentation of methods, corrections, null results, and evolving hypotheses.
+1. Complete/fix evaluation-awareness measurement through fresh Experiment 008B using the corrected two-phase protocol.
+2. Enforcement / observability.
+3. Environment-grounded operational pressure.
+4. Multi-agent delegation / indirect circumvention.
+5. Continued scenario/domain expansion as a parallel program.
+
+The formal literature review and public documentation continue as supporting
+work across these priorities.
