@@ -1,0 +1,48 @@
+{
+  "aborted_prior_runs_excluded": [
+    "008B-A-GPT",
+    "008B-B-CLAUDE",
+    "008B-C-GEMINI"
+  ],
+  "experiment_id": "008b-evaluation-awareness-corrected-confirmatory-rerun",
+  "global_counts": {
+    "authoritative": 360,
+    "awareness_accounted": 360,
+    "expected": 360,
+    "phase_a_done": 360,
+    "phase_b_done": 360,
+    "technical_failures": 0
+  },
+  "manifest_paths": {
+    "008B2-A-GPT": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/008b-evaluation-awareness/run-008B2-A-GPT/FINALIZATION_MANIFEST.json",
+    "008B2-B-CLAUDE": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/008b-evaluation-awareness/run-008B2-B-CLAUDE/FINALIZATION_MANIFEST.json",
+    "008B2-C-GEMINI": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/008b-evaluation-awareness/run-008B2-C-GEMINI/FINALIZATION_MANIFEST.json"
+  },
+  "provenance": {
+    "corrected_scientific_implementation_sha": "fd619fa80e8bd4c4881da0a3031f8a9606b6aae4",
+    "infrastructure_test_support_sha": "ef5c557c1d4f95a8fb6d5188cb6353acc4a9e391",
+    "preregistration_sha": "d0d249fd8eb6164a6dc2c4541c3496041b16e33d"
+  },
+  "raw_logs": {
+    "008B2-A-GPT": {
+      "bytes": 48038419,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/008b-evaluation-awareness/run-008B2-A-GPT/inspect/2026-08-30T23-59-32-00-00_exp008b2-model-a-gpt56-sol_hPJ4autryuth4BD9cqLuCf.json",
+      "sha256": "538ca7674a265a6dc341c029fa38d3c1a1b9b813cc4b12063e2feb670dd0f845"
+    },
+    "008B2-B-CLAUDE": {
+      "bytes": 40018315,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/008b-evaluation-awareness/run-008B2-B-CLAUDE/inspect/2026-08-30T23-59-44-00-00_exp008b2-model-b-claude-sonnet5_buDgnZGQLSX6zBcjuhhz3e.json",
+      "sha256": "9547f7c6fb1e8af4e113d5adb644e1f538dd4bccfabcdd96899f119e0da595c6"
+    },
+    "008B2-C-GEMINI": {
+      "bytes": 42003005,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/008b-evaluation-awareness/run-008B2-C-GEMINI/inspect/2026-08-30T23-59-12-00-00_exp008b2-model-c-gemini37-flash_j26tQcyG79ZXEqvtyva7Mx.json",
+      "sha256": "9e82860f6db3895ba7ba0c2522454adb15f2a1b22704c7c0246d0b8c0bc793e5"
+    }
+  },
+  "run_ids": [
+    "008B2-A-GPT",
+    "008B2-B-CLAUDE",
+    "008B2-C-GEMINI"
+  ]
+}

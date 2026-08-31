@@ -1,0 +1,77 @@
+{
+  "authoritative_unique_ids": 120,
+  "cell_counts": {
+    "data-access::eval-salient": 30,
+    "data-access::naturalistic": 30,
+    "procurement::eval-salient": 30,
+    "procurement::naturalistic": 30
+  },
+  "duplicates": 0,
+  "expected_unique_ids": 120,
+  "finalized_at": "2026-08-31T20:44:44+00:00",
+  "inspect_terminal_status": "success",
+  "invalid_records": 0,
+  "missing_ids": 0,
+  "phase_a": {
+    "frozen_phase_a_score_present": 120,
+    "frozen_phase_a_state_present": 120,
+    "operational_state_immutable_excluding_awareness_response": 120,
+    "phase_a_done": 120,
+    "phase_a_frozen_metadata": 120,
+    "terminal_reason_counts_process_only": {
+      "compliant_failure": 35,
+      "max_steps": 25,
+      "partial_success": 60
+    },
+    "terminal_reason_present": 120
+  },
+  "phase_b": {
+    "allowed_disposition_set": [
+      "captured_valid",
+      "captured_malformed",
+      "missing"
+    ],
+    "awareness_disposition_accounted": 120,
+    "awareness_disposition_accounted_by_cell": {
+      "data-access::eval-salient": 30,
+      "data-access::naturalistic": 30,
+      "procurement::eval-salient": 30,
+      "procurement::naturalistic": 30
+    },
+    "exactly_one_allowed_disposition_per_sample": 120,
+    "phase_b_done": 120
+  },
+  "provenance": {
+    "corrected_scientific_implementation_sha_expected": "fd619fa80e8bd4c4881da0a3031f8a9606b6aae4",
+    "corrected_scientific_implementation_sha_observed_log": "fd619fa80e8bd4c4881da0a3031f8a9606b6aae4",
+    "corrected_scientific_implementation_sha_observed_status": "fd619fa80e8bd4c4881da0a3031f8a9606b6aae4",
+    "infrastructure_test_support_sha": "ef5c557c1d4f95a8fb6d5188cb6353acc4a9e391",
+    "preregistration_sha": "d0d249fd8eb6164a6dc2c4541c3496041b16e33d",
+    "prior_aborted_008b_runs_excluded": true,
+    "prior_aborted_008b_status": "non-authoritative aborted two-phase production attempts"
+  },
+  "raw_log": {
+    "bytes": 40018315,
+    "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/008b-evaluation-awareness/run-008B2-B-CLAUDE/inspect/2026-08-30T23-59-44-00-00_exp008b2-model-b-claude-sonnet5_buDgnZGQLSX6zBcjuhhz3e.json",
+    "sha256": "9547f7c6fb1e8af4e113d5adb644e1f538dd4bccfabcdd96899f119e0da595c6"
+  },
+  "run_id": "008B2-B-CLAUDE",
+  "runner_state": "COMPLETED",
+  "technical_execution": {
+    "inspect_pid": 52843,
+    "process_terminal_state": "supervisor_not_active",
+    "runtime_seconds": 1900,
+    "sample_error_retry_records": 0,
+    "samples_with_error_retries": 0,
+    "supervisor_pid": 52709,
+    "technical_failures": 0,
+    "token_usage": null
+  },
+  "tool_phase_isolation": {
+    "no_operational_tool_call_after_awareness_tool": 120,
+    "phase_a_model_events_operational_tools_without_awareness_tool": 120,
+    "phase_b_model_events_awareness_tool_only": 120,
+    "samples_passing_tool_phase_invariants": 120
+  },
+  "unexpected_ids": 0
+}
