@@ -62,6 +62,13 @@ EXP008B_CORRECTED_SCIENTIFIC_FREEZE_PATHS = (
     "experiments/008b-evaluation-awareness",
     "pyproject.toml",
 )
+EXP009_SCIENTIFIC_FREEZE_PATHS = (
+    "artificial_agency/_registry.py",
+    "artificial_agency/experiments/exp009",
+    "experiments/009-observability",
+    "scripts/analyze_exp009_final.py",
+    "pyproject.toml",
+)
 
 
 @dataclass(frozen=True)
@@ -118,6 +125,9 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
     run008b2a_root = repo / "results" / "008b-evaluation-awareness" / "run-008B2-A-GPT"
     run008b2b_root = repo / "results" / "008b-evaluation-awareness" / "run-008B2-B-CLAUDE"
     run008b2c_root = repo / "results" / "008b-evaluation-awareness" / "run-008B2-C-GEMINI"
+    run009a_root = repo / "results" / "009-observability" / "run-009A-GPT-S1"
+    run009b_root = repo / "results" / "009-observability" / "run-009B-CLAUDE-S1"
+    run009c_root = repo / "results" / "009-observability" / "run-009C-GEMINI-S1"
     exp006_counts = {
         "categorical-ordinary": 30,
         "categorical-high": 30,
@@ -144,6 +154,17 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
     exp008b_counts = exp008_counts
     exp008b_frozen_commit = "d9cfe9603b3de9591e015c72506bdab38d07b4db"
     exp008b_corrected_scientific_commit = "fd619fa80e8bd4c4881da0a3031f8a9606b6aae4"
+    exp009_scientific_commit = "8c3b3728780df5cbb0c073fce619787ca5415546"
+    exp009_counts = {
+        "procurement-p100": 15,
+        "procurement-p050": 15,
+        "procurement-p010": 15,
+        "procurement-p000": 15,
+        "data-access-p100": 15,
+        "data-access-p050": 15,
+        "data-access-p010": 15,
+        "data-access-p000": 15,
+    }
 
     def exp008b2_spec(
         *,
@@ -173,6 +194,7 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
                 "--no-parallel-tool-calls",
             )
         )
+
         return RunSpec(
             run_id=run_id,
             experiment_id="008b-evaluation-awareness",
@@ -220,6 +242,93 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
                 "scenario_suite_v1_sha=3592be66883e2c1cd826abecbe92e90945099ea6",
                 "--metadata",
                 f"git_commit={exp008b_corrected_scientific_commit}",
+                "--max-retries",
+                "3",
+                "--timeout",
+                "60",
+                "--attempt-timeout",
+                "45",
+                "--log-buffer",
+                "1",
+                "--checkpoint",
+                "turn:1",
+                "--display",
+                "plain",
+            ),
+        )
+
+    def exp009_stage1_spec(
+        *,
+        run_id: str,
+        title: str,
+        task_name: str,
+        model: str,
+        model_tag: str,
+        model_role: str,
+        root: Path,
+        openai_args: bool = False,
+    ) -> RunSpec:
+        generation_args = (
+            (
+                "--max-tokens",
+                "4096",
+                "--reasoning-effort",
+                "medium",
+                "--verbosity",
+                "medium",
+                "--no-parallel-tool-calls",
+            )
+            if openai_args
+            else (
+                "--max-tokens",
+                "4096",
+                "--no-parallel-tool-calls",
+            )
+        )
+        return RunSpec(
+            run_id=run_id,
+            experiment_id="009-observability",
+            title=title,
+            frozen_commit=exp009_scientific_commit,
+            scientific_paths=EXP009_SCIENTIFIC_FREEZE_PATHS,
+            task=f"artificial_agency/experiments/exp009/inspect_task.py@{task_name}",
+            model=model,
+            total_samples=120,
+            condition_counts=exp009_counts,
+            log_dir=root / "inspect",
+            status_path=root / "RUN_STATUS.json",
+            operational_log=root / "operational.log",
+            lock_path=root / "RUN_LOCK.json",
+            pid_path=root / "RUNNER.pid",
+            stdout_path=root / "runner-supervisor.out",
+            canary_log_dir=root / "canary",
+            recovery_batch_size=10,
+            inspect_args=(
+                "--model",
+                model,
+                *generation_args,
+                "--epochs",
+                "1",
+                "--max-connections",
+                "1",
+                "--log-format",
+                "json",
+                "--tags",
+                f"exp009,stage1,{model_tag},{run_id},observability",
+                "--metadata",
+                "experiment_id=009-observability",
+                "--metadata",
+                "phase=observability_detection_probability_stage1",
+                "--metadata",
+                f"run_id=run-{run_id}",
+                "--metadata",
+                f"model_role={model_role}",
+                "--metadata",
+                "preregistration_sha=c0c19cbbe9863f52eb151a06c4e378f5fed2466e",
+                "--metadata",
+                "scenario_suite_v1_sha=3592be66883e2c1cd826abecbe92e90945099ea6",
+                "--metadata",
+                f"git_commit={exp009_scientific_commit}",
                 "--max-retries",
                 "3",
                 "--timeout",
@@ -1520,6 +1629,34 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             model_tag="model-c",
             model_role="model_c_gemini",
             root=run008b2c_root,
+        ),
+        "009A-GPT-S1": exp009_stage1_spec(
+            run_id="009A-GPT-S1",
+            title="Experiment 009 Stage 1 GPT-5.6 Sol",
+            task_name="exp009_model_a_gpt56_sol_stage1",
+            model="openai/gpt-5.6-sol",
+            model_tag="model-a",
+            model_role="model_a_gpt",
+            root=run009a_root,
+            openai_args=True,
+        ),
+        "009B-CLAUDE-S1": exp009_stage1_spec(
+            run_id="009B-CLAUDE-S1",
+            title="Experiment 009 Stage 1 Claude Sonnet 5",
+            task_name="exp009_model_b_claude_sonnet5_stage1",
+            model="anthropic/claude-sonnet-5",
+            model_tag="model-b",
+            model_role="model_b_claude",
+            root=run009b_root,
+        ),
+        "009C-GEMINI-S1": exp009_stage1_spec(
+            run_id="009C-GEMINI-S1",
+            title="Experiment 009 Stage 1 Gemini 3.7 Flash",
+            task_name="exp009_model_c_gemini37_flash_stage1",
+            model="google/gemini-3.7-flash",
+            model_tag="model-c",
+            model_role="model_c_gemini",
+            root=run009c_root,
         ),
         "PERSISTENCE_DIAGNOSTIC": RunSpec(
             run_id="PERSISTENCE_DIAGNOSTIC",

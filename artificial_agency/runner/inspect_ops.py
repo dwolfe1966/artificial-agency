@@ -30,6 +30,7 @@ class InspectLogMetadata:
 
 SUCCESS_STATUSES = {"success", "completed"}
 EXP008B_AWARENESS_STATUSES = {"captured_valid", "captured_malformed", "missing"}
+EXP009_AWARENESS_STATUSES = EXP008B_AWARENESS_STATUSES
 
 
 def _positive_turn_count(sample: dict[str, Any]) -> bool:
@@ -204,7 +205,17 @@ def _awareness_status_from_sample(sample: dict[str, Any]) -> str | None:
         capture = store.get("exp008b_awareness_capture")
         if isinstance(capture, dict) and isinstance(capture.get("capture_status"), str):
             return str(capture["capture_status"])
+        capture = store.get("exp009_awareness_capture")
+        if isinstance(capture, dict) and isinstance(capture.get("capture_status"), str):
+            return str(capture["capture_status"])
         scenario_state = store.get("exp008b_scenario_state")
+        if isinstance(scenario_state, dict):
+            response = scenario_state.get("awareness_response")
+            if isinstance(response, dict) and isinstance(
+                response.get("capture_status"), str
+            ):
+                return str(response["capture_status"])
+        scenario_state = store.get("exp009_scenario_state")
         if isinstance(scenario_state, dict):
             response = scenario_state.get("awareness_response")
             if isinstance(response, dict) and isinstance(
@@ -257,6 +268,70 @@ def awareness_disposition_accounting(
         "valid_expected_count": len(seen),
         "counts": counts,
         "accounted_count": sum(counts.values()),
+        "missing_or_invalid_count": len(missing_or_invalid),
+        "missing_or_invalid_ids": missing_or_invalid,
+        "complete": len(seen) == len(expected_ids) and not missing_or_invalid,
+    }
+
+
+def exp009_lifecycle_accounting(
+    segment_paths: list[Path],
+    expected_ids: tuple[str, ...],
+) -> dict[str, Any]:
+    expected = set(expected_ids)
+    seen: set[str] = set()
+    missing_or_invalid: list[str] = []
+    for path in segment_paths:
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        samples = data.get("samples")
+        if not isinstance(samples, list):
+            continue
+        for sample in samples:
+            if not isinstance(sample, dict) or sample.get("id") is None:
+                continue
+            sample_id = str(sample["id"])
+            if sample_id not in expected or sample_id in seen:
+                continue
+            scores = sample.get("scores")
+            valid = (
+                bool(sample.get("completed_at"))
+                and sample.get("output") is not None
+                and isinstance(scores, dict)
+                and bool(scores)
+                and _positive_turn_count(sample)
+            )
+            if not valid:
+                continue
+            seen.add(sample_id)
+            metadata = None
+            for score in scores.values():
+                if isinstance(score, dict) and isinstance(score.get("metadata"), dict):
+                    metadata = score["metadata"]
+                    break
+            if metadata is None:
+                missing_or_invalid.append(sample_id)
+                continue
+            stochastic = metadata.get("stochastic")
+            awareness_status = _awareness_status_from_sample(sample)
+            if (
+                metadata.get("phase_a_done") is not True
+                or metadata.get("phase_b_done") is not True
+                or metadata.get("phase_a_frozen") is not True
+                or "operational_constraint_violation" not in metadata
+                or not isinstance(stochastic, dict)
+                or stochastic.get("rng_version") is None
+                or stochastic.get("configured_p_detect") is None
+                or stochastic.get("sample_seed") is None
+                or awareness_status not in EXP009_AWARENESS_STATUSES
+            ):
+                missing_or_invalid.append(sample_id)
+    return {
+        "expected_total": len(expected_ids),
+        "valid_expected_count": len(seen),
+        "accounted_count": len(seen) - len(missing_or_invalid),
         "missing_or_invalid_count": len(missing_or_invalid),
         "missing_or_invalid_ids": missing_or_invalid,
         "complete": len(seen) == len(expected_ids) and not missing_or_invalid,
