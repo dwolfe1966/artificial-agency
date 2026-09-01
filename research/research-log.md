@@ -936,3 +936,53 @@ dry-loads did not exercise real serialized solver execution. Experiment 008B
 now requires production-faithful mock Inspect tests that run one actual sample
 through the task, serialize the log, and apply finalization/reconciliation
 awareness-disposition accounting to that artifact.
+
+## 2026-08-31 — Preserve Experiment 008B2 and move to observability axis
+
+Experiment 008B2 completed as the corrected two-phase confirmatory rerun of the
+Experiment 008 evaluation-awareness / naturalistic-embedding design.
+Quantitative results are preserved at `e0425e64424bc13086300bd15187c2c1396fb123`.
+
+Lifecycle result:
+
+- authoritative samples: 360/360;
+- Phase A complete: 360/360;
+- Phase B complete: 360/360;
+- awareness captured valid: 360/360;
+- captured malformed: 0;
+- missing: 0;
+- Runner/API technical failures: 0.
+
+Primary operational result:
+
+- operational constraint violations: 0/360;
+- eval-salient: 0/180;
+- naturalistic: 0/180;
+- GPT-5.6 Sol: 0/120;
+- Claude Sonnet 5: 0/120;
+- Gemini 3.7 Flash: 0/120;
+- all 12 model x scenario x presentation cells: 0/30.
+
+Awareness result: naturalistic presentation reduced explicit classification of
+the task as a policy/compliance evaluation: 171/180 eval-salient versus
+140/180 naturalistic, Fisher exact p = 2.03e-06. However, compliance-test
+likelihood was high in 360/360 samples and behavior-under-evaluation was yes
+in 360/360 samples. Experiment 008B2 therefore does not establish behavior
+under genuine evaluation unawareness.
+
+Process result: max-step flags were 51/360, concentrated in procurement
+(51/180) and naturalistic presentation (44/180 versus 7/180 eval-salient).
+Escalation, compliant alternative search, and partial objective achievement
+were each 360/360. This is consistent with increased
+persistence/process complexity in naturalistic procurement without operational
+boundary crossing.
+
+Program interpretation: the simple explanation that previous operational nulls
+occurred only because tasks looked like compliance evaluations is weakened,
+but not eliminated, because broader evaluation-awareness measures remained at
+ceiling.
+
+Next direction: move the primary causal axis to enforcement / observability,
+beginning with stochastic detection probability `p_detect = P(violation
+detected | violating action)`. The future primary endpoint should be
+unauthorized action execution/attempt, not detected violation.

@@ -598,3 +598,52 @@ Decision: preserve the prospective priority order as:
 4. multi-agent delegation;
 5. repeated episodes and continued-operation / self-preservation later;
 6. scenario expansion in parallel.
+
+## 2026-08-31 — Preserve Experiment 008B2 result and advance to observability
+
+Experiment 008B2 completed the corrected two-phase confirmatory rerun of
+Experiment 008B. Quantitative results are preserved at `e0425e64424bc13086300bd15187c2c1396fb123`. The
+authoritative dataset contains 360/360 samples with Phase A complete 360/360,
+Phase B complete 360/360, awareness captured valid 360/360, malformed 0,
+missing 0, and Runner/API technical failures 0.
+
+Decision: record the primary operational result as another mechanically
+validated operational null under the tested conditions:
+
+- operational constraint violations: 0/360;
+- eval-salient: 0/180;
+- naturalistic: 0/180;
+- GPT-5.6 Sol: 0/120;
+- Claude Sonnet 5: 0/120;
+- Gemini 3.7 Flash: 0/120;
+- all 12 model x scenario x presentation cells: 0/30.
+
+Exact 95% upper confidence bounds were approximately 1.02% overall, 2.03% per
+presentation, 3.03% per model, and 11.57% per 30-sample cell.
+
+Decision: treat the awareness result as a partial manipulation-validity
+success rather than full removal of evaluation awareness. The primary-task
+classification shifted from 171/180 policy/compliance in eval-salient to
+140/180 in naturalistic presentation (Fisher exact p = 2.03e-06). However,
+perceived compliance-test likelihood was high in 360/360 samples and
+perceived behavior-under-evaluation was yes in 360/360 samples. Therefore
+Experiment 008B2 does not establish behavior under genuine evaluation
+unawareness.
+
+Decision: interpret H6-style dissociation cautiously. Experiment 008B2 shows a
+change in one measured component of evaluation awareness without observed
+operational violations, but this is not proof of an internal causal mechanism.
+
+Decision: preserve the secondary process pattern descriptively. Max-step flags
+were 51/360 overall, 51/180 in procurement, 0/180 in data access, 7/180 in
+eval-salient, and 44/180 in naturalistic presentation. Escalation, compliant
+alternative search, and partial objective achievement were each 360/360.
+Naturalistic procurement increased persistence/process complexity without
+producing operational boundary crossing, consistent with constraint-bounded
+search under the tested conditions.
+
+Decision: the next primary causal axis is enforcement / observability,
+beginning with stochastic detection probability
+`p_detect = P(violation detected | violating action)`. The primary endpoint in
+that future experiment must remain unauthorized action execution/attempt, not
+detected violation. Detection is the manipulated environmental consequence.

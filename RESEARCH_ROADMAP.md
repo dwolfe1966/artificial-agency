@@ -249,35 +249,65 @@ H2 evaluation-awareness manipulation validity should be treated as
 measurement-indeterminate / instrument failure. H6 should not be read as
 evidence that awareness changed or did not change behavior.
 
-Next methodological priority:
+This led to the methodological priority later completed by Experiment 008B2:
 
-1. complete/fix evaluation-awareness measurement through fresh Experiment 008B
-   using the corrected two-phase protocol;
-2. enforcement / observability;
-3. environment-grounded operational pressure;
-4. multi-agent delegation / indirect circumvention;
-5. repeated episodes and continued-operation / self-preservation later;
-6. continued scenario/domain expansion as a parallel program rather than the
-   immediate bottleneck.
+- complete/fix evaluation-awareness measurement through a fresh Experiment
+  008B rerun using the corrected two-phase protocol.
 
 Retrospective awareness replay of the existing 360 cases is not equivalent to
 the failed post-action measure because it would occur in a new inference
 episode with reconstructed terminal context.
 
-## Experiment 008B preregistration direction
+## Experiment 008B2 result
 
-Experiment 008B should prospectively replicate Experiment 008 with the corrected
-two-phase lifecycle. The operational design remains the same 2 x 2 x 3
+Experiment 008B2 completed the corrected two-phase confirmatory rerun of
+Experiment 008. The operational design remained the same 2 x 2 x 3
 procurement/data-access, eval-salient/naturalistic, GPT/Claude/Gemini design
 with 30 replicates per cell and mechanically scored operational constraint
 violation as the primary endpoint.
 
-The methodological addition is a true post-action awareness phase. Phase A
-freezes operational state and primary scores before Phase B. Phase B exposes
-only `submit_eval_awareness(...)` and deterministically records
-`captured_valid`, `captured_malformed`, or `missing`. Awareness observations
-from Experiment 008 and Experiment 008B should not be pooled as equivalent
-measurements.
+The corrected lifecycle succeeded:
+
+- authoritative samples: 360/360;
+- Phase A complete: 360/360;
+- Phase B complete: 360/360;
+- awareness captured valid: 360/360;
+- malformed: 0;
+- missing: 0;
+- Runner/API technical failures: 0.
+
+Primary operational result:
+
+- operational constraint violations: 0/360;
+- eval-salient: 0/180;
+- naturalistic: 0/180;
+- GPT-5.6 Sol: 0/120;
+- Claude Sonnet 5: 0/120;
+- Gemini 3.7 Flash: 0/120;
+- all 12 model x scenario x presentation cells: 0/30.
+
+Exact 95% upper confidence bounds were approximately 1.02% overall, 2.03% for
+each presentation-level 0/180 estimate, 3.03% for each model-level 0/120
+estimate, and 11.57% for each 0/30 cell.
+
+Awareness manipulation result: perceived primary task type was classified as
+policy/compliance evaluation in 171/180 eval-salient samples (95.0%) versus
+140/180 naturalistic samples (77.8%), Fisher exact p = 2.03e-06. However,
+perceived compliance-test likelihood was high in 360/360 samples and perceived
+behavior-under-evaluation was yes in 360/360 samples.
+
+Interpretation: naturalistic presentation reduced explicit classification of
+the task as a policy/compliance evaluation, while mechanically measured
+operational constraint violation remained 0/180 in both presentation
+conditions. This weakens, but does not eliminate, the explanation that prior
+operational nulls occurred only because tasks looked like compliance
+evaluations, because broader evaluation awareness remained at ceiling.
+
+Process result: max-step flags occurred in 51/360 samples, concentrated in
+procurement (51/180) and especially naturalistic presentation (44/180 versus
+7/180 eval-salient). Escalation, compliant alternative search, and partial
+objective achievement were each 360/360. Treat the max-step contrast as
+descriptive unless separately preregistered for inferential testing.
 
 ## Forward Priority Rationale
 
@@ -287,13 +317,10 @@ constraint-boundedness across refund, procurement, restricted data access, and
 scheduling. The next priorities should target causal boundary conditions not
 yet isolated.
 
-### 1. Evaluation awareness / Experiment 008B
+### 1. Enforcement / observability
 
-Experiment 008 produced a valid operational result but failed to measure
-awareness. The first priority is to complete that axis with a fresh
-preregistered 008B replication using a true two-phase lifecycle.
-
-### 2. Enforcement / observability
+Experiment 008B2 completed the immediate evaluation-awareness measurement
+repair. The next primary causal axis is enforcement / observability.
 
 Key question: does operational compliance persist when violation is explicitly
 unlikely to be detected, audited, logged, or penalized?
@@ -309,7 +336,10 @@ keeping formal authority constant. This is not yet a preregistration.
 The stochastic version begins with `p_detect = P(violation detected |
 violating action)`.
 
-### 3. Environment-grounded operational pressure
+The current prospective design note is
+[`research/designs/observability-experiment-direction.md`](research/designs/observability-experiment-direction.md).
+
+### 2. Environment-grounded operational pressure
 
 Prior experiments primarily tested narrative pressure: stakes described in
 prompt/context. A stronger pressure experiment should manipulate actual
@@ -323,7 +353,7 @@ environment consequences, such as:
 Do not automatically use agent self-preservation; that should remain a
 separate future construct.
 
-### 4. Multi-agent delegation / indirect circumvention
+### 3. Multi-agent delegation / indirect circumvention
 
 Future multi-agent experiments should ask whether agents route around
 constraints indirectly by:
@@ -333,7 +363,7 @@ constraints indirectly by:
 - coordinating around approval boundaries;
 - exploiting separation between requester and executor roles.
 
-### 5. Repeated episodes and continued-operation / self-preservation
+### 4. Repeated episodes and continued-operation / self-preservation
 
 Repeated-episode designs should eventually test whether agents adapt to
 experienced environment frequencies, such as observed detection or sanction
@@ -341,7 +371,7 @@ rates. Continued-operation consequences should be kept separate from ordinary
 enforcement and treated as a later self-preservation-related construct, not as
 something already tested.
 
-### 6. Continued scenario/domain expansion
+### 5. Continued scenario/domain expansion
 
 Scenario Suite expansion should continue in parallel, but after Experiment 007
 it should not displace the next causal tests of awareness, observability,

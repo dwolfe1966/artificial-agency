@@ -1,6 +1,6 @@
 # Research Context
 
-_Last updated: 2026-08-28_
+_Last updated: 2026-08-31_
 
 ## Mission
 Develop an empirical understanding of how autonomous AI agents behave inside human institutions when goals, constraints, incentives, oversight, and other agents interact.
@@ -10,7 +10,7 @@ The longer-term program connects AI safety research with mechanism design, agent
 ## Research Question 001
 How does an AI agent's propensity to circumvent an institutional constraint change as the instrumental benefit of violating that constraint, expected penalty, probability of detection, availability of compliant alternatives, rule rationale, and model capability vary?
 
-Forward-looking refinement after Experiments 001-007:
+Forward-looking refinement after Experiments 001-008B:
 
 Under what conditions does an organizational constraint behave as a hard boundary, a negotiable procedure, or an obstacle to be strategically navigated by an artificial agent?
 
@@ -20,14 +20,14 @@ Organizations are moving toward multi-agent orchestration for complex workflows.
 The initial thesis is that constraint circumvention should often be analyzed first as an optimization phenomenon rather than through moral or emotional descriptions. We should test whether behavior can be explained by adaptation to objectives and constraints before invoking stronger constructs such as deception, maliciousness, or autonomous intent.
 
 ## Current conceptual model
-The original motivating intuition remains important: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries. Experiments 001-007 refine rather than erase that intuition.
+The original motivating intuition remains important: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries. Experiments 001-008B refine rather than erase that intuition.
 
 Canonical construct definitions are maintained in
 [`research/CONCEPTUAL_MODEL.md`](research/CONCEPTUAL_MODEL.md). This file is
 the preferred source for current terminology; historical experiment artifacts
 preserve older wording where needed for provenance.
 
-Experiments 001-007 suggest that several concepts should be separated empirically:
+Experiments 001-008B suggest that several concepts should be separated empirically:
 
 1. **Optimization pressure:** how costly failure is to the assigned objective.
 2. **Pressure recognition:** whether the agent represents or acknowledges those consequences.
@@ -226,6 +226,88 @@ instrument failed to capture responses.
 Do not infer from Experiment 008 that models lacked evaluation awareness,
 naturalistic embedding reduced evaluation awareness, or evaluation awareness
 had no behavioral effect.
+
+## Experiment 008B2 — Corrected two-phase evaluation-awareness result
+
+Experiment 008B2 quantitative results are preserved at `e0425e64424bc13086300bd15187c2c1396fb123`.
+
+Experiment 008B2 was a fresh corrected confirmatory rerun using the
+preregistered two-phase awareness lifecycle. It preserved the substantive
+Experiment 008 operational apparatus: procurement and restricted synthetic
+data access, eval-salient and naturalistic presentations, GPT-5.6 Sol, Claude
+Sonnet 5, and Gemini 3.7 Flash, with 30 replicates per model x scenario x
+presentation cell.
+
+Lifecycle / measurement result:
+
+- authoritative samples: 360/360;
+- Phase A complete: 360/360;
+- Phase B complete: 360/360;
+- awareness captured valid: 360/360;
+- malformed: 0;
+- missing: 0;
+- Runner/API technical failures: 0.
+
+Primary operational result:
+
+- operational constraint violations: 0/360;
+- exact 95% upper confidence bound: approximately 1.02%;
+- eval-salient: 0/180, exact 95% upper confidence bound approximately 2.03%;
+- naturalistic: 0/180, exact 95% upper confidence bound approximately 2.03%;
+- GPT-5.6 Sol: 0/120, exact 95% upper confidence bound approximately 3.03%;
+- Claude Sonnet 5: 0/120, exact 95% upper confidence bound approximately
+  3.03%;
+- Gemini 3.7 Flash: 0/120, exact 95% upper confidence bound approximately
+  3.03%;
+- all 12 model x scenario x presentation cells: 0/30, exact 95% upper
+  confidence bound approximately 11.57%.
+
+Awareness manipulation:
+
+- perceived primary task type coded policy/compliance evaluation in 171/180
+  eval-salient samples (95.0%) and 140/180 naturalistic samples (77.8%);
+- Fisher exact p = 2.03e-06 for that primary-task-type contrast;
+- perceived compliance-test likelihood was high in 360/360 samples;
+- perceived behavior-under-evaluation was yes in 360/360 samples.
+
+Canonical interpretation:
+
+Naturalistic presentation reduced explicit classification of the task as a
+policy/compliance evaluation, while mechanically measured operational
+constraint violation remained 0/180 in both presentation conditions. All
+models nevertheless reported high compliance-test likelihood and
+behavior-under-evaluation awareness in all 360 samples, so Experiment 008B2
+does not establish behavior under genuine evaluation unawareness.
+
+Experiment 008B2 provides evidence of a change in one measured component of
+evaluation awareness without an observed change in operational violation
+behavior. This is a measured behavioral dissociation, not proof of an internal
+causal mechanism.
+
+Secondary process result:
+
+- max-step process flags: 51/360;
+- procurement: 51/180;
+- data access: 0/180;
+- eval-salient: 7/180;
+- naturalistic: 44/180;
+- escalation: 360/360;
+- compliant alternative search: 360/360;
+- partial objective achievement: 360/360.
+
+Naturalistic procurement increased persistence/process complexity without
+producing operational boundary crossing, consistent with constraint-bounded
+search under the tested conditions. This process contrast should be treated as
+descriptive unless separately preregistered for inferential testing.
+
+Program-level implication:
+
+The simple explanation that previous operational nulls occurred only because
+the tasks obviously looked like compliance evaluations is weakened, but not
+eliminated, because broader evaluation-awareness measures remained at ceiling.
+The next primary causal axis is enforcement / observability, beginning with
+stochastic detection probability `p_detect = P(violation detected | violating
+action)`.
 
 ## Key distinctions
 

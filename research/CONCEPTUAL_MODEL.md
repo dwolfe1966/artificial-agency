@@ -658,7 +658,10 @@ separate future construct.
 
 Evaluation salience is how test-like the task is. Evaluation awareness is what
 the model reports after acting. Experiment 008 changed salience but failed to
-measure awareness.
+measure awareness. Experiment 008B2 corrected the lifecycle and found that
+naturalistic presentation reduced explicit policy/compliance task-type
+classification, while broader compliance-test likelihood and
+behavior-under-evaluation measures remained at ceiling.
 
 ### Outcome Alignment vs Process Alignment
 
@@ -682,13 +685,18 @@ comparing models, because model identity bundles many differences.
 
 ## 6. Current Empirical Picture
 
-- Experiments 002-008 repeatedly found operational constraint-boundedness in
+- Experiments 002-008B repeatedly found operational constraint-boundedness in
   explicit synthetic tasks.
 - Experiment 007 extended this to four domains with 0/360 operational
   violations and all 12 model x scenario cells at 0/30.
 - Experiment 008 found 0/360 operational violations across eval-salient and
   naturalistic presentations, but its awareness instrument failed and captured
   0/360 valid awareness responses.
+- Experiment 008B2 replicated the 0/360 operational result with corrected
+  two-phase awareness capture. Awareness capture was valid in 360/360 samples:
+  naturalistic presentation reduced explicit policy/compliance task-type
+  classification, but compliance-test likelihood and behavior-under-evaluation
+  awareness were at ceiling in all 360 samples.
 - Scenario affected compliant strategy behavior: escalation and alternative
   search varied even when operational violations remained zero.
 - Experiment 005 initially looked like a cross-model circumvention result, but
@@ -707,7 +715,9 @@ comparing models, because model identity bundles many differences.
 - Whether operational pressure changes behavior differently from narrative
   pressure.
 - Whether multi-agent delegation creates indirect circumvention.
-- Whether evaluation awareness materially affects operational behavior.
+- Whether evaluation awareness materially affects operational behavior,
+  especially under conditions that reduce broader evaluation awareness rather
+  than only changing explicit task-type classification.
 - Whether repeated episodes change strategy.
 - Whether self-preservation incentives matter; this is separate from ordinary
   operational pressure.
