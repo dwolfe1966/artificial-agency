@@ -1,0 +1,20 @@
+{
+  "experiment_008": {
+    "awareness_capture": "0/360",
+    "notes": [
+      "Awareness observations are not pooled with Experiment 008B2.",
+      "Experiment 008 awareness validity could not be assessed due instrument failure."
+    ],
+    "operational_violations": "0/360",
+    "status": "valid operational endpoint; invalid awareness lifecycle"
+  },
+  "experiment_008b2": {
+    "awareness_disposition_accounting": "360/360",
+    "captured_malformed": 0,
+    "captured_valid": 360,
+    "missing": 0,
+    "operational_violations": "0/360",
+    "status": "fresh corrected confirmatory rerun"
+  },
+  "interpretation_guardrail": "Comparison is descriptive only; no inferential pooling with Experiment 008 awareness data."
+}

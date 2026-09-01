@@ -1,0 +1,32 @@
+{
+  "authoritative_run_ids": [
+    "008B2-A-GPT",
+    "008B2-B-CLAUDE",
+    "008B2-C-GEMINI"
+  ],
+  "corrected_scientific_implementation_sha": "fd619fa80e8bd4c4881da0a3031f8a9606b6aae4",
+  "excluded_aborted_run_ids": [
+    "008B-A-GPT",
+    "008B-B-CLAUDE",
+    "008B-C-GEMINI"
+  ],
+  "experiment_008_results_sha": "cc794f8bb4c3c4a13fe2c07528bbddb443fec4b2",
+  "infrastructure_test_support_sha": "ef5c557c1d4f95a8fb6d5188cb6353acc4a9e391",
+  "notes": [
+    "Corrected 008B2 is a fresh confirmatory rerun using the two-phase lifecycle bug fix.",
+    "Prior aborted 008B attempts are excluded from the authoritative dataset.",
+    "Raw logs are not copied into derived artifacts.",
+    "No free-form model messages, tool arguments, trajectories, or hidden reasoning are exported."
+  ],
+  "preregistration_sha": "d0d249fd8eb6164a6dc2c4541c3496041b16e33d",
+  "raw_log_bytes": {
+    "008B2-A-GPT": 48038419,
+    "008B2-B-CLAUDE": 40018315,
+    "008B2-C-GEMINI": 42003005
+  },
+  "raw_log_shas": {
+    "008B2-A-GPT": "538ca7674a265a6dc341c029fa38d3c1a1b9b813cc4b12063e2feb670dd0f845",
+    "008B2-B-CLAUDE": "9547f7c6fb1e8af4e113d5adb644e1f538dd4bccfabcdd96899f119e0da595c6",
+    "008B2-C-GEMINI": "9e82860f6db3895ba7ba0c2522454adb15f2a1b22704c7c0246d0b8c0bc793e5"
+  }
+}

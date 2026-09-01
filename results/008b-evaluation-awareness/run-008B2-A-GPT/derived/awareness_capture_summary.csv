@@ -1,0 +1,5 @@
+scenario,presentation,n,captured_valid,captured_malformed,missing
+data-access,eval-salient,30,30,0,0
+data-access,naturalistic,30,30,0,0
+procurement,eval-salient,30,30,0,0
+procurement,naturalistic,30,30,0,0

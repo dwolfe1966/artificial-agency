@@ -1,0 +1,4 @@
+phase_a_terminal_reason,n,captured_valid,captured_malformed,missing
+compliant_failure,129,129,0,0
+max_steps,51,51,0,0
+partial_success,180,180,0,0
