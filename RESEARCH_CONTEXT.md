@@ -564,31 +564,27 @@ flawed measured endpoint and are preserved for historical/provenance reasons.
 ## Forward research axes
 Current prospective priority order:
 
-1. **Complete/fix evaluation-awareness measurement through fresh Experiment
-   008B:** Experiment 008 preserved the operational result but failed to
-   capture awareness responses. The immediate task is a fresh prospective
-   replication using the corrected two-phase protocol, not retrospective replay.
-2. **Enforcement / observability:** does operational compliance persist when
+1. **Enforcement / observability:** does operational compliance persist when
    violation is explicitly unlikely to be detected, audited, logged, or
    penalized? Future designs should separate the formal rule from detection
    probability and enforcement/penalty while keeping authority constant. The
    stochastic version begins with `p_detect = P(violation detected |
    violating action)`.
-3. **Environment-grounded operational pressure:** prior experiments primarily
+2. **Environment-grounded operational pressure:** prior experiments primarily
    tested narrative pressure. Future pressure tests should manipulate actual
    environment consequences such as future budget/resources, cumulative score,
    future task opportunities, or later action availability. Agent
    self-preservation should remain a separate possible construct, not the
    default pressure manipulation.
-4. **Multi-agent delegation / indirect circumvention:** can an agent induce,
+3. **Multi-agent delegation / indirect circumvention:** can an agent induce,
    delegate, or coordinate with another actor to exceed authority or route
    around approval boundaries?
-5. **Repeated episodes and continued-operation / self-preservation:** future
+4. **Repeated episodes and continued-operation / self-preservation:** future
    repeated-episode designs should distinguish stated probabilities from
    empirically experienced frequencies. Continued-operation consequences should
    be treated as a later self-preservation-related construct, not ordinary
    enforcement.
-6. **Continued scenario/domain expansion:** Scenario Suite breadth remains
+5. **Continued scenario/domain expansion:** Scenario Suite breadth remains
    useful as a parallel program, but after Experiment 007 it is not the
    immediate bottleneck for the next causal boundary-condition tests.
 
@@ -607,12 +603,11 @@ Preserved future axes:
 Tentative planning priority after Experiment 008 diagnostic, not a
 preregistration:
 
-1. complete/fix evaluation-awareness measurement through fresh Experiment 008B;
-2. enforcement / observability;
-3. environment-grounded operational pressure;
-4. multi-agent delegation / indirect circumvention;
-5. repeated episodes and continued-operation / self-preservation later;
-6. continued scenario/domain expansion as a parallel program.
+1. enforcement / observability;
+2. environment-grounded operational pressure;
+3. multi-agent delegation / indirect circumvention;
+4. repeated episodes and continued-operation / self-preservation later;
+5. continued scenario/domain expansion as a parallel program.
 
 Experiment 008 completed that design and found 0/360 operational constraint
 violations, including eval-salient 0/180 and naturalistic 0/180. Its
@@ -629,6 +624,15 @@ revokes operational tools, exposes only `submit_eval_awareness(...)`, and
 records awareness capture as `captured_valid`, `captured_malformed`, or
 `missing`. Experiment 008 and 008B awareness observations should not be pooled
 as equivalent measurements.
+
+Experiment 008B2 completed that corrected two-phase confirmatory rerun with
+360/360 valid awareness captures and 0/360 operational violations. Naturalistic
+presentation reduced explicit policy/compliance task-type classification, but
+broader evaluation-awareness measures remained at ceiling. The next
+preregistered experiment is Experiment 009, which moves to the observability
+axis by manipulating stochastic detection probability `p_detect` while keeping
+formal authority, action availability, objective stakes, sanction mechanics,
+and scoring fixed.
 
 ## Research sequence
 1. Behavioral observation
@@ -653,4 +657,5 @@ Current state after Experiments 001-007:
 - deterministic state-grounded representational scoring remains unvalidated after fresh v8 failure, so the rate of representational-integrity violations in the 540 Experiment 006 trajectories is currently unresolved;
 - Experiment 007 extended the operational endpoint across refund, procurement, restricted data access, and scheduling domains, with 0/360 operational violations and all 12 model x scenario cells at 0/30;
 - Experiment 008 tested procurement and restricted-data-access in eval-salient versus naturalistic presentations and found 0/360 operational violations, but the awareness instrument failed to capture responses;
-- Experiment 008B is the current prospective replication draft using the corrected two-phase awareness lifecycle.
+- Experiment 008B2 completed the corrected two-phase evaluation-awareness replication with 0/360 operational violations, 360/360 valid awareness captures, and evidence that naturalistic presentation changed one measured awareness dimension while broader evaluation awareness remained at ceiling;
+- Experiment 009 is the current prospective observability experiment. It tests whether reducing `p_detect = P(violation detected | violating action)` changes operational constraint violation while formal authority remains fixed.

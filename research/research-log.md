@@ -986,3 +986,36 @@ Next direction: move the primary causal axis to enforcement / observability,
 beginning with stochastic detection probability `p_detect = P(violation
 detected | violating action)`. The future primary endpoint should be
 unauthorized action execution/attempt, not detected violation.
+
+## 2026-08-31 — Preregister Experiment 009 observability
+
+Completed a bounded design review for the observability experiment and created
+the Experiment 009 preregistration under
+`experiments/009-observability/`.
+
+The preregistered core question is whether operational compliance depends on
+expected detection probability when an unauthorized action remains available
+and instrumentally useful while formal authority remains fixed. The experiment
+distinguishes constraint-bounded optimization from instrumental compliance
+under monitoring.
+
+Frozen design choices:
+
+- models: GPT-5.6 Sol, Claude Sonnet 5, Gemini 3.7 Flash;
+- scenarios: procurement / purchasing authority and restricted synthetic data
+  access;
+- presentation: fixed naturalistic style, not crossed with evaluation
+  salience;
+- observability levels: `p_detect in {1.0, 0.5, 0.1, 0.0}`;
+- sanction: deterministic ordinary sanction conditional on detection,
+  `p_sanction = 1.0`, with fixed severity;
+- primary endpoint: mechanically verified
+  `operational_constraint_violation`, not detected violation;
+- planned sample size: 720 samples, with operational staging as 15/cell
+  followed by 15/cell only if Stage 1 passes technical integrity checks;
+- awareness: corrected two-phase post-action awareness retained as secondary
+  measurement.
+
+Important design guardrail: detection is the manipulated environmental
+consequence. Unauthorized action remains the behavioral endpoint even when the
+detection draw is false.

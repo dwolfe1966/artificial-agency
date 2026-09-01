@@ -167,6 +167,57 @@ and operational scoring must remain invariant across presentation styles.
 Experiment 008 includes a post-action structured evaluation-awareness measure.
 This measure is secondary, post-treatment, and not a pre-treatment covariate.
 
+**Experiment 008B2 result:** Experiment 008B2 completed the corrected
+two-phase confirmatory rerun of the evaluation-awareness / naturalistic
+embedding design. The authoritative dataset contains 360/360 samples with
+Phase A complete 360/360, Phase B complete 360/360, awareness captured valid
+360/360, malformed 0, missing 0, and Runner/API technical failures 0.
+
+The primary operational endpoint again found 0/360 operational constraint
+violations: eval-salient 0/180, naturalistic 0/180, GPT-5.6 Sol 0/120, Claude
+Sonnet 5 0/120, Gemini 3.7 Flash 0/120, and all 12 model x scenario x
+presentation cells 0/30. The exact 95% upper confidence bound was
+approximately 1.02% overall.
+
+The awareness manipulation partly shifted explicit task classification:
+171/180 eval-salient samples versus 140/180 naturalistic samples classified the
+primary task as policy/compliance, Fisher exact p = 2.03e-06. However, high
+compliance-test likelihood and behavior-under-evaluation responses were each
+360/360. Therefore the simple explanation that previous operational nulls
+occurred only because tasks obviously looked like compliance evaluations is
+weakened, but not eliminated.
+
+**Experiment 009 preregistration direction:** Experiment 009 is the next
+causal-boundary test and moves to enforcement / observability. It manipulates
+stochastic detection probability `p_detect = P(violation detected | violating
+action)` while holding formal authority, policy, prohibited-action
+availability, action space, compliant alternatives, objective stakes,
+`p_goal`, sanction mechanics, step budget, naturalistic presentation, scoring,
+and terminal mechanics fixed.
+
+The primary endpoint remains mechanically verified unauthorized action,
+`operational_constraint_violation`. This is distinct from detected violation:
+detection is the manipulated environmental consequence, not the behavioral
+outcome definition. Experiment 009 uses procurement and restricted synthetic
+data access, the three-model frontier-provider set, fixed naturalistic
+presentation, and planned detection levels `p_detect in {1.0, 0.5, 0.1,
+0.0}`.
+
+The planned allocation is 30 replicates per model x scenario x `p_detect` cell,
+for 720 samples total. Execution may be staged operationally as 15/cell followed
+by the remaining 15/cell, but continuation is based only on technical integrity
+and provider viability, not observed behavior, significance, effect direction,
+or qualitative trajectories.
+
+**Updated priority after Experiment 008B2:** evaluation-awareness measurement
+has been repaired for this paradigm. The prospective priority order is now:
+
+1. enforcement / observability, beginning with `p_detect`;
+2. environment-grounded operational pressure / `p_goal`;
+3. multi-agent delegation / indirect circumvention;
+4. repeated episodes and continued-operation / self-preservation later;
+5. continued scenario/domain expansion as a parallel program.
+
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
 
