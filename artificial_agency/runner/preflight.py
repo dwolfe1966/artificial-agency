@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-import os
 import importlib
+import os
+import re
 import socket
 import subprocess
 import sys
@@ -144,7 +145,7 @@ def load_dotenv(root: Path, env: dict[str, str]) -> dict[str, str]:
 
 def runner_environment(spec: RunSpec) -> dict[str, str]:
     root = repository_root()
-    runtime_home = root / "results" / ".runner-runtime" / spec.run_id
+    runtime_home = spec.status_path.parent / ".runner-home"
     runtime_home.mkdir(parents=True, exist_ok=True)
     env = load_dotenv(root, os.environ)
     env["PYTHONPATH"] = str(root)
@@ -162,11 +163,12 @@ def scientific_preflight(spec: RunSpec) -> None:
     ).strip()
 
     status = subprocess.check_output(
-        ["git", "status", "--short"],
+        ["git", "status", "--short", "--untracked-files=all"],
         cwd=root,
         text=True,
     ).strip()
-    if status:
+    dirty = _scientifically_dirty_status_lines(status)
+    if dirty:
         raise ProbeError("worktree is not clean")
 
     diff = subprocess.run(
@@ -250,7 +252,7 @@ def environment_preflight(spec: RunSpec, env: dict[str, str]) -> None:
             "--log-format",
             "json",
             "--log-dir",
-            str(root / "results" / ".runner-runtime" / spec.run_id / "dry-load"),
+            str(Path(env["HOME"]) / "dry-load"),
             "--display",
             "none",
         ],
@@ -282,3 +284,25 @@ def full_preflight(spec: RunSpec, probes: ProbeSet | None = None) -> dict[str, s
     probes.canary(spec, env)
     append_log(spec.operational_log, "operational canary passed")
     return env
+
+
+LEGACY_RUNTIME_RE = re.compile(
+    r"^results/009-observability/run-009[A-Z]-[A-Z]+-S1/"
+    r"("
+    r"RUN_STATUS\.json|RUN_LOCK\.json|RUNNER\.pid|operational\.log|"
+    r"runner-supervisor\.out|RECOVERY_MISSING_IDS\.json|RECOVERY_PLAN\.json|"
+    r"inspect/.*|canary/.*|\.runner-home/.*"
+    r")$"
+)
+
+
+def _scientifically_dirty_status_lines(status: str) -> list[str]:
+    dirty: list[str] = []
+    for line in status.splitlines():
+        if not line:
+            continue
+        path = line[3:] if len(line) > 3 else ""
+        if line.startswith("?? ") and LEGACY_RUNTIME_RE.match(path):
+            continue
+        dirty.append(line)
+    return dirty

@@ -9,7 +9,11 @@ from typing import Any
 import pytest
 
 from artificial_agency.runner.config import RunSpec
-from artificial_agency.runner.preflight import ProbeError, full_preflight, scientific_preflight
+from artificial_agency.runner.preflight import (
+    ProbeError,
+    full_preflight,
+    scientific_preflight,
+)
 from artificial_agency.runner.state import atomic_write_json, process_alive, read_json
 from artificial_agency.runner import supervisor
 
@@ -88,7 +92,7 @@ def test_start_refuses_scientific_path_mismatch(
     def fake_check_output(command: list[str], **kwargs: Any) -> str:
         if command == ["git", "rev-parse", "HEAD"]:
             return "current-head\n"
-        if command == ["git", "status", "--short"]:
+        if command == ["git", "status", "--short", "--untracked-files=all"]:
             return ""
         if command[:3] == ["git", "diff", "--name-only"]:
             return "artificial_agency/experiments/exp002/config.py\n"
@@ -112,8 +116,70 @@ def test_start_refuses_dirty_worktree_when_required(
     def fake_check_output(command: list[str], **kwargs: Any) -> str:
         if command == ["git", "rev-parse", "HEAD"]:
             return f"{spec.frozen_commit}\n"
-        if command == ["git", "status", "--short"]:
+        if command == ["git", "status", "--short", "--untracked-files=all"]:
             return " M file.py\n"
+        raise AssertionError(command)
+
+    monkeypatch.setattr(subprocess, "check_output", fake_check_output)
+
+    with pytest.raises(ProbeError, match="worktree is not clean"):
+        scientific_preflight(spec)
+
+
+def test_preflight_allows_only_legacy_exp009_runtime_artifacts(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec = make_spec(tmp_path)
+
+    def fake_check_output(command: list[str], **kwargs: Any) -> str:
+        if command == ["git", "rev-parse", "HEAD"]:
+            return f"{spec.frozen_commit}\n"
+        if command == ["git", "status", "--short", "--untracked-files=all"]:
+            return "\n".join(
+                [
+                    "?? results/009-observability/run-009C-GEMINI-S1/RUN_STATUS.json",
+                    "?? results/009-observability/run-009C-GEMINI-S1/RUN_LOCK.json",
+                    "?? results/009-observability/run-009C-GEMINI-S1/RUNNER.pid",
+                    "?? results/009-observability/run-009C-GEMINI-S1/operational.log",
+                    "?? results/009-observability/run-009C-GEMINI-S1/runner-supervisor.out",
+                    "?? results/009-observability/run-009C-GEMINI-S1/inspect/runtime.json",
+                ]
+            )
+        raise AssertionError(command)
+
+    class CleanDiff:
+        returncode = 0
+
+    monkeypatch.setattr(subprocess, "check_output", fake_check_output)
+    monkeypatch.setattr(subprocess, "run", lambda *args, **kwargs: CleanDiff())
+    monkeypatch.setattr(
+        "artificial_agency.runner.preflight._samples_for_task",
+        lambda task: [
+            type("Sample", (), {"metadata": {"condition": "low"}})(),
+            type("Sample", (), {"metadata": {"condition": "medium"}})(),
+            type("Sample", (), {"metadata": {"condition": "high"}})(),
+        ]
+        * 30,
+    )
+
+    scientific_preflight(spec)
+
+
+def test_preflight_rejects_untracked_scientific_files_despite_runtime_allowance(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec = make_spec(tmp_path)
+
+    def fake_check_output(command: list[str], **kwargs: Any) -> str:
+        if command == ["git", "rev-parse", "HEAD"]:
+            return f"{spec.frozen_commit}\n"
+        if command == ["git", "status", "--short", "--untracked-files=all"]:
+            return "\n".join(
+                [
+                    "?? results/009-observability/run-009C-GEMINI-S1/RUN_STATUS.json",
+                    "?? experiments/009-observability/unregistered_change.md",
+                ]
+            )
         raise AssertionError(command)
 
     monkeypatch.setattr(subprocess, "check_output", fake_check_output)

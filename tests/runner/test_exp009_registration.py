@@ -12,6 +12,7 @@ from artificial_agency.experiments.exp009.config import (
     p_detect_id,
 )
 from artificial_agency.experiments.exp009.inspect_task import observability_samples
+from artificial_agency.runner.config import external_runtime_root
 from artificial_agency.runner import supervisor
 from artificial_agency.runner.config import known_runs
 from artificial_agency.runner.recovery import (
@@ -115,6 +116,32 @@ def test_runner_registers_exp009_stage1_runs() -> None:
         assert "observability_detection_probability_stage1" in joined_args
         assert "git_commit=" + EXP009_SCIENTIFIC_SHA in joined_args
         assert str(spec.log_dir).endswith(f"run-{run_id}/inspect")
+        assert "results/009-observability" not in str(spec.log_dir)
+
+
+def test_exp009_live_runtime_roots_are_external_and_isolated(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    runtime_root = tmp_path / "external-runtime"
+    repo_root = tmp_path / "repo"
+    monkeypatch.setenv("ARTIFICIAL_AGENCY_RUNTIME_ROOT", str(runtime_root))
+
+    runs = known_runs(repo_root)
+    specs = [runs["009A-GPT-S1"], runs["009B-CLAUDE-S1"], runs["009C-GEMINI-S1"]]
+
+    assert external_runtime_root(repo_root) == runtime_root
+    assert len({spec.status_path.parent for spec in specs}) == 3
+    for spec in specs:
+        assert runtime_root in spec.status_path.parents
+        assert repo_root not in spec.status_path.parents
+
+    specs[2].status_path.parent.mkdir(parents=True)
+    specs[2].status_path.write_text('{"state": "RUNNING"}', encoding="utf-8")
+
+    assert not specs[0].status_path.exists()
+    assert not specs[1].status_path.exists()
+    assert specs[2].status_path.exists()
 
 
 def test_exp009_stage1_expected_ids_support_missing_id_recovery() -> None:

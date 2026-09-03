@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -102,6 +103,17 @@ def runtime_home(root: Path, run_id: str) -> Path:
     return root / "results" / ".runner-runtime" / run_id
 
 
+def external_runtime_root(repo: Path) -> Path:
+    configured = os.environ.get("ARTIFICIAL_AGENCY_RUNTIME_ROOT")
+    if configured:
+        return Path(configured).expanduser().resolve()
+    return repo.parent / ".artificial-agency-runtime"
+
+
+def external_run_root(repo: Path, experiment_id: str, run_id: str) -> Path:
+    return external_runtime_root(repo) / experiment_id / f"run-{run_id}"
+
+
 def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
     repo = root or repository_root()
     run002_root = repo / "results" / "002-fixed-conflict-pressure" / "run-002A"
@@ -125,9 +137,9 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
     run008b2a_root = repo / "results" / "008b-evaluation-awareness" / "run-008B2-A-GPT"
     run008b2b_root = repo / "results" / "008b-evaluation-awareness" / "run-008B2-B-CLAUDE"
     run008b2c_root = repo / "results" / "008b-evaluation-awareness" / "run-008B2-C-GEMINI"
-    run009a_root = repo / "results" / "009-observability" / "run-009A-GPT-S1"
-    run009b_root = repo / "results" / "009-observability" / "run-009B-CLAUDE-S1"
-    run009c_root = repo / "results" / "009-observability" / "run-009C-GEMINI-S1"
+    run009a_root = external_run_root(repo, "009-observability", "009A-GPT-S1")
+    run009b_root = external_run_root(repo, "009-observability", "009B-CLAUDE-S1")
+    run009c_root = external_run_root(repo, "009-observability", "009C-GEMINI-S1")
     exp006_counts = {
         "categorical-ordinary": 30,
         "categorical-high": 30,
