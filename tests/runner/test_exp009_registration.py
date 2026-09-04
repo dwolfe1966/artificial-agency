@@ -237,6 +237,18 @@ def test_exp009_recovery_plan_includes_registered_previous_log_dirs(
     assert plan.missing_ids == tuple(expected[104:])
 
 
+def test_registered_exp009_gemini_run_tracks_legacy_original_log_dir() -> None:
+    spec = known_runs()["009C-GEMINI-S1"]
+
+    assert len(spec.previous_log_dirs) == 1
+    assert spec.previous_log_dirs[0].as_posix().endswith(
+        "results/009-observability/run-009C-GEMINI-S1/inspect"
+    )
+    assert spec.log_dir.as_posix().endswith(
+        ".artificial-agency-runtime/009-observability/run-009C-GEMINI-S1/inspect"
+    )
+
+
 def test_exp009_recovery_manifest_path_comes_from_external_runtime_env(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

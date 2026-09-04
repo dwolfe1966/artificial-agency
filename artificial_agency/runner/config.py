@@ -229,17 +229,6 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             stdout_path=root / "runner-supervisor.out",
             canary_log_dir=root / "canary",
             recovery_batch_size=10,
-            previous_log_dirs=(
-                (
-                    repo
-                    / "results"
-                    / "009-observability"
-                    / f"run-{run_id}"
-                    / "inspect",
-                )
-                if run_id == "009C-GEMINI-S1"
-                else ()
-            ),
             inspect_args=(
                 "--model",
                 model,
@@ -327,6 +316,15 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             stdout_path=root / "runner-supervisor.out",
             canary_log_dir=root / "canary",
             recovery_batch_size=10,
+            previous_log_dirs=(
+                repo
+                / "results"
+                / "009-observability"
+                / f"run-{run_id}"
+                / "inspect",
+            )
+            if run_id == "009C-GEMINI-S1"
+            else (),
             inspect_args=(
                 "--model",
                 model,
