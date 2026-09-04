@@ -284,6 +284,9 @@ def test_exp009_recovery_task_imports_under_inspect_file_loader(
     spec.loader.exec_module(module)
 
     assert module._payload()["missing_ids"] == ["009C-GEMINI-S1-data-access-p000-14"]
+    task = module.exp009_model_c_gemini37_flash_stage1_recovery_missing()
+    assert task.dataset.name == "run-009C-GEMINI-S1-recovery-missing"
+    assert [sample.id for sample in task.dataset] == ["009C-GEMINI-S1-data-access-p000-14"]
 
 
 def test_exp009_finalize_accepts_complete_lifecycle_and_stochastic_metadata(

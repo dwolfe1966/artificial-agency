@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 
 from inspect_ai import Task, task
+from inspect_ai.dataset import MemoryDataset
 
 from artificial_agency.experiments.exp009.config import (
     MODEL_A_GPT,
@@ -43,7 +44,11 @@ def _recovery_task(run: ModelRun) -> Task:
     if len(recovery_samples) != len(missing_ids):
         raise RuntimeError("recovery dataset did not match requested missing sample IDs")
     task_obj = observability_task(run)
-    task_obj.dataset = recovery_samples
+    task_obj.dataset = MemoryDataset(
+        recovery_samples,
+        name=f"{run.run_id}-recovery-missing",
+        location=f"runner-v2://{run.run_id}/recovery-missing",
+    )
     metadata = dict(task_obj.metadata or {})
     metadata["recovery_source_log"] = payload.get("source_log")
     metadata["recovery_missing_count"] = len(missing_ids)
