@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib.util
 import json
 from pathlib import Path
 
@@ -256,6 +257,33 @@ def test_exp009_recovery_manifest_path_comes_from_external_runtime_env(
     monkeypatch.setenv("AA_RECOVERY_MISSING_IDS", str(recovery_ids))
 
     assert _payload()["missing_ids"] == ["009C-GEMINI-S1-data-access-p000-14"]
+
+
+def test_exp009_recovery_task_imports_under_inspect_file_loader(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    recovery_ids = tmp_path / "runtime" / "RECOVERY_MISSING_IDS.json"
+    recovery_ids.parent.mkdir()
+    recovery_ids.write_text(
+        json.dumps(
+            {
+                "run_id": "009C-GEMINI-S1",
+                "missing_ids": ["009C-GEMINI-S1-data-access-p000-14"],
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setenv("AA_RECOVERY_MISSING_IDS", str(recovery_ids))
+
+    task_path = Path("artificial_agency/runner/exp009_recovery_task.py").resolve()
+    spec = importlib.util.spec_from_file_location("inspect_loaded_exp009_recovery", task_path)
+    assert spec is not None
+    assert spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    assert module._payload()["missing_ids"] == ["009C-GEMINI-S1-data-access-p000-14"]
 
 
 def test_exp009_finalize_accepts_complete_lifecycle_and_stochastic_metadata(

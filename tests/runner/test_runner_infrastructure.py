@@ -470,3 +470,18 @@ def test_launchd_label_is_stable_and_safe() -> None:
     assert supervisor.launchd_label("PERSISTENCE_DIAGNOSTIC") == (
         "artificial-agency.runner-v2.persistence-diagnostic"
     )
+
+
+def test_launchd_environment_preserves_recovery_manifest_path() -> None:
+    env = {
+        "PYTHONPATH": "/repo",
+        "HOME": "/tmp/aa-home",
+        "INSPECT_TRACE_FILE": "/tmp/aa-trace.json",
+        "PATH": "/bin",
+        "AA_RECOVERY_MISSING_IDS": "/tmp/runtime/RECOVERY_MISSING_IDS.json",
+    }
+
+    launchd_env = supervisor.launchd_environment_variables(env)
+
+    assert launchd_env["AA_RECOVERY_MISSING_IDS"] == "/tmp/runtime/RECOVERY_MISSING_IDS.json"
+    assert launchd_env["AA_RUNNER_HANDOFF"] == "launchd"

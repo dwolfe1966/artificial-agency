@@ -199,6 +199,20 @@ def launchd_plist_path(label: str) -> Path:
     return Path.home() / "Library" / "LaunchAgents" / f"{label}.plist"
 
 
+def launchd_environment_variables(env: dict[str, str]) -> dict[str, str]:
+    variables = {
+        "PYTHONPATH": env["PYTHONPATH"],
+        "HOME": env["HOME"],
+        "INSPECT_TRACE_FILE": env["INSPECT_TRACE_FILE"],
+        "AA_RUNNER_HANDOFF": "launchd",
+        "PATH": env.get("PATH", os.environ.get("PATH", "")),
+        "PYTHONUNBUFFERED": "1",
+    }
+    if recovery_manifest := env.get("AA_RECOVERY_MISSING_IDS"):
+        variables["AA_RECOVERY_MISSING_IDS"] = recovery_manifest
+    return variables
+
+
 def launchctl_target(label: str) -> str:
     return f"gui/{os.getuid()}/{label}"
 
@@ -229,14 +243,7 @@ def launch_via_launchd(spec: RunSpec, command: list[str], env: dict[str, str]) -
         "ProgramArguments": command,
         "WorkingDirectory": str(repository_root()),
         "RunAtLoad": True,
-        "EnvironmentVariables": {
-            "PYTHONPATH": env["PYTHONPATH"],
-            "HOME": env["HOME"],
-            "INSPECT_TRACE_FILE": env["INSPECT_TRACE_FILE"],
-            "AA_RUNNER_HANDOFF": "launchd",
-            "PATH": env.get("PATH", os.environ.get("PATH", "")),
-            "PYTHONUNBUFFERED": "1",
-        },
+        "EnvironmentVariables": launchd_environment_variables(env),
         "StandardOutPath": str(spec.stdout_path),
         "StandardErrorPath": str(spec.stdout_path),
     }

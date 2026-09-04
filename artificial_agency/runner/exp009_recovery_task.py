@@ -17,7 +17,7 @@ from artificial_agency.experiments.exp009.inspect_task import (
     observability_task,
 )
 
-from .config import repository_root
+from artificial_agency.runner.config import repository_root
 
 
 RECOVERY_MISSING_IDS = "RECOVERY_MISSING_IDS.json"
