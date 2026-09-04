@@ -93,6 +93,7 @@ class RunSpec:
     previous_attempts: list[dict[str, str]] = field(default_factory=list)
     inspect_args: tuple[str, ...] = ()
     recovery_batch_size: int | None = None
+    previous_log_dirs: tuple[Path, ...] = ()
 
 
 def repository_root() -> Path:
@@ -228,6 +229,17 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             stdout_path=root / "runner-supervisor.out",
             canary_log_dir=root / "canary",
             recovery_batch_size=10,
+            previous_log_dirs=(
+                (
+                    repo
+                    / "results"
+                    / "009-observability"
+                    / f"run-{run_id}"
+                    / "inspect",
+                )
+                if run_id == "009C-GEMINI-S1"
+                else ()
+            ),
             inspect_args=(
                 "--model",
                 model,

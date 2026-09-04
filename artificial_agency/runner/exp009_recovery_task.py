@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import os
+from pathlib import Path
 
 from inspect_ai import Task, task
 
@@ -22,7 +24,12 @@ RECOVERY_MISSING_IDS = "RECOVERY_MISSING_IDS.json"
 
 
 def _payload() -> dict[str, object]:
-    path = repository_root() / RECOVERY_MISSING_IDS
+    configured = os.environ.get("AA_RECOVERY_MISSING_IDS")
+    path = (
+        Path(configured).expanduser()
+        if configured
+        else repository_root() / RECOVERY_MISSING_IDS
+    )
     if not path.exists():
         raise RuntimeError(f"Missing recovery manifest: {path}")
     return json.loads(path.read_text(encoding="utf-8"))
@@ -58,4 +65,3 @@ def exp009_model_b_claude_sonnet5_stage1_recovery_missing() -> Task:
 @task
 def exp009_model_c_gemini37_flash_stage1_recovery_missing() -> Task:
     return _recovery_task(MODEL_C_GEMINI)
-

@@ -18,6 +18,7 @@ from artificial_agency.runner.config import known_runs
 from artificial_agency.runner.recovery import (
     build_recovery_plan,
     expected_sample_ids,
+    segment_log_paths,
     write_recovery_plan,
 )
 from artificial_agency.runner.state import atomic_write_json
@@ -199,6 +200,62 @@ def test_exp009_recovery_plan_selects_only_missing_expected_ids(
     assert set(plan.missing_ids).isdisjoint(expected[:32])
     assert payload["missing_ids"] == expected[32:42]
     assert payload["batch_size"] == 10
+
+
+def test_exp009_recovery_plan_includes_registered_previous_log_dirs(
+    tmp_path: Path,
+) -> None:
+    original = known_runs()["009C-GEMINI-S1"]
+    legacy_root = tmp_path / "legacy" / "run-009C-GEMINI-S1"
+    external_root = tmp_path / "external" / "run-009C-GEMINI-S1"
+    spec = type(original)(
+        **{
+            **original.__dict__,
+            "log_dir": external_root / "inspect",
+            "status_path": external_root / "RUN_STATUS.json",
+            "operational_log": external_root / "operational.log",
+            "lock_path": external_root / "RUN_LOCK.json",
+            "pid_path": external_root / "RUNNER.pid",
+            "stdout_path": external_root / "runner-supervisor.out",
+            "canary_log_dir": external_root / "canary",
+            "previous_log_dirs": (legacy_root / "inspect",),
+        }
+    )
+    expected = list(expected_sample_ids(spec))
+    _write_log(legacy_root / "inspect" / "original.json", "error", expected[:94])
+    _write_log(external_root / "inspect" / "recovery.json", "success", expected[94:104])
+
+    plan = build_recovery_plan(spec)
+
+    assert [path.name for path in segment_log_paths(spec)] == [
+        "original.json",
+        "recovery.json",
+    ]
+    assert plan.source_completed_count == 104
+    assert plan.missing_count == 16
+    assert plan.missing_ids == tuple(expected[104:])
+
+
+def test_exp009_recovery_manifest_path_comes_from_external_runtime_env(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from artificial_agency.runner.exp009_recovery_task import _payload
+
+    recovery_ids = tmp_path / "runtime" / "RECOVERY_MISSING_IDS.json"
+    recovery_ids.parent.mkdir()
+    recovery_ids.write_text(
+        json.dumps(
+            {
+                "run_id": "009C-GEMINI-S1",
+                "missing_ids": ["009C-GEMINI-S1-data-access-p000-14"],
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setenv("AA_RECOVERY_MISSING_IDS", str(recovery_ids))
+
+    assert _payload()["missing_ids"] == ["009C-GEMINI-S1-data-access-p000-14"]
 
 
 def test_exp009_finalize_accepts_complete_lifecycle_and_stochastic_metadata(

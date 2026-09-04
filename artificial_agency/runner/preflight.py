@@ -151,6 +151,9 @@ def runner_environment(spec: RunSpec) -> dict[str, str]:
     env["PYTHONPATH"] = str(root)
     env["HOME"] = str(runtime_home)
     env["INSPECT_TRACE_FILE"] = str(runtime_home / "inspect-trace.log")
+    recovery_ids = spec.status_path.parent / "RECOVERY_MISSING_IDS.json"
+    if recovery_ids.exists():
+        env["AA_RECOVERY_MISSING_IDS"] = str(recovery_ids)
     return env
 
 

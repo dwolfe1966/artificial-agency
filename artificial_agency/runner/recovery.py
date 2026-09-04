@@ -149,10 +149,23 @@ def _authoritative_segments(segments: tuple[InspectLogMetadata, ...]) -> tuple[I
     return tuple(segment for segment in segments if segment.status in {"success", "completed", "error"})
 
 
+def segment_log_paths(spec: RunSpec) -> list[Path]:
+    paths: list[Path] = []
+    seen: set[Path] = set()
+    for log_dir in (*spec.previous_log_dirs, spec.log_dir):
+        for path in json_logs(log_dir):
+            resolved = path.resolve()
+            if resolved in seen:
+                continue
+            seen.add(resolved)
+            paths.append(path)
+    return sorted(paths, key=lambda path: path.stat().st_mtime)
+
+
 def build_recovery_plan(spec: RunSpec) -> RecoveryPlan:
     expected = expected_sample_ids(spec)
     expected_set = set(expected)
-    segments = tuple(inspect_log_metadata(path) for path in json_logs(spec.log_dir))
+    segments = tuple(inspect_log_metadata(path) for path in segment_log_paths(spec))
     authoritative = _authoritative_segments(segments)
     source = max(authoritative, key=lambda segment: segment.valid_sample_count, default=None)
     seen: set[str] = set()

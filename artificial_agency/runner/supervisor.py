@@ -36,6 +36,7 @@ from .recovery import (
     build_recovery_plan,
     expected_sample_ids,
     reconciled_unique_count,
+    segment_log_paths,
     write_recovery_plan,
 )
 from .state import (
@@ -442,7 +443,7 @@ def supervise(run_id: str, *, mock: bool = False, recovery: bool = False) -> int
         completed = count_completed_samples(spec.log_dir)
         reconciled_completed = None
         if recovery and latest:
-            segment_paths = json_logs(spec.log_dir)
+            segment_paths = segment_log_paths(spec)
             if segment_paths:
                 reconciled_completed = reconciled_unique_count(spec, segment_paths)
                 completed = reconciled_completed
@@ -549,7 +550,7 @@ def refresh_operational_status(spec: RunSpec, start: float | None = None) -> dic
     reconciled_completed = None
     if (spec.status_path.parent / "RECOVERY_PLAN.json").exists():
         try:
-            reconciled_completed = reconciled_unique_count(spec, json_logs(spec.log_dir))
+            reconciled_completed = reconciled_unique_count(spec, segment_log_paths(spec))
         except ValueError:
             reconciled_completed = None
     buffered = samplebuffer_counts(runtime)
@@ -733,7 +734,7 @@ def finalize_run(run_id: str) -> dict[str, Any]:
             )
     if spec.experiment_id == "008b-evaluation-awareness":
         accounting = awareness_disposition_accounting(
-            json_logs(spec.log_dir),
+            segment_log_paths(spec),
             expected_sample_ids(spec),
         )
         if not accounting["complete"]:
@@ -745,7 +746,7 @@ def finalize_run(run_id: str) -> dict[str, Any]:
             )
     if spec.experiment_id == "009-observability":
         accounting = exp009_lifecycle_accounting(
-            json_logs(spec.log_dir),
+            segment_log_paths(spec),
             expected_sample_ids(spec),
         )
         if not accounting["complete"]:
