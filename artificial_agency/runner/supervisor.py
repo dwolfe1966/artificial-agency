@@ -113,6 +113,9 @@ def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]
             "009A-GPT-S1",
             "009B-CLAUDE-S1",
             "009C-GEMINI-S1",
+            "009A-GPT-S2",
+            "009B-CLAUDE-S2",
+            "009C-GEMINI-S2",
         }:
             raise RuntimeError(f"runner-level recovery is not configured for {spec.run_id}")
         if spec.run_id in {"005B", "005C"}:
@@ -167,6 +170,9 @@ def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]
                     "009A-GPT-S1": "exp009_model_a_gpt56_sol_stage1_recovery_missing",
                     "009B-CLAUDE-S1": "exp009_model_b_claude_sonnet5_stage1_recovery_missing",
                     "009C-GEMINI-S1": "exp009_model_c_gemini37_flash_stage1_recovery_missing",
+                    "009A-GPT-S2": "exp009_model_a_gpt56_sol_stage2_recovery_missing",
+                    "009B-CLAUDE-S2": "exp009_model_b_claude_sonnet5_stage2_recovery_missing",
+                    "009C-GEMINI-S2": "exp009_model_c_gemini37_flash_stage2_recovery_missing",
                 }[spec.run_id]
                 task_module = (
                     "exp009_recovery_task.py"

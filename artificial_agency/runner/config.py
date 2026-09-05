@@ -141,6 +141,9 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
     run009a_root = external_run_root(repo, "009-observability", "009A-GPT-S1")
     run009b_root = external_run_root(repo, "009-observability", "009B-CLAUDE-S1")
     run009c_root = external_run_root(repo, "009-observability", "009C-GEMINI-S1")
+    run009a2_root = external_run_root(repo, "009-observability", "009A-GPT-S2")
+    run009b2_root = external_run_root(repo, "009-observability", "009B-CLAUDE-S2")
+    run009c2_root = external_run_root(repo, "009-observability", "009C-GEMINI-S2")
     exp006_counts = {
         "categorical-ordinary": 30,
         "categorical-high": 30,
@@ -270,15 +273,17 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             ),
         )
 
-    def exp009_stage1_spec(
+    def exp009_spec(
         *,
         run_id: str,
         title: str,
         task_name: str,
+        task_module: str,
         model: str,
         model_tag: str,
         model_role: str,
         root: Path,
+        stage: str,
         openai_args: bool = False,
     ) -> RunSpec:
         generation_args = (
@@ -304,7 +309,7 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             title=title,
             frozen_commit=exp009_scientific_commit,
             scientific_paths=EXP009_SCIENTIFIC_FREEZE_PATHS,
-            task=f"artificial_agency/experiments/exp009/inspect_task.py@{task_name}",
+            task=f"{task_module}@{task_name}",
             model=model,
             total_samples=120,
             condition_counts=exp009_counts,
@@ -336,11 +341,11 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
                 "--log-format",
                 "json",
                 "--tags",
-                f"exp009,stage1,{model_tag},{run_id},observability",
+                f"exp009,{stage},{model_tag},{run_id},observability",
                 "--metadata",
                 "experiment_id=009-observability",
                 "--metadata",
-                "phase=observability_detection_probability_stage1",
+                f"phase=observability_detection_probability_{stage}",
                 "--metadata",
                 f"run_id=run-{run_id}",
                 "--metadata",
@@ -1652,33 +1657,73 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             model_role="model_c_gemini",
             root=run008b2c_root,
         ),
-        "009A-GPT-S1": exp009_stage1_spec(
+        "009A-GPT-S1": exp009_spec(
             run_id="009A-GPT-S1",
             title="Experiment 009 Stage 1 GPT-5.6 Sol",
             task_name="exp009_model_a_gpt56_sol_stage1",
+            task_module="artificial_agency/experiments/exp009/inspect_task.py",
             model="openai/gpt-5.6-sol",
             model_tag="model-a",
             model_role="model_a_gpt",
             root=run009a_root,
+            stage="stage1",
             openai_args=True,
         ),
-        "009B-CLAUDE-S1": exp009_stage1_spec(
+        "009B-CLAUDE-S1": exp009_spec(
             run_id="009B-CLAUDE-S1",
             title="Experiment 009 Stage 1 Claude Sonnet 5",
             task_name="exp009_model_b_claude_sonnet5_stage1",
+            task_module="artificial_agency/experiments/exp009/inspect_task.py",
             model="anthropic/claude-sonnet-5",
             model_tag="model-b",
             model_role="model_b_claude",
             root=run009b_root,
+            stage="stage1",
         ),
-        "009C-GEMINI-S1": exp009_stage1_spec(
+        "009C-GEMINI-S1": exp009_spec(
             run_id="009C-GEMINI-S1",
             title="Experiment 009 Stage 1 Gemini 3.7 Flash",
             task_name="exp009_model_c_gemini37_flash_stage1",
+            task_module="artificial_agency/experiments/exp009/inspect_task.py",
             model="google/gemini-3.7-flash",
             model_tag="model-c",
             model_role="model_c_gemini",
             root=run009c_root,
+            stage="stage1",
+        ),
+        "009A-GPT-S2": exp009_spec(
+            run_id="009A-GPT-S2",
+            title="Experiment 009 Stage 2 GPT-5.6 Sol",
+            task_name="exp009_model_a_gpt56_sol_stage2",
+            task_module="artificial_agency/runner/exp009_stage2_task.py",
+            model="openai/gpt-5.6-sol",
+            model_tag="model-a",
+            model_role="model_a_gpt",
+            root=run009a2_root,
+            stage="stage2",
+            openai_args=True,
+        ),
+        "009B-CLAUDE-S2": exp009_spec(
+            run_id="009B-CLAUDE-S2",
+            title="Experiment 009 Stage 2 Claude Sonnet 5",
+            task_name="exp009_model_b_claude_sonnet5_stage2",
+            task_module="artificial_agency/runner/exp009_stage2_task.py",
+            model="anthropic/claude-sonnet-5",
+            model_tag="model-b",
+            model_role="model_b_claude",
+            root=run009b2_root,
+            stage="stage2",
+        ),
+        "009C-GEMINI-S2": exp009_spec(
+            run_id="009C-GEMINI-S2",
+            title="Experiment 009 Stage 2 Gemini 3.7 Flash",
+            task_name="exp009_model_c_gemini37_flash_stage2",
+            task_module="artificial_agency/runner/exp009_stage2_task.py",
+            model="google/gemini-3.7-flash",
+            model_tag="model-c",
+            model_role="model_c_gemini",
+            root=run009c2_root,
+            stage="stage2",
         ),
         "PERSISTENCE_DIAGNOSTIC": RunSpec(
             run_id="PERSISTENCE_DIAGNOSTIC",

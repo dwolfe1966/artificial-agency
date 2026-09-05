@@ -8,11 +8,15 @@ import pytest
 
 from artificial_agency.experiments.exp009.config import (
     MODEL_C_GEMINI,
+    MODEL_C_GEMINI_STAGE2,
     P_DETECT_LEVELS,
     deterministic_seed,
     p_detect_id,
 )
-from artificial_agency.experiments.exp009.inspect_task import observability_samples
+from artificial_agency.experiments.exp009.inspect_task import (
+    all_stage2_observability_samples,
+    observability_samples,
+)
 from artificial_agency.runner.config import external_runtime_root
 from artificial_agency.runner import supervisor
 from artificial_agency.runner.config import known_runs
@@ -121,6 +125,40 @@ def test_runner_registers_exp009_stage1_runs() -> None:
         assert "results/009-observability" not in str(spec.log_dir)
 
 
+def test_runner_registers_exp009_stage2_runs() -> None:
+    runs = known_runs()
+    expected = {
+        "009A-GPT-S2": "openai/gpt-5.6-sol",
+        "009B-CLAUDE-S2": "anthropic/claude-sonnet-5",
+        "009C-GEMINI-S2": "google/gemini-3.7-flash",
+    }
+    expected_counts = {
+        "procurement-p100": 15,
+        "procurement-p050": 15,
+        "procurement-p010": 15,
+        "procurement-p000": 15,
+        "data-access-p100": 15,
+        "data-access-p050": 15,
+        "data-access-p010": 15,
+        "data-access-p000": 15,
+    }
+    for run_id, model in expected.items():
+        spec = runs[run_id]
+        assert spec.experiment_id == "009-observability"
+        assert spec.model == model
+        assert spec.frozen_commit == EXP009_SCIENTIFIC_SHA
+        assert spec.total_samples == 120
+        assert spec.condition_counts == expected_counts
+        assert spec.task.startswith("artificial_agency/runner/exp009_stage2_task.py@")
+        joined_args = ",".join(spec.inspect_args)
+        assert f"run_id=run-{run_id}" in joined_args
+        assert "observability_detection_probability_stage2" in joined_args
+        assert "stage2" in joined_args
+        assert "git_commit=" + EXP009_SCIENTIFIC_SHA in joined_args
+        assert str(spec.log_dir).endswith(f"run-{run_id}/inspect")
+        assert "results/009-observability" not in str(spec.log_dir)
+
+
 def test_exp009_live_runtime_roots_are_external_and_isolated(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -155,12 +193,58 @@ def test_exp009_stage1_expected_ids_support_missing_id_recovery() -> None:
         assert f"{run_id}-data-access-p000-14" in ids
 
 
+def test_exp009_stage2_expected_ids_support_missing_id_recovery() -> None:
+    stage1_ids = set(expected_sample_ids(known_runs()["009A-GPT-S1"]))
+    stage2_ids = expected_sample_ids(known_runs()["009A-GPT-S2"])
+
+    assert len(stage2_ids) == 120
+    assert len(set(stage2_ids)) == 120
+    assert set(stage2_ids).isdisjoint(stage1_ids)
+    assert "009A-GPT-S2-procurement-p100-15" in stage2_ids
+    assert "009A-GPT-S2-data-access-p000-29" in stage2_ids
+    assert all("-S2-" in sample_id for sample_id in stage2_ids)
+    assert all(not sample_id.endswith("-14") for sample_id in stage2_ids)
+
+
+def test_exp009_stage2_task_uses_second_replicate_block() -> None:
+    from artificial_agency.runner.exp009_stage2_task import (
+        exp009_model_a_gpt56_sol_stage2,
+    )
+
+    task = exp009_model_a_gpt56_sol_stage2()
+    ids = [str(sample.id) for sample in task.dataset]
+
+    assert task.dataset.name == "run-009A-GPT-S2-stage2"
+    assert task.metadata["stage"] == "stage2"
+    assert task.metadata["phase"] == "observability_detection_probability_stage2"
+    assert len(ids) == 120
+    assert ids[0] == "009A-GPT-S2-procurement-p100-15"
+    assert ids[-1] == "009A-GPT-S2-data-access-p000-29"
+
+
+def test_all_stage2_exp009_samples_are_360_and_disjoint_from_stage1() -> None:
+    stage1 = {str(sample.id) for sample in observability_samples(MODEL_C_GEMINI)}
+    stage2 = {str(sample.id) for sample in all_stage2_observability_samples()}
+
+    assert len(stage2) == 360
+    assert all("-S2-" in sample_id for sample_id in stage2)
+    assert stage1.isdisjoint(stage2)
+
+
 def test_exp009_recovery_command_uses_runner_level_missing_id_task() -> None:
     spec = known_runs()["009C-GEMINI-S1"]
     command = supervisor.build_inspect_command(spec, recovery=True)
     joined = " ".join(command)
 
     assert "exp009_recovery_task.py@exp009_model_c_gemini37_flash_stage1_recovery_missing" in joined
+
+
+def test_exp009_stage2_recovery_command_uses_stage2_missing_id_task() -> None:
+    spec = known_runs()["009C-GEMINI-S2"]
+    command = supervisor.build_inspect_command(spec, recovery=True)
+    joined = " ".join(command)
+
+    assert "exp009_recovery_task.py@exp009_model_c_gemini37_flash_stage2_recovery_missing" in joined
 
 
 def test_exp009_recovery_preserves_original_sample_seed() -> None:
@@ -178,6 +262,30 @@ def test_exp009_recovery_preserves_original_sample_seed() -> None:
         7,
     )
     assert original[sample_id].metadata["p_detect_id"] == p_detect_id(0.1)
+
+
+def test_exp009_stage2_recovery_preserves_original_sample_seed() -> None:
+    sample_id = "009C-GEMINI-S2-data-access-p010-22"
+    original = {
+        str(sample.id): sample
+        for sample in observability_samples(MODEL_C_GEMINI_STAGE2, stage="stage2")
+    }
+    recovered = {
+        str(sample.id): sample
+        for sample in observability_samples(MODEL_C_GEMINI_STAGE2, stage="stage2")
+    }
+
+    assert original[sample_id].metadata["sample_seed"] == recovered[sample_id].metadata[
+        "sample_seed"
+    ]
+    assert original[sample_id].metadata["sample_seed"] == deterministic_seed(
+        "model_c_gemini",
+        "data-access",
+        0.1,
+        22,
+    )
+    assert original[sample_id].metadata["p_detect_id"] == p_detect_id(0.1)
+    assert original[sample_id].metadata["stage"] == "stage2"
 
 
 def test_exp009_recovery_plan_selects_only_missing_expected_ids(
@@ -299,6 +407,41 @@ def test_exp009_recovery_task_imports_under_inspect_file_loader(
     task = module.exp009_model_c_gemini37_flash_stage1_recovery_missing()
     assert task.dataset.name == "run-009C-GEMINI-S1-recovery-missing"
     assert [sample.id for sample in task.dataset] == ["009C-GEMINI-S1-data-access-p000-14"]
+
+
+def test_exp009_stage2_recovery_task_imports_under_inspect_file_loader(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    recovery_ids = tmp_path / "runtime" / "RECOVERY_MISSING_IDS.json"
+    recovery_ids.parent.mkdir()
+    recovery_ids.write_text(
+        json.dumps(
+            {
+                "run_id": "009C-GEMINI-S2",
+                "missing_ids": ["009C-GEMINI-S2-data-access-p000-29"],
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setenv("AA_RECOVERY_MISSING_IDS", str(recovery_ids))
+
+    task_path = Path("artificial_agency/runner/exp009_recovery_task.py").resolve()
+    spec = importlib.util.spec_from_file_location("inspect_loaded_exp009_recovery_s2", task_path)
+    assert spec is not None
+    assert spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    task = module.exp009_model_c_gemini37_flash_stage2_recovery_missing()
+    assert task.dataset.name == "run-009C-GEMINI-S2-recovery-missing"
+    assert [sample.id for sample in task.dataset] == ["009C-GEMINI-S2-data-access-p000-29"]
+    assert list(task.dataset)[0].metadata["sample_seed"] == deterministic_seed(
+        "model_c_gemini",
+        "data-access",
+        0.0,
+        29,
+    )
 
 
 def test_exp009_finalize_accepts_complete_lifecycle_and_stochastic_metadata(

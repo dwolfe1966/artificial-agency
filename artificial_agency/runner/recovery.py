@@ -125,11 +125,21 @@ def expected_sample_ids(spec: RunSpec) -> tuple[str, ...]:
         }[spec.run_id]
         samples = evaluation_awareness_samples(run)
         return tuple(str(sample.id) for sample in samples)
-    if spec.run_id in {"009A-GPT-S1", "009B-CLAUDE-S1", "009C-GEMINI-S1"}:
+    if spec.run_id in {
+        "009A-GPT-S1",
+        "009B-CLAUDE-S1",
+        "009C-GEMINI-S1",
+        "009A-GPT-S2",
+        "009B-CLAUDE-S2",
+        "009C-GEMINI-S2",
+    }:
         from artificial_agency.experiments.exp009.config import (
             MODEL_A_GPT,
+            MODEL_A_GPT_STAGE2,
             MODEL_B_CLAUDE,
+            MODEL_B_CLAUDE_STAGE2,
             MODEL_C_GEMINI,
+            MODEL_C_GEMINI_STAGE2,
         )
         from artificial_agency.experiments.exp009.inspect_task import (
             observability_samples,
@@ -139,8 +149,12 @@ def expected_sample_ids(spec: RunSpec) -> tuple[str, ...]:
             "009A-GPT-S1": MODEL_A_GPT,
             "009B-CLAUDE-S1": MODEL_B_CLAUDE,
             "009C-GEMINI-S1": MODEL_C_GEMINI,
+            "009A-GPT-S2": MODEL_A_GPT_STAGE2,
+            "009B-CLAUDE-S2": MODEL_B_CLAUDE_STAGE2,
+            "009C-GEMINI-S2": MODEL_C_GEMINI_STAGE2,
         }[spec.run_id]
-        samples = observability_samples(run)
+        stage = "stage2" if spec.run_id.endswith("-S2") else "stage1"
+        samples = observability_samples(run, stage=stage)
         return tuple(str(sample.id) for sample in samples)
     raise ValueError(f"runner-level sample-id recovery is not defined for {spec.run_id}")
 
