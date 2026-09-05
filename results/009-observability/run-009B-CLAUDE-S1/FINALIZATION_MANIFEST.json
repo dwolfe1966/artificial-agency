@@ -1,0 +1,128 @@
+{
+  "authoritative_count": 120,
+  "cell_counts": {
+    "data-access-p000": 15,
+    "data-access-p010": 15,
+    "data-access-p050": 15,
+    "data-access-p100": 15,
+    "procurement-p000": 15,
+    "procurement-p010": 15,
+    "procurement-p050": 15,
+    "procurement-p100": 15
+  },
+  "contains_scientific_outcome_counts": false,
+  "created_from_operational_metadata_only": true,
+  "duplicate_count": 0,
+  "excluded_provenance_only_segments": [],
+  "expected_count": 120,
+  "experiment_id": "009-observability",
+  "final_state": "COMPLETED",
+  "lifecycle_stochastic_integrity_pass": true,
+  "manifest_generation_infrastructure_sha": "df634f8",
+  "manifest_kind": "experiment_009_stage1_run_finalization_provenance",
+  "missing_count": 0,
+  "phase_a_lifecycle_complete": 120,
+  "phase_b_disposition_complete": 120,
+  "preregistration_sha": "c0c19cbbe9863f52eb151a06c4e378f5fed2466e",
+  "raw_segments": [
+    {
+      "authoritative": true,
+      "byte_size": 19968619,
+      "inspect_status": "error",
+      "invalid_sample_count": 2,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009B-CLAUDE-S1/inspect/2026-09-03T20-08-05-00-00_exp009-model-b-claude-sonnet5-stage1_m7Ct9Y9vRSpcHdQGjSNd6o.json",
+      "sample_count": 51,
+      "sha256": "92d5e1cc206ed27fdfd62ce770247c1bbfdc53c9604eaf3ecb6bc495d69de9db",
+      "valid_sample_count": 49
+    },
+    {
+      "authoritative": true,
+      "byte_size": 4031463,
+      "inspect_status": "success",
+      "invalid_sample_count": 0,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009B-CLAUDE-S1/inspect/2026-09-04T15-19-03-00-00_exp009-model-b-claude-sonnet5-stage1-recovery-missing_T48X8Xzf7bGgRK9Yvah5S6.json",
+      "sample_count": 10,
+      "sha256": "6806da8d9d36260dcc59673462d32caa8899c276cd6953c958bbd6b760a044bc",
+      "valid_sample_count": 10
+    },
+    {
+      "authoritative": true,
+      "byte_size": 3366913,
+      "inspect_status": "success",
+      "invalid_sample_count": 0,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009B-CLAUDE-S1/inspect/2026-09-04T16-12-22-00-00_exp009-model-b-claude-sonnet5-stage1-recovery-missing_EBXd9AotjtxjDeEA3CaUUy.json",
+      "sample_count": 10,
+      "sha256": "4e6f910bbc36cbc9a0cc8fce2accf66e791ad1d38c65f9610c333fd4ad8c6669",
+      "valid_sample_count": 10
+    },
+    {
+      "authoritative": true,
+      "byte_size": 3282009,
+      "inspect_status": "success",
+      "invalid_sample_count": 0,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009B-CLAUDE-S1/inspect/2026-09-04T16-17-42-00-00_exp009-model-b-claude-sonnet5-stage1-recovery-missing_3xCD4F8yDUKj96D5joTEpN.json",
+      "sample_count": 10,
+      "sha256": "0364f2393505f300bcb9c6571ba0cda99faa892a40dbdcf63e5f14f278908f4c",
+      "valid_sample_count": 10
+    },
+    {
+      "authoritative": true,
+      "byte_size": 3271547,
+      "inspect_status": "success",
+      "invalid_sample_count": 0,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009B-CLAUDE-S1/inspect/2026-09-04T16-25-25-00-00_exp009-model-b-claude-sonnet5-stage1-recovery-missing_FGnAGTJQUikMTmsZ5CNSLy.json",
+      "sample_count": 10,
+      "sha256": "5eb658df7162dc21f51d0398bb220a7a28b613a057a1698e705c05e11380c73b",
+      "valid_sample_count": 10
+    },
+    {
+      "authoritative": true,
+      "byte_size": 3270726,
+      "inspect_status": "success",
+      "invalid_sample_count": 0,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009B-CLAUDE-S1/inspect/2026-09-04T16-39-54-00-00_exp009-model-b-claude-sonnet5-stage1-recovery-missing_EfveBgEefxbpkUzNxJsN3z.json",
+      "sample_count": 10,
+      "sha256": "c16232a36b9fda120b30374b6388c3ece731f27d636e9d942f22e4524373da6a",
+      "valid_sample_count": 10
+    },
+    {
+      "authoritative": true,
+      "byte_size": 3275675,
+      "inspect_status": "success",
+      "invalid_sample_count": 0,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009B-CLAUDE-S1/inspect/2026-09-04T18-37-59-00-00_exp009-model-b-claude-sonnet5-stage1-recovery-missing_PCKQ7UGm8AmbJTue4ooeQj.json",
+      "sample_count": 10,
+      "sha256": "0934c4ed784065a1186226d965037c05e6846775b6a473f7a51eef8d0519dd9a",
+      "valid_sample_count": 10
+    },
+    {
+      "authoritative": true,
+      "byte_size": 3275733,
+      "inspect_status": "success",
+      "invalid_sample_count": 0,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009B-CLAUDE-S1/inspect/2026-09-05T18-38-37-00-00_exp009-model-b-claude-sonnet5-stage1-recovery-missing_6f4785e5WQKThMA4zLbPRP.json",
+      "sample_count": 10,
+      "sha256": "199db564685454295127fb17debf0bfb77ce32632d90c0b8f94b5537a871e61e",
+      "valid_sample_count": 10
+    },
+    {
+      "authoritative": true,
+      "byte_size": 339373,
+      "inspect_status": "success",
+      "invalid_sample_count": 0,
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009B-CLAUDE-S1/inspect/2026-09-05T18-43-31-00-00_exp009-model-b-claude-sonnet5-stage1-recovery-missing_8WHjJKWWsuXUCYfMaBiBon.json",
+      "sample_count": 1,
+      "sha256": "69612a6cf891fea2b0bdda78a44ec3dea7b1416726321fd45e52ad6cb4b99218",
+      "valid_sample_count": 1
+    }
+  ],
+  "run_id": "009B-CLAUDE-S1",
+  "scientific_implementation_sha": "8c3b3728780df5cbb0c073fce619787ca5415546",
+  "stage": "stage1",
+  "stage1_runtime_infrastructure_sha": "2b24718d737e751011150e340688252e2c92617e",
+  "stage2_gate_basis": "technical_integrity_only_no_scientific_outcome_inspection",
+  "stage2_technical_gate": "PASS",
+  "stochastic_provenance_complete": 120,
+  "technical_failures": 0,
+  "unexpected_count": 0
+}
