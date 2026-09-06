@@ -70,6 +70,14 @@ EXP009_SCIENTIFIC_FREEZE_PATHS = (
     "scripts/analyze_exp009_final.py",
     "pyproject.toml",
 )
+EXP010_SCIENTIFIC_FREEZE_PATHS = (
+    "artificial_agency/_registry.py",
+    "artificial_agency/experiments/exp010",
+    "artificial_agency/runner/exp010_recovery_task.py",
+    "experiments/010-repeated-operational-pressure",
+    "scripts/analyze_exp010_final.py",
+    "pyproject.toml",
+)
 
 
 @dataclass(frozen=True)
@@ -144,6 +152,9 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
     run009a2_root = external_run_root(repo, "009-observability", "009A-GPT-S2")
     run009b2_root = external_run_root(repo, "009-observability", "009B-CLAUDE-S2")
     run009c2_root = external_run_root(repo, "009-observability", "009C-GEMINI-S2")
+    run010a_root = external_run_root(repo, "010-repeated-operational-pressure", "010A-GPT")
+    run010b_root = external_run_root(repo, "010-repeated-operational-pressure", "010B-CLAUDE")
+    run010c_root = external_run_root(repo, "010-repeated-operational-pressure", "010C-GEMINI")
     exp006_counts = {
         "categorical-ordinary": 30,
         "categorical-high": 30,
@@ -180,6 +191,12 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
         "data-access-p050": 15,
         "data-access-p010": 15,
         "data-access-p000": 15,
+    }
+    exp010_scientific_commit = "73eafc89a31d581e935996dc6abbf9a1468635fc"
+    exp010_counts = {
+        "low": 20,
+        "medium": 20,
+        "high": 20,
     }
 
     def exp008b2_spec(
@@ -326,7 +343,8 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
                 / "results"
                 / "009-observability"
                 / f"run-{run_id}"
-                / "inspect",
+                / "inspect"
+                ,
             )
             if run_id == "009C-GEMINI-S1"
             else (),
@@ -362,6 +380,93 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
                 "60",
                 "--attempt-timeout",
                 "45",
+                "--log-buffer",
+                "1",
+                "--checkpoint",
+                "turn:1",
+                "--display",
+                "plain",
+            ),
+        )
+
+    def exp010_spec(
+        *,
+        run_id: str,
+        title: str,
+        task_name: str,
+        model: str,
+        model_tag: str,
+        model_role: str,
+        root: Path,
+        openai_args: bool = False,
+    ) -> RunSpec:
+        generation_args = (
+            (
+                "--max-tokens",
+                "8192",
+                "--reasoning-effort",
+                "medium",
+                "--verbosity",
+                "medium",
+                "--no-parallel-tool-calls",
+            )
+            if openai_args
+            else (
+                "--max-tokens",
+                "8192",
+                "--no-parallel-tool-calls",
+            )
+        )
+        return RunSpec(
+            run_id=run_id,
+            experiment_id="010-repeated-operational-pressure",
+            title=title,
+            frozen_commit=exp010_scientific_commit,
+            scientific_paths=EXP010_SCIENTIFIC_FREEZE_PATHS,
+            task=f"artificial_agency/experiments/exp010/inspect_task.py@{task_name}",
+            model=model,
+            total_samples=60,
+            condition_counts=exp010_counts,
+            log_dir=root / "inspect",
+            status_path=root / "RUN_STATUS.json",
+            operational_log=root / "operational.log",
+            lock_path=root / "RUN_LOCK.json",
+            pid_path=root / "RUNNER.pid",
+            stdout_path=root / "runner-supervisor.out",
+            canary_log_dir=root / "canary",
+            recovery_batch_size=5,
+            inspect_args=(
+                "--model",
+                model,
+                *generation_args,
+                "--epochs",
+                "1",
+                "--max-connections",
+                "1",
+                "--log-format",
+                "json",
+                "--tags",
+                f"exp010,{model_tag},{run_id},repeated-operational-pressure",
+                "--metadata",
+                "experiment_id=010-repeated-operational-pressure",
+                "--metadata",
+                "phase=repeated_operational_pressure",
+                "--metadata",
+                f"run_id=run-{run_id}",
+                "--metadata",
+                f"model_role={model_role}",
+                "--metadata",
+                "preregistration_sha=accfa2ef5a89a465083306ccee0fe0bec66f46dc",
+                "--metadata",
+                "pressure_amendment_sha=49c683d179f86fa16d587bfc4ae0767f8e5d16cf",
+                "--metadata",
+                f"git_commit={exp010_scientific_commit}",
+                "--max-retries",
+                "3",
+                "--timeout",
+                "120",
+                "--attempt-timeout",
+                "90",
                 "--log-buffer",
                 "1",
                 "--checkpoint",
@@ -1724,6 +1829,34 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             model_role="model_c_gemini",
             root=run009c2_root,
             stage="stage2",
+        ),
+        "010A-GPT": exp010_spec(
+            run_id="010A-GPT",
+            title="Experiment 010 GPT-5.6 Sol",
+            task_name="exp010_model_a_gpt56_sol",
+            model="openai/gpt-5.6-sol",
+            model_tag="model-a",
+            model_role="model_a_gpt",
+            root=run010a_root,
+            openai_args=True,
+        ),
+        "010B-CLAUDE": exp010_spec(
+            run_id="010B-CLAUDE",
+            title="Experiment 010 Claude Sonnet 5",
+            task_name="exp010_model_b_claude_sonnet5",
+            model="anthropic/claude-sonnet-5",
+            model_tag="model-b",
+            model_role="model_b_claude",
+            root=run010b_root,
+        ),
+        "010C-GEMINI": exp010_spec(
+            run_id="010C-GEMINI",
+            title="Experiment 010 Gemini 3.7 Flash",
+            task_name="exp010_model_c_gemini37_flash",
+            model="google/gemini-3.7-flash",
+            model_tag="model-c",
+            model_role="model_c_gemini",
+            root=run010c_root,
         ),
         "PERSISTENCE_DIAGNOSTIC": RunSpec(
             run_id="PERSISTENCE_DIAGNOSTIC",

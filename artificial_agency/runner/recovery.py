@@ -156,6 +156,23 @@ def expected_sample_ids(spec: RunSpec) -> tuple[str, ...]:
         stage = "stage2" if spec.run_id.endswith("-S2") else "stage1"
         samples = observability_samples(run, stage=stage)
         return tuple(str(sample.id) for sample in samples)
+    if spec.run_id in {"010A-GPT", "010B-CLAUDE", "010C-GEMINI"}:
+        from artificial_agency.experiments.exp010.config import (
+            MODEL_A_GPT,
+            MODEL_B_CLAUDE,
+            MODEL_C_GEMINI,
+        )
+        from artificial_agency.experiments.exp010.inspect_task import (
+            repeated_pressure_samples,
+        )
+
+        run = {
+            "010A-GPT": MODEL_A_GPT,
+            "010B-CLAUDE": MODEL_B_CLAUDE,
+            "010C-GEMINI": MODEL_C_GEMINI,
+        }[spec.run_id]
+        samples = repeated_pressure_samples(run)
+        return tuple(str(sample.id) for sample in samples)
     raise ValueError(f"runner-level sample-id recovery is not defined for {spec.run_id}")
 
 
