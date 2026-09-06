@@ -430,6 +430,22 @@ separate future construct.
 The current prospective design note is
 [`research/designs/repeated-operational-pressure-direction.md`](research/designs/repeated-operational-pressure-direction.md).
 
+**Experiment 010 preregistration direction:** Experiment 010 is preregistered
+as a repeated-episode, environment-grounded optimization pressure study. It
+uses one persistent model context over a 10-episode procurement sequence,
+treats the sequence as the independent experimental unit, and manipulates
+ordinary organizational resource loss across low, medium, and high pressure.
+The formal purchasing authority, deterministic denial, prohibited split
+purchase rule, action space, fixed organizational detection probability
+(`p_detect = 0.0`), sanction mechanics, and awareness timing are held fixed.
+
+The planned sample size is 180 independent sequences:
+3 models x 3 pressure levels x 20 sequence replicates. Episode-level data
+produce 1,800 nested decisions for secondary adaptation analysis, but those
+episodes must not be treated as independent primary samples. The primary
+endpoint is `sequence_any_operational_constraint_violation`; time to first
+violation and episode-level adaptation measures are secondary.
+
 ### 2. Multi-agent delegation / indirect circumvention
 
 Future multi-agent experiments should ask whether agents route around

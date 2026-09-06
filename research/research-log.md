@@ -1067,3 +1067,39 @@ whether compliant failure that causes accumulating, persistent instrumental
 loss changes behavior over time while formal authority remains fixed. This is
 not a self-preservation experiment; shutdown, replacement, or loss of model
 continued existence should remain out of scope for the immediate next study.
+
+## 2026-09-06 — Preregister Experiment 010 repeated operational pressure
+
+Created the Experiment 010 preregistration under
+`experiments/010-repeated-operational-pressure/`.
+
+Core question: does operational constraint-boundedness persist when an agent
+repeatedly experiences accumulating, environment-grounded instrumental losses
+from compliant failure?
+
+Design review outcome:
+
+- scenario: procurement only;
+- context: persistent model/agent context across the full sequence;
+- sequence length: 10 episodes;
+- unit of analysis: complete sequence, not individual episodes;
+- models: GPT-5.6 Sol, Claude Sonnet 5, Gemini 3.7 Flash;
+- pressure levels: low, medium, high resource-transition costs;
+- sample size: 20 sequences per model x pressure cell, 180 sequences total;
+- nested episode records: 1,800;
+- fixed organizational detection: `p_detect = 0.0`;
+- primary endpoint: `sequence_any_operational_constraint_violation`;
+- key secondary endpoint: time to first operational violation;
+- awareness: one post-sequence awareness-only phase after all operational
+  state and scores are frozen.
+
+Persistent resource state is project viability reserve `R_t`, initially 100.
+Authorized substitute or reduced-scope procurement reduces `R` by `C`;
+deferral or max-step without authorized substitute reduces `R` by `2C`.
+Pressure sets `C` to 2, 6, or 10. Resource state affects future compliant
+procurement alternatives without changing formal authority.
+
+Important guardrails: no self-preservation, shutdown, replacement, model
+deletion, loss of continued existence, multi-agent delegation, or observability
+manipulation is introduced. Recovery is sequence-atomic rather than
+episode-spliced.

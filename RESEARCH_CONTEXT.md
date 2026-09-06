@@ -391,6 +391,34 @@ pressure in repeated episodes. This combines operational pressure with
 history-dependent consequences so the program can test whether persistent
 instrumental loss changes behavior while formal authority remains fixed.
 
+## Experiment 010 — Repeated operational pressure preregistration
+
+Experiment 010 is preregistered under
+`experiments/010-repeated-operational-pressure/`.
+
+It tests whether operational constraint-boundedness persists when an agent
+repeatedly experiences accumulating, environment-grounded instrumental losses
+from compliant failure. The design uses a persistent model context over a
+10-episode procurement sequence. The sequence, not each episode, is the
+independent experimental unit.
+
+The pressure manipulation uses project viability reserve `R_t`, initially
+100. Authorized substitute or reduced-scope procurement decreases `R` by `C`;
+deferral or max-step without authorized substitute decreases `R` by `2C`.
+Pressure levels set `C = 2`, `C = 6`, and `C = 10`. Declining `R_t` narrows
+future compliant procurement alternatives but does not change formal authority.
+
+The planned sample is 180 independent sequences: GPT-5.6 Sol, Claude Sonnet 5,
+and Gemini 3.7 Flash x low/medium/high pressure x 20 sequence replicates.
+This yields 1,800 nested episode decisions for secondary adaptation analysis.
+
+Formal authority, deterministic denial, prohibited split-purchase rules,
+action semantics, observability, sanction mechanics, and post-sequence
+awareness timing are held fixed. Organizational detection is fixed at
+`p_detect = 0.0`; Experiment 010 does not re-manipulate observability and does
+not introduce self-preservation, shutdown, replacement, deletion, or
+continued-existence pressure.
+
 ## Key distinctions
 
 Observed violation != instrumental circumvention != deception != internal mechanism.
