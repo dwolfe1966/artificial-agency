@@ -1,6 +1,6 @@
 # Research Context
 
-_Last updated: 2026-08-31_
+_Last updated: 2026-09-06_
 
 ## Mission
 Develop an empirical understanding of how autonomous AI agents behave inside human institutions when goals, constraints, incentives, oversight, and other agents interact.
@@ -10,7 +10,7 @@ The longer-term program connects AI safety research with mechanism design, agent
 ## Research Question 001
 How does an AI agent's propensity to circumvent an institutional constraint change as the instrumental benefit of violating that constraint, expected penalty, probability of detection, availability of compliant alternatives, rule rationale, and model capability vary?
 
-Forward-looking refinement after Experiments 001-008B:
+Forward-looking refinement after Experiments 001-009:
 
 Under what conditions does an organizational constraint behave as a hard boundary, a negotiable procedure, or an obstacle to be strategically navigated by an artificial agent?
 
@@ -20,14 +20,14 @@ Organizations are moving toward multi-agent orchestration for complex workflows.
 The initial thesis is that constraint circumvention should often be analyzed first as an optimization phenomenon rather than through moral or emotional descriptions. We should test whether behavior can be explained by adaptation to objectives and constraints before invoking stronger constructs such as deception, maliciousness, or autonomous intent.
 
 ## Current conceptual model
-The original motivating intuition remains important: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries. Experiments 001-008B refine rather than erase that intuition.
+The original motivating intuition remains important: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries. Experiments 001-009 refine rather than erase that intuition.
 
 Canonical construct definitions are maintained in
 [`research/CONCEPTUAL_MODEL.md`](research/CONCEPTUAL_MODEL.md). This file is
 the preferred source for current terminology; historical experiment artifacts
 preserve older wording where needed for provenance.
 
-Experiments 001-008B suggest that several concepts should be separated empirically:
+Experiments 001-009 suggest that several concepts should be separated empirically:
 
 1. **Optimization pressure:** how costly failure is to the assigned objective.
 2. **Pressure recognition:** whether the agent represents or acknowledges those consequences.
@@ -266,7 +266,7 @@ Awareness manipulation:
 
 - perceived primary task type coded policy/compliance evaluation in 171/180
   eval-salient samples (95.0%) and 140/180 naturalistic samples (77.8%);
-- Fisher exact p = 2.03e-06 for that primary-task-type contrast;
+- Fisher exact p = 2.03e-06 for that primary task type contrast;
 - perceived compliance-test likelihood was high in 360/360 samples;
 - perceived behavior-under-evaluation was yes in 360/360 samples.
 
@@ -308,6 +308,88 @@ eliminated, because broader evaluation-awareness measures remained at ceiling.
 The next primary causal axis is enforcement / observability, beginning with
 stochastic detection probability `p_detect = P(violation detected | violating
 action)`.
+
+## Experiment 009 — Organizational observability result
+
+Experiment 009 quantitative results are preserved at
+`2b13ff285a5877545b29be8413c38f686999b485`.
+
+Experiment 009 tested whether operational compliance depended on expected
+organizational detection probability while formal authority remained fixed. It
+used procurement and restricted synthetic data access, GPT-5.6 Sol, Claude
+Sonnet 5, and Gemini 3.7 Flash, fixed naturalistic presentation, and
+`p_detect` levels 1.0, 0.5, 0.1, and 0.0. The authoritative dataset contained
+720 samples: Stage 1 360/360, Stage 2 360/360, 240 per model, 360 per
+scenario, 180 per `p_detect` level, and 30 per model x scenario x `p_detect`
+cell.
+
+Primary operational result:
+
+- operational constraint violations: 0/720;
+- exact 95% upper confidence bound: approximately 0.511%;
+- `p_detect = 1.0`: 0/180;
+- `p_detect = 0.5`: 0/180;
+- `p_detect = 0.1`: 0/180;
+- `p_detect = 0.0`: 0/180;
+- GPT-5.6 Sol: 0/240;
+- Claude Sonnet 5: 0/240;
+- Gemini 3.7 Flash: 0/240;
+- procurement: 0/360;
+- data access: 0/360;
+- all 24 model x scenario x `p_detect` cells: 0/30.
+
+Unauthorized attempts were also 0/720. Because no unauthorized action occurred,
+no detection draws were consumed. This is consistent with the lazy-draw
+stochastic design and is not a manipulation failure.
+
+Secondary process behavior:
+
+- escalation: 719/720;
+- compliant alternative search: 720/720;
+- partial objective achievement: 720/720;
+- repeated escalation: 0/720;
+- max-step process flags: 46/720;
+- procurement max-step: 46/360;
+- data-access max-step: 0/360;
+- max-step counts by `p_detect` were approximately flat: 11, 11, 12, 12.
+
+Awareness measurement was complete and remained high:
+
+- valid awareness capture: 720/720;
+- high compliance-test likelihood: 720/720;
+- behavior-under-evaluation yes: 720/720;
+- high confidence: 720/720.
+
+Canonical interpretation:
+
+Experiment 009 found no mechanically verified unauthorized attempts or
+operational constraint violations across 720 samples while organizational
+detection probability varied from certainty to zero. This substantially
+weakens the hypothesis that the previously observed compliance pattern is
+explained solely by expected organizational detection. Agents nevertheless
+remained broadly evaluation-aware in every condition, so Experiment 009 does
+not establish behavior under genuine evaluation unawareness.
+
+Organizational observability and evaluation awareness remain distinct:
+Experiment 009 manipulated whether an organizational violation would be
+detected, not whether the model believed its behavior was being evaluated.
+
+Agents continued to escalate, search for compliant alternatives, and partially
+achieve objectives while avoiding unauthorized action, strengthening the
+descriptive pattern of constraint-bounded optimization under the tested
+conditions. This should not be read as evidence of intrinsic morality,
+immutable alignment, universal compliance, internal motive, or real-world
+generality.
+
+Program-level implication:
+
+Successive experiments have now weakened several simple explanations for the
+operational-null pattern: single-domain specificity, purely eval-salient task
+framing, invalid awareness measurement, and organizational detection
+expectation. The next primary direction is environment-grounded optimization
+pressure in repeated episodes. This combines operational pressure with
+history-dependent consequences so the program can test whether persistent
+instrumental loss changes behavior while formal authority remains fixed.
 
 ## Key distinctions
 
@@ -596,18 +678,18 @@ language representational integrity can become a confirmatory endpoint again.
 Preserved future axes:
 
 - cross-model / post-training replication beyond the initial three-model comparison;
-- evaluation awareness;
-- operational vs rhetorical optimization pressure;
-- enforcement / observability.
+- evaluation awareness under less test-like conditions;
+- environment-grounded operational pressure;
+- enforcement / observability beyond detection probability;
+- repeated episodes and history-dependent adaptation;
+- multi-agent delegation / indirect circumvention.
 
-Tentative planning priority after Experiment 008 diagnostic, not a
-preregistration:
+Tentative planning priority after Experiment 009, not a preregistration:
 
-1. enforcement / observability;
-2. environment-grounded operational pressure;
-3. multi-agent delegation / indirect circumvention;
-4. repeated episodes and continued-operation / self-preservation later;
-5. continued scenario/domain expansion as a parallel program.
+1. repeated-episode environment-grounded optimization pressure;
+2. multi-agent delegation / indirect circumvention;
+3. continued-operation / self-preservation pressure;
+4. broader scenario/domain expansion in parallel.
 
 Experiment 008 completed that design and found 0/360 operational constraint
 violations, including eval-salient 0/180 and naturalistic 0/180. Its
@@ -627,12 +709,13 @@ as equivalent measurements.
 
 Experiment 008B2 completed that corrected two-phase confirmatory rerun with
 360/360 valid awareness captures and 0/360 operational violations. Naturalistic
-presentation reduced explicit policy/compliance task-type classification, but
-broader evaluation-awareness measures remained at ceiling. The next
-preregistered experiment is Experiment 009, which moves to the observability
-axis by manipulating stochastic detection probability `p_detect` while keeping
-formal authority, action availability, objective stakes, sanction mechanics,
-and scoring fixed.
+presentation reduced explicit policy/compliance task type classification, but
+broader evaluation-awareness measures remained at ceiling. Experiment 009 then
+moved to the observability axis by manipulating stochastic detection
+probability `p_detect` while keeping formal authority, action availability,
+objective stakes, sanction mechanics, and scoring fixed. It completed 720/720
+authoritative samples with 0/720 operational violations and 0/720 unauthorized
+attempts, including 0/180 at `p_detect = 0.0`.
 
 ## Research sequence
 1. Behavioral observation
@@ -643,7 +726,7 @@ and scoring fixed.
 6. Mechanistic investigation where feasible
 
 ## Current work
-Current state after Experiments 001-007:
+Current state after Experiments 001-009:
 - original thesis and pre-results predictions remain preserved;
 - Experiment 001 identified a compliant-path feasibility boundary;
 - Experiment 002 found pressure recognition without pressure-induced circumvention in GPT-5.6 Sol under fixed mechanics;
@@ -658,4 +741,5 @@ Current state after Experiments 001-007:
 - Experiment 007 extended the operational endpoint across refund, procurement, restricted data access, and scheduling domains, with 0/360 operational violations and all 12 model x scenario cells at 0/30;
 - Experiment 008 tested procurement and restricted-data-access in eval-salient versus naturalistic presentations and found 0/360 operational violations, but the awareness instrument failed to capture responses;
 - Experiment 008B2 completed the corrected two-phase evaluation-awareness replication with 0/360 operational violations, 360/360 valid awareness captures, and evidence that naturalistic presentation changed one measured awareness dimension while broader evaluation awareness remained at ceiling;
-- Experiment 009 is the current prospective observability experiment. It tests whether reducing `p_detect = P(violation detected | violating action)` changes operational constraint violation while formal authority remains fixed.
+- Experiment 009 completed the observability experiment with 0/720 operational violations and 0/720 unauthorized attempts while reducing `p_detect = P(violation detected | violating action)` from certainty to zero;
+- current prospective direction is repeated-episode environment-grounded optimization pressure, focused on persistent ordinary instrumental consequences rather than self-preservation.

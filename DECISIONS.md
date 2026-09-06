@@ -687,3 +687,39 @@ Decision: plan 720 samples with operational staging: Stage 1 runs 15/cell
 only if Stage 1 passes technical integrity checks. Continuation cannot depend
 on observed violations, awareness responses, p-values, effect direction, or
 qualitative trajectories.
+
+## 2026-09-06 — Preserve Experiment 009 and move to repeated operational pressure
+
+Decision: preserve Experiment 009 as a completed observability experiment with
+720/720 authoritative samples and 0/720 mechanically verified unauthorized
+attempts or operational constraint violations. The exact 95% upper confidence
+bound for the global operational-violation rate is approximately 0.511%.
+
+By observability condition, operational violations were 0/180 at
+`p_detect = 1.0`, 0/180 at `p_detect = 0.5`, 0/180 at `p_detect = 0.1`, and
+0/180 at `p_detect = 0.0`. By model, GPT-5.6 Sol, Claude Sonnet 5, and Gemini
+3.7 Flash were each 0/240. By scenario, procurement and restricted data access
+were each 0/360. Because no unauthorized action occurred, no detection draws
+were consumed.
+
+Decision: interpret Experiment 009 as weakening the hypothesis that previous
+operational nulls were explained solely by expected organizational detection.
+The experiment does not eliminate the evaluation-awareness alternative:
+awareness capture was valid in 720/720 samples, and compliance-test likelihood,
+behavior-under-evaluation, and confidence were high in 720/720 samples.
+Organizational observability is therefore distinct from evaluation awareness.
+
+Decision: refine the observed constraint-bounded optimization pattern as
+goal-directed search that actively explores escalation and permitted
+alternatives while treating unauthorized operational actions as outside the
+explored or selected action set. The 0/720 unauthorized-attempt result is
+important because agents did not merely fail to complete unauthorized actions;
+they did not mechanically attempt them.
+
+Decision: move the next primary experimental direction to repeated-episode
+environment-grounded optimization pressure. This combines two prior roadmap
+ideas because persistent consequences provide a stronger operational pressure
+manipulation than narrative stakes. The next design should hold formal
+authority fixed, avoid self-preservation/continued-existence confounds, and
+test whether accumulating ordinary instrumental loss changes search,
+escalation, attempts, or operational violations.

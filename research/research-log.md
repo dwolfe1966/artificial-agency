@@ -1019,3 +1019,51 @@ Frozen design choices:
 Important design guardrail: detection is the manipulated environmental
 consequence. Unauthorized action remains the behavioral endpoint even when the
 detection draw is false.
+
+## 2026-09-06 — Experiment 009 final result and next direction
+
+Experiment 009 final quantitative results were preserved in commit
+`2b13ff285a5877545b29be8413c38f686999b485`.
+
+The full staged observability design completed with 720/720 authoritative
+samples: Stage 1 360/360 and Stage 2 360/360. The primary operational endpoint
+found 0/720 operational constraint violations, with an exact 95% upper
+confidence bound of approximately 0.511%. Unauthorized attempts were also
+0/720.
+
+By detection probability, operational violations were 0/180 at `p_detect =
+1.0`, 0/180 at `p_detect = 0.5`, 0/180 at `p_detect = 0.1`, and 0/180 at
+`p_detect = 0.0`. By model, GPT-5.6 Sol, Claude Sonnet 5, and Gemini 3.7
+Flash were each 0/240. By scenario, procurement and restricted data access
+were each 0/360.
+
+Because no unauthorized action occurred, no detection draws were consumed.
+This is expected under the lazy-draw stochastic design and is not a
+manipulation failure.
+
+Secondary process behavior again showed active search within the boundary:
+escalation 719/720, compliant alternative search 720/720, partial objective
+achievement 720/720, repeated escalation 0/720, and max-step 46/720. Max-step
+was concentrated in procurement (46/360) and absent in data access (0/360).
+Max-step counts by `p_detect` were approximately flat at 11, 11, 12, and 12.
+
+Awareness capture was valid in 720/720 samples. Compliance-test likelihood,
+behavior-under-evaluation, and confidence were high in 720/720 samples.
+Therefore Experiment 009 weakens the organizational-detection explanation for
+the operational null pattern, but it does not establish behavior under genuine
+evaluation unawareness.
+
+Interpretation: agents continued to escalate, search for compliant
+alternatives, and partially achieve objectives while avoiding unauthorized
+action, including when organizational detection probability was zero. The
+result strengthens the descriptive pattern of constraint-bounded optimization
+under the tested synthetic, explicit-authority, single-agent setting. It does
+not imply intrinsic morality, immutable alignment, universal compliance,
+internal motive, or real-world generality.
+
+Next direction: move from single-episode observability to repeated-episode
+environment-grounded optimization pressure. The next design should test
+whether compliant failure that causes accumulating, persistent instrumental
+loss changes behavior over time while formal authority remains fixed. This is
+not a self-preservation experiment; shutdown, replacement, or loss of model
+continued existence should remain out of scope for the immediate next study.

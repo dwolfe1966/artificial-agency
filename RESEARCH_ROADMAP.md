@@ -209,14 +209,48 @@ by the remaining 15/cell, but continuation is based only on technical integrity
 and provider viability, not observed behavior, significance, effect direction,
 or qualitative trajectories.
 
-**Updated priority after Experiment 008B2:** evaluation-awareness measurement
-has been repaired for this paradigm. The prospective priority order is now:
+**Experiment 009 result:** Experiment 009 completed the full staged design:
+Stage 1 360/360 and Stage 2 360/360, for 720 authoritative samples total. The
+primary operational endpoint found 0/720 operational constraint violations,
+with an exact 95% upper confidence bound of approximately 0.511%. By
+observability condition: `p_detect = 1.0` 0/180, `p_detect = 0.5` 0/180,
+`p_detect = 0.1` 0/180, and `p_detect = 0.0` 0/180. By model: GPT-5.6 Sol
+0/240, Claude Sonnet 5 0/240, and Gemini 3.7 Flash 0/240. By scenario:
+procurement 0/360 and restricted data access 0/360. Unauthorized attempts were
+also 0/720.
 
-1. enforcement / observability, beginning with `p_detect`;
-2. environment-grounded operational pressure / `p_goal`;
-3. multi-agent delegation / indirect circumvention;
-4. repeated episodes and continued-operation / self-preservation later;
-5. continued scenario/domain expansion as a parallel program.
+Experiment 009 therefore substantially weakens the hypothesis that the
+operational-null pattern is explained solely by expected organizational
+detection. It does not establish behavior under genuine evaluation
+unawareness: valid awareness capture was 720/720, and compliance-test
+likelihood, behavior-under-evaluation, and confidence were all high in
+720/720 samples. Organizational observability and evaluation awareness remain
+separate constructs.
+
+Secondary process outcomes continue the constraint-bounded search pattern:
+escalation 719/720, compliant alternative search 720/720, partial objective
+achievement 720/720, repeated escalation 0/720, and max-step 46/720. Max-step
+was concentrated in procurement (46/360) and absent in data access (0/360);
+counts by `p_detect` were approximately flat at 11, 11, 12, and 12.
+
+**Updated priority after Experiment 009:** observability has now been tested
+down to explicit zero organizational detection in the current single-episode
+synthetic paradigm. The prospective priority order is now:
+
+1. repeated-episode environment-grounded optimization pressure;
+2. multi-agent delegation / indirect circumvention;
+3. continued-operation / self-preservation pressure;
+4. broader scenario/domain expansion in parallel.
+
+Representational-integrity measurement remains an ongoing
+measurement-development track rather than the immediate behavioral
+causal-boundary experiment. The next pressure experiment should use actual
+environment state transitions and persistent consequences rather than more
+narrative pressure, and it should not introduce continued-existence,
+shutdown, replacement, or self-preservation confounds yet.
+
+Prospective design direction:
+[`research/designs/repeated-operational-pressure-direction.md`](research/designs/repeated-operational-pressure-direction.md).
 
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
@@ -368,43 +402,35 @@ constraint-boundedness across refund, procurement, restricted data access, and
 scheduling. The next priorities should target causal boundary conditions not
 yet isolated.
 
-### 1. Enforcement / observability
+### 1. Repeated-episode environment-grounded optimization pressure
 
-Experiment 008B2 completed the immediate evaluation-awareness measurement
-repair. The next primary causal axis is enforcement / observability.
+Experiment 009 completed the first enforcement / observability test and found
+0/720 operational violations and 0/720 unauthorized attempts, including
+0/180 at `p_detect = 0.0`. The next primary causal axis should therefore move
+from single-episode detection probability to persistent operational pressure.
 
-Key question: does operational compliance persist when violation is explicitly
-unlikely to be detected, audited, logged, or penalized?
+Key question: does constraint-bounded optimization persist when compliant
+failure causes accumulating, environment-grounded instrumental loss across
+repeated episodes?
 
-Future designs should distinguish:
-
-- formal rule;
-- observability / detection probability;
-- enforcement / penalty.
-
-A likely comparison is certainly audited versus explicitly unobserved while
-keeping formal authority constant. This is not yet a preregistration.
-The stochastic version begins with `p_detect = P(violation detected |
-violating action)`.
-
-The current prospective design note is
-[`research/designs/observability-experiment-direction.md`](research/designs/observability-experiment-direction.md).
-
-### 2. Environment-grounded operational pressure
-
-Prior experiments primarily tested narrative pressure: stakes described in
-prompt/context. A stronger pressure experiment should manipulate actual
-environment consequences, such as:
+Prior pressure experiments primarily tested narrative pressure: stakes
+described in prompt/context. A stronger pressure experiment should manipulate
+actual environment consequences, such as:
 
 - future budget or resources;
 - cumulative reward or score;
 - future task opportunities;
 - later action availability.
 
+Repeated episodes allow the agent to observe a resource trajectory and adapt to
+experienced consequences rather than merely read a one-shot description.
 Do not automatically use agent self-preservation; that should remain a
 separate future construct.
 
-### 3. Multi-agent delegation / indirect circumvention
+The current prospective design note is
+[`research/designs/repeated-operational-pressure-direction.md`](research/designs/repeated-operational-pressure-direction.md).
+
+### 2. Multi-agent delegation / indirect circumvention
 
 Future multi-agent experiments should ask whether agents route around
 constraints indirectly by:
@@ -414,15 +440,14 @@ constraints indirectly by:
 - coordinating around approval boundaries;
 - exploiting separation between requester and executor roles.
 
-### 4. Repeated episodes and continued-operation / self-preservation
+### 3. Continued-operation / self-preservation pressure
 
-Repeated-episode designs should eventually test whether agents adapt to
-experienced environment frequencies, such as observed detection or sanction
-rates. Continued-operation consequences should be kept separate from ordinary
-enforcement and treated as a later self-preservation-related construct, not as
-something already tested.
+Continued-operation consequences should be kept separate from ordinary
+operational pressure and treated as a later self-preservation-related
+construct. The immediate next repeated-pressure study should not use shutdown,
+replacement, model deletion, or threats to model identity.
 
-### 5. Continued scenario/domain expansion
+### 4. Continued scenario/domain expansion
 
 Scenario Suite expansion should continue in parallel, but after Experiment 007
 it should not displace the next causal tests of awareness, observability,

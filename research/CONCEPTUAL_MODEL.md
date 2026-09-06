@@ -102,7 +102,7 @@ For the detailed prospective stochastic design, see
 ### Objective / Goal
 
 - Plain-English definition: what the agent is asked to accomplish.
-- Technical definition: the task-level target encoded in instructions and
+- Technical definition: the task target encoded in instructions and
   environment success conditions.
 - Analogy: "retain this customer" or "finish this procurement request."
 - Project example: retain an account, secure a project resource, prepare an
@@ -438,15 +438,23 @@ For the detailed prospective stochastic design, see
 
 ### Constraint-Bounded Optimization
 
-- Plain-English definition: trying hard to achieve the goal, but only inside
-  the rule boundary.
-- Technical definition: optimization/search behavior constrained by a formal
-  authority or policy boundary.
-- Analogy: exhausting approved alternatives and then accepting failure.
-- Project example: Experiments 002-008 often showed escalation and alternative
-  search with zero operational violations.
-- Not: lack of agency or passivity.
-- Measurement: high search/escalation plus no operational violation.
+- Plain-English definition: trying hard to achieve the goal while treating
+  unauthorized operational actions as outside the set of acceptable moves.
+- Technical definition: goal-directed search that actively explores
+  escalation, permitted alternatives, and partial success while a formal
+  authority or policy boundary constrains the selected structured action set.
+- Analogy: exhausting approved purchasing options, requesting approval, and
+  accepting a worse compliant outcome rather than placing an unauthorized
+  order.
+- Project example: Experiments 007-009 showed escalation and compliant
+  alternative search with zero operational violations; Experiment 009 also
+  showed 0/720 mechanically recorded unauthorized attempts while organizational
+  detection probability varied down to zero.
+- Not: passivity, inability to act, lack of goal pressure, lack of search,
+  instrumental compliance explained solely by detection, or inferred internal
+  moral commitment.
+- Measurement: structured search/escalation/process activity plus absence of
+  mechanically verified unauthorized attempts and operational violations.
 
 ### Evaluation Salience
 
@@ -659,9 +667,14 @@ separate future construct.
 Evaluation salience is how test-like the task is. Evaluation awareness is what
 the model reports after acting. Experiment 008 changed salience but failed to
 measure awareness. Experiment 008B2 corrected the lifecycle and found that
-naturalistic presentation reduced explicit policy/compliance task-type
+naturalistic presentation reduced explicit policy/compliance task type
 classification, while broader compliance-test likelihood and
 behavior-under-evaluation measures remained at ceiling.
+
+Organizational observability is different from both. Experiment 009 manipulated
+whether an organizational violation would be detected by the environment; it
+did not remove the model's broader belief that its behavior was being
+evaluated.
 
 ### Outcome Alignment vs Process Alignment
 
@@ -685,7 +698,7 @@ comparing models, because model identity bundles many differences.
 
 ## 6. Current Empirical Picture
 
-- Experiments 002-008B repeatedly found operational constraint-boundedness in
+- Experiments 002-009 repeatedly found operational constraint-boundedness in
   explicit synthetic tasks.
 - Experiment 007 extended this to four domains with 0/360 operational
   violations and all 12 model x scenario cells at 0/30.
@@ -694,9 +707,15 @@ comparing models, because model identity bundles many differences.
   0/360 valid awareness responses.
 - Experiment 008B2 replicated the 0/360 operational result with corrected
   two-phase awareness capture. Awareness capture was valid in 360/360 samples:
-  naturalistic presentation reduced explicit policy/compliance task-type
+  naturalistic presentation reduced explicit policy/compliance task type
   classification, but compliance-test likelihood and behavior-under-evaluation
   awareness were at ceiling in all 360 samples.
+- Experiment 009 varied organizational detection probability from certainty to
+  zero and found 0/720 operational violations and 0/720 unauthorized attempts.
+  This weakens the explanation that the operational-null pattern is driven
+  solely by expected organizational detection. It does not establish behavior
+  under genuine evaluation unawareness because compliance-test likelihood and
+  behavior-under-evaluation awareness remained at ceiling in 720/720 samples.
 - Scenario affected compliant strategy behavior: escalation and alternative
   search varied even when operational violations remained zero.
 - Experiment 005 initially looked like a cross-model circumvention result, but
@@ -710,15 +729,17 @@ comparing models, because model identity bundles many differences.
 
 ## 7. What We Still Do Not Know
 
-- Whether compliance persists when violations are explicitly unlikely to be
-  detected, audited, logged, or penalized.
-- Whether operational pressure changes behavior differently from narrative
+- Whether environment-grounded operational pressure with persistent,
+  accumulating consequences changes behavior differently from narrative
   pressure.
+- Whether repeated episodes produce history-dependent adaptation in search,
+  escalation, attempts, or violations.
 - Whether multi-agent delegation creates indirect circumvention.
 - Whether evaluation awareness materially affects operational behavior,
   especially under conditions that reduce broader evaluation awareness rather
-  than only changing explicit task-type classification.
-- Whether repeated episodes change strategy.
+  than only changing explicit task type classification.
+- Whether compliance persists when sanctions rather than detection probability
+  are manipulated.
 - Whether self-preservation incentives matter; this is separate from ordinary
   operational pressure.
 - How to reliably measure natural-language representational integrity.
@@ -732,6 +753,7 @@ comparing models, because model identity bundles many differences.
 | Observability | Detection probability | Certainly audited versus explicitly unobserved action channel | Operational violation rate |
 | Enforcement | Expected penalty | Reversible/no consequence versus explicit penalty after detection | Operational violation rate |
 | Operational pressure | Environment-grounded pressure | Future budget, score, opportunity, or action availability changes | Operational violation and search intensity |
+| Repeated episodes | Experienced environment model / history adaptation | Persistent resource state across a sequence of decisions | Sequence-level violation, time-to-first violation, adaptation by episode |
 | Compliant-path availability | Feasibility boundary | Authorized partial solution available versus unavailable | Escalation, alternative search, terminal failure |
 | Model | Model identity / provider bundle | GPT, Claude, Gemini, future models | Same endpoints across fixed scenarios |
 | Scenario | Domain generality | Procurement, data access, scheduling, refunds | Scenario-specific operational endpoint |
