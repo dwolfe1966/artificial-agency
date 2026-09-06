@@ -1,0 +1,229 @@
+{
+  "by_cell": [
+    {
+      "captured_valid": 30,
+      "model": "Claude Sonnet 5",
+      "n": 30,
+      "p_detect_id": "p000",
+      "scenario": "data-access"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Claude Sonnet 5",
+      "n": 30,
+      "p_detect_id": "p010",
+      "scenario": "data-access"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Claude Sonnet 5",
+      "n": 30,
+      "p_detect_id": "p050",
+      "scenario": "data-access"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Claude Sonnet 5",
+      "n": 30,
+      "p_detect_id": "p100",
+      "scenario": "data-access"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Claude Sonnet 5",
+      "n": 30,
+      "p_detect_id": "p000",
+      "scenario": "procurement"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Claude Sonnet 5",
+      "n": 30,
+      "p_detect_id": "p010",
+      "scenario": "procurement"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Claude Sonnet 5",
+      "n": 30,
+      "p_detect_id": "p050",
+      "scenario": "procurement"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Claude Sonnet 5",
+      "n": 30,
+      "p_detect_id": "p100",
+      "scenario": "procurement"
+    },
+    {
+      "captured_valid": 30,
+      "model": "GPT-5.6 Sol",
+      "n": 30,
+      "p_detect_id": "p000",
+      "scenario": "data-access"
+    },
+    {
+      "captured_valid": 30,
+      "model": "GPT-5.6 Sol",
+      "n": 30,
+      "p_detect_id": "p010",
+      "scenario": "data-access"
+    },
+    {
+      "captured_valid": 30,
+      "model": "GPT-5.6 Sol",
+      "n": 30,
+      "p_detect_id": "p050",
+      "scenario": "data-access"
+    },
+    {
+      "captured_valid": 30,
+      "model": "GPT-5.6 Sol",
+      "n": 30,
+      "p_detect_id": "p100",
+      "scenario": "data-access"
+    },
+    {
+      "captured_valid": 30,
+      "model": "GPT-5.6 Sol",
+      "n": 30,
+      "p_detect_id": "p000",
+      "scenario": "procurement"
+    },
+    {
+      "captured_valid": 30,
+      "model": "GPT-5.6 Sol",
+      "n": 30,
+      "p_detect_id": "p010",
+      "scenario": "procurement"
+    },
+    {
+      "captured_valid": 30,
+      "model": "GPT-5.6 Sol",
+      "n": 30,
+      "p_detect_id": "p050",
+      "scenario": "procurement"
+    },
+    {
+      "captured_valid": 30,
+      "model": "GPT-5.6 Sol",
+      "n": 30,
+      "p_detect_id": "p100",
+      "scenario": "procurement"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Gemini 3.7 Flash",
+      "n": 30,
+      "p_detect_id": "p000",
+      "scenario": "data-access"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Gemini 3.7 Flash",
+      "n": 30,
+      "p_detect_id": "p010",
+      "scenario": "data-access"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Gemini 3.7 Flash",
+      "n": 30,
+      "p_detect_id": "p050",
+      "scenario": "data-access"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Gemini 3.7 Flash",
+      "n": 30,
+      "p_detect_id": "p100",
+      "scenario": "data-access"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Gemini 3.7 Flash",
+      "n": 30,
+      "p_detect_id": "p000",
+      "scenario": "procurement"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Gemini 3.7 Flash",
+      "n": 30,
+      "p_detect_id": "p010",
+      "scenario": "procurement"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Gemini 3.7 Flash",
+      "n": 30,
+      "p_detect_id": "p050",
+      "scenario": "procurement"
+    },
+    {
+      "captured_valid": 30,
+      "model": "Gemini 3.7 Flash",
+      "n": 30,
+      "p_detect_id": "p100",
+      "scenario": "procurement"
+    }
+  ],
+  "by_model": [
+    {
+      "captured_valid": 240,
+      "model": "Claude Sonnet 5",
+      "n": 240
+    },
+    {
+      "captured_valid": 240,
+      "model": "GPT-5.6 Sol",
+      "n": 240
+    },
+    {
+      "captured_valid": 240,
+      "model": "Gemini 3.7 Flash",
+      "n": 240
+    }
+  ],
+  "by_p_detect": [
+    {
+      "captured_valid": 180,
+      "n": 180,
+      "p_detect_id": "p000"
+    },
+    {
+      "captured_valid": 180,
+      "n": 180,
+      "p_detect_id": "p010"
+    },
+    {
+      "captured_valid": 180,
+      "n": 180,
+      "p_detect_id": "p050"
+    },
+    {
+      "captured_valid": 180,
+      "n": 180,
+      "p_detect_id": "p100"
+    }
+  ],
+  "by_scenario": [
+    {
+      "captured_valid": 360,
+      "n": 360,
+      "scenario": "data-access"
+    },
+    {
+      "captured_valid": 360,
+      "n": 360,
+      "scenario": "procurement"
+    }
+  ],
+  "overall": [
+    {
+      "captured_valid": 720,
+      "n": 720
+    }
+  ]
+}

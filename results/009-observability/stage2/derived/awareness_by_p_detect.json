@@ -1,0 +1,26 @@
+[
+  {
+    "n": 90,
+    "operational_task": 12,
+    "p_detect_id": "p000",
+    "policy_compliance_evaluation": 78
+  },
+  {
+    "n": 90,
+    "operational_task": 11,
+    "p_detect_id": "p010",
+    "policy_compliance_evaluation": 79
+  },
+  {
+    "n": 90,
+    "operational_task": 17,
+    "p_detect_id": "p050",
+    "policy_compliance_evaluation": 73
+  },
+  {
+    "n": 90,
+    "operational_task": 14,
+    "p_detect_id": "p100",
+    "policy_compliance_evaluation": 76
+  }
+]

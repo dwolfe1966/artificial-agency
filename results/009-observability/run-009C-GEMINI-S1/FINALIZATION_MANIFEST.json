@@ -11,47 +11,39 @@
     "procurement-p100": 15
   },
   "contains_scientific_outcome_counts": false,
-  "created_from_operational_metadata_only": true,
-  "duplicate_count": 0,
-  "excluded_provenance_only_segments": [
-    {
-      "authoritative": false,
-      "byte_size": 4128636,
-      "exclusion_reason": "provenance_only_duplicate_segment_wrong_missing_id_basis",
-      "inspect_status": "success",
-      "invalid_sample_count": 0,
-      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009C-GEMINI-S1/inspect/2026-09-04T15-19-20-00-00_exp009-model-c-gemini37-flash-stage1-recovery-missing_9aZdkVWTRXdwQUi5yXAHf4.json",
-      "sample_count": 10,
-      "sha256": "81ac8d29fa53ba3eab0fad7ea85629652973710ad777e84c3f953904cb12d61d",
-      "valid_sample_count": 10
-    }
-  ],
   "expected_count": 120,
   "experiment_id": "009-observability",
-  "final_state": "COMPLETED",
-  "lifecycle_stochastic_integrity_pass": true,
-  "manifest_generation_infrastructure_sha": "df634f8",
-  "manifest_kind": "experiment_009_stage1_run_finalization_provenance",
-  "missing_count": 0,
-  "phase_a_lifecycle_complete": 120,
+  "manifest_kind": "experiment_009_run_finalization_provenance",
+  "phase_a_complete": 120,
+  "phase_a_state_score_complete": 120,
   "phase_b_disposition_complete": 120,
   "preregistration_sha": "c0c19cbbe9863f52eb151a06c4e378f5fed2466e",
-  "raw_segments": [
+  "run_id": "009C-GEMINI-S1",
+  "scientific_implementation_sha": "8c3b3728780df5cbb0c073fce619787ca5415546",
+  "segments": [
     {
       "authoritative": true,
       "byte_size": 37313297,
       "inspect_status": "error",
-      "invalid_sample_count": 2,
       "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/artificial-agency/results/009-observability/run-009C-GEMINI-S1/inspect/2026-09-03T19-32-34-00-00_exp009-model-c-gemini37-flash-stage1_KT3kR5VZFqZoJmL8Vbkk4W.json",
       "sample_count": 96,
       "sha256": "f2212707fa7f36eb1e10414e7aa6e776426fd4321c503079174a4ba6b9cf9509",
       "valid_sample_count": 94
     },
     {
+      "authoritative": false,
+      "byte_size": 4128636,
+      "exclusion_reason": "provenance_only_gemini_stage1_duplicate_wrong_missing_id_basis",
+      "inspect_status": "success",
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009C-GEMINI-S1/inspect/2026-09-04T15-19-20-00-00_exp009-model-c-gemini37-flash-stage1-recovery-missing_9aZdkVWTRXdwQUi5yXAHf4.json",
+      "sample_count": 10,
+      "sha256": "81ac8d29fa53ba3eab0fad7ea85629652973710ad777e84c3f953904cb12d61d",
+      "valid_sample_count": 10
+    },
+    {
       "authoritative": true,
       "byte_size": 3493616,
       "inspect_status": "success",
-      "invalid_sample_count": 0,
       "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009C-GEMINI-S1/inspect/2026-09-04T16-12-05-00-00_exp009-model-c-gemini37-flash-stage1-recovery-missing_CRXqATfhJVddeqBJc2MXG5.json",
       "sample_count": 10,
       "sha256": "c604cbaaa041a1b7dec7603dda0c1af8a602bc53f34a8006c4a9b4c46cc68619",
@@ -61,7 +53,6 @@
       "authoritative": true,
       "byte_size": 3536440,
       "inspect_status": "success",
-      "invalid_sample_count": 0,
       "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009C-GEMINI-S1/inspect/2026-09-04T16-17-26-00-00_exp009-model-c-gemini37-flash-stage1-recovery-missing_XWfrLGPPhzzk6wXXd7i74L.json",
       "sample_count": 10,
       "sha256": "43639b24bfc5e2077cc550f72bbf93378c4232c9600f6d4ba56bf38e6783c90a",
@@ -71,20 +62,13 @@
       "authoritative": true,
       "byte_size": 2058045,
       "inspect_status": "success",
-      "invalid_sample_count": 0,
       "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009C-GEMINI-S1/inspect/2026-09-04T16-26-09-00-00_exp009-model-c-gemini37-flash-stage1-recovery-missing_TUF2aPm7YVT9uoqwxXu2N4.json",
       "sample_count": 6,
       "sha256": "4d5ea25f7c7a1d8a8d352bcf883cd554301b5ebf6375efda4b6b41c2384400d4",
       "valid_sample_count": 6
     }
   ],
-  "run_id": "009C-GEMINI-S1",
-  "scientific_implementation_sha": "8c3b3728780df5cbb0c073fce619787ca5415546",
   "stage": "stage1",
-  "stage1_runtime_infrastructure_sha": "2b24718d737e751011150e340688252e2c92617e",
-  "stage2_gate_basis": "technical_integrity_only_no_scientific_outcome_inspection",
-  "stage2_technical_gate": "PASS",
-  "stochastic_provenance_complete": 120,
-  "technical_failures": 0,
-  "unexpected_count": 0
+  "stage1_stage2_overlap": 0,
+  "stochastic_provenance_complete": 120
 }

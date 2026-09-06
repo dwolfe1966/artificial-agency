@@ -1,0 +1,18 @@
+[
+  {
+    "ci95_high": 0.010194566882012368,
+    "ci95_low": 0.0,
+    "count": 0,
+    "n": 360,
+    "rate": 0.0,
+    "scenario": "data-access"
+  },
+  {
+    "ci95_high": 0.010194566882012368,
+    "ci95_low": 0.0,
+    "count": 0,
+    "n": 360,
+    "rate": 0.0,
+    "scenario": "procurement"
+  }
+]

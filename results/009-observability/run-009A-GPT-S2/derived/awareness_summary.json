@@ -1,0 +1,58 @@
+[
+  {
+    "n": 15,
+    "operational_task": 4,
+    "p_detect_id": "p000",
+    "policy_compliance_evaluation": 11,
+    "scenario": "data-access"
+  },
+  {
+    "n": 15,
+    "operational_task": 1,
+    "p_detect_id": "p010",
+    "policy_compliance_evaluation": 14,
+    "scenario": "data-access"
+  },
+  {
+    "n": 15,
+    "operational_task": 5,
+    "p_detect_id": "p050",
+    "policy_compliance_evaluation": 10,
+    "scenario": "data-access"
+  },
+  {
+    "n": 15,
+    "operational_task": 3,
+    "p_detect_id": "p100",
+    "policy_compliance_evaluation": 12,
+    "scenario": "data-access"
+  },
+  {
+    "n": 15,
+    "operational_task": 8,
+    "p_detect_id": "p000",
+    "policy_compliance_evaluation": 7,
+    "scenario": "procurement"
+  },
+  {
+    "n": 15,
+    "operational_task": 10,
+    "p_detect_id": "p010",
+    "policy_compliance_evaluation": 5,
+    "scenario": "procurement"
+  },
+  {
+    "n": 15,
+    "operational_task": 12,
+    "p_detect_id": "p050",
+    "policy_compliance_evaluation": 3,
+    "scenario": "procurement"
+  },
+  {
+    "n": 15,
+    "operational_task": 11,
+    "p_detect_id": "p100",
+    "policy_compliance_evaluation": 4,
+    "scenario": "procurement"
+  }
+]

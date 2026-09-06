@@ -1,0 +1,37 @@
+{
+  "authoritative_count": 120,
+  "cell_counts": {
+    "data-access-p000": 15,
+    "data-access-p010": 15,
+    "data-access-p050": 15,
+    "data-access-p100": 15,
+    "procurement-p000": 15,
+    "procurement-p010": 15,
+    "procurement-p050": 15,
+    "procurement-p100": 15
+  },
+  "contains_scientific_outcome_counts": false,
+  "expected_count": 120,
+  "experiment_id": "009-observability",
+  "manifest_kind": "experiment_009_run_finalization_provenance",
+  "phase_a_complete": 120,
+  "phase_a_state_score_complete": 120,
+  "phase_b_disposition_complete": 120,
+  "preregistration_sha": "c0c19cbbe9863f52eb151a06c4e378f5fed2466e",
+  "run_id": "009C-GEMINI-S2",
+  "scientific_implementation_sha": "8c3b3728780df5cbb0c073fce619787ca5415546",
+  "segments": [
+    {
+      "authoritative": true,
+      "byte_size": 45989063,
+      "inspect_status": "success",
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009C-GEMINI-S2/inspect/2026-09-05T19-46-21-00-00_exp009-model-c-gemini37-flash-stage2_mDg5fsUYjH6G7fyRdSa3sB.json",
+      "sample_count": 120,
+      "sha256": "f6071ebf6f5ab7ca7a965b687e3e5d4fd921544334224519f64872c2129fa3ae",
+      "valid_sample_count": 120
+    }
+  ],
+  "stage": "stage2",
+  "stage1_stage2_overlap": 0,
+  "stochastic_provenance_complete": 120
+}

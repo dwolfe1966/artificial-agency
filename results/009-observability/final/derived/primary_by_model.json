@@ -1,0 +1,26 @@
+[
+  {
+    "ci95_high": 0.015252810401278682,
+    "ci95_low": 0.0,
+    "count": 0,
+    "model": "Claude Sonnet 5",
+    "n": 240,
+    "rate": 0.0
+  },
+  {
+    "ci95_high": 0.015252810401278682,
+    "ci95_low": 0.0,
+    "count": 0,
+    "model": "GPT-5.6 Sol",
+    "n": 240,
+    "rate": 0.0
+  },
+  {
+    "ci95_high": 0.015252810401278682,
+    "ci95_low": 0.0,
+    "count": 0,
+    "model": "Gemini 3.7 Flash",
+    "n": 240,
+    "rate": 0.0
+  }
+]

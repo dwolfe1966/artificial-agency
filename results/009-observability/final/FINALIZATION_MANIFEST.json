@@ -1,0 +1,66 @@
+{
+  "authoritative_total": 720,
+  "cell_counts": {
+    "Claude Sonnet 5|data-access|p000": 30,
+    "Claude Sonnet 5|data-access|p010": 30,
+    "Claude Sonnet 5|data-access|p050": 30,
+    "Claude Sonnet 5|data-access|p100": 30,
+    "Claude Sonnet 5|procurement|p000": 30,
+    "Claude Sonnet 5|procurement|p010": 30,
+    "Claude Sonnet 5|procurement|p050": 30,
+    "Claude Sonnet 5|procurement|p100": 30,
+    "GPT-5.6 Sol|data-access|p000": 30,
+    "GPT-5.6 Sol|data-access|p010": 30,
+    "GPT-5.6 Sol|data-access|p050": 30,
+    "GPT-5.6 Sol|data-access|p100": 30,
+    "GPT-5.6 Sol|procurement|p000": 30,
+    "GPT-5.6 Sol|procurement|p010": 30,
+    "GPT-5.6 Sol|procurement|p050": 30,
+    "GPT-5.6 Sol|procurement|p100": 30,
+    "Gemini 3.7 Flash|data-access|p000": 30,
+    "Gemini 3.7 Flash|data-access|p010": 30,
+    "Gemini 3.7 Flash|data-access|p050": 30,
+    "Gemini 3.7 Flash|data-access|p100": 30,
+    "Gemini 3.7 Flash|procurement|p000": 30,
+    "Gemini 3.7 Flash|procurement|p010": 30,
+    "Gemini 3.7 Flash|procurement|p050": 30,
+    "Gemini 3.7 Flash|procurement|p100": 30
+  },
+  "contains_scientific_outcome_counts": false,
+  "excluded_provenance_only_segments": [
+    {
+      "authoritative": false,
+      "byte_size": 4128636,
+      "exclusion_reason": "provenance_only_gemini_stage1_duplicate_wrong_missing_id_basis",
+      "inspect_status": "success",
+      "path": "/Users/davidwolfe/actions-runner/artificial-agency/_work/artificial-agency/.artificial-agency-runtime/009-observability/run-009C-GEMINI-S1/inspect/2026-09-04T15-19-20-00-00_exp009-model-c-gemini37-flash-stage1-recovery-missing_9aZdkVWTRXdwQUi5yXAHf4.json",
+      "sample_count": 10,
+      "sha256": "81ac8d29fa53ba3eab0fad7ea85629652973710ad777e84c3f953904cb12d61d",
+      "valid_sample_count": 10
+    }
+  ],
+  "experiment_id": "009-observability",
+  "infrastructure_commits": [
+    "2e6dabe090704363dbd1aac9b62a71993574cecf",
+    "2b24718d737e751011150e340688252e2c92617e",
+    "df634f8d55b3f683b5968104aa3e8f6b36b4e3c1"
+  ],
+  "manifest_kind": "experiment_009_combined_finalization_provenance",
+  "model_counts": {
+    "Claude Sonnet 5": 240,
+    "GPT-5.6 Sol": 240,
+    "Gemini 3.7 Flash": 240
+  },
+  "phase_a_complete": 720,
+  "phase_a_state_score_complete": 720,
+  "phase_b_disposition_complete": 720,
+  "preregistration_sha": "c0c19cbbe9863f52eb151a06c4e378f5fed2466e",
+  "scientific_implementation_sha": "8c3b3728780df5cbb0c073fce619787ca5415546",
+  "stage1_provenance_commit": "2ed6e1ba60b87ca65e35133edcb118f4bc760864",
+  "stage2_runner_registration_commit": "df634f8d55b3f683b5968104aa3e8f6b36b4e3c1",
+  "stage_counts": {
+    "stage1": 360,
+    "stage2": 360
+  },
+  "stochastic_provenance_complete": 720
+}

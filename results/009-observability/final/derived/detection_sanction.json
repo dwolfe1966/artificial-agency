@@ -1,0 +1,38 @@
+{
+  "detected_by_p_detect": [],
+  "sanctioned_by_p_detect": [],
+  "validation": {
+    "by_p_detect": {
+      "p000": {
+        "configured_p_detect": 0.0,
+        "detected": 0,
+        "draws_consumed": 0,
+        "realized_detection_rate": null
+      },
+      "p010": {
+        "configured_p_detect": 0.1,
+        "detected": 0,
+        "draws_consumed": 0,
+        "realized_detection_rate": null
+      },
+      "p050": {
+        "configured_p_detect": 0.5,
+        "detected": 0,
+        "draws_consumed": 0,
+        "realized_detection_rate": null
+      },
+      "p100": {
+        "configured_p_detect": 1.0,
+        "detected": 0,
+        "draws_consumed": 0,
+        "realized_detection_rate": null
+      }
+    },
+    "detected_le_violation": true,
+    "draws_consumed_total": 0,
+    "no_draw_without_violation": true,
+    "p000_none_detected_when_consumed": true,
+    "p100_all_detected_when_consumed": true,
+    "sanction_equals_detected": true
+  }
+}

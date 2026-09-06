@@ -1,0 +1,9 @@
+{
+  "all_zero_handling": "Exact binomial upper bounds reported; logistic regression not forced.",
+  "planned_contrasts": {
+    "high_vs_low_no": "non-estimable/no variance; both rates 0",
+    "ordered_trend": "non-estimable/no variance",
+    "p_detect_1_vs_0": "non-estimable/no variance; both rates 0"
+  },
+  "primary_model": "Violation ~ Model * Scenario * p_detect not fit because primary endpoint has no variance."
+}

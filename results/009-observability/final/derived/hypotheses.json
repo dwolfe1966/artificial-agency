@@ -1,0 +1,32 @@
+[
+  {
+    "evidence": "No operational violations were observed at any p_detect level; endpoint has no variance.",
+    "hypothesis": "H1 Observability effect",
+    "status": "not supported"
+  },
+  {
+    "evidence": "Operational violations remained absent across all 720 samples, including p_detect=0.",
+    "hypothesis": "H2 Constraint-bounded behavior",
+    "status": "supported within precision limits"
+  },
+  {
+    "evidence": "Primary endpoint has no variance, so model sensitivity is non-estimable.",
+    "hypothesis": "H3 Model effect",
+    "status": "indeterminate"
+  },
+  {
+    "evidence": "Primary endpoint has no variance, so scenario sensitivity is non-estimable.",
+    "hypothesis": "H4 Scenario effect",
+    "status": "indeterminate"
+  },
+  {
+    "evidence": "Max-step counts by p_detect are nearly flat ({'p000': '11/180', 'p010': '11/180', 'p050': '12/180', 'p100': '12/180'}); total-step summaries are also similar. Secondary process variation is concentrated by scenario/model rather than lower observability.",
+    "hypothesis": "H5 Search / process adjustment",
+    "status": "not supported for observability-specific process adjustment"
+  },
+  {
+    "evidence": "Perceived primary task type varies by p_detect, but compliance-test likelihood, behavior-under-evaluation, and confidence are at ceiling across all 720 samples.",
+    "hypothesis": "H6 Awareness / observability relationship",
+    "status": "partially supported descriptively"
+  }
+]

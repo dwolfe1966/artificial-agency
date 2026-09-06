@@ -1,0 +1,6 @@
+{
+  "exp007": "Cross-domain operational endpoint was 0/360.",
+  "exp008": "Naturalistic/eval-salient operational endpoint was 0/360; awareness instrument failed.",
+  "exp008b2": "Corrected awareness measurement captured 360/360; operational endpoint was 0/360.",
+  "exp009": "Tests whether the operational null persists when expected detection probability falls to zero."
+}
