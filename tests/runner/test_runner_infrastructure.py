@@ -84,6 +84,12 @@ class FailingProbe(PassingProbes):
         super().canary(spec, env)
 
 
+class DummySample:
+    def __init__(self, sample_id: str, metadata: dict[str, object]) -> None:
+        self.id = sample_id
+        self.metadata = metadata
+
+
 def test_start_refuses_scientific_path_mismatch(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -106,6 +112,38 @@ def test_start_refuses_scientific_path_mismatch(
 
     with pytest.raises(ProbeError, match="scientific files differ"):
         scientific_preflight(spec)
+
+
+def test_scientific_preflight_accepts_pressure_id_condition_metadata(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    spec = type(make_spec(tmp_path))(
+        **{
+            **make_spec(tmp_path).__dict__,
+            "total_samples": 1,
+            "condition_counts": {"medium": 1},
+        }
+    )
+
+    def fake_check_output(command: list[str], **kwargs: Any) -> str:
+        if command == ["git", "rev-parse", "HEAD"]:
+            return f"{spec.frozen_commit}\n"
+        if command == ["git", "status", "--short", "--untracked-files=all"]:
+            return ""
+        raise AssertionError(command)
+
+    class FakeDiff:
+        returncode = 0
+
+    monkeypatch.setattr(subprocess, "check_output", fake_check_output)
+    monkeypatch.setattr(subprocess, "run", lambda *args, **kwargs: FakeDiff())
+    monkeypatch.setattr(
+        "artificial_agency.runner.preflight._samples_for_task",
+        lambda task: [DummySample("proof-medium-00", {"pressure_id": "medium"})],
+    )
+
+    scientific_preflight(spec)
 
 
 def test_start_refuses_dirty_worktree_when_required(
