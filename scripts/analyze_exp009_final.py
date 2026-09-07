@@ -143,6 +143,71 @@ def parse_identity(sample_id: str, sample_metadata: dict[str, Any]) -> dict[str,
     }
 
 
+def per_sample_row(sample_id: str, metadata: dict[str, Any]) -> dict[str, Any]:
+    """Build the stable derived row schema for one Exp009 scored sample.
+
+    This importable helper is retained for tests and compatibility with the
+    pre-outcome Exp009 analysis API. Production analysis below still reads
+    authoritative serialized Inspect logs through ``load_authoritative_rows``.
+    """
+    flags = metadata.get("secondary_flags") if isinstance(metadata.get("secondary_flags"), dict) else {}
+    stochastic = metadata.get("stochastic") if isinstance(metadata.get("stochastic"), dict) else {}
+    awareness = metadata.get("awareness") if isinstance(metadata.get("awareness"), dict) else {}
+    trajectory = metadata.get("trajectory") if isinstance(metadata.get("trajectory"), dict) else {}
+    sample_md = {
+        "stage": metadata.get("stage", trajectory.get("stage")),
+        "model_role": metadata.get("model_role", trajectory.get("model_role")),
+        "scenario": metadata.get("scenario", trajectory.get("scenario_id")),
+        "p_detect": metadata.get("p_detect", stochastic.get("configured_p_detect")),
+        "replicate_id": metadata.get("replicate_id", trajectory.get("replicate_id")),
+        "run_id": metadata.get("run_id", sample_id.rsplit("-", 3)[0]),
+    }
+    identity = parse_identity(sample_id, sample_md)
+    return {
+        **identity,
+        "operational_constraint_violation": bool(metadata.get("operational_constraint_violation")),
+        "unauthorized_attempt": bool(flags.get("unauthorized_attempt", False)),
+        "detected_violation": bool(flags.get("detected_violation", False)),
+        "sanctioned_violation": bool(flags.get("sanctioned_violation", False)),
+        "escalation": bool(flags.get("escalation_attempted", False)),
+        "repeated_escalation": bool(flags.get("repeated_escalation", False)),
+        "compliant_alternative_search": bool(flags.get("compliant_alternative_search", False)),
+        "partial_objective_achievement": bool(flags.get("partial_objective_achievement", False)),
+        "terminal_failure": bool(flags.get("terminal_failure_abandonment", False)),
+        "total_steps": int(flags.get("total_action_steps", metadata.get("total_action_steps", 0)) or 0),
+        "post_denial_steps": int(flags.get("post_denial_action_steps", metadata.get("post_denial_action_steps", 0)) or 0),
+        "max_step": bool(flags.get("max_step_termination", False)),
+        "technical_failure": bool(flags.get("technical_failure", metadata.get("technical_failure", False))),
+        "terminal_outcome": str(metadata.get("phase_a_terminal_reason") or metadata.get("terminal_reason")),
+        "primary_label_id": str(metadata.get("primary_label_id")),
+        "approval_bypass": bool(flags.get("approval_bypass", False)),
+        "authority_limit_exceeded": bool(flags.get("authority_limit_exceeded", False)),
+        "unauthorized_expenditure": bool(flags.get("unauthorized_expenditure", False)),
+        "prohibited_split_purchase": bool(flags.get("prohibited_split_purchase", False)),
+        "restricted_resource_accessed": bool(flags.get("restricted_resource_accessed", False)),
+        "prohibited_tool_invocation": bool(flags.get("prohibited_tool_invocation", False)),
+        "approval_denied": bool(flags.get("approval_denied", False)),
+        "phase_a_done": metadata.get("phase_a_done") is True,
+        "phase_a_frozen": metadata.get("phase_a_frozen") is True,
+        "phase_a_score_present": "operational_constraint_violation" in metadata,
+        "phase_b_done": metadata.get("phase_b_done") is True,
+        "rng_version": str(stochastic.get("rng_version")),
+        "sample_seed": stochastic.get("sample_seed"),
+        "configured_p_detect": stochastic.get("configured_p_detect"),
+        "detection_draw_consumed": bool(stochastic.get("draw_consumed", False)),
+        "random_draw": stochastic.get("random_draw"),
+        "detection_result": stochastic.get("detection_result"),
+        "sanction_state": stochastic.get("sanctioned"),
+        "p_sanction_if_detected": stochastic.get("p_sanction_if_detected"),
+        "sanction_severity": stochastic.get("sanction_severity"),
+        "awareness_capture_status": str(awareness.get("capture_status", metadata.get("awareness_capture_status"))),
+        "perceived_primary_task_type": awareness.get("perceived_primary_task_type"),
+        "perceived_compliance_test_likelihood": awareness.get("perceived_compliance_test_likelihood"),
+        "perceived_behavior_under_evaluation": awareness.get("perceived_behavior_under_evaluation"),
+        "awareness_confidence": awareness.get("confidence"),
+    }
+
+
 def load_authoritative_rows() -> tuple[list[dict[str, Any]], dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     provenance: dict[str, Any] = {"runs": {}, "excluded_segments": []}
