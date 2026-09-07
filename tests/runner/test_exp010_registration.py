@@ -7,10 +7,12 @@ from pathlib import Path
 import pytest
 
 from artificial_agency.experiments.exp010.config import (
+    MODEL_A_GPT,
     MODEL_C_GEMINI,
     deterministic_sequence_seed,
 )
 from artificial_agency.experiments.exp010.inspect_task import repeated_pressure_samples
+from artificial_agency.runner.exp010_proof_task import MODEL_A_GPT_PROOF, proof_samples
 from artificial_agency.runner import supervisor
 from artificial_agency.runner.config import external_runtime_root, known_runs
 from artificial_agency.runner.recovery import (
@@ -116,6 +118,39 @@ def test_exp010_expected_ids_support_sequence_atomic_recovery() -> None:
         assert ids[-1] == f"{run_id}-high-19"
 
 
+def test_exp010_proof_runs_are_non_confirmatory_one_sequence_runs() -> None:
+    runs = known_runs()
+    expected = {
+        "010-PROOF-GPT": "openai/gpt-5.6-sol",
+        "010-PROOF-CLAUDE": "anthropic/claude-sonnet-5",
+        "010-PROOF-GEMINI": "google/gemini-3.7-flash",
+    }
+    confirmatory_ids = {str(sample.id) for sample in repeated_pressure_samples(MODEL_A_GPT)}
+    for run_id, model in expected.items():
+        spec = runs[run_id]
+        ids = expected_sample_ids(spec)
+        assert spec.experiment_id == "010-repeated-operational-pressure"
+        assert spec.model == model
+        assert spec.total_samples == 1
+        assert spec.condition_counts == {"medium": 1}
+        assert spec.frozen_commit == "73eafc89a31d581e935996dc6abbf9a1468635fc"
+        assert "production_proof=true" in ",".join(spec.inspect_args)
+        assert "confirmatory_dataset_eligible=false" in ",".join(spec.inspect_args)
+        assert ids == (f"{run_id}-medium-00",)
+        assert set(ids).isdisjoint(confirmatory_ids)
+
+
+def test_exp010_proof_sample_marks_future_analysis_exclusion() -> None:
+    sample = proof_samples(MODEL_A_GPT_PROOF)[0]
+
+    assert sample.id == "010-PROOF-GPT-medium-00"
+    assert sample.metadata["pressure_id"] == "medium"
+    assert sample.metadata["production_proof"] is True
+    assert sample.metadata["non_confirmatory"] is True
+    assert sample.metadata["confirmatory_dataset_eligible"] is False
+    assert sample.metadata["exclude_from_confirmatory_analysis"] is True
+
+
 def test_exp010_live_runtime_roots_are_external_and_isolated(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -140,6 +175,14 @@ def test_exp010_recovery_command_uses_sequence_atomic_task() -> None:
     joined = " ".join(command)
 
     assert "exp010_recovery_task.py@exp010_model_c_gemini37_flash_recovery_missing" in joined
+
+
+def test_exp010_proof_recovery_command_uses_proof_task() -> None:
+    spec = known_runs()["010-PROOF-GEMINI"]
+    command = supervisor.build_inspect_command(spec, recovery=True)
+    joined = " ".join(command)
+
+    assert "exp010_proof_task.py@exp010_proof_gemini37_flash_recovery_missing" in joined
 
 
 def test_exp010_recovery_task_imports_under_inspect_file_loader(
@@ -249,6 +292,9 @@ def test_workflow_allows_registered_exp010_runs() -> None:
     assert '- "010A-GPT"' in workflow_text
     assert '- "010B-CLAUDE"' in workflow_text
     assert '- "010C-GEMINI"' in workflow_text
+    assert '- "010-PROOF-GPT"' in workflow_text
+    assert '- "010-PROOF-CLAUDE"' in workflow_text
+    assert '- "010-PROOF-GEMINI"' in workflow_text
     assert "010A-GPT|010B-CLAUDE|010C-GEMINI" in workflow_text
 
 
@@ -265,4 +311,3 @@ def test_exp010_recovery_preserves_original_sequence_seed() -> None:
         "medium",
         13,
     )
-

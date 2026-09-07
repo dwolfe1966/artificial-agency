@@ -173,6 +173,14 @@ def expected_sample_ids(spec: RunSpec) -> tuple[str, ...]:
         }[spec.run_id]
         samples = repeated_pressure_samples(run)
         return tuple(str(sample.id) for sample in samples)
+    if spec.run_id in {"010-PROOF-GPT", "010-PROOF-CLAUDE", "010-PROOF-GEMINI"}:
+        from artificial_agency.runner.exp010_proof_task import (
+            PROOF_RUN_BY_ID,
+            proof_samples,
+        )
+
+        samples = proof_samples(PROOF_RUN_BY_ID[spec.run_id])
+        return tuple(str(sample.id) for sample in samples)
     raise ValueError(f"runner-level sample-id recovery is not defined for {spec.run_id}")
 
 

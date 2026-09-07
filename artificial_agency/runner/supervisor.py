@@ -120,6 +120,9 @@ def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]
             "010A-GPT",
             "010B-CLAUDE",
             "010C-GEMINI",
+            "010-PROOF-GPT",
+            "010-PROOF-CLAUDE",
+            "010-PROOF-GEMINI",
         }:
             raise RuntimeError(f"runner-level recovery is not configured for {spec.run_id}")
         if spec.run_id in {"005B", "005C"}:
@@ -180,8 +183,14 @@ def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]
                     "010A-GPT": "exp010_model_a_gpt56_sol_recovery_missing",
                     "010B-CLAUDE": "exp010_model_b_claude_sonnet5_recovery_missing",
                     "010C-GEMINI": "exp010_model_c_gemini37_flash_recovery_missing",
+                    "010-PROOF-GPT": "exp010_proof_gpt56_sol_recovery_missing",
+                    "010-PROOF-CLAUDE": "exp010_proof_claude_sonnet5_recovery_missing",
+                    "010-PROOF-GEMINI": "exp010_proof_gemini37_flash_recovery_missing",
                 }[spec.run_id]
                 task_module = (
+                    "exp010_proof_task.py"
+                    if spec.run_id.startswith("010-PROOF")
+                    else
                     "exp010_recovery_task.py"
                     if spec.run_id.startswith("010")
                     else
