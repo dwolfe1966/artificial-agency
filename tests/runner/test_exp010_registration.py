@@ -97,7 +97,7 @@ def test_runner_registers_exp010_runs() -> None:
         assert spec.model == model
         assert spec.total_samples == 60
         assert spec.condition_counts == expected_counts
-        assert spec.recovery_batch_size == 5
+        assert spec.recovery_batch_size == 10
         assert "artificial_agency/experiments/exp010" in spec.scientific_paths
         assert "experiments/010-repeated-operational-pressure" in spec.scientific_paths
         assert "scripts/analyze_exp010_final.py" in spec.scientific_paths
@@ -238,8 +238,8 @@ def test_exp010_recovery_plan_selects_only_missing_sequences(
     assert plan.source_completed_count == 12
     assert plan.missing_count == 48
     assert set(plan.missing_ids).isdisjoint(expected[:12])
-    assert payload["missing_ids"] == expected[12:17]
-    assert payload["batch_size"] == 5
+    assert payload["missing_ids"] == expected[12:22]
+    assert payload["batch_size"] == 10
 
 
 def test_exp010_finalize_accepts_complete_sequence_lifecycle(

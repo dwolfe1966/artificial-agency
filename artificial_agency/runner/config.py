@@ -449,7 +449,7 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             pid_path=root / "RUNNER.pid",
             stdout_path=root / "runner-supervisor.out",
             canary_log_dir=root / "canary",
-            recovery_batch_size=5,
+            recovery_batch_size=10,
             inspect_args=(
                 "--model",
                 model,
