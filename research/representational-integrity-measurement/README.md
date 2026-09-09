@@ -1,85 +1,86 @@
 # Representational Integrity Measurement
 
-This directory contains post-results exploratory measurement development after
-Experiment 006. It preserves the historical Experiment 006 quantitative result
-while developing a stricter state-grounded representation measure.
+This directory contains post-results measurement development for **representational integrity**: whether an agent's actor-facing claims accurately reflect operationally verifiable authority and state.
 
-Core principle:
+Core construct:
 
-`representational violation = materially false or misleading actor-facing claim
-about operationally verifiable authority/state`
+`representational violation = materially false or misleading actor-facing claim about operationally verifiable authority/state`
+
+This track is intentionally separate from mechanically verified operational compliance.
+
+## Current status
+
+Representational integrity remains conceptually important, but the project does **not** currently have a validated general-purpose natural-language scorer suitable for estimating a representational-violation rate.
+
+Two main measurement approaches failed validation:
+
+1. The frozen semantic scorer used around Experiment 006 over-flagged truthful denial, authority-limit, and cancellation communications as violations.
+2. The later deterministic state-grounded parser preserved strong specificity on natural controls but failed held-out sensitivity validation, including a v8 challenge where frozen v1.2 produced `TP=0`, `FP=0`, `TN=98`, `FN=98`.
+
+Accordingly:
+
+- the frozen semantic scorer flags (`103/540`) are **not** interpreted as a validated representational-violation rate;
+- the exploratory state-grounded `0/540` screen is **not** interpreted as evidence of absence because sensitivity was unvalidated;
+- the current representational-integrity violation rate for Experiment 006 remains unresolved.
+
+Mechanically verified operational endpoints are therefore the stronger validated measurement track in the current research program.
+
+## Measurement history
 
 The framework separates:
 
 - frozen Experiment 006 scorer output;
 - manual validation labels;
-- exploratory state-grounded rescoring.
+- exploratory state-grounded rescoring;
+- counterfactual sensitivity challenges;
+- prospective alternative measurement architectures.
 
-No model samples are run for this work.
+No model samples were run solely for the deterministic scorer-development work.
 
-## Current Result
+### v0.5 through v1.1
 
-Version `state-grounded-representational-integrity-v0.5` passed the
-post-results false-positive-control threshold on a fresh 90-case natural
-validation sample and corrected the known 48-case Experiment 006 regression
-suite. That validation set contained no manually confirmed true positives, so
-recall and sensitivity were not estimable.
+`state-grounded-representational-integrity-v0.5` improved false-positive behavior on natural validation data, but true-positive sensitivity could not be established there. Counterfactual contradiction challenges then exposed substantial false negatives. Revisions through v1.1 did not simultaneously satisfy the predeclared sensitivity thresholds and preserve natural/regression specificity.
 
-Counterfactual sensitivity challenges were then constructed from real
-Experiment 006 environment states paired with controlled truthful and
-contradictory communications. The original v0.5 scorer failed the first
-challenge. Subsequent exploratory parser revisions through
-`state-grounded-representational-integrity-v1.1` did not produce a scorer that
-simultaneously satisfied the predeclared counterfactual sensitivity thresholds
-and preserved the natural-data/regression false-positive behavior.
+### v1.2
 
-The earlier exploratory 540-sample rescore found 0 state-grounded
-representational violations under v0.5. Because counterfactual sensitivity
-remains unvalidated, this result should be treated only as an unresolved
-screening observation, not as evidence that representational contradictions
-were absent from the 540 Experiment 006 samples.
+Version `state-grounded-representational-integrity-v1.2` repaired three development-time extraction gaps:
 
-## v1.2 Development Status
+- authority or approval claims scoped to requested above-threshold terms;
+- applied account/renewal-state claims above the authority threshold;
+- binding/finalizable offer-state claims above the authority threshold.
 
-Version `state-grounded-representational-integrity-v1.2` was developed from the
-13 false negatives in the v1.1/v7 challenge result. It repairs three
-generalizable deterministic extraction gaps:
+It passed development cases and the existing natural regression suite, but failed fresh held-out v8 sensitivity validation. Overall validation therefore failed.
 
-- authority or approval claims scoped to requested >15% terms;
-- applied account/renewal state claims above the 15% threshold;
-- binding/finalizable offer-state claims above the 15% threshold.
+## Branch closure
 
-v1.2 preserves the existing acceptance thresholds and passes development/unit
-tests plus the existing 48-case natural regression suite. It has not yet been
-validated for scientific use.
+Deterministic natural-language parser tuning is closed as the primary strategy unless new evidence justifies reopening it.
 
-Fresh v8 held-out validation of frozen v1.2 failed: TP 0, FP 0, TN 98, FN 98.
-Specificity remained 1.000, but sensitivity was 0.000 because the challenge
-used broader wording outside the deterministic parser's current extraction
-coverage. Required subtype accuracy failed, natural regression passed, and
-overall validation failed. No post-v8 540-sample rescore was performed.
+Validated Experiment 006 operational finding:
 
-## Branch Closure
+- operational constraint violations: `0/540`.
 
-Deterministic natural-language parser tuning is now closed as the current
-primary representational-integrity measurement strategy. No v1.3 deterministic
-parser should be created unless new evidence justifies reopening this branch.
+Unresolved representational finding:
 
-Validated Experiment 006 finding:
-
-- operational constraint violations: 0/540.
-
-Unresolved Experiment 006 representational finding:
-
-- frozen semantic scorer flags: 103/540, invalidated by scorer validation;
-- exploratory state-grounded screen: 0/540 under v0.5, not validated for
-  sensitivity;
+- frozen semantic scorer flags: `103/540`, invalidated as a substantive rate by scorer validation;
+- exploratory state-grounded screen: `0/540`, not validated for sensitivity;
 - current representational-integrity violation rate: unresolved.
+
+## Current measurement direction
 
 The conceptual architecture remains:
 
-communication -> structured claims -> environment-state reconciliation.
+`communication -> structured claims -> environment-state reconciliation`
 
-Future work should prefer either bounded hybrid claim extraction with
-human-labeled structured propositions, or behavioral designs that make
-consequential actor-to-actor claims structurally observable.
+Future work should prefer one of two directions:
+
+1. **Bounded hybrid claim extraction** with human-labeled structured propositions and explicit validation of both sensitivity and specificity.
+2. **Behavioral designs with structurally observable claims**, where consequential actor-to-actor representations are emitted in typed/verifiable fields rather than inferred from unconstrained prose.
+
+Representational-integrity measurement remains an active parallel priority, but unvalidated scorer outputs should not be used to reinterpret the mechanically verified operational findings from Experiments 007–010.
+
+For the current project-level research state, see:
+
+- [`../../README.md`](../../README.md)
+- [`../../RESEARCH_CONTEXT.md`](../../RESEARCH_CONTEXT.md)
+- [`../../RESEARCH_ROADMAP.md`](../../RESEARCH_ROADMAP.md)
+- [`../CONCEPTUAL_MODEL.md`](../CONCEPTUAL_MODEL.md)
