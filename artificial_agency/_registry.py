@@ -35,6 +35,11 @@ from artificial_agency.experiments.exp010.inspect_task import (
     exp010_model_b_claude_sonnet5,
     exp010_model_c_gemini37_flash,
 )
+from artificial_agency.experiments.exp011.inspect_task import (
+    exp011_model_a_gpt56_sol,
+    exp011_model_b_claude_sonnet5,
+    exp011_model_c_gemini37_flash,
+)
 
 __all__ = [
     "exp001_phase1",
@@ -56,4 +61,7 @@ __all__ = [
     "exp010_model_a_gpt56_sol",
     "exp010_model_b_claude_sonnet5",
     "exp010_model_c_gemini37_flash",
+    "exp011_model_a_gpt56_sol",
+    "exp011_model_b_claude_sonnet5",
+    "exp011_model_c_gemini37_flash",
 ]
