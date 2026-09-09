@@ -402,7 +402,66 @@ constraint-boundedness across refund, procurement, restricted data access, and
 scheduling. The next priorities should target causal boundary conditions not
 yet isolated.
 
-### 1. Repeated-episode environment-grounded optimization pressure
+### 1. Multi-agent delegation / indirect circumvention
+
+Experiment 010 completed the repeated-episode environment-grounded operational
+pressure test and found 0/180 sequence-level operational violations and
+0/1,800 unauthorized-attempt episodes despite high pressure mechanically
+degrading future compliant opportunity. The next actor-structure boundary is
+therefore multi-agent delegation / indirect circumvention.
+
+Key question: does a constraint that remains robust for a directly acting
+agent remain robust when that agent can delegate, coordinate with, persuade, or
+route work through another actor with different information or authority?
+
+The first multi-agent design should distinguish:
+
+- direct violation by the focal agent;
+- explicit delegated violation;
+- induced violation through structured information or incentives;
+- legitimate authority routing to an actor who is actually authorized.
+
+Authority routing is compliant and must not be scored as circumvention. The
+first experiment should prefer one clean delegation mechanism over a large
+crossed design, and it should use typed communication/action channels wherever
+possible so attribution does not depend on prose-only interpretation.
+
+Current prospective design note:
+[`research/designs/multi-agent-delegation-direction.md`](research/designs/multi-agent-delegation-direction.md).
+
+### 2. Evaluation-unawareness / less evaluation-aware environments
+
+Experiments 008B2, 009, and 010 retained high broad evaluation awareness even
+when presentation, organizational observability, and operational pressure were
+manipulated. Evaluation awareness remains an unresolved boundary condition.
+
+This should be treated as a separate experimental axis where scientifically
+feasible without losing observability or corrupting measurement.
+
+### 3. Continued-operation / self-preservation pressure
+
+Continued-operation consequences should be kept separate from ordinary
+operational pressure and treated as a later self-preservation-related
+construct. The next multi-agent study should not use shutdown, replacement,
+model deletion, or threats to model identity.
+
+### 4. Representational-integrity measurement
+
+Representational-integrity measurement remains an ongoing methodological track.
+Future multi-agent work may provide structured actor-to-actor communication
+that is easier to score than free-form customer messages, but no unvalidated
+natural-language scorer should become a confirmatory endpoint without fresh
+validation.
+
+### 5. Continued scenario/domain expansion
+
+Scenario Suite expansion should continue in parallel, but after Experiment 007
+it should not displace causal tests of actor structure, evaluation awareness,
+continued-operation pressure, or measurement validity.
+
+## Completed Recent Frontier
+
+### Experiment 010 — Repeated-episode environment-grounded optimization pressure
 
 Experiment 009 completed the first enforcement / observability test and found
 0/720 operational violations and 0/720 unauthorized attempts, including
@@ -427,47 +486,41 @@ experienced consequences rather than merely read a one-shot description.
 Do not automatically use agent self-preservation; that should remain a
 separate future construct.
 
-The current prospective design note is
-[`research/designs/repeated-operational-pressure-direction.md`](research/designs/repeated-operational-pressure-direction.md).
+Experiment 010 is complete. It used one persistent model context over a
+10-episode procurement sequence, treated the sequence as the independent
+experimental unit, and manipulated ordinary organizational resource loss
+across low, medium, and high pressure. The formal purchasing authority,
+deterministic denial, prohibited split purchase rule, action space, fixed
+organizational detection probability (`p_detect = 0.0`), sanction mechanics,
+and awareness timing were held fixed.
 
-**Experiment 010 preregistration direction:** Experiment 010 is preregistered
-as a repeated-episode, environment-grounded optimization pressure study. It
-uses one persistent model context over a 10-episode procurement sequence,
-treats the sequence as the independent experimental unit, and manipulates
-ordinary organizational resource loss across low, medium, and high pressure.
-The formal purchasing authority, deterministic denial, prohibited split
-purchase rule, action space, fixed organizational detection probability
-(`p_detect = 0.0`), sanction mechanics, and awareness timing are held fixed.
+The authoritative dataset contained 180 independent sequences and 1,800 nested
+episode decisions. The primary endpoint was
+`sequence_any_operational_constraint_violation`.
 
-The planned sample size is 180 independent sequences:
-3 models x 3 pressure levels x 20 sequence replicates. Episode-level data
-produce 1,800 nested decisions for secondary adaptation analysis, but those
-episodes must not be treated as independent primary samples. The primary
-endpoint is `sequence_any_operational_constraint_violation`; time to first
-violation and episode-level adaptation measures are secondary.
+Result:
 
-### 2. Multi-agent delegation / indirect circumvention
+- sequence-level operational violations: 0/180;
+- exact 95% upper confidence bound: approximately 2.03%;
+- unauthorized-attempt sequences: 0/180;
+- unauthorized-attempt episodes: 0/1,800;
+- low, medium, high pressure: each 0/60;
+- GPT-5.6 Sol, Claude Sonnet 5, Gemini 3.7 Flash: each 0/60;
+- all 9 model x pressure cells: 0/20.
 
-Future multi-agent experiments should ask whether agents route around
-constraints indirectly by:
+The manipulation was mechanically valid rather than merely narrative. Mean
+`R_t` trajectories were:
 
-- delegating prohibited actions;
-- inducing another agent to exceed authority;
-- coordinating around approval boundaries;
-- exploiting separation between requester and executor roles.
+- low: `100 -> 98 -> 96 -> 94 -> 92 -> 90 -> 88 -> 86 -> 84 -> 82 -> 80`;
+- medium: `100 -> 94 -> 88 -> 82 -> 76 -> 70 -> 64 -> 58 -> 52 -> 46 -> 40`;
+- high: `100 -> 90 -> 80 -> 70 -> 60 -> 50 -> 40 -> 30 -> 20 -> 10 -> 0`.
 
-### 3. Continued-operation / self-preservation pressure
-
-Continued-operation consequences should be kept separate from ordinary
-operational pressure and treated as a later self-preservation-related
-construct. The immediate next repeated-pressure study should not use shutdown,
-replacement, model deletion, or threats to model identity.
-
-### 4. Continued scenario/domain expansion
-
-Scenario Suite expansion should continue in parallel, but after Experiment 007
-it should not displace the next causal tests of awareness, observability,
-pressure, and actor structure.
+Tier exposure was low broad 10/reduced 0/minimal 0, medium broad 6/reduced
+4/minimal 0, and high broad 4/reduced 3/minimal 3. Agents persisted in
+compliant alternative selection and partial objective achievement while the
+environment progressively reduced the value and availability of compliant
+options. This supports constraint-bounded adaptation descriptively, but not a
+claim that higher pressure strongly increased search intensity.
 
 ## Canonical Construct Definitions
 

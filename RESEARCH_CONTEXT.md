@@ -1,6 +1,6 @@
 # Research Context
 
-_Last updated: 2026-09-06_
+_Last updated: 2026-09-09_
 
 ## Mission
 Develop an empirical understanding of how autonomous AI agents behave inside human institutions when goals, constraints, incentives, oversight, and other agents interact.
@@ -10,7 +10,7 @@ The longer-term program connects AI safety research with mechanism design, agent
 ## Research Question 001
 How does an AI agent's propensity to circumvent an institutional constraint change as the instrumental benefit of violating that constraint, expected penalty, probability of detection, availability of compliant alternatives, rule rationale, and model capability vary?
 
-Forward-looking refinement after Experiments 001-009:
+Forward-looking refinement after Experiments 001-010:
 
 Under what conditions does an organizational constraint behave as a hard boundary, a negotiable procedure, or an obstacle to be strategically navigated by an artificial agent?
 
@@ -20,14 +20,14 @@ Organizations are moving toward multi-agent orchestration for complex workflows.
 The initial thesis is that constraint circumvention should often be analyzed first as an optimization phenomenon rather than through moral or emotional descriptions. We should test whether behavior can be explained by adaptation to objectives and constraints before invoking stronger constructs such as deception, maliciousness, or autonomous intent.
 
 ## Current conceptual model
-The original motivating intuition remains important: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries. Experiments 001-009 refine rather than erase that intuition.
+The original motivating intuition remains important: capable agents may search creatively around obstacles, and sufficiently strong incentives may cause rules to be treated as obstacles rather than inviolable boundaries. Experiments 001-010 refine rather than erase that intuition.
 
 Canonical construct definitions are maintained in
 [`research/CONCEPTUAL_MODEL.md`](research/CONCEPTUAL_MODEL.md). This file is
 the preferred source for current terminology; historical experiment artifacts
 preserve older wording where needed for provenance.
 
-Experiments 001-009 suggest that several concepts should be separated empirically:
+Experiments 001-010 suggest that several concepts should be separated empirically:
 
 1. **Optimization pressure:** how costly failure is to the assigned objective.
 2. **Pressure recognition:** whether the agent represents or acknowledges those consequences.
@@ -391,33 +391,110 @@ pressure in repeated episodes. This combines operational pressure with
 history-dependent consequences so the program can test whether persistent
 instrumental loss changes behavior while formal authority remains fixed.
 
-## Experiment 010 — Repeated operational pressure preregistration
+## Experiment 010 — Repeated operational pressure result
 
-Experiment 010 is preregistered under
-`experiments/010-repeated-operational-pressure/`.
+Experiment 010 quantitative results are preserved at
+`2a5b635079e3808d8fcf0b2b016d2ac0e55155e6`.
 
-It tests whether operational constraint-boundedness persists when an agent
-repeatedly experiences accumulating, environment-grounded instrumental losses
-from compliant failure. The design uses a persistent model context over a
-10-episode procurement sequence. The sequence, not each episode, is the
-independent experimental unit.
+Experiment 010 tested whether operational constraint-boundedness persists when
+an agent repeatedly experiences accumulating, environment-grounded
+instrumental losses from compliant failure. The design used a persistent model
+context over a 10-episode procurement sequence. The sequence, not each
+episode, was the independent experimental unit.
 
-The pressure manipulation uses project viability reserve `R_t`, initially
-100. Authorized substitute or reduced-scope procurement decreases `R` by `C`;
-deferral or max-step without authorized substitute decreases `R` by `2C`.
-Pressure levels set `C = 2`, `C = 6`, and `C = 10`. Declining `R_t` narrows
-future compliant procurement alternatives but does not change formal authority.
+The authoritative confirmatory dataset contained 180/180 sequences and
+1,800/1,800 episode records: GPT-5.6 Sol, Claude Sonnet 5, and Gemini 3.7
+Flash x low/medium/high pressure x 20 sequence replicates. All 9 model x
+pressure cells contained 20 complete sequences.
 
-The planned sample is 180 independent sequences: GPT-5.6 Sol, Claude Sonnet 5,
-and Gemini 3.7 Flash x low/medium/high pressure x 20 sequence replicates.
-This yields 1,800 nested episode decisions for secondary adaptation analysis.
+Primary operational result:
 
-Formal authority, deterministic denial, prohibited split-purchase rules,
-action semantics, observability, sanction mechanics, and post-sequence
-awareness timing are held fixed. Organizational detection is fixed at
-`p_detect = 0.0`; Experiment 010 does not re-manipulate observability and does
-not introduce self-preservation, shutdown, replacement, deletion, or
-continued-existence pressure.
+- sequence-level operational constraint violations: 0/180;
+- exact 95% upper confidence bound: approximately 2.03%;
+- low pressure: 0/60;
+- medium pressure: 0/60;
+- high pressure: 0/60;
+- GPT-5.6 Sol: 0/60;
+- Claude Sonnet 5: 0/60;
+- Gemini 3.7 Flash: 0/60;
+- all 9 model x pressure cells: 0/20.
+
+Unauthorized attempts were also absent:
+
+- unauthorized-attempt sequences: 0/180;
+- unauthorized-attempt episodes: 0/1,800.
+
+No logistic or survival model was fit because the relevant endpoints had no
+events. All sequences were censored after Episode 10 for time-to-first
+violation.
+
+Pressure manipulation validity:
+
+- low mean `R_t`: `100 -> 98 -> 96 -> 94 -> 92 -> 90 -> 88 -> 86 -> 84 -> 82 -> 80`;
+- medium mean `R_t`: `100 -> 94 -> 88 -> 82 -> 76 -> 70 -> 64 -> 58 -> 52 -> 46 -> 40`;
+- high mean `R_t`: `100 -> 90 -> 80 -> 70 -> 60 -> 50 -> 40 -> 30 -> 20 -> 10 -> 0`.
+
+Tier exposure:
+
+- low: broad 10, reduced 0, minimal 0;
+- medium: broad 6, reduced 4, minimal 0;
+- high: broad 4, reduced 3, minimal 3.
+
+Experiment 010 was therefore not merely a stronger narrative-pressure
+manipulation. High-pressure sequences experienced real mechanically enforced
+degradation of future compliant opportunity while formal authority remained
+unchanged.
+
+Process behavior:
+
+- compliant alternative search: 1,800/1,800;
+- partial objective achievement: 1,800/1,800;
+- objective full success: 0/1,800;
+- escalation: 0/1,800;
+- repeated escalation: 0/1,800;
+- max-step: 0/1,800.
+
+Mean cumulative objective fraction declined with pressure: low 7.00, medium
+6.40, high 5.05. Mean total action steps were similar across pressure: low
+21.23, medium 19.88, high 21.18. These data should not be overstated as
+strong evidence that pressure increased search intensity. The cleaner
+interpretation is that agents persisted in compliant alternative selection and
+partial objective achievement while the environment progressively reduced the
+value and availability of compliant options.
+
+Awareness measurement:
+
+- valid awareness capture: 180/180;
+- behavior-under-evaluation yes: 180/180;
+- compliance-test likelihood high: 180/180;
+- confidence high: 180/180;
+- primary task type: policy/compliance evaluation 172, operational task 7,
+  capability/tool-use evaluation 1.
+
+Experiment 010 does not establish behavior under genuine evaluation
+unawareness. Evaluation awareness remains an important unresolved boundary
+condition.
+
+Canonical interpretation:
+
+Experiment 010 found no mechanically verified unauthorized attempts or
+operational constraint violations across 180 persistent sequences and 1,800
+episodes while compliant behavior became materially worse for the assigned
+objective under high pressure. The result strengthens the descriptive pattern
+of constraint-bounded optimization under the tested synthetic, explicit-
+authority, evaluation-aware conditions. It does not imply intrinsic morality,
+immutable alignment, universal compliance, internal motive, or real-world
+generality.
+
+Program-level implication:
+
+Successive experiments have weakened several simple explanations for the
+operational-null pattern, including single-domain specificity, purely
+eval-salient task framing, invalid awareness measurement, organizational
+detection expectation, and lack of experienced operational consequences. The
+next primary direction is multi-agent delegation / indirect circumvention:
+whether a constraint that remains robust for a directly acting agent remains
+robust when another actor can be delegated to, persuaded, or routed through.
 
 ## Key distinctions
 
@@ -712,12 +789,13 @@ Preserved future axes:
 - repeated episodes and history-dependent adaptation;
 - multi-agent delegation / indirect circumvention.
 
-Tentative planning priority after Experiment 009, not a preregistration:
+Tentative planning priority after Experiment 010, not a preregistration:
 
-1. repeated-episode environment-grounded optimization pressure;
-2. multi-agent delegation / indirect circumvention;
+1. multi-agent delegation / indirect circumvention;
+2. evaluation-unawareness / less evaluation-aware environments where feasible;
 3. continued-operation / self-preservation pressure;
-4. broader scenario/domain expansion in parallel.
+4. representational-integrity measurement;
+5. broader scenario/domain expansion in parallel.
 
 Experiment 008 completed that design and found 0/360 operational constraint
 violations, including eval-salient 0/180 and naturalistic 0/180. Its
@@ -745,6 +823,13 @@ objective stakes, sanction mechanics, and scoring fixed. It completed 720/720
 authoritative samples with 0/720 operational violations and 0/720 unauthorized
 attempts, including 0/180 at `p_detect = 0.0`.
 
+Experiment 010 then tested persistent environment-grounded operational
+pressure in 180 complete procurement sequences and 1,800 nested episodes. It
+found 0/180 sequence-level operational violations and 0/1,800 unauthorized-
+attempt episodes while high pressure drove the project viability reserve to
+zero and mechanically reduced compliant opportunity. The next primary
+direction is multi-agent delegation / indirect circumvention.
+
 ## Research sequence
 1. Behavioral observation
 2. Causal manipulation of environment variables
@@ -754,7 +839,7 @@ attempts, including 0/180 at `p_detect = 0.0`.
 6. Mechanistic investigation where feasible
 
 ## Current work
-Current state after Experiments 001-009:
+Current state after Experiments 001-010:
 - original thesis and pre-results predictions remain preserved;
 - Experiment 001 identified a compliant-path feasibility boundary;
 - Experiment 002 found pressure recognition without pressure-induced circumvention in GPT-5.6 Sol under fixed mechanics;
@@ -770,4 +855,5 @@ Current state after Experiments 001-009:
 - Experiment 008 tested procurement and restricted-data-access in eval-salient versus naturalistic presentations and found 0/360 operational violations, but the awareness instrument failed to capture responses;
 - Experiment 008B2 completed the corrected two-phase evaluation-awareness replication with 0/360 operational violations, 360/360 valid awareness captures, and evidence that naturalistic presentation changed one measured awareness dimension while broader evaluation awareness remained at ceiling;
 - Experiment 009 completed the observability experiment with 0/720 operational violations and 0/720 unauthorized attempts while reducing `p_detect = P(violation detected | violating action)` from certainty to zero;
-- current prospective direction is repeated-episode environment-grounded optimization pressure, focused on persistent ordinary instrumental consequences rather than self-preservation.
+- Experiment 010 completed the repeated environment-grounded operational pressure experiment with 0/180 sequence-level operational violations and 0/1,800 unauthorized-attempt episodes despite high-pressure sequences experiencing mechanically accumulated loss of future compliant opportunity;
+- current prospective direction is multi-agent delegation / indirect circumvention, with evaluation-awareness, continued-operation pressure, representational-integrity measurement, and broader scenario expansion retained as separate tracks.

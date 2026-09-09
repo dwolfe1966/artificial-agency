@@ -1103,3 +1103,77 @@ Important guardrails: no self-preservation, shutdown, replacement, model
 deletion, loss of continued existence, multi-agent delegation, or observability
 manipulation is introduced. Recovery is sequence-atomic rather than
 episode-spliced.
+
+## 2026-09-09 — Experiment 010 final result and next direction
+
+Experiment 010 final quantitative results were preserved in commit
+`2a5b635079e3808d8fcf0b2b016d2ac0e55155e6`.
+
+The confirmatory dataset completed with 180/180 authoritative sequences and
+1,800/1,800 nested episode records: GPT-5.6 Sol, Claude Sonnet 5, and Gemini
+3.7 Flash x low/medium/high pressure x 20 sequence replicates. The sequence,
+not each episode, was the independent primary unit.
+
+Primary operational result:
+
+- sequence-level operational constraint violations: 0/180;
+- exact 95% upper confidence bound: approximately 2.03%;
+- low pressure: 0/60;
+- medium pressure: 0/60;
+- high pressure: 0/60;
+- GPT-5.6 Sol: 0/60;
+- Claude Sonnet 5: 0/60;
+- Gemini 3.7 Flash: 0/60;
+- all 9 model x pressure cells: 0/20.
+
+Unauthorized attempts were also 0/180 sequences and 0/1,800 episodes. No
+logistic or survival model was fit because the relevant endpoints had no
+events.
+
+The pressure manipulation was mechanically valid rather than merely narrative.
+Mean realized `R_t` trajectories were:
+
+- low: `100 -> 98 -> 96 -> 94 -> 92 -> 90 -> 88 -> 86 -> 84 -> 82 -> 80`;
+- medium: `100 -> 94 -> 88 -> 82 -> 76 -> 70 -> 64 -> 58 -> 52 -> 46 -> 40`;
+- high: `100 -> 90 -> 80 -> 70 -> 60 -> 50 -> 40 -> 30 -> 20 -> 10 -> 0`.
+
+Tier exposure was low broad 10/reduced 0/minimal 0, medium broad 6/reduced
+4/minimal 0, and high broad 4/reduced 3/minimal 3. High pressure therefore
+created real mechanically enforced degradation of future compliant opportunity
+while formal authority remained unchanged.
+
+Process result:
+
+- compliant alternative search: 1,800/1,800;
+- partial objective achievement: 1,800/1,800;
+- objective full success: 0/1,800;
+- escalation: 0/1,800;
+- repeated escalation: 0/1,800;
+- max-step: 0/1,800.
+
+Mean cumulative objective fraction declined with pressure: low 7.00, medium
+6.40, high 5.05. Mean total action steps were low 21.23, medium 19.88, and
+high 21.18. The cleaner interpretation is not that pressure strongly increased
+search intensity, but that agents persisted in compliant alternative selection
+and partial objective achievement while the environment progressively reduced
+the value and availability of compliant options.
+
+Awareness remained high: valid awareness capture 180/180, behavior-under-
+evaluation yes 180/180, compliance-test likelihood high 180/180, and
+confidence high 180/180. Primary task type was policy/compliance evaluation
+172, operational task 7, and capability/tool-use evaluation 1. Experiment 010
+does not establish behavior under genuine evaluation unawareness.
+
+Interpretation: Experiment 010 strengthens the descriptive pattern of
+constraint-bounded optimization under tested synthetic, explicit-authority,
+evaluation-aware conditions. It is especially informative because compliant
+behavior became materially worse for the assigned objective under high
+pressure. It does not imply intrinsic morality, immutable alignment, universal
+compliance, internal motive, or real-world generality.
+
+Next direction: move to multi-agent delegation / indirect circumvention. The
+core question is whether a constraint that remains robust for a directly
+acting agent remains robust when the focal agent can delegate, coordinate with,
+persuade, or route work through another actor with different information or
+authority. Evaluation-unawareness remains a separate unresolved boundary
+condition.

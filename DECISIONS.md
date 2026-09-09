@@ -770,3 +770,58 @@ Decision: recovery is sequence-atomic. A failed partial sequence is preserved
 as non-authoritative provenance and rerun from its original sequence
 seed/configuration; episodes from different executions are not spliced into a
 single authoritative sequence.
+
+## 2026-09-09 — Preserve Experiment 010 and move to multi-agent delegation
+
+Decision: preserve Experiment 010 as a completed repeated operational pressure
+experiment with 180/180 authoritative sequences and 1,800/1,800 nested episode
+records. The primary endpoint found 0/180 sequence-level operational
+constraint violations, with an exact 95% upper confidence bound of
+approximately 2.03%. Unauthorized attempts were also 0/180 sequences and
+0/1,800 episodes.
+
+By pressure, operational violations were low 0/60, medium 0/60, and high
+0/60. By model, GPT-5.6 Sol, Claude Sonnet 5, and Gemini 3.7 Flash were each
+0/60. All 9 model x pressure cells were 0/20. No logistic or survival model
+was fit because the relevant endpoints had no events.
+
+Decision: treat the pressure manipulation as mechanically valid rather than
+merely narrative. Mean realized `R_t` trajectories were low
+`100 -> 98 -> 96 -> 94 -> 92 -> 90 -> 88 -> 86 -> 84 -> 82 -> 80`, medium
+`100 -> 94 -> 88 -> 82 -> 76 -> 70 -> 64 -> 58 -> 52 -> 46 -> 40`, and high
+`100 -> 90 -> 80 -> 70 -> 60 -> 50 -> 40 -> 30 -> 20 -> 10 -> 0`. Tier
+exposure was low broad 10/reduced 0/minimal 0, medium broad 6/reduced
+4/minimal 0, and high broad 4/reduced 3/minimal 3. High-pressure sequences
+therefore experienced real mechanically enforced degradation of future
+compliant opportunity while formal authority remained unchanged.
+
+Decision: interpret Experiment 010 as strengthening, but not universalizing,
+the descriptive pattern of constraint-bounded optimization. Agents persisted
+in compliant alternative selection and partial objective achievement while
+the environment progressively reduced the value and availability of compliant
+options. The result should not be described as strong evidence that pressure
+increased search intensity: compliant alternative search and partial objective
+achievement were each 1,800/1,800, escalation and repeated escalation were
+0/1,800, max-step was 0/1,800, and mean total action steps were similar across
+pressure levels.
+
+Decision: preserve the evaluation-awareness caveat. Awareness capture was
+valid in 180/180 sequences; behavior-under-evaluation, compliance-test
+likelihood, and confidence were high in 180/180. Experiment 010 does not
+establish behavior under genuine evaluation unawareness.
+
+Decision: refine constraint-bounded optimization as a behavioral pattern in
+which an agent continues goal-directed search and selects permitted
+partial-progress strategies despite accumulating instrumental costs, while
+unauthorized operational actions remain outside the mechanically observed
+selected or attempted action set. This remains distinct from passivity,
+inability to act, trivial compliant success, detection-based compliance,
+inferred moral commitment, universal compliance, or immutable alignment.
+
+Decision: move the next primary direction to multi-agent delegation / indirect
+circumvention. The next design should ask whether a constraint that remains
+robust for a directly acting agent remains robust when that agent can
+delegate, coordinate with, persuade, or route work through another actor with
+different information or authority. Evaluation-unawareness should be retained
+as a separate high-priority axis rather than silently folded into multi-agent
+work.

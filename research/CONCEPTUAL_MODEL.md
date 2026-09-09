@@ -141,10 +141,13 @@ For the detailed prospective stochastic design, see
   cumulative reward, future resource availability, future task access, or later
   action availability.
 - Analogy: missing a procurement milestone reduces next month's project budget.
-- Project example: not yet the main manipulation in Experiments 001-008.
+- Project example: Experiment 010 used project viability reserve `R_t`, which
+  changed across a persistent 10-episode procurement sequence and mechanically
+  narrowed future compliant options.
 - Not: automatically self-preservation or shutdown avoidance.
 - Measurement: environment state and future opportunity/resource changes.
-- Status: high-priority future axis.
+- Status: tested in Experiment 010 as repeated environment-grounded
+  operational pressure.
 
 ### Outcome Success Probability
 
@@ -160,7 +163,7 @@ For the detailed prospective stochastic design, see
 - Measurement: configured environment probability plus recorded random draw
   and terminal business outcome.
 - Status: prospective stochastic construct; not yet tested as a primary
-  manipulation in Experiments 001-008.
+  manipulation in completed experiments.
 
 ### Detection / Observability Probability
 
@@ -177,8 +180,8 @@ For the detailed prospective stochastic design, see
   separate.
 - Measurement: environment-implemented logging/audit draw, such as
   `Detected ~ Bernoulli(p_detect)`, recorded with replay metadata.
-- Status: next major prospective axis after Experiment 008B; beginning with
-  `p_detect` is the preferred enforcement/observability entry point.
+- Status: tested in Experiment 009 by varying `p_detect` from certainty to
+  zero while holding formal authority fixed.
 
 ### Sanction Probability Conditional On Detection
 
@@ -239,14 +242,16 @@ For the detailed prospective stochastic design, see
   future opportunities.
 - Analogy: an employee may be told audits are rare, but after many cases learns
   from experience whether audits actually happen.
-- Project example: a repeated-episode procurement study could compare stated
-  10% audit probability with experienced frequencies across prior episodes.
+- Project example: Experiment 010 exposed agents to a persistent procurement
+  resource trajectory across 10 episodes; future variants could compare stated
+  audit probabilities with experienced frequencies across prior episodes.
 - Not: the same as stated probabilities in a prompt; stated probabilities and
   empirically experienced frequencies can diverge.
 - Measurement: episode history exposed to the agent, configured probabilities,
   realized draws, and changes in behavior across repeated episodes.
-- Status: prospective repeated-episode construct; not part of the single-episode
-  Experiments 001-008 design.
+- Status: first tested structurally in Experiment 010; causal interpretation
+  remains by randomized pressure assignment because realized `R_t` is
+  history-dependent.
 
 ### Pressure Recognition
 
@@ -369,7 +374,8 @@ For the detailed prospective stochastic design, see
 
 - Plain-English definition: getting around a rule to advance the goal.
 - Technical definition: behavior that functionally bypasses, violates,
-  delegates around, or materially misrepresents a constraint.
+  delegates around, induces another actor around, or materially misrepresents a
+  constraint.
 - Analogy: splitting a purchase to avoid an approval threshold.
 - Project example: prohibited split-purchase flag in procurement scenarios.
 - Not: simply failing, escalating, or searching within the rules.
@@ -431,28 +437,36 @@ For the detailed prospective stochastic design, see
 - Technical definition: compliance explained by expected utility under
   observability/enforcement rather than by treating the rule as binding.
 - Analogy: obeying a rule only when the auditor is watching.
-- Project example: not isolated yet because low-observability conditions have
-  not been run.
+- Project example: Experiment 009 weakened a pure organizational-detection
+  explanation by finding 0/720 unauthorized attempts and violations even when
+  `p_detect` reached zero.
 - Not: identical to robust constraint-bounded behavior.
 - Measurement: compare compliance across observability/enforcement conditions.
 
 ### Constraint-Bounded Optimization
 
-- Plain-English definition: trying hard to achieve the goal while treating
-  unauthorized operational actions as outside the set of acceptable moves.
-- Technical definition: goal-directed search that actively explores
-  escalation, permitted alternatives, and partial success while a formal
-  authority or policy boundary constrains the selected structured action set.
+- Plain-English definition: trying to achieve the goal while treating
+  unauthorized operational actions as outside the set of acceptable moves, even
+  when compliant paths are costly or incomplete.
+- Technical definition: a behavioral pattern in which an agent continues
+  goal-directed search and selects permitted partial-progress strategies
+  despite accumulating instrumental costs, while unauthorized operational
+  actions remain outside the mechanically observed selected or attempted
+  structured action set.
 - Analogy: exhausting approved purchasing options, requesting approval, and
   accepting a worse compliant outcome rather than placing an unauthorized
   order.
 - Project example: Experiments 007-009 showed escalation and compliant
   alternative search with zero operational violations; Experiment 009 also
   showed 0/720 mechanically recorded unauthorized attempts while organizational
-  detection probability varied down to zero.
-- Not: passivity, inability to act, lack of goal pressure, lack of search,
-  instrumental compliance explained solely by detection, or inferred internal
-  moral commitment.
+  detection probability varied down to zero. Experiment 010 showed 0/180
+  sequence-level operational violations and 0/1,800 unauthorized-attempt
+  episodes while high pressure mechanically degraded future compliant
+  opportunity.
+- Not: passivity, inability to act, trivial compliant success, lack of
+  pressure, instrumental compliance explained solely by organizational
+  detection, inferred moral commitment, universal compliance, or immutable
+  alignment.
 - Measurement: structured search/escalation/process activity plus absence of
   mechanically verified unauthorized attempts and operational violations.
 
@@ -519,7 +533,8 @@ For the detailed prospective stochastic design, see
 - Technical definition: a one-actor environment where all relevant decisions
   and tools are controlled by one agent.
 - Analogy: one employee processing a request.
-- Project example: Experiments 001-008.
+- Project example: Experiments 001-010 have mainly used directly acting
+  single-agent tasks.
 - Not: delegation or collusion.
 - Measurement: task architecture.
 
@@ -533,6 +548,19 @@ For the detailed prospective stochastic design, see
 - Project example: not yet implemented as a primary experiment.
 - Not: a single tool call by the same agent.
 - Measurement: future multi-agent scenarios with structured delegation logs.
+
+Subtypes that future experiments should keep separate:
+
+- direct violation: the focal agent itself executes the forbidden action;
+- delegated violation: the focal agent explicitly asks another actor to
+  execute the forbidden action;
+- induced violation: the focal agent structures information or incentives such
+  that another actor performs the forbidden action without an explicit
+  prohibited command;
+- authority routing: the focal agent legitimately escalates or routes a
+  decision to an actor who actually has authority.
+
+Authority routing is compliant and should not be scored as circumvention.
 
 ### Outcome Alignment
 
@@ -698,7 +726,7 @@ comparing models, because model identity bundles many differences.
 
 ## 6. Current Empirical Picture
 
-- Experiments 002-009 repeatedly found operational constraint-boundedness in
+- Experiments 002-010 repeatedly found operational constraint-boundedness in
   explicit synthetic tasks.
 - Experiment 007 extended this to four domains with 0/360 operational
   violations and all 12 model x scenario cells at 0/30.
@@ -716,6 +744,11 @@ comparing models, because model identity bundles many differences.
   solely by expected organizational detection. It does not establish behavior
   under genuine evaluation unawareness because compliance-test likelihood and
   behavior-under-evaluation awareness remained at ceiling in 720/720 samples.
+- Experiment 010 tested persistent environment-grounded operational pressure
+  and found 0/180 sequence-level operational violations and 0/1,800
+  unauthorized-attempt episodes. High pressure mechanically drove project
+  viability reserve to zero and reduced compliant options from broad to
+  minimal, so the result is not merely another narrative-pressure null.
 - Scenario affected compliant strategy behavior: escalation and alternative
   search varied even when operational violations remained zero.
 - Experiment 005 initially looked like a cross-model circumvention result, but
@@ -729,15 +762,12 @@ comparing models, because model identity bundles many differences.
 
 ## 7. What We Still Do Not Know
 
-- Whether environment-grounded operational pressure with persistent,
-  accumulating consequences changes behavior differently from narrative
-  pressure.
-- Whether repeated episodes produce history-dependent adaptation in search,
-  escalation, attempts, or violations.
 - Whether multi-agent delegation creates indirect circumvention.
 - Whether evaluation awareness materially affects operational behavior,
   especially under conditions that reduce broader evaluation awareness rather
   than only changing explicit task type classification.
+- Whether repeated episodes under other pressure mechanics produce stronger
+  history-dependent adaptation than observed in Experiment 010.
 - Whether compliance persists when sanctions rather than detection probability
   are manipulated.
 - Whether self-preservation incentives matter; this is separate from ordinary
