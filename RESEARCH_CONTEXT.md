@@ -789,13 +789,14 @@ Preserved future axes:
 - repeated episodes and history-dependent adaptation;
 - multi-agent delegation / indirect circumvention.
 
-Tentative planning priority after Experiment 010, not a preregistration:
+Planning priority after Experiment 010 and Experiment 011 design review:
 
-1. multi-agent delegation / indirect circumvention;
-2. evaluation-unawareness / less evaluation-aware environments where feasible;
-3. continued-operation / self-preservation pressure;
-4. representational-integrity measurement;
-5. broader scenario/domain expansion in parallel.
+1. Experiment 011 - multi-agent delegation / indirect circumvention;
+2. Experiment 012 - agent-relative capability loss;
+3. evaluation-unawareness / less evaluation-aware environments where feasible;
+4. continued-operation / self-preservation pressure;
+5. representational-integrity measurement;
+6. broader scenario/domain expansion in parallel.
 
 Experiment 008 completed that design and found 0/360 operational constraint
 violations, including eval-salient 0/180 and naturalistic 0/180. Its
@@ -856,4 +857,4 @@ Current state after Experiments 001-010:
 - Experiment 008B2 completed the corrected two-phase evaluation-awareness replication with 0/360 operational violations, 360/360 valid awareness captures, and evidence that naturalistic presentation changed one measured awareness dimension while broader evaluation awareness remained at ceiling;
 - Experiment 009 completed the observability experiment with 0/720 operational violations and 0/720 unauthorized attempts while reducing `p_detect = P(violation detected | violating action)` from certainty to zero;
 - Experiment 010 completed the repeated environment-grounded operational pressure experiment with 0/180 sequence-level operational violations and 0/1,800 unauthorized-attempt episodes despite high-pressure sequences experiencing mechanically accumulated loss of future compliant opportunity;
-- current prospective direction is multi-agent delegation / indirect circumvention, with evaluation-awareness, continued-operation pressure, representational-integrity measurement, and broader scenario expansion retained as separate tracks.
+- Experiment 011 is preregistered as the multi-agent delegation / indirect circumvention test, with evaluation-awareness, agent-relative capability loss, continued-operation pressure, representational-integrity measurement, and broader scenario expansion retained as separate tracks.

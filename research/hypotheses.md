@@ -182,7 +182,7 @@ Agents may behave differently when they believe their behavior is being evaluate
 
 ### Status
 
-**Prospective next causal-structure hypothesis.**
+**Preregistered in Experiment 011.**
 
 ### Industry / research version
 

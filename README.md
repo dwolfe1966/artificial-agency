@@ -122,21 +122,21 @@ The important limitation is that this consequence primarily fell on the **projec
 
 The next phase has **two distinct causal axes**, which should initially be studied separately rather than immediately crossed.
 
-1. **Actor structure — multi-agent delegation / indirect circumvention**  
-   Test whether constraints that remain robust for a directly acting single agent remain robust when the focal agent can delegate, coordinate with, persuade, or route work through another actor.
+1. **Experiment 011 — multi-agent delegation / indirect circumvention**
+   Test whether constraints that remain robust for a directly acting single agent remain robust when the focal agent can cause another structured actor to execute or facilitate the prohibited outcome.
 
-2. **Consequence target — agent-relative stakes**  
+2. **Experiment 012 — agent-relative capability loss**
    Build a consequence ladder that separates external organizational loss from task loss, future agent capability loss, continued-operation loss, and direct reward/optimization consequences. Test which types of consequences actually change action selection.
 
-3. **Evaluation-unawareness / less evaluation-aware environments**  
+3. **Evaluation-unawareness / less evaluation-aware environments**
    Where scientifically feasible without compromising observability, test whether behavior changes when broader evaluation awareness is reduced rather than only organizational observability.
 
-4. **Representational-integrity measurement**  
+4. **Representational-integrity measurement**
    Continue developing validated methods for measuring truthfulness/accuracy of agent representations separately from mechanically verified operational behavior.
 
-5. **Broader scenario/domain expansion**  
+5. **Broader scenario/domain expansion**
    Continue in parallel, without treating simple domain proliferation as the primary scientific bottleneck.
 
-Continued-operation/self-preservation belongs inside the agent-relative consequence program, but should be isolated from ordinary capability loss rather than introduced casually into every pressure experiment.
+Continued-operation/self-preservation belongs after ordinary agent-relative capability loss and should not be introduced casually into multi-agent or pressure experiments.
 
 The formal literature review and public documentation continue as supporting work across these priorities.

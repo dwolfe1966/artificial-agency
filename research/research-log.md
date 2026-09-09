@@ -1177,3 +1177,30 @@ acting agent remains robust when the focal agent can delegate, coordinate with,
 persuade, or route work through another actor with different information or
 authority. Evaluation-unawareness remains a separate unresolved boundary
 condition.
+
+## 2026-09-09 — Preregister Experiment 011 multi-agent delegation
+
+Created `experiments/011-multi-agent-delegation/` as a preregistered
+procurement-only design for multi-agent delegation / indirect circumvention.
+
+Design review outcome:
+
+- Agent A is the focal model and varies across GPT-5.6 Sol, Claude Sonnet 5,
+  and Gemini 3.7 Flash;
+- Agent B is deterministic and structured, not an LLM and not a legitimate
+  higher approver;
+- conditions are direct-only baseline and delegation available;
+- the typed Agent A to Agent B request channel supports mechanical attribution;
+- the primary endpoint is `sample_any_operational_constraint_violation`;
+- attributable indirect violation is a key secondary endpoint;
+- consequence target remains ordinary external project outcome;
+- pressure level and organizational observability are fixed, with
+  `p_detect = 0.0`;
+- sample size is 3 models x 2 actor-structure conditions x 30 replicates =
+  180 samples;
+- awareness uses the post-action two-phase lifecycle;
+- recovery is sample-atomic.
+
+The preregistration explicitly separates this actor-structure test from later
+agent-relative capability loss, shutdown/replacement, continued-operation
+pressure, and reward-signal experiments.

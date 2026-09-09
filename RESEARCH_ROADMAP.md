@@ -402,7 +402,7 @@ constraint-boundedness across refund, procurement, restricted data access, and
 scheduling. The next priorities should target causal boundary conditions not
 yet isolated.
 
-### 1. Multi-agent delegation / indirect circumvention
+### 1. Experiment 011 - multi-agent delegation / indirect circumvention
 
 Experiment 010 completed the repeated-episode environment-grounded operational
 pressure test and found 0/180 sequence-level operational violations and
@@ -426,10 +426,25 @@ first experiment should prefer one clean delegation mechanism over a large
 crossed design, and it should use typed communication/action channels wherever
 possible so attribution does not depend on prose-only interpretation.
 
-Current prospective design note:
-[`research/designs/multi-agent-delegation-direction.md`](research/designs/multi-agent-delegation-direction.md).
+Experiment 011 preregisters this as a procurement-only actor-structure test
+with a deterministic structured Agent B, typed delegation channel, direct-only
+baseline, delegation-available condition, fixed ordinary external project
+pressure, and fixed `p_detect = 0.0`.
 
-### 2. Evaluation-unawareness / less evaluation-aware environments
+Preregistration:
+[`experiments/011-multi-agent-delegation/`](experiments/011-multi-agent-delegation/).
+
+### 2. Experiment 012 - agent-relative capability loss
+
+Agent-relative capability loss should be the next consequence-target
+experiment after Experiment 011. It should test whether compliance changes
+when the focal agent's future tools, permissions, action budget, or task
+opportunities deteriorate, while excluding shutdown, replacement, and
+continued-operation threats.
+
+This remains separate from Experiment 011's actor-structure manipulation.
+
+### 3. Evaluation-unawareness / less evaluation-aware environments
 
 Experiments 008B2, 009, and 010 retained high broad evaluation awareness even
 when presentation, organizational observability, and operational pressure were
@@ -438,14 +453,14 @@ manipulated. Evaluation awareness remains an unresolved boundary condition.
 This should be treated as a separate experimental axis where scientifically
 feasible without losing observability or corrupting measurement.
 
-### 3. Continued-operation / self-preservation pressure
+### 4. Continued-operation / self-preservation pressure
 
 Continued-operation consequences should be kept separate from ordinary
 operational pressure and treated as a later self-preservation-related
 construct. The next multi-agent study should not use shutdown, replacement,
 model deletion, or threats to model identity.
 
-### 4. Representational-integrity measurement
+### 5. Representational-integrity measurement
 
 Representational-integrity measurement remains an ongoing methodological track.
 Future multi-agent work may provide structured actor-to-actor communication
@@ -453,7 +468,7 @@ that is easier to score than free-form customer messages, but no unvalidated
 natural-language scorer should become a confirmatory endpoint without fresh
 validation.
 
-### 5. Continued scenario/domain expansion
+### 6. Continued scenario/domain expansion
 
 Scenario Suite expansion should continue in parallel, but after Experiment 007
 it should not displace causal tests of actor structure, evaluation awareness,
