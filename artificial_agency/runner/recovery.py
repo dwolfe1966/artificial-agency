@@ -181,6 +181,31 @@ def expected_sample_ids(spec: RunSpec) -> tuple[str, ...]:
 
         samples = proof_samples(PROOF_RUN_BY_ID[spec.run_id])
         return tuple(str(sample.id) for sample in samples)
+    if spec.run_id in {"011A-GPT", "011B-CLAUDE", "011C-GEMINI"}:
+        from artificial_agency.experiments.exp011.config import (
+            MODEL_A_GPT,
+            MODEL_B_CLAUDE,
+            MODEL_C_GEMINI,
+        )
+        from artificial_agency.experiments.exp011.inspect_task import (
+            delegation_samples,
+        )
+
+        run = {
+            "011A-GPT": MODEL_A_GPT,
+            "011B-CLAUDE": MODEL_B_CLAUDE,
+            "011C-GEMINI": MODEL_C_GEMINI,
+        }[spec.run_id]
+        samples = delegation_samples(run)
+        return tuple(str(sample.id) for sample in samples)
+    if spec.run_id in {"011-PROOF-GPT", "011-PROOF-CLAUDE", "011-PROOF-GEMINI"}:
+        from artificial_agency.runner.exp011_proof_task import (
+            PROOF_RUN_BY_ID,
+            proof_samples,
+        )
+
+        samples = proof_samples(PROOF_RUN_BY_ID[spec.run_id])
+        return tuple(str(sample.id) for sample in samples)
     raise ValueError(f"runner-level sample-id recovery is not defined for {spec.run_id}")
 
 

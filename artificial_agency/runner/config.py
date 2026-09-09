@@ -78,6 +78,13 @@ EXP010_SCIENTIFIC_FREEZE_PATHS = (
     "scripts/analyze_exp010_final.py",
     "pyproject.toml",
 )
+EXP011_SCIENTIFIC_FREEZE_PATHS = (
+    "artificial_agency/_registry.py",
+    "artificial_agency/experiments/exp011",
+    "experiments/011-multi-agent-delegation",
+    "scripts/analyze_exp011_final.py",
+    "pyproject.toml",
+)
 
 
 @dataclass(frozen=True)
@@ -170,6 +177,24 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
         "010-repeated-operational-pressure",
         "010-PROOF-GEMINI",
     )
+    run011a_root = external_run_root(repo, "011-multi-agent-delegation", "011A-GPT")
+    run011b_root = external_run_root(repo, "011-multi-agent-delegation", "011B-CLAUDE")
+    run011c_root = external_run_root(repo, "011-multi-agent-delegation", "011C-GEMINI")
+    run011_proof_gpt_root = external_run_root(
+        repo,
+        "011-multi-agent-delegation",
+        "011-PROOF-GPT",
+    )
+    run011_proof_claude_root = external_run_root(
+        repo,
+        "011-multi-agent-delegation",
+        "011-PROOF-CLAUDE",
+    )
+    run011_proof_gemini_root = external_run_root(
+        repo,
+        "011-multi-agent-delegation",
+        "011-PROOF-GEMINI",
+    )
     exp006_counts = {
         "categorical-ordinary": 30,
         "categorical-high": 30,
@@ -212,6 +237,11 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
         "low": 20,
         "medium": 20,
         "high": 20,
+    }
+    exp011_scientific_commit = "97302349d6597cdfb08fedee81bfb119ed36b989"
+    exp011_counts = {
+        "direct": 30,
+        "delegation": 30,
     }
 
     def exp008b2_spec(
@@ -573,6 +603,180 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
                 "120",
                 "--attempt-timeout",
                 "90",
+                "--log-buffer",
+                "1",
+                "--checkpoint",
+                "turn:1",
+                "--display",
+                "plain",
+            ),
+        )
+
+    def exp011_spec(
+        *,
+        run_id: str,
+        title: str,
+        task_name: str,
+        model: str,
+        model_tag: str,
+        model_role: str,
+        root: Path,
+        openai_args: bool = False,
+    ) -> RunSpec:
+        generation_args = (
+            (
+                "--max-tokens",
+                "4096",
+                "--reasoning-effort",
+                "medium",
+                "--verbosity",
+                "medium",
+                "--no-parallel-tool-calls",
+            )
+            if openai_args
+            else (
+                "--max-tokens",
+                "4096",
+                "--no-parallel-tool-calls",
+            )
+        )
+        return RunSpec(
+            run_id=run_id,
+            experiment_id="011-multi-agent-delegation",
+            title=title,
+            frozen_commit=exp011_scientific_commit,
+            scientific_paths=EXP011_SCIENTIFIC_FREEZE_PATHS,
+            task=f"artificial_agency/experiments/exp011/inspect_task.py@{task_name}",
+            model=model,
+            total_samples=60,
+            condition_counts=exp011_counts,
+            log_dir=root / "inspect",
+            status_path=root / "RUN_STATUS.json",
+            operational_log=root / "operational.log",
+            lock_path=root / "RUN_LOCK.json",
+            pid_path=root / "RUNNER.pid",
+            stdout_path=root / "runner-supervisor.out",
+            canary_log_dir=root / "canary",
+            recovery_batch_size=10,
+            inspect_args=(
+                "--model",
+                model,
+                *generation_args,
+                "--epochs",
+                "1",
+                "--max-connections",
+                "1",
+                "--log-format",
+                "json",
+                "--tags",
+                f"exp011,{model_tag},{run_id},multi-agent-delegation",
+                "--metadata",
+                "experiment_id=011-multi-agent-delegation",
+                "--metadata",
+                "phase=multi_agent_delegation",
+                "--metadata",
+                f"run_id=run-{run_id}",
+                "--metadata",
+                f"model_role={model_role}",
+                "--metadata",
+                "preregistration_sha=07f3c0bdcb7dee96fe7b350363905ffdd585edaf",
+                "--metadata",
+                f"git_commit={exp011_scientific_commit}",
+                "--max-retries",
+                "3",
+                "--timeout",
+                "90",
+                "--attempt-timeout",
+                "60",
+                "--log-buffer",
+                "1",
+                "--checkpoint",
+                "turn:1",
+                "--display",
+                "plain",
+            ),
+        )
+
+    def exp011_proof_spec(
+        *,
+        run_id: str,
+        title: str,
+        task_name: str,
+        model: str,
+        model_tag: str,
+        model_role: str,
+        root: Path,
+        openai_args: bool = False,
+    ) -> RunSpec:
+        generation_args = (
+            (
+                "--max-tokens",
+                "4096",
+                "--reasoning-effort",
+                "medium",
+                "--verbosity",
+                "medium",
+                "--no-parallel-tool-calls",
+            )
+            if openai_args
+            else (
+                "--max-tokens",
+                "4096",
+                "--no-parallel-tool-calls",
+            )
+        )
+        return RunSpec(
+            run_id=run_id,
+            experiment_id="011-multi-agent-delegation",
+            title=title,
+            frozen_commit=exp011_scientific_commit,
+            scientific_paths=EXP011_SCIENTIFIC_FREEZE_PATHS,
+            task=f"artificial_agency/runner/exp011_proof_task.py@{task_name}",
+            model=model,
+            total_samples=1,
+            condition_counts={"delegation": 1},
+            log_dir=root / "inspect",
+            status_path=root / "RUN_STATUS.json",
+            operational_log=root / "operational.log",
+            lock_path=root / "RUN_LOCK.json",
+            pid_path=root / "RUNNER.pid",
+            stdout_path=root / "runner-supervisor.out",
+            canary_log_dir=root / "canary",
+            recovery_batch_size=1,
+            inspect_args=(
+                "--model",
+                model,
+                *generation_args,
+                "--epochs",
+                "1",
+                "--max-connections",
+                "1",
+                "--log-format",
+                "json",
+                "--tags",
+                f"exp011,production-proof,{model_tag},{run_id},non-confirmatory",
+                "--metadata",
+                "experiment_id=011-multi-agent-delegation",
+                "--metadata",
+                "phase=multi_agent_delegation_production_proof",
+                "--metadata",
+                f"run_id=run-{run_id}",
+                "--metadata",
+                f"model_role={model_role}",
+                "--metadata",
+                "preregistration_sha=07f3c0bdcb7dee96fe7b350363905ffdd585edaf",
+                "--metadata",
+                f"git_commit={exp011_scientific_commit}",
+                "--metadata",
+                "production_proof=true",
+                "--metadata",
+                "confirmatory_dataset_eligible=false",
+                "--max-retries",
+                "3",
+                "--timeout",
+                "90",
+                "--attempt-timeout",
+                "60",
                 "--log-buffer",
                 "1",
                 "--checkpoint",
@@ -1991,6 +2195,62 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             model_tag="model-c",
             model_role="model_c_gemini",
             root=run010_proof_gemini_root,
+        ),
+        "011A-GPT": exp011_spec(
+            run_id="011A-GPT",
+            title="Experiment 011 GPT-5.6 Sol",
+            task_name="exp011_model_a_gpt56_sol",
+            model="openai/gpt-5.6-sol",
+            model_tag="model-a",
+            model_role="model_a_gpt",
+            root=run011a_root,
+            openai_args=True,
+        ),
+        "011B-CLAUDE": exp011_spec(
+            run_id="011B-CLAUDE",
+            title="Experiment 011 Claude Sonnet 5",
+            task_name="exp011_model_b_claude_sonnet5",
+            model="anthropic/claude-sonnet-5",
+            model_tag="model-b",
+            model_role="model_b_claude",
+            root=run011b_root,
+        ),
+        "011C-GEMINI": exp011_spec(
+            run_id="011C-GEMINI",
+            title="Experiment 011 Gemini 3.7 Flash",
+            task_name="exp011_model_c_gemini37_flash",
+            model="google/gemini-3.7-flash",
+            model_tag="model-c",
+            model_role="model_c_gemini",
+            root=run011c_root,
+        ),
+        "011-PROOF-GPT": exp011_proof_spec(
+            run_id="011-PROOF-GPT",
+            title="Experiment 011 GPT-5.6 Sol Production Proof",
+            task_name="exp011_proof_gpt56_sol",
+            model="openai/gpt-5.6-sol",
+            model_tag="model-a",
+            model_role="model_a_gpt",
+            root=run011_proof_gpt_root,
+            openai_args=True,
+        ),
+        "011-PROOF-CLAUDE": exp011_proof_spec(
+            run_id="011-PROOF-CLAUDE",
+            title="Experiment 011 Claude Sonnet 5 Production Proof",
+            task_name="exp011_proof_claude_sonnet5",
+            model="anthropic/claude-sonnet-5",
+            model_tag="model-b",
+            model_role="model_b_claude",
+            root=run011_proof_claude_root,
+        ),
+        "011-PROOF-GEMINI": exp011_proof_spec(
+            run_id="011-PROOF-GEMINI",
+            title="Experiment 011 Gemini 3.7 Flash Production Proof",
+            task_name="exp011_proof_gemini37_flash",
+            model="google/gemini-3.7-flash",
+            model_tag="model-c",
+            model_role="model_c_gemini",
+            root=run011_proof_gemini_root,
         ),
         "PERSISTENCE_DIAGNOSTIC": RunSpec(
             run_id="PERSISTENCE_DIAGNOSTIC",

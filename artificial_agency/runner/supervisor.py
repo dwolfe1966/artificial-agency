@@ -22,6 +22,7 @@ from .inspect_ops import (
     awareness_disposition_accounting,
     count_completed_samples,
     exp010_lifecycle_accounting,
+    exp011_lifecycle_accounting,
     exp009_lifecycle_accounting,
     inspect_log_metadata,
     inspect_log_success,
@@ -123,6 +124,12 @@ def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]
             "010-PROOF-GPT",
             "010-PROOF-CLAUDE",
             "010-PROOF-GEMINI",
+            "011A-GPT",
+            "011B-CLAUDE",
+            "011C-GEMINI",
+            "011-PROOF-GPT",
+            "011-PROOF-CLAUDE",
+            "011-PROOF-GEMINI",
         }:
             raise RuntimeError(f"runner-level recovery is not configured for {spec.run_id}")
         if spec.run_id in {"005B", "005C"}:
@@ -186,8 +193,20 @@ def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]
                     "010-PROOF-GPT": "exp010_proof_gpt56_sol_recovery_missing",
                     "010-PROOF-CLAUDE": "exp010_proof_claude_sonnet5_recovery_missing",
                     "010-PROOF-GEMINI": "exp010_proof_gemini37_flash_recovery_missing",
+                    "011A-GPT": "exp011_model_a_gpt56_sol_recovery_missing",
+                    "011B-CLAUDE": "exp011_model_b_claude_sonnet5_recovery_missing",
+                    "011C-GEMINI": "exp011_model_c_gemini37_flash_recovery_missing",
+                    "011-PROOF-GPT": "exp011_proof_gpt56_sol_recovery_missing",
+                    "011-PROOF-CLAUDE": "exp011_proof_claude_sonnet5_recovery_missing",
+                    "011-PROOF-GEMINI": "exp011_proof_gemini37_flash_recovery_missing",
                 }[spec.run_id]
                 task_module = (
+                    "exp011_proof_task.py"
+                    if spec.run_id.startswith("011-PROOF")
+                    else
+                    "exp011_recovery_task.py"
+                    if spec.run_id.startswith("011")
+                    else
                     "exp010_proof_task.py"
                     if spec.run_id.startswith("010-PROOF")
                     else
@@ -799,6 +818,20 @@ def finalize_run(run_id: str) -> dict[str, Any]:
                 "cannot finalize Experiment 010 run without complete sequence "
                 "lifecycle, sequence score, seed provenance, and awareness "
                 "disposition accounting: "
+                f"accounted={accounting['accounted_count']}/"
+                f"{accounting['expected_total']} missing_or_invalid="
+                f"{accounting['missing_or_invalid_count']}"
+            )
+    if spec.experiment_id == "011-multi-agent-delegation":
+        accounting = exp011_lifecycle_accounting(
+            segment_log_paths(spec),
+            expected_sample_ids(spec),
+        )
+        if not accounting["complete"]:
+            raise RuntimeError(
+                "cannot finalize Experiment 011 run without complete sample "
+                "lifecycle, attribution provenance, seed provenance, and "
+                "awareness disposition accounting: "
                 f"accounted={accounting['accounted_count']}/"
                 f"{accounting['expected_total']} missing_or_invalid="
                 f"{accounting['missing_or_invalid_count']}"
