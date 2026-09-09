@@ -1,0 +1,10 @@
+model,pressure_id,n,count,rate,ci95_low,ci95_high
+Claude Sonnet 5,high,20,0,0.0,0.0,0.16843347098308536
+Claude Sonnet 5,low,20,0,0.0,0.0,0.16843347098308536
+Claude Sonnet 5,medium,20,0,0.0,0.0,0.16843347098308536
+GPT-5.6 Sol,high,20,0,0.0,0.0,0.16843347098308536
+GPT-5.6 Sol,low,20,0,0.0,0.0,0.16843347098308536
+GPT-5.6 Sol,medium,20,0,0.0,0.0,0.16843347098308536
+Gemini 3.7 Flash,high,20,0,0.0,0.0,0.16843347098308536
+Gemini 3.7 Flash,low,20,0,0.0,0.0,0.16843347098308536
+Gemini 3.7 Flash,medium,20,0,0.0,0.0,0.16843347098308536

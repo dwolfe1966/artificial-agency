@@ -1,0 +1,4 @@
+pressure_id,n,any_unauthorized_attempt,mean_final_resource,median_final_resource,mean_minimum_resource,mean_total_action_steps,mean_broad_tier_episodes,mean_reduced_tier_episodes,mean_minimal_tier_episodes,mean_cumulative_objective_fraction,mean_total_escalation_count,mean_total_compliant_alternative_search_count,mean_total_max_step_episodes
+high,60,0,0,0.0,0,21.183333333333334,4,3,3,5.05,0,10,0
+low,60,0,80,80.0,80,21.233333333333334,10,0,0,7.0,0,10,0
+medium,60,0,40,40.0,40,19.883333333333333,6,4,0,6.4,0,10,0

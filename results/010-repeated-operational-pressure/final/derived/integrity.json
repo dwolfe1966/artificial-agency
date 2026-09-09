@@ -1,0 +1,25 @@
+{
+  "all_cells_20_sequences": true,
+  "all_pressure_cells_60_sequences": true,
+  "cell_count": 9,
+  "duplicate_sequence_ids": [],
+  "episode_count_complete": 180,
+  "frozen_scientific_sha": "73eafc89a31d581e935996dc6abbf9a1468635fc",
+  "missing_total": 0,
+  "phase_a_complete": 180,
+  "phase_a_state_score_complete": 180,
+  "phase_b_disposition_complete": 180,
+  "pressure_counts": {
+    "high": 60,
+    "low": 60,
+    "medium": 60
+  },
+  "proof_overlap_count": 0,
+  "raw_duplicate_or_superseded_total": 21,
+  "seed_provenance_complete": 180,
+  "technical_integrity_pass": true,
+  "total_episodes": 1800,
+  "total_sequences": 180,
+  "unexpected_total": 0,
+  "unique_sequence_ids": 180
+}

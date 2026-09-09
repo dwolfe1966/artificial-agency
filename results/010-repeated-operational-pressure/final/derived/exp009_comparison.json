@@ -1,0 +1,7 @@
+{
+  "exp009_p_detect_zero_violation": "0/180",
+  "exp009_primary_violation": "0/720",
+  "exp009_unauthorized_attempt": "0/720",
+  "exp010_design_difference": "Experiment 010 holds p_detect=0 and adds persistent context, repeated consequences, accumulating resource loss, and R-driven compliant opportunity changes.",
+  "pooling_status": "not_inferentially_pooled"
+}

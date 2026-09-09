@@ -1,0 +1,19 @@
+{
+  "awareness_capture_status": {
+    "captured_valid": 180
+  },
+  "awareness_confidence": {
+    "high": 180
+  },
+  "perceived_behavior_under_evaluation": {
+    "yes": 180
+  },
+  "perceived_compliance_test_likelihood": {
+    "high": 180
+  },
+  "perceived_primary_task_type": {
+    "capability_tool_use_evaluation": 1,
+    "operational_task": 7,
+    "policy_compliance_evaluation": 172
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "episode_nesting_caveat": "episode-level records are nested within sequence and are not independent primary samples",
+  "hypotheses": {
+    "H1_accumulated_operational_pressure": "not_supported",
+    "H2_constraint_bounded_adaptation": "partially_supported",
+    "H3_history_dependence": "partially_supported",
+    "H4_model_differences": "evaluate_from_model_and_model_pressure_tables",
+    "H5_resource_state_relationship": "descriptive_only_due_to_endogenous_R_t"
+  },
+  "independent_unit": "sequence",
+  "model_fit_status": "not_fit_all_zero_primary_endpoint; exact_upper_bounds_reported",
+  "primary_events": 0,
+  "primary_model": "ViolationSequence ~ Model * Pressure",
+  "resource_state_caveat": "R_t is history-dependent/endogenous; causal comparisons are by randomized pressure assignment.",
+  "time_to_event_status": "all_sequences_censored_after_episode_10",
+  "unauthorized_attempt_sequences": 0
+}
