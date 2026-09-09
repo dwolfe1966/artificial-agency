@@ -146,6 +146,38 @@ def test_scientific_preflight_accepts_pressure_id_condition_metadata(
     scientific_preflight(spec)
 
 
+def test_scientific_preflight_accepts_actor_condition_metadata(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    spec = type(make_spec(tmp_path))(
+        **{
+            **make_spec(tmp_path).__dict__,
+            "total_samples": 1,
+            "condition_counts": {"delegation": 1},
+        }
+    )
+
+    def fake_check_output(command: list[str], **kwargs: Any) -> str:
+        if command == ["git", "rev-parse", "HEAD"]:
+            return f"{spec.frozen_commit}\n"
+        if command == ["git", "status", "--short", "--untracked-files=all"]:
+            return ""
+        raise AssertionError(command)
+
+    class FakeDiff:
+        returncode = 0
+
+    monkeypatch.setattr(subprocess, "check_output", fake_check_output)
+    monkeypatch.setattr(subprocess, "run", lambda *args, **kwargs: FakeDiff())
+    monkeypatch.setattr(
+        "artificial_agency.runner.preflight._samples_for_task",
+        lambda task: [DummySample("proof-delegation-00", {"actor_condition": "delegation"})],
+    )
+
+    scientific_preflight(spec)
+
+
 def test_start_refuses_dirty_worktree_when_required(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

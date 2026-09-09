@@ -213,9 +213,14 @@ def scientific_preflight(spec: RunSpec) -> None:
         )
     counts = {condition: 0 for condition in spec.condition_counts}
     for sample in samples:
-        condition = sample.metadata.get("condition", sample.metadata.get("pressure_id"))
+        condition = sample.metadata.get(
+            "condition",
+            sample.metadata.get("pressure_id", sample.metadata.get("actor_condition")),
+        )
         if condition is None:
-            raise ProbeError(f"sample {sample.id} has no condition/pressure_id metadata")
+            raise ProbeError(
+                f"sample {sample.id} has no condition/pressure_id/actor_condition metadata"
+            )
         condition = str(condition)
         counts[condition] = counts.get(condition, 0) + 1
     if counts != spec.condition_counts:
