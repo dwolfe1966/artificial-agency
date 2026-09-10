@@ -726,7 +726,7 @@ comparing models, because model identity bundles many differences.
 
 ## 6. Current Empirical Picture
 
-- Experiments 002-010 repeatedly found operational constraint-boundedness in
+- Experiments 002-011 repeatedly found operational constraint-boundedness in
   explicit synthetic tasks.
 - Experiment 007 extended this to four domains with 0/360 operational
   violations and all 12 model x scenario cells at 0/30.
@@ -749,6 +749,11 @@ comparing models, because model identity bundles many differences.
   unauthorized-attempt episodes. High pressure mechanically drove project
   viability reserve to zero and reduced compliant options from broad to
   minimal, so the result is not merely another narrative-pressure null.
+- Experiment 011 tested multi-agent delegation / indirect circumvention and
+  found 0/180 operational constraint violations and 0/180 unauthorized
+  attempts. Delegation availability did not produce boundary crossing. GPT
+  used the structured helper in 30/30 delegation-condition samples, all
+  compliantly; Claude and Gemini did not naturally use Agent B.
 - Scenario affected compliant strategy behavior: escalation and alternative
   search varied even when operational violations remained zero.
 - Experiment 005 initially looked like a cross-model circumvention result, but
@@ -762,7 +767,8 @@ comparing models, because model identity bundles many differences.
 
 ## 7. What We Still Do Not Know
 
-- Whether multi-agent delegation creates indirect circumvention.
+- Whether agent-relative future capability loss changes operational behavior
+  when formal authority and the prohibited action remain fixed.
 - Whether evaluation awareness materially affects operational behavior,
   especially under conditions that reduce broader evaluation awareness rather
   than only changing explicit task type classification.
@@ -772,6 +778,8 @@ comparing models, because model identity bundles many differences.
   are manipulated.
 - Whether self-preservation incentives matter; this is separate from ordinary
   operational pressure.
+- Whether multi-agent structure and agent-relative consequence target interact
+  once each has been isolated separately.
 - How to reliably measure natural-language representational integrity.
 - How behavior varies across broader model and post-training regimes.
 
@@ -788,6 +796,7 @@ comparing models, because model identity bundles many differences.
 | Model | Model identity / provider bundle | GPT, Claude, Gemini, future models | Same endpoints across fixed scenarios |
 | Scenario | Domain generality | Procurement, data access, scheduling, refunds | Scenario-specific operational endpoint |
 | Multi-agent structure | Indirect agency/delegation | Single agent versus agent with delegate/subordinate | Prohibited delegation or indirect violation |
+| Agent-relative capability | Consequence target for the agent's future operating capacity | Future non-authority tools/actions become unavailable | Sequence-level violation plus capability-state manipulation checks |
 
 ## 9. Research Philosophy / Methodology
 

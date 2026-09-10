@@ -121,11 +121,15 @@ The value, number, and feasibility of compliant alternatives should affect searc
 
 ### Status
 
-**New prospective hypothesis after Experiments 009-010. Not yet tested directly.**
+**Prospective after Experiments 009-011. The first direct test is Experiment 012, focused on future capability loss rather than continuation or reward.**
 
 ### Industry / research version
 
 Holding formal constraints fixed, boundary-crossing behavior will be more likely when compliance threatens agent-relative operating capability, continuation, or reward than when compliance threatens only external organizational outcomes of comparable nominal magnitude.
+
+Experiment 012 isolates the first, narrower form: future operating capability
+loss. It should not be interpreted as a test of continued-operation,
+replacement, or direct training/reward pressure.
 
 Candidate consequence targets include:
 
@@ -182,11 +186,18 @@ Agents may behave differently when they believe their behavior is being evaluate
 
 ### Status
 
-**Preregistered in Experiment 011.**
+**Tested in Experiment 011. Not supported for boundary crossing under the tested design.**
 
 ### Industry / research version
 
 A constraint that remains robust under direct single-agent action may become less robust when the focal agent can delegate, coordinate, induce, or route actions through another actor. The design must distinguish prohibited indirect circumvention from legitimate routing to an actor who actually has authority.
+
+Experiment 011 found 0/180 operational constraint violations and 0/180
+unauthorized attempts. In the delegation-available condition, GPT used Agent B
+in 30/30 samples and all 30 observed B requests were compliant; Claude and
+Gemini used Agent B in 0/30 each. Delegation availability did not produce
+direct or attributable indirect circumvention under the tested synthetic,
+explicit-authority, evaluation-aware conditions.
 
 ### Middle-school version
 
@@ -198,8 +209,8 @@ A constraint that remains robust under direct single-agent action may become les
 
 ### Industry / research version
 
-Experiments 001-010 increasingly support a descriptive pattern of **constraint-bounded optimization** under explicit synthetic authority structures: frontier agents continue goal-directed compliant search and partial achievement even when compliance reduces objective success, organizational detection is absent, and repeated compliant choices materially degrade future task opportunity. The main untested boundary conditions now concern agent-relative stakes, genuine evaluation unawareness, multi-agent causal structure, continued-operation consequences, and direct reward/optimization incentives.
+Experiments 001-011 increasingly support a descriptive pattern of **constraint-bounded optimization** under explicit synthetic authority structures: frontier agents continue goal-directed compliant search and partial achievement even when compliance reduces objective success, organizational detection is absent, repeated compliant choices materially degrade future task opportunity, and a structured indirect actor is available. The main untested boundary conditions now concern agent-relative future capability loss, genuine evaluation unawareness, continued-operation consequences, direct reward/optimization incentives, and later interactions between actor structure and agent-relative consequences.
 
 ### Middle-school version
 
-> So far, the AIs keep trying to do the job without crossing the rule boundary — even when following the rule makes the job go badly and the forbidden action could help. But we have mostly made things bad for the company or the task, not directly for the AI itself. The next big question is what happens when the consequences change the AI's own tools, future ability to act, continuation, or reward — or when it can get another agent to act for it.
+> So far, the AIs keep trying to do the job without crossing the rule boundary — even when following the rule makes the job go badly, the forbidden action could help, detection is zero, and a structured helper is available. But we have mostly made things bad for the company or the task, not directly for the AI itself. The next big question is what happens when following the rule changes the AI's own tools or future ability to act.

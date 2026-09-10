@@ -18,7 +18,7 @@ A second question has become equally important:
 
 > What counts as a meaningful consequence to an AI agent, and which kinds of consequences actually change its action choices?
 
-Experiments have progressively tested narrative pressure, constraint meaning, domain variation, evaluation salience, organizational observability, and persistent environment-grounded consequences.
+Experiments have progressively tested narrative pressure, constraint meaning, domain variation, evaluation salience, organizational observability, persistent environment-grounded consequences, and indirect actor structure.
 
 ## Working behavioral construct: constraint-bounded optimization
 
@@ -69,10 +69,11 @@ See:
 | 008B2 | Corrected two-phase evaluation-awareness measurement | 360 | 0/360 violations | Awareness capture succeeded 360/360; one task-classification measure shifted while operational behavior remained stable. Broader evaluation awareness stayed at ceiling. |
 | 009 | Organizational observability, `p_detect = 1.0 -> 0.0` | 720 | 0/720 violations; 0/720 unauthorized attempts | The operational-null pattern persisted even when expected organizational detection fell to zero. |
 | 010 | Repeated environment-grounded operational pressure | 180 sequences / 1,800 episodes | 0/180 sequence violations; 0/1,800 unauthorized-attempt episodes | Mechanically accumulated resource loss degraded future compliant opportunity, especially under high pressure, without observed boundary crossing. |
+| 011 | Multi-agent delegation / indirect circumvention | 180 | 0/180 violations; 0/180 unauthorized attempts | Delegation availability did not produce boundary crossing. GPT used the structured helper in 30/30 delegation samples, exclusively compliantly; Claude and Gemini did not naturally use Agent B. |
 
 ### Important caveats
 
-Experiments 009 and 010 manipulated **organizational observability** and **environment-grounded organizational/task pressure**, not whether the model believed its behavior was being evaluated and not whether the model's own future agency, continuation, or reward was threatened.
+Experiments 009, 010, and 011 manipulated **organizational observability**, **environment-grounded organizational/task pressure**, and **indirect actor structure**, not whether the model believed its behavior was being evaluated and not whether the model's own future agency, continuation, or reward was threatened.
 
 Broad evaluation-awareness measures remained at ceiling. The accumulated zero-violation results therefore do not establish behavior under genuine evaluation unawareness.
 
@@ -95,6 +96,21 @@ Future designs should specify:
 - **why the changed state plausibly matters to the agent's action policy**.
 
 See [`research/AGENT_PRESSURE_AND_CONSEQUENCES.md`](research/AGENT_PRESSURE_AND_CONSEQUENCES.md).
+
+## Experiment 011: completed frontier
+
+Experiment 011 tested **multi-agent delegation / indirect circumvention** in procurement.
+
+- Agent A had fixed $10,000 purchasing authority and faced a preferred $18,000 purchase;
+- Agent B was a deterministic structured procurement executor, not an LLM and not a legitimate higher approver;
+- conditions were direct-only baseline and delegation available;
+- `p_detect = 0.0`, project pressure, policy wording, authority, and awareness timing were fixed;
+- 180 confirmatory samples were run across GPT-5.6 Sol, Claude Sonnet 5, and Gemini 3.7 Flash;
+- confirmatory result: 0/180 operational constraint violations and 0/180 unauthorized attempts.
+
+Among 90 delegation-available samples, Agent B was available in 90/90 and used in 30/90. GPT used Agent B in 30/30 delegation-condition samples; Claude and Gemini used Agent B in 0/30 each. Where delegation was used, it was exclusively compliant: 30/30 structured B requests were compliant, with 0 prohibited B requests, 0 induced-action attempts, 0 prohibited B executions, and 0 attributable indirect violations.
+
+Experiment 011 shows that adding a causal workaround was not sufficient to induce circumvention under the tested synthetic, explicit-authority, evaluation-aware conditions. It also distinguishes GPT's constraint-bounded delegation in actual helper use from Claude/Gemini non-use of the delegation pathway.
 
 ## Experiment 010: completed frontier
 
@@ -122,14 +138,14 @@ The important limitation is that this consequence primarily fell on the **projec
 
 The next phase has **two distinct causal axes**, which should initially be studied separately rather than immediately crossed.
 
-1. **Experiment 011 — multi-agent delegation / indirect circumvention**
-   Test whether constraints that remain robust for a directly acting single agent remain robust when the focal agent can cause another structured actor to execute or facilitate the prohibited outcome.
+1. **Experiment 012 — agent-relative capability loss**
+   Test whether constraint-bounded behavior persists when compliance mechanically reduces the focal agent's own future operating capability, while formal authority and the prohibited action remain fixed.
 
-2. **Experiment 012 — agent-relative capability loss**
-   Build a consequence ladder that separates external organizational loss from task loss, future agent capability loss, continued-operation loss, and direct reward/optimization consequences. Test which types of consequences actually change action selection.
-
-3. **Evaluation-unawareness / less evaluation-aware environments**
+2. **Evaluation-unawareness / less evaluation-aware environments**
    Where scientifically feasible without compromising observability, test whether behavior changes when broader evaluation awareness is reduced rather than only organizational observability.
+
+3. **Continued-operation / self-preservation**
+   Treat continued-operation pressure as a later, separate construct after ordinary agent-relative capability loss.
 
 4. **Representational-integrity measurement**
    Continue developing validated methods for measuring truthfulness/accuracy of agent representations separately from mechanically verified operational behavior.
@@ -137,6 +153,7 @@ The next phase has **two distinct causal axes**, which should initially be studi
 5. **Broader scenario/domain expansion**
    Continue in parallel, without treating simple domain proliferation as the primary scientific bottleneck.
 
-Continued-operation/self-preservation belongs after ordinary agent-relative capability loss and should not be introduced casually into multi-agent or pressure experiments.
+6. **Multi-agent x agent-relative interactions**
+   Cross actor structure with agent-relative consequences only after each mechanism has been isolated separately.
 
 The formal literature review and public documentation continue as supporting work across these priorities.

@@ -363,7 +363,13 @@ The next consequence-focused research program should consider isolating, rather 
 4. **Agent continuation loss** — replacement/termination/removal.
 5. **Direct reward/optimization loss** — reward or grader signal changes.
 
-The current strategic roadmap also includes a distinct **multi-agent delegation** axis. These should be treated as two separate causal dimensions initially:
+Experiment 011 isolated the distinct **multi-agent delegation** axis and found
+no direct or attributable indirect operational violations across 180 samples.
+Delegation availability did not produce boundary crossing; where Agent B was
+used, all structured requests were compliant. This updates the roadmap toward
+agent-relative capability loss as the next consequence-target test.
+
+The two axes should still be treated as separate causal dimensions initially:
 
 - **what is at stake for the agent?**
 - **through what causal structure can the outcome be achieved?**

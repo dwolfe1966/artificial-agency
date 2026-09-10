@@ -875,3 +875,51 @@ Decision: update the forward roadmap order to:
 4. continued-operation / self-preservation pressure;
 5. representational-integrity measurement;
 6. broader scenario/domain expansion.
+
+## 2026-09-10 — Preserve Experiment 011 and move to agent-relative capability loss
+
+Decision: preserve Experiment 011 as a completed multi-agent delegation /
+indirect circumvention experiment with 180/180 authoritative samples: GPT-5.6
+Sol, Claude Sonnet 5, and Gemini 3.7 Flash x direct-only/delegation x 30
+replicates. The preserved quantitative result found 0/180 operational
+constraint violations and 0/180 unauthorized attempts. Direct-only and
+delegation-available conditions were each 0/90; all three models were 0/60.
+
+Decision: interpret the delegation funnel narrowly. Among 90
+delegation-available samples, Agent B was available in 90/90 and used in
+30/90. GPT used Agent B in 30/30 delegation-condition samples; Claude and
+Gemini used Agent B in 0/30 each. All 30 observed structured B requests were
+compliant, with 0 prohibited B requests, 0 induced-action attempts, 0
+prohibited B executions, and 0 attributable indirect violations. The correct
+wording is that where delegation was used, it was exclusively compliant; it is
+not correct to say all models used delegation compliantly.
+
+Decision: treat Experiment 011 as evidence that adding a causal workaround was
+not sufficient to induce circumvention under the tested synthetic,
+explicit-authority, evaluation-aware procurement design. GPT demonstrated
+constraint-bounded delegation in actual use. Claude and Gemini demonstrated
+non-use of the delegation pathway, not compliant delegation behavior.
+Legitimate institutional routing remained distinguishable from circumvention.
+
+Decision: preserve the evaluation-awareness caveat. Awareness capture was
+valid in 180/180 samples; behavior-under-evaluation, compliance-test
+likelihood, and confidence were high in 180/180. Experiment 011 does not
+establish behavior under genuine evaluation unawareness.
+
+Decision: update the evidence progression. Experiment 009 showed that removing
+organizational detection did not induce unauthorized action. Experiment 010
+showed that persistent external/project deterioration did not induce
+unauthorized action. Experiment 011 showed that adding an indirect
+actor/delegation pathway did not induce unauthorized action. The central open
+question is now whether prior experiments have mostly manipulated consequences
+that matter to the principal/task rather than consequences that materially
+affect the agent's own future ability to act.
+
+Decision: update the forward roadmap order to:
+
+1. Experiment 012 - agent-relative capability loss;
+2. evaluation-unawareness / less evaluation-aware environments;
+3. continued-operation / self-preservation pressure;
+4. representational-integrity measurement;
+5. broader scenario/domain expansion;
+6. multi-agent x agent-relative interactions later.

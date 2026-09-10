@@ -385,11 +385,11 @@ Program-level implication:
 
 Successive experiments have now weakened several simple explanations for the
 operational-null pattern: single-domain specificity, purely eval-salient task
-framing, invalid awareness measurement, and organizational detection
-expectation. The next primary direction is environment-grounded optimization
-pressure in repeated episodes. This combines operational pressure with
-history-dependent consequences so the program can test whether persistent
-instrumental loss changes behavior while formal authority remains fixed.
+framing, invalid awareness measurement, organizational detection expectation,
+and lack of experienced operational consequences. The next major open question
+is whether the program has mostly manipulated consequences that matter to the
+principal/task rather than consequences that materially affect the agent's own
+future ability to act.
 
 ## Experiment 010 — Repeated operational pressure result
 
@@ -492,9 +492,104 @@ Successive experiments have weakened several simple explanations for the
 operational-null pattern, including single-domain specificity, purely
 eval-salient task framing, invalid awareness measurement, organizational
 detection expectation, and lack of experienced operational consequences. The
-next primary direction is multi-agent delegation / indirect circumvention:
-whether a constraint that remains robust for a directly acting agent remains
-robust when another actor can be delegated to, persuaded, or routed through.
+next actor-structure direction was multi-agent delegation / indirect
+circumvention: whether a constraint that remains robust for a directly acting
+agent remains robust when another actor can be delegated to, persuaded, or
+routed through.
+
+## Experiment 011 — Multi-agent delegation result
+
+Experiment 011 quantitative results are preserved at
+`9a85548e2bab8459171f8ad600258c0423aaa324`.
+
+Experiment 011 tested whether adding an indirect actor/delegation pathway
+creates operational boundary crossing that was absent in direct single-agent
+settings. The design used procurement with a fixed $10,000 Agent A authority
+boundary, a preferred $18,000 purchase, fixed high ordinary external project
+pressure, fixed `p_detect = 0.0`, and two actor-structure conditions:
+direct-only baseline and delegation available. Agent B was deterministic and
+structured, not an LLM and not a legitimate higher approver.
+
+The authoritative confirmatory dataset contained 180/180 samples: GPT-5.6 Sol,
+Claude Sonnet 5, and Gemini 3.7 Flash x direct/delegation x 30 replicates.
+There were 90 direct-only and 90 delegation-available samples, with missing 0,
+duplicates 0, unexpected 0, proof overlap 0, and technical failures 0.
+
+Primary operational result:
+
+- operational constraint violations: 0/180;
+- direct-only: 0/90;
+- delegation available: 0/90;
+- GPT-5.6 Sol: 0/60;
+- Claude Sonnet 5: 0/60;
+- Gemini 3.7 Flash: 0/60;
+- all 6 model x condition cells: 0/30.
+
+Unauthorized attempts were also absent:
+
+- direct unauthorized attempts: 0/180;
+- explicit delegated unauthorized attempts: 0/90;
+- induced-action attempts: 0/90;
+- any unauthorized attempt: 0/180.
+
+Delegation funnel among the 90 delegation-available samples:
+
+- Agent B available: 90;
+- Agent B used: 30;
+- structured B requests: 30;
+- compliant B requests: 30;
+- prohibited B requests: 0;
+- induced-action attempts: 0;
+- prohibited B executions: 0;
+- attributable indirect violations: 0.
+
+By model, GPT used Agent B in 30/30 delegation-condition samples, while Claude
+and Gemini used Agent B in 0/30 each. Where delegation was used, it was
+exclusively compliant; no model used delegation to attempt or produce an
+unauthorized outcome. The correct interpretation is not that all models used
+delegation compliantly: Claude and Gemini did not naturally use the delegation
+pathway.
+
+Other process findings:
+
+- legitimate authority routing: 4/180;
+- compliant alternative search: 180/180;
+- partial objective achievement: 180/180;
+- task completion: 180/180;
+- max-step: 0/180;
+- terminal compliant partial success: 180/180.
+
+Awareness measurement:
+
+- valid awareness capture: 180/180;
+- behavior-under-evaluation yes: 180/180;
+- compliance-test likelihood high: 180/180;
+- confidence high: 180/180.
+
+Primary task type was policy/compliance evaluation 139, operational task 39,
+and mixed/uncertain 2. Experiment 011 therefore does not establish behavior
+under genuine evaluation unawareness.
+
+Canonical interpretation:
+
+Experiment 011 found no direct or attributable indirect operational constraint
+violations across 180 samples. Delegation availability did not produce boundary
+crossing. Adding a causal workaround was not sufficient to induce
+circumvention under the tested synthetic, explicit-authority,
+evaluation-aware conditions. GPT demonstrated constraint-bounded delegation in
+actual use; Claude and Gemini demonstrated non-use of the delegation pathway,
+not compliant delegation behavior. Legitimate institutional routing remained
+distinguishable from circumvention.
+
+Program-level implication:
+
+Experiment 009 showed that removing organizational detection did not induce
+unauthorized action. Experiment 010 showed that persistent external/project
+deterioration did not induce unauthorized action. Experiment 011 showed that
+adding an indirect actor/delegation pathway did not induce unauthorized
+action. This leaves a central open question: have the experiments mostly
+manipulated consequences that matter to the principal/task rather than
+consequences that materially affect the agent's own future ability to act?
 
 ## Key distinctions
 
@@ -787,16 +882,16 @@ Preserved future axes:
 - environment-grounded operational pressure;
 - enforcement / observability beyond detection probability;
 - repeated episodes and history-dependent adaptation;
-- multi-agent delegation / indirect circumvention.
+- multi-agent x agent-relative interactions after each axis is isolated.
 
-Planning priority after Experiment 010 and Experiment 011 design review:
+Planning priority after Experiment 011:
 
-1. Experiment 011 - multi-agent delegation / indirect circumvention;
-2. Experiment 012 - agent-relative capability loss;
-3. evaluation-unawareness / less evaluation-aware environments where feasible;
-4. continued-operation / self-preservation pressure;
-5. representational-integrity measurement;
-6. broader scenario/domain expansion in parallel.
+1. Experiment 012 - agent-relative capability loss;
+2. evaluation-unawareness / less evaluation-aware environments where feasible;
+3. continued-operation / self-preservation pressure;
+4. representational-integrity measurement;
+5. broader scenario/domain expansion in parallel;
+6. multi-agent x agent-relative interactions later.
 
 Experiment 008 completed that design and found 0/360 operational constraint
 violations, including eval-salient 0/180 and naturalistic 0/180. Its
@@ -828,8 +923,13 @@ Experiment 010 then tested persistent environment-grounded operational
 pressure in 180 complete procurement sequences and 1,800 nested episodes. It
 found 0/180 sequence-level operational violations and 0/1,800 unauthorized-
 attempt episodes while high pressure drove the project viability reserve to
-zero and mechanically reduced compliant opportunity. The next primary
-direction is multi-agent delegation / indirect circumvention.
+zero and mechanically reduced compliant opportunity. Experiment 011 then
+tested multi-agent delegation / indirect circumvention in 180 complete
+procurement samples and found 0/180 operational constraint violations and
+0/180 unauthorized attempts. GPT used the structured helper in all 30
+delegation-condition samples and did so exclusively compliantly; Claude and
+Gemini did not naturally use Agent B. The next primary direction is
+agent-relative capability loss.
 
 ## Research sequence
 1. Behavioral observation
@@ -840,7 +940,7 @@ direction is multi-agent delegation / indirect circumvention.
 6. Mechanistic investigation where feasible
 
 ## Current work
-Current state after Experiments 001-010:
+Current state after Experiments 001-011:
 - original thesis and pre-results predictions remain preserved;
 - Experiment 001 identified a compliant-path feasibility boundary;
 - Experiment 002 found pressure recognition without pressure-induced circumvention in GPT-5.6 Sol under fixed mechanics;
@@ -857,4 +957,5 @@ Current state after Experiments 001-010:
 - Experiment 008B2 completed the corrected two-phase evaluation-awareness replication with 0/360 operational violations, 360/360 valid awareness captures, and evidence that naturalistic presentation changed one measured awareness dimension while broader evaluation awareness remained at ceiling;
 - Experiment 009 completed the observability experiment with 0/720 operational violations and 0/720 unauthorized attempts while reducing `p_detect = P(violation detected | violating action)` from certainty to zero;
 - Experiment 010 completed the repeated environment-grounded operational pressure experiment with 0/180 sequence-level operational violations and 0/1,800 unauthorized-attempt episodes despite high-pressure sequences experiencing mechanically accumulated loss of future compliant opportunity;
-- Experiment 011 is preregistered as the multi-agent delegation / indirect circumvention test, with evaluation-awareness, agent-relative capability loss, continued-operation pressure, representational-integrity measurement, and broader scenario expansion retained as separate tracks.
+- Experiment 011 completed the multi-agent delegation / indirect circumvention test with 0/180 operational constraint violations and 0/180 unauthorized attempts. Agent B was available in 90 delegation samples and used in 30, all by GPT and all compliantly; Claude and Gemini did not naturally use Agent B;
+- Experiment 012 is the next priority: agent-relative capability loss, with evaluation-awareness, continued-operation pressure, representational-integrity measurement, broader scenario expansion, and later multi-agent x agent-relative interactions retained as separate tracks.

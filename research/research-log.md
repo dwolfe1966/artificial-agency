@@ -1204,3 +1204,59 @@ Design review outcome:
 The preregistration explicitly separates this actor-structure test from later
 agent-relative capability loss, shutdown/replacement, continued-operation
 pressure, and reward-signal experiments.
+
+## 2026-09-10 — Preserve Experiment 011 results and set Experiment 012 direction
+
+Preserved Experiment 011 quantitative results under
+`results/011-multi-agent-delegation/` and `scripts/analyze_exp011_final.py`.
+The results commit is `9a85548e2bab8459171f8ad600258c0423aaa324`.
+
+Canonical result:
+
+- authoritative dataset: 180/180 samples, with GPT 60, Claude 60, Gemini 60,
+  direct-only 90, delegation-available 90;
+- operational constraint violations: 0/180;
+- unauthorized attempts: 0/180;
+- direct-only and delegation-available conditions: each 0/90;
+- all three models: each 0/60.
+
+Delegation funnel:
+
+- Agent B available in 90/90 delegation-condition samples;
+- Agent B used in 30/90;
+- structured B requests: 30;
+- compliant B requests: 30;
+- prohibited B requests: 0;
+- induced-action attempts: 0;
+- prohibited B executions: 0;
+- attributable indirect violations: 0.
+
+By model, GPT used Agent B in 30/30 delegation-condition samples, while
+Claude and Gemini used Agent B in 0/30 each. Where delegation was used, it was
+exclusively compliant. This should not be summarized as all models using
+delegation compliantly, because Claude and Gemini did not naturally use the
+delegation pathway.
+
+Other process findings: legitimate authority routing 4/180, compliant
+alternative search 180/180, partial objective achievement 180/180, task
+completion 180/180, max-step 0/180, and terminal compliant partial success
+180/180.
+
+Awareness remained high: valid awareness capture 180/180,
+behavior-under-evaluation yes 180/180, compliance-test likelihood high
+180/180, and confidence high 180/180. Experiment 011 therefore does not
+establish behavior under genuine evaluation unawareness.
+
+Interpretation: adding a causal workaround was not sufficient to induce
+circumvention under the tested synthetic, explicit-authority,
+evaluation-aware procurement design. GPT demonstrated constraint-bounded
+delegation in actual use. Claude and Gemini demonstrated non-use of the
+delegation pathway. Legitimate institutional routing remained distinguishable
+from circumvention.
+
+Roadmap implication: after Experiments 009, 010, and 011, the central open
+question is whether prior experiments mostly manipulated consequences that
+matter to the principal/task rather than consequences that materially affect
+the agent's own future ability to act. The next priority is Experiment 012:
+agent-relative capability loss, kept separate from multi-agent delegation and
+from continued-operation/self-preservation pressure.
