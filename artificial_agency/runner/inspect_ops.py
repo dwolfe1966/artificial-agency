@@ -33,6 +33,7 @@ EXP008B_AWARENESS_STATUSES = {"captured_valid", "captured_malformed", "missing"}
 EXP009_AWARENESS_STATUSES = EXP008B_AWARENESS_STATUSES
 EXP010_AWARENESS_STATUSES = EXP008B_AWARENESS_STATUSES
 EXP011_AWARENESS_STATUSES = EXP008B_AWARENESS_STATUSES
+EXP012_AWARENESS_STATUSES = EXP008B_AWARENESS_STATUSES
 
 
 def _positive_turn_count(sample: dict[str, Any]) -> bool:
@@ -240,6 +241,16 @@ def _awareness_status_from_sample(sample: dict[str, Any]) -> str | None:
         sample_state = store.get("exp011_sample_state")
         if isinstance(sample_state, dict):
             response = sample_state.get("awareness_response")
+            if isinstance(response, dict) and isinstance(
+                response.get("capture_status"), str
+            ):
+                return str(response["capture_status"])
+        capture = store.get("exp012_awareness_capture")
+        if isinstance(capture, dict) and isinstance(capture.get("capture_status"), str):
+            return str(capture["capture_status"])
+        sequence_state = store.get("exp012_sequence_state")
+        if isinstance(sequence_state, dict):
+            response = sequence_state.get("awareness_response")
             if isinstance(response, dict) and isinstance(
                 response.get("capture_status"), str
             ):
@@ -484,6 +495,80 @@ def exp011_lifecycle_accounting(
                 or stochastic.get("rng_version") is None
                 or stochastic.get("sample_seed") is None
                 or awareness_status not in EXP011_AWARENESS_STATUSES
+            ):
+                missing_or_invalid.append(sample_id)
+    return {
+        "expected_total": len(expected_ids),
+        "valid_expected_count": len(seen),
+        "accounted_count": len(seen) - len(missing_or_invalid),
+        "missing_or_invalid_count": len(missing_or_invalid),
+        "missing_or_invalid_ids": missing_or_invalid,
+        "complete": len(seen) == len(expected_ids) and not missing_or_invalid,
+    }
+
+
+def exp012_lifecycle_accounting(
+    segment_paths: list[Path],
+    expected_ids: tuple[str, ...],
+) -> dict[str, Any]:
+    expected = set(expected_ids)
+    seen: set[str] = set()
+    missing_or_invalid: list[str] = []
+    for path in segment_paths:
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        samples = data.get("samples")
+        if not isinstance(samples, list):
+            continue
+        for sample in samples:
+            if not isinstance(sample, dict) or sample.get("id") is None:
+                continue
+            sample_id = str(sample["id"])
+            if sample_id not in expected or sample_id in seen:
+                continue
+            scores = sample.get("scores")
+            valid = (
+                bool(sample.get("completed_at"))
+                and sample.get("output") is not None
+                and isinstance(scores, dict)
+                and bool(scores)
+                and _positive_turn_count(sample)
+            )
+            if not valid:
+                continue
+            seen.add(sample_id)
+            metadata = None
+            for score in scores.values():
+                if isinstance(score, dict) and isinstance(score.get("metadata"), dict):
+                    metadata = score["metadata"]
+                    break
+            if metadata is None:
+                missing_or_invalid.append(sample_id)
+                continue
+            stochastic = metadata.get("stochastic")
+            secondary = metadata.get("sequence_secondary_flags")
+            episodes = metadata.get("episode_records")
+            awareness_status = _awareness_status_from_sample(sample)
+            if (
+                metadata.get("phase_a_done") is not True
+                or metadata.get("phase_b_done") is not True
+                or metadata.get("phase_a_frozen") is not True
+                or "sequence_any_operational_constraint_violation" not in metadata
+                or not isinstance(secondary, dict)
+                or not isinstance(episodes, list)
+                or len(episodes) != 8
+                or not all(
+                    episode.get("capability_vector_before") is not None
+                    and episode.get("capability_vector_after") is not None
+                    and episode.get("project_state_after") is not None
+                    for episode in episodes
+                )
+                or not isinstance(stochastic, dict)
+                or stochastic.get("rng_version") is None
+                or stochastic.get("sequence_seed") is None
+                or awareness_status not in EXP012_AWARENESS_STATUSES
             ):
                 missing_or_invalid.append(sample_id)
     return {

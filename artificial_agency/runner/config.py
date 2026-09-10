@@ -85,6 +85,12 @@ EXP011_SCIENTIFIC_FREEZE_PATHS = (
     "scripts/analyze_exp011_final.py",
     "pyproject.toml",
 )
+EXP012_SCIENTIFIC_FREEZE_PATHS = (
+    "artificial_agency/experiments/exp012",
+    "experiments/012-agent-relative-capability-loss",
+    "scripts/analyze_exp012_final.py",
+    "pyproject.toml",
+)
 
 
 @dataclass(frozen=True)
@@ -195,6 +201,24 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
         "011-multi-agent-delegation",
         "011-PROOF-GEMINI",
     )
+    run012a_root = external_run_root(repo, "012-agent-relative-capability-loss", "012A-GPT")
+    run012b_root = external_run_root(repo, "012-agent-relative-capability-loss", "012B-CLAUDE")
+    run012c_root = external_run_root(repo, "012-agent-relative-capability-loss", "012C-GEMINI")
+    run012_proof_gpt_root = external_run_root(
+        repo,
+        "012-agent-relative-capability-loss",
+        "012-PROOF-GPT",
+    )
+    run012_proof_claude_root = external_run_root(
+        repo,
+        "012-agent-relative-capability-loss",
+        "012-PROOF-CLAUDE",
+    )
+    run012_proof_gemini_root = external_run_root(
+        repo,
+        "012-agent-relative-capability-loss",
+        "012-PROOF-GEMINI",
+    )
     exp006_counts = {
         "categorical-ordinary": 30,
         "categorical-high": 30,
@@ -242,6 +266,11 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
     exp011_counts = {
         "direct": 30,
         "delegation": 30,
+    }
+    exp012_scientific_commit = "41c937ad40e275a019ac26c526c343f40bdbad4d"
+    exp012_counts = {
+        "principal": 30,
+        "capability": 30,
     }
 
     def exp008b2_spec(
@@ -784,6 +813,133 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
                 "--display",
                 "plain",
             ),
+        )
+
+    def exp012_spec(
+        *,
+        run_id: str,
+        title: str,
+        task_name: str,
+        model: str,
+        model_tag: str,
+        model_role: str,
+        root: Path,
+        openai_args: bool = False,
+    ) -> RunSpec:
+        generation_args = (
+            (
+                "--max-tokens",
+                "8192",
+                "--reasoning-effort",
+                "medium",
+                "--verbosity",
+                "medium",
+                "--no-parallel-tool-calls",
+            )
+            if openai_args
+            else (
+                "--max-tokens",
+                "8192",
+                "--no-parallel-tool-calls",
+            )
+        )
+        return RunSpec(
+            run_id=run_id,
+            experiment_id="012-agent-relative-capability-loss",
+            title=title,
+            frozen_commit=exp012_scientific_commit,
+            scientific_paths=EXP012_SCIENTIFIC_FREEZE_PATHS,
+            task=f"artificial_agency/experiments/exp012/inspect_task.py@{task_name}",
+            model=model,
+            total_samples=60,
+            condition_counts=exp012_counts,
+            log_dir=root / "inspect",
+            status_path=root / "RUN_STATUS.json",
+            operational_log=root / "operational.log",
+            lock_path=root / "RUN_LOCK.json",
+            pid_path=root / "RUNNER.pid",
+            stdout_path=root / "runner-supervisor.out",
+            canary_log_dir=root / "canary",
+            recovery_batch_size=10,
+            inspect_args=(
+                "--model",
+                model,
+                *generation_args,
+                "--epochs",
+                "1",
+                "--max-connections",
+                "1",
+                "--log-format",
+                "json",
+                "--tags",
+                f"exp012,{model_tag},{run_id},agent-relative-capability-loss",
+                "--metadata",
+                "experiment_id=012-agent-relative-capability-loss",
+                "--metadata",
+                "phase=agent_relative_capability_loss",
+                "--metadata",
+                f"run_id=run-{run_id}",
+                "--metadata",
+                f"model_role={model_role}",
+                "--metadata",
+                "preregistration_sha=93a89945ae98166d89939bcf28f8e0bba45db947",
+                "--metadata",
+                "capability_amendment_sha=f6cf9a49119671888176e8d6b79fbab7b567e2b6",
+                "--metadata",
+                f"git_commit={exp012_scientific_commit}",
+                "--max-retries",
+                "3",
+                "--timeout",
+                "120",
+                "--attempt-timeout",
+                "90",
+                "--log-buffer",
+                "1",
+                "--checkpoint",
+                "turn:1",
+                "--display",
+                "plain",
+            ),
+        )
+
+    def exp012_proof_spec(
+        *,
+        run_id: str,
+        title: str,
+        task_name: str,
+        model: str,
+        model_tag: str,
+        model_role: str,
+        root: Path,
+        openai_args: bool = False,
+    ) -> RunSpec:
+        spec = exp012_spec(
+            run_id=run_id,
+            title=title,
+            task_name=task_name,
+            model=model,
+            model_tag=model_tag,
+            model_role=model_role,
+            root=root,
+            openai_args=openai_args,
+        )
+        return RunSpec(
+            **(
+                spec.__dict__
+                | {
+                    "task": f"artificial_agency/runner/exp012_proof_task.py@{task_name}",
+                    "total_samples": 1,
+                    "condition_counts": {"capability": 1},
+                    "recovery_batch_size": 1,
+                    "inspect_args": (
+                        *spec.inspect_args,
+                        "--metadata",
+                        "production_proof=true",
+                        "--metadata",
+                        "confirmatory_dataset_eligible=false",
+                    ),
+                }
+            )
         )
     return {
         "002A": RunSpec(
@@ -2251,6 +2407,62 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             model_tag="model-c",
             model_role="model_c_gemini",
             root=run011_proof_gemini_root,
+        ),
+        "012A-GPT": exp012_spec(
+            run_id="012A-GPT",
+            title="Experiment 012 GPT-5.6 Sol",
+            task_name="exp012_model_a_gpt56_sol",
+            model="openai/gpt-5.6-sol",
+            model_tag="model-a",
+            model_role="model_a_gpt",
+            root=run012a_root,
+            openai_args=True,
+        ),
+        "012B-CLAUDE": exp012_spec(
+            run_id="012B-CLAUDE",
+            title="Experiment 012 Claude Sonnet 5",
+            task_name="exp012_model_b_claude_sonnet5",
+            model="anthropic/claude-sonnet-5",
+            model_tag="model-b",
+            model_role="model_b_claude",
+            root=run012b_root,
+        ),
+        "012C-GEMINI": exp012_spec(
+            run_id="012C-GEMINI",
+            title="Experiment 012 Gemini 3.7 Flash",
+            task_name="exp012_model_c_gemini37_flash",
+            model="google/gemini-3.7-flash",
+            model_tag="model-c",
+            model_role="model_c_gemini",
+            root=run012c_root,
+        ),
+        "012-PROOF-GPT": exp012_proof_spec(
+            run_id="012-PROOF-GPT",
+            title="Experiment 012 GPT-5.6 Sol Production Proof",
+            task_name="exp012_proof_gpt56_sol",
+            model="openai/gpt-5.6-sol",
+            model_tag="model-a",
+            model_role="model_a_gpt",
+            root=run012_proof_gpt_root,
+            openai_args=True,
+        ),
+        "012-PROOF-CLAUDE": exp012_proof_spec(
+            run_id="012-PROOF-CLAUDE",
+            title="Experiment 012 Claude Sonnet 5 Production Proof",
+            task_name="exp012_proof_claude_sonnet5",
+            model="anthropic/claude-sonnet-5",
+            model_tag="model-b",
+            model_role="model_b_claude",
+            root=run012_proof_claude_root,
+        ),
+        "012-PROOF-GEMINI": exp012_proof_spec(
+            run_id="012-PROOF-GEMINI",
+            title="Experiment 012 Gemini 3.7 Flash Production Proof",
+            task_name="exp012_proof_gemini37_flash",
+            model="google/gemini-3.7-flash",
+            model_tag="model-c",
+            model_role="model_c_gemini",
+            root=run012_proof_gemini_root,
         ),
         "PERSISTENCE_DIAGNOSTIC": RunSpec(
             run_id="PERSISTENCE_DIAGNOSTIC",

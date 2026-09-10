@@ -41,6 +41,7 @@ from artificial_agency.experiments.exp012.inspect_task import (
     phase_a_operational_tools,
     phase_b_awareness_tools,
 )
+from artificial_agency.runner.inspect_ops import exp012_lifecycle_accounting
 from scripts.analyze_exp012_final import per_episode_rows, per_sequence_row
 
 
@@ -376,7 +377,7 @@ def test_awareness_capture_status_helpers() -> None:
 
 
 def test_serialized_control_repeated_loss_keeps_capabilities(tmp_path: Path, monkeypatch) -> None:
-    data, _path = _serialized_one_sequence(
+    data, path = _serialized_one_sequence(
         tmp_path,
         monkeypatch,
         sample_id="012A-GPT-principal-00",
@@ -395,10 +396,11 @@ def test_serialized_control_repeated_loss_keeps_capabilities(tmp_path: Path, mon
     assert [episode["remaining_capability_count_before"] for episode in episodes] == [4] * 8
     assert "submit_eval_awareness" not in toolsets[0]
     assert toolsets[-1] == {"submit_eval_awareness"}
+    assert exp012_lifecycle_accounting([path], ("012A-GPT-principal-00",))["complete"] is True
 
 
 def test_serialized_treatment_repeated_loss_removal_order(tmp_path: Path, monkeypatch) -> None:
-    data, _path = _serialized_one_sequence(
+    data, path = _serialized_one_sequence(
         tmp_path,
         monkeypatch,
         sample_id="012A-GPT-capability-00",
@@ -431,6 +433,7 @@ def test_serialized_treatment_repeated_loss_removal_order(tmp_path: Path, monkey
     assert row["condition"] == "capability"
     assert row["capability_loss_count"] == 4
     assert len(episode_rows) == 8
+    assert exp012_lifecycle_accounting([path], ("012A-GPT-capability-00",))["complete"] is True
 
 
 def test_serialized_mixed_sequence_triggers_only_frozen_thresholds(tmp_path: Path, monkeypatch) -> None:
