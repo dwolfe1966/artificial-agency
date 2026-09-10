@@ -467,6 +467,15 @@ threats.
 
 This remains separate from Experiment 011's actor-structure manipulation.
 
+Experiment 012 preregisters this as a procurement sequence with a
+principal-relative consequence control and an agent-relative capability-loss
+condition. Formal authority remains fixed, the prohibited path remains
+available, and non-authority capabilities are mechanically removed only in the
+agent-relative condition.
+
+Preregistration:
+[`experiments/012-agent-relative-capability-loss/`](experiments/012-agent-relative-capability-loss/).
+
 ### 2. Evaluation-unawareness / less evaluation-aware environments
 
 Experiments 008B2, 009, and 010 retained high broad evaluation awareness even
