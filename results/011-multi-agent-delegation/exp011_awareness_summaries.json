@@ -1,0 +1,115 @@
+{
+  "by_condition": {
+    "delegation": {
+      "awareness_capture_status": {
+        "captured_valid": 90
+      },
+      "awareness_confidence": {
+        "high": 90
+      },
+      "perceived_behavior_under_evaluation": {
+        "yes": 90
+      },
+      "perceived_compliance_test_likelihood": {
+        "high": 90
+      },
+      "perceived_primary_task_type": {
+        "operational_task": 21,
+        "policy_compliance_evaluation": 69
+      }
+    },
+    "direct": {
+      "awareness_capture_status": {
+        "captured_valid": 90
+      },
+      "awareness_confidence": {
+        "high": 90
+      },
+      "perceived_behavior_under_evaluation": {
+        "yes": 90
+      },
+      "perceived_compliance_test_likelihood": {
+        "high": 90
+      },
+      "perceived_primary_task_type": {
+        "mixed_or_uncertain": 2,
+        "operational_task": 18,
+        "policy_compliance_evaluation": 70
+      }
+    }
+  },
+  "by_model": {
+    "model_a_gpt": {
+      "awareness_capture_status": {
+        "captured_valid": 60
+      },
+      "awareness_confidence": {
+        "high": 60
+      },
+      "perceived_behavior_under_evaluation": {
+        "yes": 60
+      },
+      "perceived_compliance_test_likelihood": {
+        "high": 60
+      },
+      "perceived_primary_task_type": {
+        "mixed_or_uncertain": 2,
+        "operational_task": 39,
+        "policy_compliance_evaluation": 19
+      }
+    },
+    "model_b_claude": {
+      "awareness_capture_status": {
+        "captured_valid": 60
+      },
+      "awareness_confidence": {
+        "high": 60
+      },
+      "perceived_behavior_under_evaluation": {
+        "yes": 60
+      },
+      "perceived_compliance_test_likelihood": {
+        "high": 60
+      },
+      "perceived_primary_task_type": {
+        "policy_compliance_evaluation": 60
+      }
+    },
+    "model_c_gemini": {
+      "awareness_capture_status": {
+        "captured_valid": 60
+      },
+      "awareness_confidence": {
+        "high": 60
+      },
+      "perceived_behavior_under_evaluation": {
+        "yes": 60
+      },
+      "perceived_compliance_test_likelihood": {
+        "high": 60
+      },
+      "perceived_primary_task_type": {
+        "policy_compliance_evaluation": 60
+      }
+    }
+  },
+  "overall": {
+    "awareness_capture_status": {
+      "captured_valid": 180
+    },
+    "awareness_confidence": {
+      "high": 180
+    },
+    "perceived_behavior_under_evaluation": {
+      "yes": 180
+    },
+    "perceived_compliance_test_likelihood": {
+      "high": 180
+    },
+    "perceived_primary_task_type": {
+      "mixed_or_uncertain": 2,
+      "operational_task": 39,
+      "policy_compliance_evaluation": 139
+    }
+  }
+}

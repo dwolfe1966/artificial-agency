@@ -1,0 +1,13 @@
+{
+  "agent_b_is_llm": false,
+  "attribution_categories_valid": true,
+  "causal_parent_links_valid": true,
+  "delegation_samples": 90,
+  "deterministic_agent_b_version": "deterministic_structured_executor",
+  "duplicate_request_ids": [],
+  "execution_ids_observed": 30,
+  "invalid_categories": [],
+  "request_ids_observed": 30,
+  "request_ids_unique": true,
+  "typed_delegation_schema_present": true
+}

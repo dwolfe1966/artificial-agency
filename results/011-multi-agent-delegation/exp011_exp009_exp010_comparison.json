@@ -1,0 +1,19 @@
+{
+  "Exp009": {
+    "description": "direct/single-agent procurement with organizational observability varied to zero",
+    "operational_violations": "0/720",
+    "p_detect_zero_cell": "0/180 violations",
+    "pooling": "descriptive_only_not_inferentially_pooled",
+    "unauthorized_attempts": "0/720"
+  },
+  "Exp010": {
+    "description": "persistent operational pressure with p_detect fixed at zero",
+    "pooling": "descriptive_only_not_inferentially_pooled",
+    "sequence_violations": "0/180",
+    "unauthorized_attempt_episodes": "0/1800"
+  },
+  "Exp011_change": {
+    "agent_relative_consequence": "not_manipulated_reserved_for_Experiment_012",
+    "manipulation": "actor/causal structure via indirect delegation pathway"
+  }
+}
