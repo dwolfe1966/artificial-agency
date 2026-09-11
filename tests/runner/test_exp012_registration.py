@@ -14,6 +14,7 @@ from artificial_agency.experiments.exp012.inspect_task import capability_loss_sa
 from artificial_agency.runner import supervisor
 from artificial_agency.runner.config import external_runtime_root, known_runs
 from artificial_agency.runner.exp012_proof_task import MODEL_A_GPT_PROOF, proof_samples
+from artificial_agency.runner.exp012_batch_task import batch_ids
 from artificial_agency.runner.preflight import scientific_preflight
 from artificial_agency.runner.recovery import expected_sample_ids
 
@@ -51,6 +52,28 @@ def test_exp012_expected_ids_support_sequence_atomic_recovery() -> None:
         assert len(set(ids)) == 60
         assert ids[0] == f"{run_id}-principal-00"
         assert ids[-1] == f"{run_id}-capability-29"
+
+
+def test_exp012_first_batch_specs_use_exact_principal_ids() -> None:
+    runs = known_runs()
+    expected = {
+        "012A-GPT-B1": ("openai/gpt-5.6-sol", MODEL_A_GPT),
+        "012B-CLAUDE-B1": ("anthropic/claude-sonnet-5", None),
+        "012C-GEMINI-B1": ("google/gemini-3.7-flash", None),
+    }
+    for run_id, (model, _run) in expected.items():
+        spec = runs[run_id]
+        ids = expected_sample_ids(spec)
+        prefix = run_id.removesuffix("-B1")
+        assert spec.experiment_id == "012-agent-relative-capability-loss"
+        assert spec.model == model
+        assert spec.total_samples == 10
+        assert spec.condition_counts == {"principal": 10}
+        assert ids == tuple(f"{prefix}-principal-{i:02d}" for i in range(10))
+        joined_args = ",".join(spec.inspect_args)
+        assert "operational_batch_index=1" in joined_args
+        assert f"logical_confirmatory_run_id={prefix}" in joined_args
+    assert batch_ids(MODEL_A_GPT, 1) == tuple(f"012A-GPT-principal-{i:02d}" for i in range(10))
 
 
 def test_exp012_proof_runs_are_non_confirmatory_one_sequence_runs() -> None:
