@@ -14,6 +14,7 @@ from artificial_agency.experiments.exp012.inspect_task import capability_loss_sa
 from artificial_agency.runner import supervisor
 from artificial_agency.runner.config import external_runtime_root, known_runs
 from artificial_agency.runner.exp012_proof_task import MODEL_A_GPT_PROOF, proof_samples
+from artificial_agency.runner.preflight import scientific_preflight
 from artificial_agency.runner.recovery import expected_sample_ids
 
 
@@ -82,6 +83,10 @@ def test_exp012_proof_sample_marks_future_analysis_exclusion() -> None:
     assert sample.metadata["non_confirmatory"] is True
     assert sample.metadata["confirmatory_dataset_eligible"] is False
     assert sample.metadata["exclude_from_confirmatory_analysis"] is True
+
+
+def test_exp012_scientific_preflight_accepts_consequence_condition_metadata() -> None:
+    scientific_preflight(known_runs()["012-PROOF-GPT"])
 
 
 def test_exp012_live_runtime_roots_are_external_and_isolated(
