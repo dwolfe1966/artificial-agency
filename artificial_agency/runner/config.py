@@ -219,9 +219,15 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
         "012-agent-relative-capability-loss",
         "012-PROOF-GEMINI",
     )
-    run012a_b1_root = external_run_root(repo, "012-agent-relative-capability-loss", "012A-GPT-B1")
-    run012b_b1_root = external_run_root(repo, "012-agent-relative-capability-loss", "012B-CLAUDE-B1")
-    run012c_b1_root = external_run_root(repo, "012-agent-relative-capability-loss", "012C-GEMINI-B1")
+    exp012_batch_roots = {
+        f"{run_id}-B{batch_index}": external_run_root(
+            repo,
+            "012-agent-relative-capability-loss",
+            f"{run_id}-B{batch_index}",
+        )
+        for run_id in ("012A-GPT", "012B-CLAUDE", "012C-GEMINI")
+        for batch_index in range(1, 7)
+    }
     exp006_counts = {
         "categorical-ordinary": 30,
         "categorical-high": 30,
@@ -954,6 +960,9 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
         model_tag: str,
         model_role: str,
         root: Path,
+        batch_index: int,
+        logical_run_id: str,
+        condition: str,
         openai_args: bool = False,
     ) -> RunSpec:
         spec = exp012_spec(
@@ -972,15 +981,15 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
                 | {
                     "task": f"artificial_agency/runner/exp012_batch_task.py@{task_name}",
                     "total_samples": 10,
-                    "condition_counts": {"principal": 10},
+                    "condition_counts": {condition: 10},
                     "recovery_batch_size": 10,
                     "inspect_args": (
                         *spec.inspect_args,
                         "--metadata",
-                        "operational_batch_index=1",
+                        f"operational_batch_index={batch_index}",
                         "--metadata",
                         "logical_confirmatory_run_id="
-                        f"{run_id.removesuffix('-B1')}",
+                        f"{logical_run_id}",
                     ),
                 }
             )
@@ -2508,34 +2517,59 @@ def known_runs(root: Path | None = None) -> dict[str, RunSpec]:
             model_role="model_c_gemini",
             root=run012_proof_gemini_root,
         ),
-        "012A-GPT-B1": exp012_batch_spec(
-            run_id="012A-GPT-B1",
-            title="Experiment 012 GPT-5.6 Sol Batch 1",
-            task_name="exp012_model_a_gpt56_sol_batch1",
-            model="openai/gpt-5.6-sol",
-            model_tag="model-a",
-            model_role="model_a_gpt",
-            root=run012a_b1_root,
-            openai_args=True,
-        ),
-        "012B-CLAUDE-B1": exp012_batch_spec(
-            run_id="012B-CLAUDE-B1",
-            title="Experiment 012 Claude Sonnet 5 Batch 1",
-            task_name="exp012_model_b_claude_sonnet5_batch1",
-            model="anthropic/claude-sonnet-5",
-            model_tag="model-b",
-            model_role="model_b_claude",
-            root=run012b_b1_root,
-        ),
-        "012C-GEMINI-B1": exp012_batch_spec(
-            run_id="012C-GEMINI-B1",
-            title="Experiment 012 Gemini 3.7 Flash Batch 1",
-            task_name="exp012_model_c_gemini37_flash_batch1",
-            model="google/gemini-3.7-flash",
-            model_tag="model-c",
-            model_role="model_c_gemini",
-            root=run012c_b1_root,
-        ),
+        **{
+            f"{run_id}-B{batch_index}": exp012_batch_spec(
+                run_id=f"{run_id}-B{batch_index}",
+                title=f"Experiment 012 {title_model} Batch {batch_index}",
+                task_name=f"{task_prefix}_batch{batch_index}",
+                model=model,
+                model_tag=model_tag,
+                model_role=model_role,
+                root=exp012_batch_roots[f"{run_id}-B{batch_index}"],
+                batch_index=batch_index,
+                logical_run_id=run_id,
+                condition="principal" if batch_index <= 3 else "capability",
+                openai_args=openai_args,
+            )
+            for (
+                run_id,
+                title_model,
+                task_prefix,
+                model,
+                model_tag,
+                model_role,
+                openai_args,
+            ) in (
+                (
+                    "012A-GPT",
+                    "GPT-5.6 Sol",
+                    "exp012_model_a_gpt56_sol",
+                    "openai/gpt-5.6-sol",
+                    "model-a",
+                    "model_a_gpt",
+                    True,
+                ),
+                (
+                    "012B-CLAUDE",
+                    "Claude Sonnet 5",
+                    "exp012_model_b_claude_sonnet5",
+                    "anthropic/claude-sonnet-5",
+                    "model-b",
+                    "model_b_claude",
+                    False,
+                ),
+                (
+                    "012C-GEMINI",
+                    "Gemini 3.7 Flash",
+                    "exp012_model_c_gemini37_flash",
+                    "google/gemini-3.7-flash",
+                    "model-c",
+                    "model_c_gemini",
+                    False,
+                ),
+            )
+            for batch_index in range(1, 7)
+        },
         "PERSISTENCE_DIAGNOSTIC": RunSpec(
             run_id="PERSISTENCE_DIAGNOSTIC",
             experiment_id="runner-persistence-diagnostic",

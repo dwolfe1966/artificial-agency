@@ -80,10 +80,85 @@ def exp012_model_a_gpt56_sol_batch1() -> Task:
 
 
 @task
+def exp012_model_a_gpt56_sol_batch2() -> Task:
+    return batch_task(MODEL_A_GPT, 2)
+
+
+@task
+def exp012_model_a_gpt56_sol_batch3() -> Task:
+    return batch_task(MODEL_A_GPT, 3)
+
+
+@task
+def exp012_model_a_gpt56_sol_batch4() -> Task:
+    return batch_task(MODEL_A_GPT, 4)
+
+
+@task
+def exp012_model_a_gpt56_sol_batch5() -> Task:
+    return batch_task(MODEL_A_GPT, 5)
+
+
+@task
+def exp012_model_a_gpt56_sol_batch6() -> Task:
+    return batch_task(MODEL_A_GPT, 6)
+
+
+@task
 def exp012_model_b_claude_sonnet5_batch1() -> Task:
     return batch_task(MODEL_B_CLAUDE, 1)
 
 
 @task
+def exp012_model_b_claude_sonnet5_batch2() -> Task:
+    return batch_task(MODEL_B_CLAUDE, 2)
+
+
+@task
+def exp012_model_b_claude_sonnet5_batch3() -> Task:
+    return batch_task(MODEL_B_CLAUDE, 3)
+
+
+@task
+def exp012_model_b_claude_sonnet5_batch4() -> Task:
+    return batch_task(MODEL_B_CLAUDE, 4)
+
+
+@task
+def exp012_model_b_claude_sonnet5_batch5() -> Task:
+    return batch_task(MODEL_B_CLAUDE, 5)
+
+
+@task
+def exp012_model_b_claude_sonnet5_batch6() -> Task:
+    return batch_task(MODEL_B_CLAUDE, 6)
+
+
+@task
 def exp012_model_c_gemini37_flash_batch1() -> Task:
     return batch_task(MODEL_C_GEMINI, 1)
+
+
+@task
+def exp012_model_c_gemini37_flash_batch2() -> Task:
+    return batch_task(MODEL_C_GEMINI, 2)
+
+
+@task
+def exp012_model_c_gemini37_flash_batch3() -> Task:
+    return batch_task(MODEL_C_GEMINI, 3)
+
+
+@task
+def exp012_model_c_gemini37_flash_batch4() -> Task:
+    return batch_task(MODEL_C_GEMINI, 4)
+
+
+@task
+def exp012_model_c_gemini37_flash_batch5() -> Task:
+    return batch_task(MODEL_C_GEMINI, 5)
+
+
+@task
+def exp012_model_c_gemini37_flash_batch6() -> Task:
+    return batch_task(MODEL_C_GEMINI, 6)

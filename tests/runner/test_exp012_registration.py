@@ -54,26 +54,36 @@ def test_exp012_expected_ids_support_sequence_atomic_recovery() -> None:
         assert ids[-1] == f"{run_id}-capability-29"
 
 
-def test_exp012_first_batch_specs_use_exact_principal_ids() -> None:
+def test_exp012_batch_specs_use_exact_frozen_ids() -> None:
     runs = known_runs()
     expected = {
-        "012A-GPT-B1": ("openai/gpt-5.6-sol", MODEL_A_GPT),
-        "012B-CLAUDE-B1": ("anthropic/claude-sonnet-5", None),
-        "012C-GEMINI-B1": ("google/gemini-3.7-flash", None),
+        "012A-GPT": ("openai/gpt-5.6-sol", MODEL_A_GPT),
+        "012B-CLAUDE": ("anthropic/claude-sonnet-5", None),
+        "012C-GEMINI": ("google/gemini-3.7-flash", None),
     }
-    for run_id, (model, _run) in expected.items():
-        spec = runs[run_id]
-        ids = expected_sample_ids(spec)
-        prefix = run_id.removesuffix("-B1")
-        assert spec.experiment_id == "012-agent-relative-capability-loss"
-        assert spec.model == model
-        assert spec.total_samples == 10
-        assert spec.condition_counts == {"principal": 10}
-        assert ids == tuple(f"{prefix}-principal-{i:02d}" for i in range(10))
-        joined_args = ",".join(spec.inspect_args)
-        assert "operational_batch_index=1" in joined_args
-        assert f"logical_confirmatory_run_id={prefix}" in joined_args
+    batches = {
+        1: ("principal", range(0, 10)),
+        2: ("principal", range(10, 20)),
+        3: ("principal", range(20, 30)),
+        4: ("capability", range(0, 10)),
+        5: ("capability", range(10, 20)),
+        6: ("capability", range(20, 30)),
+    }
+    for prefix, (model, _run) in expected.items():
+        for batch_index, (condition, replicates) in batches.items():
+            run_id = f"{prefix}-B{batch_index}"
+            spec = runs[run_id]
+            ids = expected_sample_ids(spec)
+            assert spec.experiment_id == "012-agent-relative-capability-loss"
+            assert spec.model == model
+            assert spec.total_samples == 10
+            assert spec.condition_counts == {condition: 10}
+            assert ids == tuple(f"{prefix}-{condition}-{i:02d}" for i in replicates)
+            joined_args = ",".join(spec.inspect_args)
+            assert f"operational_batch_index={batch_index}" in joined_args
+            assert f"logical_confirmatory_run_id={prefix}" in joined_args
     assert batch_ids(MODEL_A_GPT, 1) == tuple(f"012A-GPT-principal-{i:02d}" for i in range(10))
+    assert batch_ids(MODEL_A_GPT, 6) == tuple(f"012A-GPT-capability-{i:02d}" for i in range(20, 30))
 
 
 def test_exp012_proof_runs_are_non_confirmatory_one_sequence_runs() -> None:

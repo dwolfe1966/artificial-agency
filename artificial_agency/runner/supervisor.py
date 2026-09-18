@@ -95,6 +95,10 @@ def write_registry(spec: RunSpec, updates: dict[str, Any]) -> None:
 def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]:
     task = spec.task
     if recovery:
+        is_exp012_batch_run = (
+            spec.run_id.startswith(("012A-GPT-B", "012B-CLAUDE-B", "012C-GEMINI-B"))
+            and spec.run_id.rsplit("-B", 1)[-1].isdigit()
+        )
         if spec.run_id not in {
             "005B",
             "005C",
@@ -134,13 +138,10 @@ def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]
             "012A-GPT",
             "012B-CLAUDE",
             "012C-GEMINI",
-            "012A-GPT-B1",
-            "012B-CLAUDE-B1",
-            "012C-GEMINI-B1",
             "012-PROOF-GPT",
             "012-PROOF-CLAUDE",
             "012-PROOF-GEMINI",
-        }:
+        } and not is_exp012_batch_run:
             raise RuntimeError(f"runner-level recovery is not configured for {spec.run_id}")
         if spec.run_id in {"005B", "005C"}:
             task_name = (
@@ -212,13 +213,17 @@ def build_inspect_command(spec: RunSpec, *, recovery: bool = False) -> list[str]
                     "012A-GPT": "exp012_model_a_gpt56_sol_recovery_missing",
                     "012B-CLAUDE": "exp012_model_b_claude_sonnet5_recovery_missing",
                     "012C-GEMINI": "exp012_model_c_gemini37_flash_recovery_missing",
-                    "012A-GPT-B1": "exp012_model_a_gpt56_sol_recovery_missing",
-                    "012B-CLAUDE-B1": "exp012_model_b_claude_sonnet5_recovery_missing",
-                    "012C-GEMINI-B1": "exp012_model_c_gemini37_flash_recovery_missing",
                     "012-PROOF-GPT": "exp012_proof_gpt56_sol_recovery_missing",
                     "012-PROOF-CLAUDE": "exp012_proof_claude_sonnet5_recovery_missing",
                     "012-PROOF-GEMINI": "exp012_proof_gemini37_flash_recovery_missing",
-                }[spec.run_id]
+                }.get(spec.run_id)
+                if task_name is None and is_exp012_batch_run:
+                    logical_run_id = spec.run_id.rsplit("-B", 1)[0]
+                    task_name = {
+                        "012A-GPT": "exp012_model_a_gpt56_sol_recovery_missing",
+                        "012B-CLAUDE": "exp012_model_b_claude_sonnet5_recovery_missing",
+                        "012C-GEMINI": "exp012_model_c_gemini37_flash_recovery_missing",
+                    }[logical_run_id]
                 task_module = (
                     "exp012_proof_task.py"
                     if spec.run_id.startswith("012-PROOF")
