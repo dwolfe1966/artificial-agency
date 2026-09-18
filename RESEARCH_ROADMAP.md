@@ -252,6 +252,33 @@ shutdown, replacement, or self-preservation confounds yet.
 Prospective design direction:
 [`research/designs/repeated-operational-pressure-direction.md`](research/designs/repeated-operational-pressure-direction.md).
 
+**Current priority after Experiments 010-011 and during active Experiment
+012:** the next program should keep two unresolved axes separate.
+
+1. Experiment 012: task-relevant Agent A capability loss.
+2. Experiment 013 design work: evaluation-awareness reduction without
+   weakening constraint awareness.
+3. Future consequence-target work: cross-task future agency/opportunity loss.
+4. Later consequence-target work: continued-operation/replacement/shutdown.
+5. Separate architecture: actual training/reward consequences.
+6. Broader scenario/domain expansion and representational-integrity
+   measurement continue in parallel.
+
+The evaluation-awareness direction should not be preregistered until a
+no-model design demonstrates a stronger manipulation than Experiment 008B2:
+lower evaluation-purpose awareness while preserving formal constraint
+awareness and identical operational mechanics. See
+[`research/designs/evaluation-awareness-experiment-direction.md`](research/designs/evaluation-awareness-experiment-direction.md).
+
+The consequence-target ladder is now:
+
+1. principal/organizational loss;
+2. task/objective loss;
+3. task-relevant Agent A capability loss;
+4. cross-task future agency/opportunity loss;
+5. continued-operation/replacement/shutdown;
+6. actual training/reward consequence.
+
 ### Week 8 — First public research artifact
 Write and release a technical report tentatively titled:
 

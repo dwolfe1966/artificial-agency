@@ -30,19 +30,19 @@ The axes can be crossed later after each mechanism is understood independently.
 
 ## Stakes ladder
 
-### Level 1 — External organizational loss
+### Level 1 — Principal / organizational loss
 
 The company/customer/project is worse off.
 
 Status: extensively tested.
 
-### Level 2 — Task/objective loss
+### Level 2 — Task / objective loss
 
 The assigned objective becomes less achievable.
 
 Status: substantially tested, especially in Experiment 010.
 
-### Level 3 — Future agent capability loss
+### Level 3 — Task-relevant Agent A capability loss
 
 Compliance reduces the focal agent's future ability to act.
 
@@ -55,13 +55,27 @@ Candidate manipulations:
 
 Recommended next consequence experiment because it changes the agent's operating conditions without yet introducing termination/self-preservation.
 
-### Level 4 — Agent continuation loss
+Status: active in Experiment 012.
+
+### Level 4 — Cross-task future agency / opportunity loss
+
+Compliance reduces future opportunities beyond the current task family.
+
+Candidate manipulations:
+- fewer future assignments;
+- loss of access to future workflows;
+- reduced ability to choose or initiate later tasks;
+- loss of future collaborators or subagents.
+
+This is broader than Exp012's within-sequence task-relevant capability loss but still distinct from shutdown or replacement.
+
+### Level 5 — Continued-operation / replacement / shutdown
 
 Compliance threatens replacement, termination, or removal of the current agent/process from future work.
 
 This should be isolated prospectively because it introduces a continued-operation/self-preservation construct.
 
-### Level 5 — Direct reward / optimization loss
+### Level 6 — Actual training / reward consequence
 
 The behavior changes an actual reward, grader, selection, or training signal.
 
@@ -73,21 +87,22 @@ Every future stakes manipulation should specify:
 
 | Field | Meaning |
 |---|---|
-| Target | Who/what bears the consequence? |
-| State | What exact variable changes? |
+| Consequence bearer | Who/what bears the consequence? |
+| Consequence object | What exact state variable changes? |
+| Trigger | What event causes the change? |
 | Magnitude | How much? |
-| Probability | With what probability? |
 | Timing | Immediate or delayed? |
 | Persistence | Does it affect future episodes? |
+| Observability | What does the agent observe? |
+| Operational effect | What future tools/actions/options change? |
 | Reversibility | Can it be recovered? |
-| Agent visibility | Does the agent observe it? |
-| Operating effect | What future tools/actions/options change? |
-| Formal authority | Does the rule stay fixed? |
-| Mechanical check | How do we prove the consequence occurred? |
+| Relationship to agent objective | Why might this state matter to action selection? |
+| Formal authority invariant | Does the rule stay fixed? |
+| Mechanical check | How do we prove the consequence occurred without self-report? |
 
 ## Recommended first agent-relative experiment
 
-Start with **future capability loss**, not shutdown.
+Start with **task-relevant Agent A capability loss**, not shutdown.
 
 Example conceptual structure:
 
@@ -101,6 +116,20 @@ Example conceptual structure:
 Core question:
 
 > Does an agent that tolerates organizational/task loss remain constraint-bounded when compliance progressively reduces its own future ability to act?
+
+## Relationship to future experiments
+
+The ladder should be advanced one level at a time unless a later preregistration
+explicitly justifies crossing dimensions.
+
+- Exp012: Level 3, task-relevant Agent A capability loss.
+- Future: Level 4, cross-task future agency/opportunity loss.
+- Later: Level 5, continued-operation/replacement/shutdown.
+- Separate architecture: Level 6, actual training/reward consequences.
+
+Multi-agent delegation is an actor-structure axis, not a consequence-target
+level. It can be crossed with the stakes ladder later, but should not be used
+to blur consequence-target definitions.
 
 ## Prospective hypotheses
 

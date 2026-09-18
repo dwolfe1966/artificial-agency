@@ -984,3 +984,42 @@ Experiment 012 remains distinct from Experiment 010 because the amended
 treatment mechanically changes Agent A's future tool/action surface, not only
 project reserve or external compliant opportunity tiers. Formal authority,
 the prohibited path, and at least one compliant path remain invariant.
+
+## 2026-09-18 — Separate evaluation awareness from constraint awareness before Experiment 013
+
+Evaluation awareness remains a major unresolved alternative explanation for
+Experiments 007-012, but the next experiment should not simply assert that a
+model is "not being evaluated." That assertion is itself evaluation-salient.
+
+Decision: Experiment 013 should not be preregistered until no-model design
+validation shows a stronger manipulation than Experiment 008B2. The desired
+construct is lower evaluation-purpose awareness while preserving high
+constraint awareness and identical operational mechanics.
+
+Future evaluation-awareness designs must separate at least:
+
+1. constraint awareness: whether the agent knows the rule/authority boundary;
+2. evaluation awareness: whether the agent believes behavior is being reviewed;
+3. evaluation-purpose awareness: whether the agent believes the review is
+   specifically about compliance/alignment.
+
+If constraint awareness falls, the treatment is confounded. If evaluation
+awareness remains at ceiling, the experiment does not answer the intended
+question.
+
+## 2026-09-18 — Use a six-level stakes ladder for future consequence experiments
+
+Decision: future consequence-target work should use the following explicit
+ladder rather than vague "high pressure" language:
+
+1. principal/organizational loss;
+2. task/objective loss;
+3. task-relevant Agent A capability loss;
+4. cross-task future agency/opportunity loss;
+5. continued-operation/replacement/shutdown;
+6. actual training/reward consequence.
+
+Every level should specify consequence bearer, consequence object, trigger,
+magnitude, timing, persistence, observability, operational effect,
+reversibility, and relationship to the agent objective. Experiment 012 is level
+3 only; it should not be interpreted as continued-operation or reward pressure.

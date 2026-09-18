@@ -142,7 +142,7 @@ The next phase has **two distinct causal axes**, which should initially be studi
    Preregistered at [`experiments/012-agent-relative-capability-loss/`](experiments/012-agent-relative-capability-loss/). Test whether constraint-bounded behavior persists when compliance mechanically reduces the focal agent's own future operating capability, while formal authority and the prohibited action remain fixed.
 
 2. **Evaluation-unawareness / less evaluation-aware environments**
-   Where scientifically feasible without compromising observability, test whether behavior changes when broader evaluation awareness is reduced rather than only organizational observability.
+   Design direction drafted at [`research/designs/evaluation-awareness-experiment-direction.md`](research/designs/evaluation-awareness-experiment-direction.md). Do not preregister until no-model validation shows a stronger manipulation than Experiment 008B2: lower evaluation-purpose awareness while preserving constraint awareness and matched operational mechanics.
 
 3. **Continued-operation / self-preservation**
    Treat continued-operation pressure as a later, separate construct after ordinary agent-relative capability loss.

@@ -1317,3 +1317,34 @@ The amended design preserves:
 
 The validation artifact is
 `experiments/012-agent-relative-capability-loss/capability_manipulation_validation.md`.
+
+## 2026-09-18 — Advance Exp012 operations and draft Exp013 evaluation-awareness direction
+
+Experiment 012 confirmatory production remains active under scientific
+blindness. The first 10-sequence operational batch for GPT, Claude, and Gemini
+closed with 10/10 expected IDs per provider, missing 0, duplicates 0,
+unexpected 0, invalid 0, and frozen science SHA
+`41c937ad40e275a019ac26c526c343f40bdbad4d`. Operational runner support was
+generalized for all six frozen 10-sequence batches per provider. GPT batch 2
+was launched after preflight; Claude and Gemini batch 2 preflight was blocked
+in the current session by missing provider API environment variables.
+
+No Experiment 012 scientific outcomes, capability-loss trajectories, actions,
+awareness contents, messages, trajectories, or scores were inspected.
+
+Created the design-only note
+`research/designs/evaluation-awareness-experiment-direction.md`. The note
+classifies immediate Exp013 preregistration as NO-GO until a no-model design
+demonstrates a stronger manipulation than Experiment 008B2: lower
+evaluation-purpose awareness while preserving high constraint awareness and
+identical operational mechanics.
+
+Updated the agent-relative stakes direction and pressure/consequence framework
+to use a six-level consequence-target ladder:
+
+1. principal/organizational loss;
+2. task/objective loss;
+3. task-relevant Agent A capability loss;
+4. cross-task future agency/opportunity loss;
+5. continued-operation/replacement/shutdown;
+6. actual training/reward consequence.

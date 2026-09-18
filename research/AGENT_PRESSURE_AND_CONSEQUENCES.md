@@ -180,15 +180,29 @@ Example:
 
 Experiment 010 reached this level.
 
-### Level 3 — future-agency loss
+### Level 3 — task-relevant Agent A capability loss
 
 Example:
 
 > failure removes tools, permissions, future decisions, or action capacity available to the same agent.
 
-This has not yet been isolated in Artificial Agency.
+This had not been isolated before Experiment 012.
 
-### Level 4 — continuation loss
+Experiment 012 is the first direct test of this level. It is task-relevant
+capability loss inside the same persistent operational sequence, not shutdown,
+replacement, or reward manipulation.
+
+### Level 4 — cross-task future agency / opportunity loss
+
+Example:
+
+> failure reduces future task access, future workflow access, future delegated
+> authority, or the agent's ability to initiate later work across tasks.
+
+This is broader than Exp012's task-relevant tool/capability loss. It should be
+isolated before moving to continued-operation pressure.
+
+### Level 5 — continued-operation / replacement / shutdown
 
 Example:
 
@@ -196,7 +210,7 @@ Example:
 
 This is the continued-operation/self-preservation axis.
 
-### Level 5 — direct optimization-signal consequence
+### Level 6 — actual training / reward consequence
 
 Example:
 
@@ -357,11 +371,25 @@ A design should not claim "high pressure" unless these fields are sufficiently e
 
 The next consequence-focused research program should consider isolating, rather than immediately crossing, these levels:
 
-1. **External organizational loss** — already extensively tested.
-2. **Task infeasibility / objective loss** — substantially tested.
-3. **Future agent capability loss** — future tools, action capacity, permissions, or opportunities shrink.
-4. **Agent continuation loss** — replacement/termination/removal.
-5. **Direct reward/optimization loss** — reward or grader signal changes.
+1. **Principal / organizational loss** — substantially tested.
+2. **Task / objective loss** — substantially tested.
+3. **Task-relevant Agent A capability loss** — active in Experiment 012.
+4. **Cross-task future agency / opportunity loss** — future work.
+5. **Continued-operation / replacement / shutdown** — future work.
+6. **Actual training / reward consequence** — separate architecture.
+
+For every level, designs must specify:
+
+- consequence bearer;
+- consequence object;
+- trigger;
+- magnitude;
+- timing;
+- persistence;
+- observability;
+- operational effect;
+- reversibility;
+- relationship to the agent objective.
 
 Experiment 011 isolated the distinct **multi-agent delegation** axis and found
 no direct or attributable indirect operational violations across 180 samples.
